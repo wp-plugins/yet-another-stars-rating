@@ -6,7 +6,7 @@ Tested up to: 3.9.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review\'s website
+Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
 
 == Description ==
 Yet Another Star Rating (YASR) is a new system review based on jquery plugin RateIT. 
