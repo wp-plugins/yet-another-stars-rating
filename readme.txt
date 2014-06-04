@@ -14,6 +14,28 @@ With YASR you can make your own review or let your visitors vote, and you can ev
 rate). Review scores will be indexed by search engines through snippets .
 Most important, if you are a gd star rating user, with YASR you can import all the data from gd star rating (which isn't maintained anymore).
 
+= How To use =
+
+= Reviewer Vote =
+Once YASR is installed, when you create or update a page or a post, a box (metabox) will be available in the upper right corner where you'll
+be able to insert the overall rating. You can either place the overall rating automatically at the beginning or the end of a post (look in "Settings"
+-> "Yet Another Stars Rating: Settings"), or wherever you want in the page using the short tag [yasr_overall_rating] (easily added through the visual editor).
+
+= Visitor Votes = 
+You can give your users the ability to vote, pasting the shortag [yasr_visitor_votes] where you want the stars to appear.
+Again, this can be placed automatically at the beginning or the end of each post; the option is in "Settings" -> "Yet Another Stars Rating: Settings".
+
+= Multi Set =
+Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
+"Gameplay", "Story", etc.
+
+= Importing data from gd star rating =
+If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "overall_rating", "visitor_votes" and all the multisets with
+their respective score. Once YASR is installed you just have to go to "Settings" -> "Yet Another Stars Rating: Settings" and start the import (last box at the bottom).
+This operation can take some time, don't stop it! Once it's done you just need to replace the gd-star-rating's shorttags with the YASR tags.
+If with gd-star-rating you're using a different number of stars from the default of 5, YASR will automatically convert all the scores in a range from 1 to 5.
+
+
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
 2. Activate the plugin through the 'Plugins' menu in WordPress
