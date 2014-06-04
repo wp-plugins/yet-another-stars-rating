@@ -144,14 +144,25 @@ function yasr_hook_options_page() {
 
         <?php
 
-        $errors=yasr_process_new_multi_set_form();
+        $error_new_multi_set=yasr_process_new_multi_set_form();
 
-        $errors=yasr_process_edit_multi_set_form();
+        $error_edit_multi_set=yasr_process_edit_multi_set_form();
 
-        if ($errors) {
+        if ($error_new_multi_set) {
         	echo "<div class=\"error\"> <p> <strong>";
 
-          		foreach ($errors as $error) {
+          		foreach ($error_new_multi_set as $error) {
+          			_e($error, 'yasr'); 
+          			echo "<br />";
+          		}
+
+    		echo "</strong></p></div>"; 
+    	}
+
+        if ($error_edit_multi_set) {
+        	echo "<div class=\"error\"> <p> <strong>";
+
+          		foreach ($error_edit_multi_set as $error) {
           			_e($error, 'yasr'); 
           			echo "<br />";
           		}

@@ -439,7 +439,7 @@ function yasr_process_new_multi_set_form()
 
   						$multi_set_name_element_[$i]=$_POST["multi-set-name-element-$i"];
 
-  						if (mb_strlen($multi_set_name_element_[$i] < 3)) {
+  						if (mb_strlen($multi_set_name_element_[$i]) < 3) {
   							$array_errors[] = "Field # $i must be at least 3 characters";
    							$error=TRUE;
   						}
@@ -551,7 +551,6 @@ function yasr_process_edit_multi_set_form() {
 
 		$array_errors = array(); 
 		 
-		
 		if ( !current_user_can( 'manage_options' ) ) {
       		wp_die( 'You are not allowed to be on this page.' );
    		}
