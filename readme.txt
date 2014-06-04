@@ -20,6 +20,10 @@ Most important, if you are a gd star rating user, with YASR you can import all d
 3. Go to the Yet Another Star Rating menu in Settings and set your options.
 
 
+== Screenshots ==
+1. Example of yasr in a videogame review
+2. Another example of a restourant review
+
 == Changelog ==
 = 0.0.2 =
 * Using input type radio when select a multi set instead <option>  
