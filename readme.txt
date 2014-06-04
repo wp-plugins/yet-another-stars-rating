@@ -22,7 +22,7 @@ Most important, if you are a gd star rating user, with YASR you can import all t
 
 == Screenshots ==
 1. Example of yasr in a videogame review
-2. Another example of a restourant review
+2. Another example of a restaurant review
 
 == Changelog ==
 = 0.0.2 =
