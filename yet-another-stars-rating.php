@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:  Yet Another Stars Rating
- * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
+ * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
  * Version: 0.0.2
  * Author: Dario Curvino
- * Author URI: http://URI_Of_The_Plugin_Author
+ * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
  */
 
