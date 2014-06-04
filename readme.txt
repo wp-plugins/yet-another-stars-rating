@@ -26,7 +26,7 @@ Most important, if you are a gd star rating user, with YASR you can import all t
 
 == Changelog ==
 = 0.0.2 =
-* Using input type radio when select a multi set instead <option>  
+* Using input type radio when select a multi set instead select / option 
 * Added css style for table showing multiset
 * Added yasr.css file
 * Some code cleanup
