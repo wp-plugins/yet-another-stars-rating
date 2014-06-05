@@ -1,5 +1,0 @@
-<?
-
-echo "Porco Dio";
-
-?>
