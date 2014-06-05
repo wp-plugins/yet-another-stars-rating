@@ -3,6 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Review, Star, Snippet
 Requires at least: 3.5
 Tested up to: 3.9.1
+Stable tag: 0.0.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,23 +18,24 @@ Most important, if you are a gd star rating user, with YASR you can import all t
 = How To use =
 
 = Reviewer Vote =
-Once YASR is installed, when you create or update a page or a post, a box (metabox) will be available in the upper right corner where you'll
-be able to insert the overall rating. You can either place the overall rating automatically at the beginning or the end of a post (look in "Settings"
--> "Yet Another Stars Rating: Settings"), or wherever you want in the page using the shortcode [yasr_overall_rating] (easily added through the visual editor).
+Una volta installato YASR, quando si crea o modifica una pagina o un post, si avrà a disposizione in alto a destra un riquadro (metabox)
+dove sarà possibile inserire il voto complessivo. Questo voto, chiamato overall rating, può essere sia inserito automaticamente,
+all'inizio o alla fine di ogni pagina o post, (lo si può impostare in "Settings" -> "Yet Another Stars Rating: Settings") o dovunque si 
+vuole usando il short tag [yasr_overall_rating] (può essere inserito facilmente dall'editor visuale).
 
 = Visitor Votes = 
-You can give your users the ability to vote, pasting the shortcode [yasr_visitor_votes] where you want the stars to appear.
-Again, this can be placed automatically at the beginning or the end of each post; the option is in "Settings" -> "Yet Another Stars Rating: Settings".
+Se vuoi dare la possibilità ai tuoi utenti di votare, lo puoi fare incollando dove si vogliono fare apparire le stelle lo shortag [yasr_visitor_votes] . 
+Come prima, anche questo può essere inserito automaticamente all'inizio o alla fine di ogni articolo andando in "Settings" -> Yet Another Stars Rating: Settings.
 
 = Multi Set =
-Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
-"Gameplay", "Story", etc.
+Tramite i multi set è possibile creare varie sottovoci per una singola recensione: per esempio, se si sta recensendo un videogioco, si possono creare le sottovoci
+"Grafica", "Gameplay", "Storia", etc
 
 = Importing data from gd star rating =
-If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "overall_rating", "visitor_votes" and all the multisets with
-their respective score. Once YASR is installed you just have to go to "Settings" -> "Yet Another Stars Rating: Settings" and start the import (last box at the bottom).
-This operation can take some time, don't stop it! Once it's done you just need to replace the gd-star-rating's shortcode with the YASR tags.
-If with gd-star-rating you're using a different number of stars from the default of 5, YASR will automatically convert all the scores in a range from 1 to 5.
+Se utilizzi gd-star-rating, questo è il plugin che fa per te! Puoi importare da gd star rating gli "overall_rating", i "visitor_votes" e tutti i multi set che hai creato
+con i rispettivi voti! Una volta installato YASR non devi fare altro che andare su "Settings" -> "Yet Another Stars Rating: Settings" ed avviare l'import (ultimo box in basso). 
+Questa operazione può richiedere del tempo, non interromperla! Una volta finita l'importazione non dovrai fare altro che rimpiazzare i shorttag di gd star rating con quelli di YASR.
+Inoltre, se su gd star rating usi un numero di stelle diverso da 5, YASR convertirà in automatico tutti i voti su un range di voti da 1 a 5 
 
 
 == Installation ==
@@ -47,6 +49,11 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.0.3 =
+* Fixed bug describe if 
+* Code Cleanup
+
 = 0.0.2 =
 * Using input type radio when select a multi set instead select / option 
 * Added css style for table showing multiset
