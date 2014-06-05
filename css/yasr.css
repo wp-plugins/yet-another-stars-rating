@@ -143,6 +143,14 @@
     padding: 5px;
 }
 
+.yasr-edit-form-remove-entire-set {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    color: red; 
+}
+
+
 .yasr_table_multi_set_shortcode tr:nth-child(odd) {
         background: #FFFFec;
     }

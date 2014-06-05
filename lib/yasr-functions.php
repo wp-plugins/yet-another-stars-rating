@@ -4,7 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 
 /***** Adding javascript and css *****/
-function yasr_hook_js_and_css() {
 
 	add_action( 'wp_enqueue_scripts', 'yasr_add_scripts' );  
 	add_action( 'admin_enqueue_scripts', 'yasr_add_scripts' );
@@ -17,20 +16,18 @@ function yasr_hook_js_and_css() {
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
 
-}
+
 
 /****** Translating YASR ******/
-function yasr_translate() {
 	
 	add_action('plugins_loaded', 'yasr_translate_option');
 
 	function yasr_translate_option() {
 		load_plugin_textdomain('yasr', FALSE, YASR_LANG_DIR); 
 	}
-}
+
 
 /****** Create a new Page in Administration Menu ******/
-function yasr_hook_options_page() {
 
 	/* Hook to admin_menu the yasr_add_pages function above */
 	add_action( 'admin_menu', 'yasr_add_pages' );
@@ -189,12 +186,11 @@ function yasr_hook_options_page() {
 
 	} //End yasr_settings_page_content
 
-} //End yasr hook settings page
 
 
 
 /****** Create 2 metaboxes in post and pages ******/
-function yasr_hook_metaboxes() {
+
 	add_action( 'add_meta_boxes', 'yasr_add_metaboxes' );
 	
 	function yasr_add_metaboxes() {
@@ -229,10 +225,10 @@ function yasr_hook_metaboxes() {
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
 	}
 
-}
+
+
 
 /****** Add review schema data at the end of the post *******/
-function yasr_add_filter_for_schema() {
 
 	add_filter('the_content', 'yasr_add_overall_rating_schema');
 
@@ -262,10 +258,9 @@ function yasr_add_filter_for_schema() {
 
 	} //END id if $overall_rating != '-1'
 
-}
+
 
 /****** Auto insert shortcode  ******/
-function yasr_auto_insert_shortcode () {
 
 	add_filter('the_content', 'yasr_auto_insert_shortcode_callback');
 
@@ -330,7 +325,6 @@ function yasr_auto_insert_shortcode () {
 
 	} //End function yasr_auto_insert_shortcode_callback
 
-}
 
 
 /****** Create a new button in Tinymce for use shortag

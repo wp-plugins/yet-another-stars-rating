@@ -558,10 +558,44 @@ function yasr_process_edit_multi_set_form() {
    		// Check nonce field
   		check_admin_referer( 'edit-multi-set', 'add-nonce-edit-multi-set' );
 
+
+  		//Check if user want to delete entire set
+
+  		if (isset($_POST["yasr-remove-multi-set"])) {
+  			
+  			$remove_set = $wpdb->delete (
+  								YASR_MULTI_SET_NAME_TABLE,
+								array(
+									'set_id' => $set_id,
+								),
+								array ('%d')
+							);
+
+  			$remove_set_values = $wpdb->delete (
+  								YASR_MULTI_SET_FIELDS_TABLE,
+								array(
+									'parent_set_id' => $set_id,
+								),
+								array ('%d')
+							);
+
+  			if ($remove_set===FALSE) {
+  				$error = TRUE; 
+				$array_errors[] = __("Something goes wrong trying to delete a multi-set . Please report it", 'yasr');
+  			}
+
+  			if ($remove_set_values===FALSE) {
+  				$error = TRUE; 
+				$array_errors[] = __("Something goes wrong trying to delete data values for a set. Please report it", 'yasr');
+			}
+
+  		}
+
+
   		for ($i = 0; $i <= 9; $i++) {
 
-  			//First, che if the user want to remove some field
-  			if (isset($_POST["remove-element-$i"])) {
+  			//First, check if the user want to remove some field
+  			if (isset($_POST["remove-element-$i"]) && !isset($_POST["yasr-remove-multi-set"]) ) {
 
   				$remove_field = $wpdb->delete (
   								YASR_MULTI_SET_FIELDS_TABLE,
@@ -596,7 +630,7 @@ function yasr_process_edit_multi_set_form() {
 
 
   			//update the stored elements with the new ones
-  			if (isset($_POST["edit-multi-set-element-$i"]) && !isset($_POST["remove-element-$i"]) && $i <= $number_of_stored_elements ) {
+  			if (isset($_POST["edit-multi-set-element-$i"]) && !isset($_POST["yasr-remove-multi-set"]) && !isset($_POST["remove-element-$i"]) && $i <= $number_of_stored_elements ) {
 
   				$field_name = $_POST["edit-multi-set-element-$i"];
 

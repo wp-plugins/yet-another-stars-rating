@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.0.3
+ * Version: 0.0.4
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.0.3');
+define('YASR_VERSION_NUM', '0.0.4');
 
 update_option('yasr-version', YASR_VERSION_NUM);
 
@@ -62,8 +62,7 @@ require (YASR_ABSOLUTE_PATH . '/lib/yasr-shortcode-functions.php');
 
 $version_installed = get_option('yasr-version') ;
 
-
-/*If this is a fresh new installation*/
+//If this is a fresh new installation
 
 if (!$version_installed) {
 
@@ -83,20 +82,5 @@ define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
 
 define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
-yasr_hook_js_and_css();  //Declared in yasr-functions
-
-yasr_translate();  //Declared in yasr-functions
-
-yasr_hook_options_page();  //Declared in yasr-functions
-
-yasr_hook_metaboxes();  //Declared in yasr-functions
-
-yasr_auto_insert_shortcode (); //Declared in yasr-functions
-
-yasr_add_filter_for_schema(); //Declared in yasr-functions
-
-yasr_insert_visitor_votes(); //Declared in yasr-ajax-function
-
-yasr_get_readonly_visitor_shortcode(); //Declared in yasr-ajax-function
 
 ?>

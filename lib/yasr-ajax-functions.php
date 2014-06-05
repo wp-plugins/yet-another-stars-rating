@@ -442,12 +442,15 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             foreach ($set_name as $name) {
                 echo "
                 <tr>
-                <td>
-                Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
-                </td>
-                <td id=\"yasr-table-form-edit-multi-set-checkbox\" style=\"text-align:center\">
-                <input type=\"checkbox\" name=\"remove-element-$name->id\">
-                </td>
+                    
+                    <td width=\"80%\">
+                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
+                    </td>
+
+                    <td width=\"20%\" style=\"text-align:center\">
+                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
+                    </td>
+
                 </tr>
                 ";
                 $i++;
@@ -462,10 +465,23 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             </table>
 
+            <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
+            <tr>
+
+                <td width=\"80%\">Remove whole set?</td>
+
+                <td width=\"20%\" style=\"text-align:center\">
+                    <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
+                </td>
+
+            </tr>
+
+            </table>
+
             ";
 
             echo "<p>";
-                _e("If you remove a field, you will lost all the vote for that field." , "yasr");
+                _e("If you remove something you will remove all the votes for that set or field. This operation CAN'T BE undone." , "yasr");
             echo "</p>";
 
             wp_nonce_field( 'edit-multi-set', 'add-nonce-edit-multi-set' ) 
@@ -621,14 +637,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /**************** NON Admin ajax functions ****************/
 
-/****** Yasr insert visitor votes ******/
-
-function yasr_insert_visitor_votes() {
-
-    if (is_admin()) {
+/****** Yasr insert visitor votes, called from yasr-shortcode-function ******/
+    
         add_action( 'wp_ajax_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
         add_action( 'wp_ajax_nopriv_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
-    }
 
         function yasr_insert_visitor_votes_callback () {
             if(isset($_POST['rating']) && isset($_POST['post_id'])) {
@@ -718,13 +730,10 @@ function yasr_insert_visitor_votes() {
             die(); // this is required to return a proper result
         }
 
-}
+/****** Echo a readonly star set if user has already voted for a post ******/
 
-function yasr_get_readonly_visitor_shortcode () {
-    if (is_admin()) {
-        add_action( 'wp_ajax_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
-        add_action( 'wp_ajax_nopriv_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
-    }
+    add_action( 'wp_ajax_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
+    add_action( 'wp_ajax_nopriv_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
 
     function yasr_readonly_visitor_shortcode_callback() {
         if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['votes']) && isset($_POST['votes_number'])) {
@@ -743,6 +752,6 @@ function yasr_get_readonly_visitor_shortcode () {
         die(); // this is required to return a proper result
 
     } //End callback function
-}
+
 
 ?>
