@@ -760,99 +760,107 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 		$log_result = $wpdb->get_results ("SELECT * FROM ". YASR_LOG_TABLE . " ORDER BY date DESC LIMIT 0, $limit ");
 
-		echo "<div id=\"yasr-log-container\">";
+		if (!$log_result) {
+            _e("No Recenet votes yet", "yasr");
+        }
 
-		foreach ($log_result as $column) {
+        else {
+
+			echo "<div id=\"yasr-log-container\">";
+
+			foreach ($log_result as $column) {
+				
+				$user = get_user_by( 'id', $column->user_id );
+
+				//If ! user means that the vote are anonymous
+				if ($user == FALSE) {
+
+					$user = (object) array('user_login'); 
+					$user->user_login = __('anonymous');
+
+				}
+
+				$avatar = get_avatar($column->user_id, '32');
+
+				$title_post = get_the_title( $column->post_id );
+				$link = get_permalink( $column->post_id );
+
+				echo "
+					
+					<div class=\"yasr-log-div-child\">
+
+						<div id=\"yasr-log-image\">
+							$avatar
+						</div>
+
+						<div id=\"yasr-log-child-head\">
+							 <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+						</div>
+
+						<div id=\"yasr-log-ip-date\">
+
+							<span id=\"yasr-log-ip\">" . __("Ip address" , "yasr") . ": <span style=\"color:blue\">$column->ip</span></span>
+
+							<span id=\"yasr-log-date\">$column->date</span>
+
+						</div>
+
+					</div>
+					
+				";
+				
+			} //End foreach
+
+			echo "<div id=\"yasr-log-page-navigation\">";
+
+			$wpdb->get_results ("SELECT id FROM " . YASR_LOG_TABLE );
+
+			$n_rows = $wpdb->num_rows;
+
+			$num_of_pages= ceil($n_rows/$limit);
+
+			if ($num_of_pages <= 3) {
 			
-			$user = get_user_by( 'id', $column->user_id );
+				for ($i=1; $i<=$num_of_pages; $i++) {
 
-			//If ! user means that the vote are anonymous
-			if ($user == FALSE) {
+					if ($i == 1) {
+	                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+	                }
 
-				$user = (object) array('user_login'); 
-				$user->user_login = __('anonymous');
+	                else {
+						echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+					}
+
+				}
 
 			}
 
-			$avatar = get_avatar($column->user_id, '32');
+			else {
 
-			$title_post = get_the_title( $column->post_id );
-			$link = get_permalink( $column->post_id );
+				_e("Pages", "yasr"); echo ": ($num_of_pages) &nbsp;&nbsp;&nbsp;";
+
+				for ($i=1; $i<=3; $i++) {
+
+					if ($i == 1) {
+	                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+	                }
+
+	                else {
+						echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+					}
+
+				}
+
+				echo "...&nbsp;&nbsp;<button class=\"yasr-log-pagenum\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
+			}
 
 			echo "
-				
-				<div class=\"yasr-log-div-child\">
 
-					<div id=\"yasr-log-image\">
-						$avatar
-					</div>
+			</div>
 
-					<div id=\"yasr-log-child-head\">
-						 <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
-					</div>
+			</div>";
 
-					<div id=\"yasr-log-ip-date\">
-
-						<span id=\"yasr-log-ip\">" . __("Ip address" , "yasr") . ": <span style=\"color:blue\">$column->ip</span></span>
-
-						<span id=\"yasr-log-date\">$column->date</span>
-
-					</div>
-
-				</div>
-				
-			";
-			
-		} //End foreach
-
-		echo "<div id=\"yasr-log-page-navigation\">";
-
-		$wpdb->get_results ("SELECT id FROM " . YASR_LOG_TABLE );
-
-		$n_rows = $wpdb->num_rows;
-
-		$num_of_pages= ceil($n_rows/$limit);
-
-		if ($num_of_pages <= 3) {
-		
-			for ($i=1; $i<=$num_of_pages; $i++) {
-
-				if ($i == 1) {
-                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
-                }
-
-                else {
-					echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
-				}
-
-			}
-
-		}
-
-		else {
-
-			_e("Pages", "yasr"); echo ": ($num_of_pages) &nbsp;&nbsp;&nbsp;";
-
-			for ($i=1; $i<=3; $i++) {
-
-				if ($i == 1) {
-                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
-                }
-
-                else {
-					echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
-				}
-
-			}
-
-			echo "...&nbsp;&nbsp;<button class=\"yasr-log-pagenum\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
-		}
-
-		echo "
-
-		</div>
-
-		</div>";
+	}
 
 		?>
 
