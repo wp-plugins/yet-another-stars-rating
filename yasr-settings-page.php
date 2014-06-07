@@ -146,7 +146,6 @@ if ( !current_user_can( 'manage_options' ) ) {
 	<!--End div wrap-->
 	</div> 
 
-
    <script type="text/javascript">
 
 	//First Div code
@@ -223,16 +222,20 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 		//On click begin step1
 		jQuery('#import-button').on('click', function() {
+
 			var data = { 
 				action : 'yasr_import_step1'
 			};
+
 			jQuery.post(ajaxurl, data, function(response) {
 				jQuery('#result-import').html(response);
 			});
+
 		}); //End step1
 
 		jQuery('#result-import').on('click', '.yasr-result-step-1', function() {
 			//Now we are going to prepare another ajax call to check if multiple set exists
+
 			var data = {
 				action: 'yasr_import_multi_set'
 			};
@@ -240,6 +243,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery.post(ajaxurl, data, function(response) {
 				jQuery('#result-import').append(response);
 			});
+
 		}); //End second ajax call */
 
 		//Reload page after importing is done

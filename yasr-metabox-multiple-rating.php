@@ -6,7 +6,7 @@ $multi_set=yasr_get_multi_set();
 
 global $wpdb;
 
-$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
+$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the the count number of rows of the last query
 
 if ($n_multi_set>1) {
 

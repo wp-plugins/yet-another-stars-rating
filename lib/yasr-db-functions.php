@@ -73,7 +73,7 @@ function yasr_install() {
 
 }
 
-/****************BEGIN IMPORT FUNCTIONS*******************/
+/*************************BEGIN IMPORT FUNCTIONS*******************************/
 
 /****** Check for previous GD STAR INSTALLATION *******/
 function yasr_search_gd_star_rating () {
@@ -324,7 +324,8 @@ function yasr_insert_gdstar_multi_value($multi_datas) {
 	return $result;
 }
 
-/****************END IMPORT FUNCTIONS*******************/
+
+/****************************END IMPORT FUNCTIONS******************************/
 
 
 
@@ -532,7 +533,6 @@ function yasr_process_new_multi_set_form()
 
     } //End if ( isset( $_POST['multi-set-name']) ) {
 
-
 } //End yasr_process_new_multi_set_form() function
 
 
@@ -727,5 +727,174 @@ function yasr_process_edit_multi_set_form() {
 
 	
 } //End yasr_process_edit_multi_set_form() function
+
+
+/****** Adding log's widget to the dashboard ******/
+
+add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' ); 
+
+	function add_action_dashboard_widget_log() {
+
+		if ( current_user_can( 'manage_options' ) )  {
+				add_action ('wp_dashboard_setup', 'yasr_add_dashboard_widget_log');
+			}
+
+	}
+
+	function yasr_add_dashboard_widget_log () {
+
+		wp_add_dashboard_widget (
+						'yasr_widget_log_dashboard', //slug for widget
+						'Recent Ratings', //widget name
+						'yasr_display_dashboard_log_wiget' //function callback
+						);
+
+	}
+
+
+	function yasr_display_dashboard_log_wiget () {
+	
+		$limit = 8; //max number of row to echo 
+
+		global $wpdb;
+
+		$log_result = $wpdb->get_results ("SELECT * FROM ". YASR_LOG_TABLE . " ORDER BY date DESC LIMIT 0, $limit ");
+
+		echo "<div id=\"yasr-log-container\">";
+
+		foreach ($log_result as $column) {
+			
+			$user = get_user_by( 'id', $column->user_id );
+
+			//If ! user means that the vote are anonymous
+			if ($user == FALSE) {
+
+				$user = (object) array('user_login'); 
+				$user->user_login = __('anonymous');
+
+			}
+
+			$avatar = get_avatar($column->user_id, '32');
+
+			$title_post = get_the_title( $column->post_id );
+			$link = get_permalink( $column->post_id );
+
+			echo "
+				
+				<div class=\"yasr-log-div-child\">
+
+					<div id=\"yasr-log-image\">
+						$avatar
+					</div>
+
+					<div id=\"yasr-log-child-head\">
+						 <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+					</div>
+
+					<div id=\"yasr-log-ip-date\">
+
+						<span id=\"yasr-log-ip\">" . __("Ip address" , "yasr") . ": <span style=\"color:blue\">$column->ip</span></span>
+
+						<span id=\"yasr-log-date\">$column->date</span>
+
+					</div>
+
+				</div>
+				
+			";
+			
+		} //End foreach
+
+		echo "<div id=\"yasr-log-page-navigation\">";
+
+		$wpdb->get_results ("SELECT id FROM " . YASR_LOG_TABLE );
+
+		$n_rows = $wpdb->num_rows;
+
+		$num_of_pages= ceil($n_rows/$limit);
+
+		if ($num_of_pages <= 3) {
+		
+			for ($i=1; $i<=$num_of_pages; $i++) {
+
+				if ($i == 1) {
+                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                }
+
+                else {
+					echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+				}
+
+			}
+
+		}
+
+		else {
+
+			_e("Pages", "yasr"); echo ": ($num_of_pages) &nbsp;&nbsp;&nbsp;";
+
+			for ($i=1; $i<=3; $i++) {
+
+				if ($i == 1) {
+                    echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                }
+
+                else {
+					echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+				}
+
+			}
+
+			echo "...&nbsp;&nbsp;<button class=\"yasr-log-pagenum\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
+		}
+
+		echo "
+
+		</div>
+
+		</div>";
+
+		?>
+
+
+
+		<script type="text/javascript">
+
+		//Log
+		jQuery('.yasr-log-pagenum').on('click', function() {
+
+			var data = { 
+				action : 'yasr_change_log_page',
+				pagenum: jQuery(this).val()
+			};
+
+			jQuery.post(ajaxurl, data, function(response) {
+				jQuery('#yasr-log-container').html(response);
+			});
+
+		});
+
+		jQuery(document).ajaxComplete(function() {
+
+			jQuery('.yasr-log-page-num').on('click', function() {
+
+				var data = { 
+					action : 'yasr_change_log_page',
+					pagenum: jQuery(this).val()
+				};
+
+				jQuery.post(ajaxurl, data, function(response) {
+					jQuery('#yasr-log-container').html(response);
+				});
+
+			});
+
+		});
+
+		</script>
+
+		<?php
+
+	} //End callback function
 
 ?>

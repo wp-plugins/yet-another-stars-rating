@@ -632,6 +632,162 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
     } //End function
 
+
+
+/****** 
+        Display recent votes on dashboard, called from function yasr_display_dashboard_log_wiget,
+        declared on yasr-db-function  ******/
+
+
+add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
+
+    function yasr_change_log_page_callback () {
+
+        if (isset($_POST['pagenum'])) {
+
+            $page_num = $_POST['pagenum'];
+
+        }
+
+        else {
+            $page_num = 1;
+        }
+
+        $limit = 8; //max number of row to echo 
+
+        $offset = ( $page_num - 1 ) * $limit;
+
+        global $wpdb;
+
+        $log_result = $wpdb->get_results ("SELECT * FROM ". YASR_LOG_TABLE . " ORDER BY date DESC LIMIT $offset, $limit ");
+
+        if (!$log_result) {
+            _e("No Recenet votes yet", "yasr");
+        }
+
+        else {
+
+            foreach ($log_result as $column) {
+                
+                $user = get_user_by( 'id', $column->user_id ); //Get info user from user id
+
+                //If ! user means that the vote are anonymous
+                if ($user == FALSE) {
+
+                    $user = (object) array('user_login'); 
+                    $user->user_login = __('anonymous');
+
+                }
+
+                $avatar = get_avatar($column->user_id, '32'); //Get avatar from user id
+
+                $title_post = get_the_title( $column->post_id ); //Get post title from post id
+                $link = get_permalink( $column->post_id ); //Get post link from post id
+
+                echo "
+                    
+                    <div class=\"yasr-log-div-child\">
+
+                        <div id=\"yasr-log-image\">
+                            $avatar
+                        </div>
+
+                        <div id=\"yasr-log-child-head\">
+                             <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+                        </div>
+
+                        <div id=\"yasr-log-ip-date\">
+
+                            <span id=\"yasr-log-ip\">" . __("Ip address" , "yasr") . ": <span style=\"color:blue\">$column->ip</span></span>
+
+                            <span id=\"yasr-log-date\">$column->date</span>
+
+                        </div>
+
+                    </div>
+                    
+                ";
+                
+            } //End foreach
+
+            echo "<div id=\"yasr-log-page-navigation\">";
+
+            $wpdb->get_results ("SELECT id FROM " . YASR_LOG_TABLE );
+
+            $n_rows = $wpdb->num_rows; //Number of rows in YASR LOG TABLE
+
+            $num_of_pages = ceil($n_rows/$limit); //Number of page
+
+            if ($num_of_pages <= 3) {
+            
+                for ($i=1; $i<=$num_of_pages; $i++) {
+
+                    if ($i == $page_num) {
+                        echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                    }
+
+                    else {
+                        echo "<button class=\"yasr-log-page-num\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                    }
+                    
+                }
+
+            }
+
+            else {
+
+                _e("Pages", "yasr"); echo ": ($num_of_pages) &nbsp;&nbsp;&nbsp;";
+
+                $start_for = $page_num - 1;
+
+                    if ($start_for <= 0) {
+                        $start_for = 1;
+                    }
+
+                $end_for = $page_num + 1;
+
+                    if ($end_for >= $num_of_pages) {
+                        $end_for = $num_of_pages;
+                    }
+
+                if ($page_num >= 3) {
+                    echo "<button class=\"yasr-log-page-num\" value=\"1\">&laquo; First </button>&nbsp;&nbsp;...&nbsp;&nbsp;";
+                }
+
+                for ($i=$start_for; $i<=$end_for; $i++) {
+
+                    if ($i == $page_num) {
+                        echo "<button class=\"button-primary\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                    }
+
+                    else {
+                        echo "<button class=\"yasr-log-page-num\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+                    }
+
+                }
+
+                $num_of_page_less_one =  $num_of_pages-1;
+
+                if ($page_num != $num_of_pages && $page_num != $num_of_page_less_one) {
+                    echo "...&nbsp;&nbsp;<button class=\"yasr-log-page-num\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
+                }
+
+
+            }
+
+            echo "
+
+            </div>
+
+            </div>";
+
+    } // End else if !$log result
+
+        die();
+
+    }
+
+
 /**************** END Admin ajax functions ****************/
 
 
@@ -719,12 +875,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $total_rating = ($user_votes_sum / $number_of_votes);
                 $total_rating=round ($total_rating, 1);
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <br /><strong>Vote Saved.</strong><br />Average Rating $total_rating / 5 ($number_of_votes votes casts)";
+                <br /><strong>" . __("Vote Saved" , "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $total_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
             }
 
             elseif ($new_row_result) {
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <br /><strong>Vote Saved.</strong><br />Rating $rating / 5 (1 vote casts)";
+                <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote casts", "yasr") . ")";
             }
 
             die(); // this is required to return a proper result
@@ -747,7 +903,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         }
 
         echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <br /><strong>You've already voted this article with $rating</strong><br />Average $average_rating / 5 ($number_of_votes votes casts)";
+        <br /><strong>" . __("You've already voted this article with $rating", "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
+
+
 
         die(); // this is required to return a proper result
 

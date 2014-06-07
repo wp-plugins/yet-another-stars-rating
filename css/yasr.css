@@ -189,3 +189,53 @@
 .yasr_table_multi_set_admin tr:nth-child(even) {
         background: #FFFFFF;
     }
+
+#yasr-log-container  {
+    width: 98%;
+}
+
+.yasr-log-div-child {
+    padding-top: 5px;
+    border-bottom: 1px solid #BBD8E7;
+    padding-bottom: 20px;
+}
+
+#yasr-log-image {
+    list-style-type: none;
+    display: inline-block; 
+    float:left;
+}
+
+#yasr-log-child-head {
+    padding-left: 37px;
+}
+
+#yasr-log-vote {
+    color: red;
+}
+
+#yasr-log-post {
+    color: #2683AE;
+}
+
+#yasr-log-ip-date {
+    padding-top: 5px;
+}
+
+#yasr-log-ip {
+    float:left;
+}
+
+#yasr-log-date {
+    float: right;
+}
+
+#yasr-log-next-rows {
+    padding-top: 15px;
+    text-align: right;
+}
+
+#yasr-log-page-navigation {
+    padding-top: 7px;
+    text-align: center;
+}
