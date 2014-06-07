@@ -1,6 +1,6 @@
 === Yasr - Yet Another Stars Rating ===
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S963KJ3UW5XG
-Tags: Review, Star, Snippet
+Tags: Rating, Review, Star, Snippet
 Requires at least: 3.5
 Tested up to: 3.9.1
 Stable tag: 0.1.0
