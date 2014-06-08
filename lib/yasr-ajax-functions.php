@@ -128,7 +128,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                             echo "<tr> <td>";
                             echo "$name->name </td>"; 
-                            echo "<td> <div class=\"rateit\" id=\"$name->id\" data-rateit-value=\"\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td>";
+                            echo "<td> <div class=\"rateit bigstars\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td>";
                             echo "</tr>";
                         }
                         echo "</table>
@@ -165,7 +165,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                     $set_content->vote = $integer_vote+1;
                                 }
 
-                                echo "<td width=\"50%\"> <div class=\"rateit\" id=\"$set_content->id\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td></tr>";
+                                echo "<td width=\"50%\"> <div class=\"rateit bigstars\" id=\"$set_content->id\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td></tr>";
                         } //End foreach
                         echo "</table>";
 
@@ -771,7 +771,6 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 if ($page_num != $num_of_pages && $page_num != $num_of_page_less_one) {
                     echo "...&nbsp;&nbsp;<button class=\"yasr-log-page-num\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
                 }
-
 
             }
 

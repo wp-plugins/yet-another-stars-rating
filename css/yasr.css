@@ -224,6 +224,7 @@
 
 #yasr-log-ip {
     float:left;
+    padding-left: 5px;
 }
 
 #yasr-log-date {
