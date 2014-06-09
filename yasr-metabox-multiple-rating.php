@@ -21,6 +21,10 @@ if ($n_multi_set>1) {
   </select>
 
 
+<?php  
+    $ajax_nonce_multi = wp_create_nonce( "yasr_nonce_insert_multi_rating" );
+?>
+
 <script>
   // --------------IF multiple set are found -------------------
 
@@ -48,6 +52,7 @@ jQuery('#select_set').on("change", function() {
 
           var data = {
             action: 'yasr_send_id_field_with_vote',
+            nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
             rating: value,
             post_id: postid,
             id_field: idField,
@@ -67,6 +72,7 @@ jQuery('#select_set').on("change", function() {
 
           var data = {
             action: 'yasr_send_id_field_with_vote',
+            nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
             rating: value,
             post_id: postid,
             id_field: idField,
@@ -118,6 +124,7 @@ jQuery( document ).ready(function() {
 
           var data = {
             action: 'yasr_send_id_field_with_vote',
+            nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
             rating: value,
             post_id: postid,
             id_field: idField,
@@ -137,6 +144,7 @@ jQuery( document ).ready(function() {
 
           var data = {
             action: 'yasr_send_id_field_with_vote',
+            nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
             rating: value,
             post_id: postid,
             id_field: idField,

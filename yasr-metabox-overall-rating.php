@@ -30,7 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
   </div>
 
 <?php
-   	function yasr_overall_rating_javascript() {
+   	function yasr_overall_rating_javascript($nonce) {
+
+      $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
+
 ?>
 	<script>
    		jQuery(document).ready(function($) {
@@ -42,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
    				var data = {
    					action: 'yasr_send_overall_rating',
+            nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
    					rating: value,
    					post_id: postid
    				};
@@ -59,6 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
    				var data = {
    					action: 'yasr_send_overall_rating',
+            nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
    					rating: value,
    					post_id: postid
    				};

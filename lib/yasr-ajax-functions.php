@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             if (isset($_POST['rating']) && ($_POST['post_id'])) {
                 global $current_user;
 			    get_currentuserinfo();
-
 			    $rating = $_POST['rating'];
 			    $post_id = $_POST['post_id'];
 			    $reviewer_id = $current_user->ID;
+                $nonce = $_POST['nonce'];
             }
 
             else {
@@ -27,6 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             if ( ! current_user_can( 'manage_options' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
+            }
+
+            if ( ! wp_verify_nonce( $nonce, 'yasr_nonce_insert_overall_rating' ) ) {
+                die( 'Security check' ); 
             }
 
         	global $wpdb;
@@ -71,6 +75,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         add_action( 'wp_ajax_yasr_send_id_nameset', 'yasr_output_multiple_set_callback' );
 
+
         function yasr_output_multiple_set_callback() {
                 if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
                     $set_type = $_POST['set_id'];
@@ -78,6 +83,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 }
                 else {
                     exit();
+                }
+
+                if ( ! current_user_can( 'manage_options' ) ) {
+                    wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
                 }
 
                 global $wpdb;
@@ -88,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 if (!$set_values) {
                         echo "<p>";
 
-                        _e('Choose a vote for every element', 'yasr');
+                        _e('Choose a vote for each element', 'yasr');
 
                         echo "
 
@@ -193,6 +202,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $vote = $_POST['rating'];
                 $id_field = $_POST['id_field'];
                 $set_type = $_POST['set_type'];
+                $nonce = $_POST['nonce'];
             }
             else {
                 exit();
@@ -200,6 +210,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             if ( ! current_user_can( 'manage_options' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
+            }
+
+            if ( ! wp_verify_nonce( $nonce, 'yasr_nonce_insert_multi_rating' ) ) {
+                die( 'Security check' ); 
             }
 
                 global $wpdb;
@@ -517,120 +531,129 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /********* IMPORT FUNCTIONS *********/
 
+    add_action( 'plugins_loaded', 'add_action_import_gdstar_1' ); 
 
-    if (is_admin()) {
-        add_action( 'wp_ajax_yasr_import_step1', 'yasr_import_step1_callback' );
-    }
-
-    function yasr_import_step1_callback () {
-        //Import reviews from GD star 
-         $reviews=yasr_import_gdstar_data();
-
-        //Insert GD star review in yasr votes table
-        $check_query_success=yasr_insert_gdstar_data($reviews);
-        ?>
-
-        <div class="yasr-result-step-1">
-            <?php
-            if ($check_query_success) {  
-                _e( "Reviews and visitor votes have been successfull imported.", 'yasr'); ?>
-                <br />
-                <?php _e ("Step2: I will check if you used multiple set and if so I will import it. THIS MAY TAKE A WHILE!", 'yasr'); ?>
-                <br />
-                    <button href=\"#\" class=\"button-primary\" id=\"import-button-step2\"> <?php _e('Proceed Step 2', 'yasr');?> </button>
-                    <span id="loader2" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
-                    </span>
-                <?php
-            }
-
-            else {
-                _e( "Something goes wrong! Refresh the page and try again!", 'yasr');
-            }
-
-        ?>
-
-        </div>
-
-        <?php
-
-        die ();
-    } //End import step 1
-
-    if (is_admin()) {
-        add_action( 'wp_ajax_yasr_import_multi_set', 'yasr_check_import_set_callback' );
-    }
-
-    function yasr_check_import_set_callback () {
-        $multi_set_names=yasr_import_gdstar_multi_set();
-
-        echo "<div class=\"yasr-result-step-2\">";
-
-        //If multiple set are found
-        if($multi_set_names) {
-            echo "<br /><strong>";
-            _e("I've found multiple set! Importing..." , 'yasr');
-            echo "</strong><br />";
-
-            //If multi set are found write in yasr_multi_set table
-            $insert_multi_set=yasr_insert_gdstar_multi_set($multi_set_names);
-
-            //If insert succes, go ahed
-            if ($insert_multi_set) {
-                echo "&nbsp;&nbsp;&nbsp;";
-                _e("Multi set's name has been successfull imported.", 'yasr');
-                echo "<br /><strong>"; 
-                _e("Now I'm going to import multi set data", 'yasr');
-                echo "</strong> <br />";
-
-                //Import multiple set's values from GD star rating
-                $multi_data=yasr_import_gdstar_multi_value();
-
-                //If set values are found, insert Gd Star multi values in yasr_multi_values  
-                if($multi_data) {
-                    $insert_multidata=yasr_insert_gdstar_multi_value($multi_data);
-                    if ($insert_multidata) {
-                        echo "&nbsp;&nbsp;&nbsp;";
-                        _e( "All votes has been successfull imported.", 'yasr'); 
-                        echo "<br />";
-                        update_option('yasr-gdstar-imported', '1');
-                        echo "<button href=\"#\" class=\"button-delete\" id=\"end-import\">" . __('Done', 'yasr') . "</button>";
-
-                    }
-                    else {
-                        echo "&nbsp;&nbsp;&nbsp;";
-                        _e("I've found multiple set votes but I couldn't insert into db", 'yasr');
-                        echo  "<br />";
-                    }
-                } //End if $multi_data 
-
-                //Multiple set are found, but there is not data
-                else { 
-                    echo "&nbsp;&nbsp;&nbsp;";
-                    _e( "I've found multi set but with no data", 'yasr'); 
-                    echo "<br />";
+        function add_action_import_gdstar_1() {
+            if ( current_user_can( 'manage_options' ) )  {
+                    add_action( 'wp_ajax_yasr_import_step1', 'yasr_import_step1_callback' );
                 }
-
-            } //End if $insert_multi_set
-
-            //Query failed insert set name 
-            else {
-                echo "&nbsp;&nbsp;&nbsp;";
-                _e("I've found multi set name but I couldn't insert into db", 'yasr');
-                echo "<br />";
-            }
-        
-        } //End if $multi_set_names
-
-        else {
-            echo "&nbsp;&nbsp;&nbsp;";
-            _e ("Multiset was not found. Imported is done!", 'yasr');
         }
 
-        echo "</div>";
+        function yasr_import_step1_callback () {
 
-        die ();
+            //Import reviews from GD star 
+            $reviews=yasr_import_gdstar_data();
 
-    } //End function
+            //Insert GD star review in yasr votes table
+            $check_query_success=yasr_insert_gdstar_data($reviews);
+            ?>
+
+            <div class="yasr-result-step-1">
+                <?php
+                if ($check_query_success) {  
+                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr'); ?>
+                    <br />
+                    <?php _e ("Step2: I will check if you used multiple set and if so I will import it. THIS MAY TAKE A WHILE!", 'yasr'); ?>
+                    <br />
+                        <button href=\"#\" class=\"button-primary\" id=\"import-button-step2\"> <?php _e('Proceed Step 2', 'yasr');?> </button>
+                        <span id="loader2" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+                        </span>
+                    <?php
+                }
+
+                else {
+                    _e( "Something goes wrong! Refresh the page and try again!", 'yasr');
+                }
+
+            ?>
+
+            </div>
+
+            <?php
+
+            die ();
+        } //End import step 1
+
+
+    add_action( 'plugins_loaded', 'add_action_import_gdstar_2' ); 
+
+        function add_action_import_gdstar_2() {
+            if ( current_user_can( 'manage_options' ) )  {
+                add_action( 'wp_ajax_yasr_import_multi_set', 'yasr_check_import_set_callback' );
+                }
+        }
+
+        function yasr_check_import_set_callback () {
+            $multi_set_names=yasr_import_gdstar_multi_set();
+
+            echo "<div class=\"yasr-result-step-2\">";
+
+            //If multiple set are found
+            if($multi_set_names) {
+                echo "<br /><strong>";
+                _e("I've found multiple set! Importing..." , 'yasr');
+                echo "</strong><br />";
+
+                //If multi set are found write in yasr_multi_set table
+                $insert_multi_set=yasr_insert_gdstar_multi_set($multi_set_names);
+
+                //If insert succes, go ahed
+                if ($insert_multi_set) {
+                    echo "&nbsp;&nbsp;&nbsp;";
+                    _e("Multi set's name has been successfull imported.", 'yasr');
+                    echo "<br /><strong>"; 
+                    _e("Now I'm going to import multi set data", 'yasr');
+                    echo "</strong> <br />";
+
+                    //Import multiple set's values from GD star rating
+                    $multi_data=yasr_import_gdstar_multi_value();
+
+                    //If set values are found, insert Gd Star multi values in yasr_multi_values  
+                    if($multi_data) {
+                        $insert_multidata=yasr_insert_gdstar_multi_value($multi_data);
+                        if ($insert_multidata) {
+                            echo "&nbsp;&nbsp;&nbsp;";
+                            _e( "All votes has been successfull imported.", 'yasr'); 
+                            echo "<br />";
+                            update_option('yasr-gdstar-imported', '1');
+                            echo "<button href=\"#\" class=\"button-delete\" id=\"end-import\">" . __('Done', 'yasr') . "</button>";
+
+                        }
+                        else {
+                            echo "&nbsp;&nbsp;&nbsp;";
+                            _e("I've found multiple set votes but I couldn't insert into db", 'yasr');
+                            echo  "<br />";
+                        }
+                    } //End if $multi_data 
+
+                    //Multiple set are found, but there is not data
+                    else { 
+                        echo "&nbsp;&nbsp;&nbsp;";
+                        _e( "I've found multi set but with no data", 'yasr'); 
+                        echo "<br />";
+                    }
+
+                } //End if $insert_multi_set
+
+                //Query failed insert set name 
+                else {
+                    echo "&nbsp;&nbsp;&nbsp;";
+                    _e("I've found multi set name but I couldn't insert into db", 'yasr');
+                    echo "<br />";
+                }
+            
+            } //End if $multi_set_names
+
+            else {
+                echo "&nbsp;&nbsp;&nbsp;";
+                _e ("Multiset was not found. Imported is done!", 'yasr');
+            }
+
+            echo "</div>";
+
+            die ();
+
+        } //End function
 
 
 
