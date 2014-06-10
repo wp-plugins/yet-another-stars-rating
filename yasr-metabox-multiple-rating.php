@@ -4,6 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 $multi_set=yasr_get_multi_set();
 
+$ajax_nonce_multi = wp_create_nonce( "yasr_nonce_insert_multi_rating" );
+
 global $wpdb;
 
 $n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the the count number of rows of the last query
@@ -13,6 +15,7 @@ if ($n_multi_set>1) {
    _e("Choose wich set you want to use");
 
 ?>
+
   <br />
   <select id ="select_set">
     <?php foreach ($multi_set as $name) { ?>
@@ -20,10 +23,6 @@ if ($n_multi_set>1) {
 	  <?php } //End foreach ?>
   </select>
 
-
-<?php  
-    $ajax_nonce_multi = wp_create_nonce( "yasr_nonce_insert_multi_rating" );
-?>
 
 <script>
   // --------------IF multiple set are found -------------------
@@ -110,6 +109,7 @@ jQuery( document ).ready(function() {
     set_id: <?php echo $set_id ?>,
     post_id: postid
   }
+  
   //Send value to the Server
     jQuery.post(ajaxurl, data_id, function(response) {
       jQuery('#yasr_rateit_multi_rating').html(response);
@@ -120,7 +120,6 @@ jQuery( document ).ready(function() {
           var value = el.rateit('value');
           var value = value.toFixed(1); 
           var idField = el.attr('id');
-          var setType = jQuery('#select_set').val();
 
           var data = {
             action: 'yasr_send_id_field_with_vote',
@@ -168,6 +167,8 @@ jQuery( document ).ready(function() {
 
 <div>
       <p>
-          <span id="yasr_rateit_multi_rating"></span>
+          <span id="yasr_rateit_multi_rating">
+
+          </span>
       </p>
 </div>
