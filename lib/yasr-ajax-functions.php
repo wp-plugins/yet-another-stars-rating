@@ -137,7 +137,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                             echo "<tr> <td>";
                             echo "$name->name </td>"; 
-                            echo "<td> <div class=\"rateit bigstars\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td>";
+                            echo "<td> <div class=\"rateit bigstars multi\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td>";
                             echo "</tr>";
                         }
                         echo "</table>
@@ -174,7 +174,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                     $set_content->vote = $integer_vote+1;
                                 }
 
-                                echo "<td width=\"50%\"> <div class=\"rateit bigstars\" id=\"$set_content->id\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td></tr>";
+                                echo "<td width=\"50%\"> <div class=\"rateit bigstars multi\" id=\"$set_content->id\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td></tr>";
                         } //End foreach
                         echo "</table>";
 

@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,10 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.2.2 =
+* Fixed doulbe ajax request on overall rating when used just 1 multiple set
+* Many other minor bug fixes
 
 = 0.2.1 =
 * Fixed insert rating on multi set if only 1 is used 

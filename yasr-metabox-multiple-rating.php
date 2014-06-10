@@ -42,7 +42,7 @@ jQuery('#select_set').on("change", function() {
       jQuery('#yasr_rateit_multi_rating').html(response);
       jQuery('.rateit').rateit();
 
-      jQuery('.rateit').on('rated', function() { 
+      jQuery('.multi').on('rated', function() { 
           var el = jQuery(this);
           var value = el.rateit('value');
           var value = value.toFixed(1); 
@@ -63,7 +63,7 @@ jQuery('#select_set').on("change", function() {
       });
 
 
-      jQuery('.rateit').on('reset', function() { 
+      jQuery('.multi').on('reset', function() { 
           var el = jQuery(this);
           var value = '0';
           var idField = el.attr('id');
@@ -115,7 +115,7 @@ jQuery( document ).ready(function() {
       jQuery('#yasr_rateit_multi_rating').html(response);
       jQuery('.rateit').rateit();
 
-      jQuery('.rateit').on('rated', function() { 
+      jQuery('.multi').on('rated', function() { 
           var el = jQuery(this);
           var value = el.rateit('value');
           var value = value.toFixed(1); 
@@ -135,7 +135,7 @@ jQuery( document ).ready(function() {
 
       });
 
-      jQuery('.rateit').on('reset', function() { 
+      jQuery('.multi').on('reset', function() { 
           var el = jQuery(this);
           var value = '0';
           var idField = el.attr('id');

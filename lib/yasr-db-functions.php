@@ -93,7 +93,7 @@ function yasr_search_gd_star_rating () {
 		}
 
 		else {
-			_e( 'Gd Star Rating non trovato' );
+			__( 'No previous Gd Star Ratings installation was found', 'yasr' );
 		}
 	}
 
@@ -406,7 +406,7 @@ function yasr_process_new_multi_set_form()
    		//IF thes fields are not empty go ahed
   		if ($_POST['multi-set-name']!='' && $_POST['multi-set-name-element-1']!='' && $_POST['multi-set-name-element-2']!=''  ) { 
    		
-  			$multi_set_name = $_POST['multi-set-name'];
+  			$multi_set_name = ucfirst(strtolower($_POST['multi-set-name']));
 
   			$multi_set_name_element_=array();
 
