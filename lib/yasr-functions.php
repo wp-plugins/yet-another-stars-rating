@@ -141,9 +141,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         <?php
 
-        $error_new_multi_set=yasr_process_new_multi_set_form();
+        $error_new_multi_set=yasr_process_new_multi_set_form(); //defined in yasr-db-functions
 
-        $error_edit_multi_set=yasr_process_edit_multi_set_form();
+        $error_edit_multi_set=yasr_process_edit_multi_set_form(); //defined in yasr-db-functions
 
         if ($error_new_multi_set) {
         	echo "<div class=\"error\"> <p> <strong>";
@@ -187,6 +187,173 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	} //End yasr_settings_page_content
 
 
+/****** Create a form for settings page to create new multi set ******/
+function yasr_display_multi_set_form() {
+	?>
+		
+		<h4 align="center">Add New Multiple Set</h4>
+		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
+		<p>
+		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
+			<strong><?php _e("Name", 'yasr')?></strong> 
+			<input type="text" name="multi-set-name" id="new-multi-set-name" class="input-text-multi-set">
+			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
+
+			<p></p>
+			<?php _e("You can insert up to nine element") ?>
+			<br />
+
+			<?php for($i=1; $i<=9; $i++) { 
+
+				echo "<strong>" . __("Element ", 'yasr') . "#$i" . "</strong>";
+				?>
+				<input type="text" name="multi-set-name-element-<?php echo $i ?>" id="multi-set-name-element-<?php echo $i ?>" class="input-text-multi-set">
+				<br />
+
+			<?php } //End foreach
+
+			wp_nonce_field( 'add-multi-set', 'add-nonce-new-multi-set' ) ?><!-- a little security to process on submission -->
+
+	       	<br />
+			<input type="submit" value="<?php _e("Create New Set", 'yasr') ?>" class="button-primary"/>
+		</form>
+
+	<?php 
+} //End function
+
+
+/****** This function print the form to edit multi-set ******/
+function yasr_edit_multi_form() {
+
+	$multi_set=yasr_get_multi_set();
+
+	global $wpdb;
+
+	$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
+
+	if ($n_multi_set > 1) {
+		?>
+
+			<button href="#" class="button-delete" id="yasr-manage-multi-set"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
+
+			<div class="yasr-manage-multiset">
+
+				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
+
+				<select id ="yasr_select_edit_set">
+    				<?php foreach ($multi_set as $name) { ?>
+		    		<option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
+	  				<?php } //End foreach ?>
+  				</select>
+					
+			</div>
+
+				<?php
+	} //End if n_multi_set >1
+
+	elseif ($n_multi_set == 1) {
+
+		$set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id, parent_set_id AS set_id
+		                            FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
+		                            ORDER BY field_id ASC");
+
+		foreach ($multi_set as $find_set_id) {
+			$set_type = $find_set_id->set_id;
+		}
+
+		?>
+		
+			<button href="#" class="button-delete" id="yasr-manage-multi-set-single"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
+
+			<div class="yasr-manage-multiset-single">
+
+				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
+
+		        		<input type="hidden" name="yasr_edit_multi_set_form" value="<?php echo $set_type ?>" />
+
+						<table id="yasr-table-form-edit-multi-set">
+		                <tr>
+
+		                    <td id="yasr-table-form-edit-multi-set-header"> 
+		                         <?php _e('Field name', 'yasr') ?>
+		                    </td>
+
+		                     <td id="yasr-table-form-edit-multi-set-remove"> 
+		                        <?php _e('Remove', 'yasr') ?> 
+		                     </td>
+
+		                </tr>
+
+						<?php
+
+		       			$i=1;
+		        		foreach ($set_name as $name) {
+		                echo "
+		                <tr>
+		                    
+		                    <td width=\"80%\">
+		                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
+		                    </td>
+
+		                    <td width=\"20%\" style=\"text-align:center\">
+		                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
+		                    </td>
+
+		                </tr>
+		                ";
+		                $i++;
+		            }
+
+
+		            $i = $i-1; //This is the number of the fields
+
+		            echo "
+
+		            <input type=\"hidden\" name=\"yasr-edit-form-number-elements\" id=\"yasr-edit-form-number-elements\" value=\"$i\">
+
+		            </table>
+
+		            <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
+		            <tr>
+
+		                <td width=\"80%\">Remove whole set?</td>
+
+		                <td width=\"20%\" style=\"text-align:center\">
+		                    <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
+		                </td>
+
+		            </tr>
+
+		            </table>
+
+		            ";
+
+		            echo "<p>";
+		                _e("If you remove something you will remove all the votes for that set or field. This operation CAN'T BE undone." , "yasr");
+		            echo "</p>";
+
+		            wp_nonce_field( 'edit-multi-set', 'add-nonce-edit-multi-set' ) 
+
+		            ?>
+
+		            <div id="yasr-element-limit" style="display:none; color:red"><?php _e("You can use up to 9 elements" , "yasr") ?></div>
+
+		            <input type="button" class="button-delete" id="yasr-add-field-edit-multiset" value="<?php _e('Add element', 'yasr'); ?>"> 
+
+		            <input type="submit" value="<?php _e('Save changes', 'yasr') ?>" class="button-primary" >	
+
+				</form>
+
+			</div>
+
+		<?php
+	}
+
+	else {
+		_e("No multiple set were found");
+	}
+
+}//End function
 
 
 /****** Create 2 metaboxes in post and pages ******/
@@ -287,7 +454,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 							return $content . $overall_rating_shortcode;
 							break;
 					} //End Switch
-				} //end ($option['what']==='overall_rating')
+				} //end ($option['what']=='overall_rating')
 
 				elseif ($option['what']=='visitor_rating') {
 					switch ($option['where']) {
@@ -359,100 +526,3 @@ function yasr_add_tinymce_button($buttons) {
     $buttons[] = "yasr_button";
     return $buttons;
 }
-
-
-/****** Create a form for settings page to create new multi set ******/
-function yasr_display_multi_set_form() {
-	?>
-		
-		<h4 align="center">Add New Multiple Set</h4>
-		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
-		<p>
-		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
-			<strong><?php _e("Name", 'yasr')?></strong> 
-			<input type="text" name="multi-set-name" id="new-multi-set-name" class="input-text-multi-set">
-			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
-
-			<p></p>
-			<?php _e("You can insert up to nine element") ?>
-			<br />
-
-			<?php for($i=1; $i<=9; $i++) { 
-
-				echo "<strong>" . __("Element ", 'yasr') . "#$i" . "</strong>";
-				?>
-				<input type="text" name="multi-set-name-element-<?php echo $i ?>" id="multi-set-name-element-<?php echo $i ?>" class="input-text-multi-set">
-				<br />
-
-			<?php } //End foreach
-
-			wp_nonce_field( 'add-multi-set', 'add-nonce-new-multi-set' ) ?><!-- a little security to process on submission -->
-
-	       	<br />
-			<input type="submit" value="<?php _e("Create New Set", 'yasr') ?>" class="button-primary"/>
-		</form>
-
-	<?php 
-} //End function
-
-
-/****** This function print the form to edit multi-set ******/
-function yasr_edit_multi_form() {
-
-	$multi_set=yasr_get_multi_set();
-
-	global $wpdb;
-
-	$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
-
-	if ($n_multi_set > 1) {
-		?>
-
-			<button href="#" class="button-delete" id="yasr-manage-multi-set"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
-			<div class="yasr-manage-multiset">
-
-				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
-
-				<select id ="yasr_select_edit_set">
-    				<?php foreach ($multi_set as $name) { ?>
-		    		<option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
-	  				<?php } //End foreach ?>
-  				</select>
-					
-			</div>
-
-				<?php
-	} //End if n_multi_set >1
-
-	elseif ($n_multi_set == 1) {
-		?>
-		
-			<button href="#" class="button-delete" id="yasr-manage-multi-set-single"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
-			<div class="yasr-manage-multiset-single">
-
-			<?php
-			
-				$set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
-                            FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                            ORDER BY field_id ASC");
-
-       			$i=1;
-        		foreach ($set_name as $name) {
-            		echo "Element #$i <input type=\"text\" value=\"$name->name\"> <br />";
-            		$i++;
-        		}				
-
-        	?>
-					
-			</div>
-
-		<?php
-	}
-
-	else {
-		_e("No multiple set were found");
-	}
-
-}//End function

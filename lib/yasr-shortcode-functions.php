@@ -26,96 +26,109 @@ add_shortcode ('yasr_visitor_votes', 'shortcode_visitor_votes_callback');
 
 function shortcode_visitor_votes_callback () {
 
-	$votes=yasr_get_visitor_votes();
+  $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
-  $medium_rating=0;   //Avoid undefined variable
+  if( is_singular() && is_main_query() ) {
 
-	if (!$votes) {
-		$votes=0;         //Avoid undefined variable if there is not overall rating
-		$votes_number=0;  //Avoid undefined variable
-	}
+      $ajax_nonce_visitor = wp_create_nonce( "yasr_nonce_insert_visitor_rating" );
 
-  else {
-		    foreach ($votes as $user_votes) {
-			      $votes_number = $user_votes->number_of_votes;
-            if ($votes_number !=0 ) {
-			          $medium_rating = ($user_votes->sum_votes/$votes_number);
+    	$votes=yasr_get_visitor_votes();
+
+      $medium_rating=0;   //Avoid undefined variable
+
+    	if (!$votes) {
+    		$votes=0;         //Avoid undefined variable if there is not overall rating
+    		$votes_number=0;  //Avoid undefined variable
+    	}
+
+      else {
+    		    foreach ($votes as $user_votes) {
+    			      $votes_number = $user_votes->number_of_votes;
+                if ($votes_number !=0 ) {
+    			          $medium_rating = ($user_votes->sum_votes/$votes_number);
+                }
             }
-        }
-  }
+      }
 
-	$medium_rating=round($medium_rating, 1);
+    	$medium_rating=round($medium_rating, 1);
 
-  if ($votes_number>0) {
-	    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-	    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
-  }
-  else {
-      $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-      </div><br /> " . __("No rating yet" , "yasr") . "</div>";
-  }
-
-	?>
-
-	<script>
-	jQuery(document).ready(function() {
-
-        var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
-        jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
-
-        var postid = <?php the_ID(); ?>;
-        var cookiename = "yasr_visitor_vote_" + postid;
-
-        //If there is not cookie allow visitor to vote
-        if (!jQuery.cookie(cookiename)) {
-
-            jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
-                var el = jQuery(this);
-  				      var value = el.rateit('value');
-   				      var value = value.toFixed(1); //
-   				      var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-
-   				      var data = {
-   					        action: 'yasr_send_visitor_rating',
-   					        rating: value,
-   					        post_id: postid
-   				      };
-
-  				      //Send value to the Server
-  				      jQuery.post(ajaxurl, data, function(response) {
-  					        jQuery('#yasr_visitor_votes').html(response); 
-  					        jQuery('.rateit').rateit();
-                    //Create a cookie to disable double vote
-                    jQuery.cookie(cookiename, value, { expires : 360 }); 
-                }) ;          
- 			      });
-        } //End if (!jQuery.cookie(cookiename))
-
-        //Else user cannot vote
-        else {
-          var cookievote=jQuery.cookie(cookiename);
-          var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-
-          var data = {
-            action: 'yasr_readonly_visitor_shortcode',
-            rating: cookievote,
-            votes: <?php echo $medium_rating ?>,
-            votes_number: <?php echo $votes_number ?>,
-            post_id: postid
+          if ($votes_number>0) {
+        	    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+        	    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
           }
 
-          jQuery.post(ajaxurl, data, function(response) {
-              jQuery('#yasr_visitor_votes').html(response);
-              jQuery('.rateit').rateit();
-            });
-        } //End else
+          else {
+              $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+              </div><br /> " . __("No rating yet" , "yasr") . "</div>";
+          }
 
-  });
 
- 	</script>
+    	?>
+
+    	<script>
+    	jQuery(document).ready(function() {
+
+            var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
+            jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
+
+            var postid = <?php the_ID(); ?>;
+            var cookiename = "yasr_visitor_vote_" + postid;
+
+            //If there is not cookie allow visitor to vote
+            if (!jQuery.cookie(cookiename)) {
+
+                jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
+                    var el = jQuery(this);
+      				      var value = el.rateit('value');
+       				      var value = value.toFixed(1); //
+       				      var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+       				      var data = {
+       					        action: 'yasr_send_visitor_rating',
+       					        rating: value,
+       					        post_id: postid,
+                        nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+       				      };
+
+      				      //Send value to the Server
+      				      jQuery.post(ajaxurl, data, function(response) {
+      					        jQuery('#yasr_visitor_votes').html(response); 
+      					        jQuery('.rateit').rateit();
+                        //Create a cookie to disable double vote
+                        jQuery.cookie(cookiename, value, { expires : 360 }); 
+                    }) ;          
+     			      });
+            } //End if (!jQuery.cookie(cookiename))
+
+            //Else user cannot vote
+            else {
+              var cookievote=jQuery.cookie(cookiename);
+              var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+              var data = {
+                action: 'yasr_readonly_visitor_shortcode',
+                rating: cookievote,
+                votes: <?php echo $medium_rating ?>,
+                votes_number: <?php echo $votes_number ?>,
+                post_id: postid
+              }
+
+              jQuery.post(ajaxurl, data, function(response) {
+                  jQuery('#yasr_visitor_votes').html(response);
+                  jQuery('.rateit').rateit();
+                });
+            } //End else
+
+      });
+
+     	</script>
 
  	<?php
- 	return $shortcode_html;
+
+  } //End if is singular
+
+ 	    return $shortcode_html;
+
 }
 
 

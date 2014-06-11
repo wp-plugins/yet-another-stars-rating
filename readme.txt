@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.2.2
+Stable tag: 0.2.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,12 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.2.3 = 
+* [yasr_visitor_votes] it's now disabled outside a post or a page
+* Security fixes on ajax functions
+* Various fixes on multi-set settings
+* Code cleanup
 
 = 0.2.2 =
 * Fixed doulbe ajax request on overall rating when used just 1 multiple set

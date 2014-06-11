@@ -579,12 +579,25 @@ function yasr_process_edit_multi_set_form() {
 								array ('%d')
 							);
 
+  			$remove_set_votes = $wpdb->delete (
+  								YASR_MULTI_SET_VALUES_TABLE,
+								array(
+									'set_type' => $set_id,
+								),
+								array ('%d')
+							);
+
   			if ($remove_set===FALSE) {
   				$error = TRUE; 
 				$array_errors[] = __("Something goes wrong trying to delete a multi-set . Please report it", 'yasr');
   			}
 
   			if ($remove_set_values===FALSE) {
+  				$error = TRUE; 
+				$array_errors[] = __("Something goes wrong trying to delete data fields for a set. Please report it", 'yasr');
+			}
+
+			if ($remove_set_votes===FALSE) {
   				$error = TRUE; 
 				$array_errors[] = __("Something goes wrong trying to delete data values for a set. Please report it", 'yasr');
 			}
@@ -594,7 +607,7 @@ function yasr_process_edit_multi_set_form() {
 
   		for ($i = 0; $i <= 9; $i++) {
 
-  			//First, check if the user want to remove some field
+  			//Than, check if the user want to remove some field
   			if (isset($_POST["remove-element-$i"]) && !isset($_POST["yasr-remove-multi-set"]) ) {
 
   				$remove_field = $wpdb->delete (
@@ -634,11 +647,11 @@ function yasr_process_edit_multi_set_form() {
 
   				$field_name = $_POST["edit-multi-set-element-$i"];
 
-  				//if elements name is shorter than 3 chars
-  				if (mb_strlen($field_name) <3 ) {
-  							$array_errors[] = __("Field # $i must be at least 3 charactersssss", "yasr");
-   							$error=TRUE;
-  				}
+	  			//if elements name is shorter than 3 chars
+	  			if (mb_strlen($field_name) <3 ) {
+	  						$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
+	   						$error=TRUE;
+	  			}
 
   				else {
 
@@ -675,13 +688,16 @@ function yasr_process_edit_multi_set_form() {
 
   				$field_name = $_POST["edit-multi-set-element-$i"];
 
-  				//if elements name is shorter than 3 chars
-  				if (mb_strlen($field_name) < 3) {
+  				//if elements name is shorter than 3 chars return error. I use mb_strlen($field_name) > 1
+  				//because I don't wont return error if an user add an empty field. An empty field will be
+  				//just ignored  
+  				if (mb_strlen($field_name) > 1 && mb_strlen($field_name) < 3) {
   							$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
    							$error=TRUE;
   				}
 
-  				else {
+  				//if field is not empty
+  				elseif ($field_name != '') {
 
   					$highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_FIELDS_TABLE . " ORDER BY id DESC LIMIT 1 ");
 
@@ -753,6 +769,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 
 	function yasr_display_dashboard_log_wiget () {
+
 	
 		$limit = 8; //max number of row to echo 
 
@@ -864,8 +881,6 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 		?>
 
-
-
 		<script type="text/javascript">
 
 		//Log
@@ -873,7 +888,8 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			var data = { 
 				action : 'yasr_change_log_page',
-				pagenum: jQuery(this).val()
+				pagenum: jQuery(this).val(),
+
 			};
 
 			jQuery.post(ajaxurl, data, function(response) {
@@ -888,7 +904,8 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 				var data = { 
 					action : 'yasr_change_log_page',
-					pagenum: jQuery(this).val()
+					pagenum: jQuery(this).val(),
+
 				};
 
 				jQuery.post(ajaxurl, data, function(response) {

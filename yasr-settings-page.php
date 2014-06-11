@@ -5,6 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 if ( !current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ));
 }
+
+	$multi_set=yasr_get_multi_set();
+
+	global $wpdb;
+
+	$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
+
 ?>
 
 
@@ -44,6 +51,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 			</div> <!--End yasr-multi-set-left-->
 
 			<div class="yasr-multi-set-right">
+
 				<?php yasr_edit_multi_form(); ?>
 
 				<div id="yasr-multi-set-response" style="display:none">
@@ -167,50 +175,90 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery('.yasr-manage-multiset').toggle();
 		});
 
-
-		jQuery('#yasr-manage-multi-set-single').on('click', function() {
-			jQuery('.yasr-manage-multiset-single').toggle();
-		});
+		<?php if ($n_multi_set == 1) { ?>
 
 
-	    //If more then 1 set is used...
-		jQuery('#yasr_select_edit_set').on("change", function() {
-			    
-			    var data = {
-			    	action : 'yasr_get_multi_set',
-			    	set_id : jQuery(this).val()
-			    } 
-			    
-			    jQuery.post(ajaxurl, data, function(response) {
-			    	jQuery('#yasr-multi-set-response').show();
-			    	jQuery('#yasr-multi-set-response').toggle;
-     				jQuery('#yasr-multi-set-response').html(response);
-     			});
+			jQuery('#yasr-manage-multi-set-single').on('click', function() {
 
-		});
+				jQuery('.yasr-manage-multiset-single').toggle();
 
- 
-	jQuery(document).ajaxComplete(function(){
- 
-    	jQuery("#yasr-add-field-edit-multiset").on('click', function() {
- 
-			if(counter>9){
-           		jQuery('#yasr-element-limit').show();
-           		jQuery('#yasr-add-field-edit-multiset').hide();
-            	return false;
-			}   
- 
-			var newTextBoxDiv = jQuery(document.createElement('tr'))
- 
-			newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
- 
-			newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
- 
- 			counter++;
+				var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
 
-    	});
- 
-  	});
+		    	counter++;
+
+				jQuery("#yasr-add-field-edit-multiset").on('click', function() {
+
+					if(counter>9){
+			           		jQuery('#yasr-element-limit').show();
+			           		jQuery('#yasr-add-field-edit-multiset').hide();
+			            	return false;
+						}   
+			 
+						var newTextBoxDiv = jQuery(document.createElement('tr'))
+			 
+						newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+			 
+						newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+			 
+			 			counter++;
+
+			 	});
+
+			});
+
+		<?php 
+
+		} //End if ($n_multi_set == 1)
+
+		if ($n_multi_set > 1) { 
+
+		?>
+
+
+		    //If more then 1 set is used...
+			jQuery('#yasr_select_edit_set').on("change", function() {
+				    
+				    var data = {
+				    	action : 'yasr_get_multi_set',
+				    	set_id : jQuery(this).val()
+				    } 
+				    
+				    jQuery.post(ajaxurl, data, function(response) {
+				    	jQuery('#yasr-multi-set-response').show();
+				    	jQuery('#yasr-multi-set-response').toggle;
+	     				jQuery('#yasr-multi-set-response').html(response);
+	     			});
+
+			});
+
+	 
+			jQuery(document).ajaxComplete(function(){
+
+				var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
+
+		    	counter++;
+	 
+		    	jQuery("#yasr-add-field-edit-multiset").on('click', function() {
+		 
+					if(counter>9){
+		           		jQuery('#yasr-element-limit').show();
+		           		jQuery('#yasr-add-field-edit-multiset').hide();
+		            	return false;
+					}   
+		 
+					var newTextBoxDiv = jQuery(document.createElement('tr'))
+		 
+					newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+		 
+					newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+		 
+		 			counter++;
+
+		    	});
+	 
+	  		});
+
+	  	<?php } //End if ($n_multi_set > 1) ?>
 
 
 	//Terzo div code

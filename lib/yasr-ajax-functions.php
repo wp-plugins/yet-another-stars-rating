@@ -80,6 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
                     $set_type = $_POST['set_id'];
                     $post_id = $_POST['post_id'];
+                    $nonce_visitor = $_POST['nonce_visitor'];
                 }
                 else {
                     exit();
@@ -87,6 +88,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 if ( ! current_user_can( 'manage_options' ) ) {
                     wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
+                }
+
+                 if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
+                    die( 'Security check' ); 
                 }
 
                 global $wpdb;
@@ -475,7 +480,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             echo "
 
-            <input type=\"hidden\" name=\"yasr-edit-form-number-elements\" value=\"$i\">
+            <input type=\"hidden\" name=\"yasr-edit-form-number-elements\" id=\"yasr-edit-form-number-elements\" value=\"$i\">
 
             </table>
 
@@ -509,14 +514,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             <input type="submit" value="<?php _e('Save changes', 'yasr') ?>" class="button-primary" >
 
         </form>
-
-        <script type="text/javascript">
-
-        var counter = <?php echo "$i"; ?>;
-
-        counter = counter+1;
-
-        </script>
 
         <?php
 
@@ -657,6 +654,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 
 
+
 /****** 
         Display recent votes on dashboard, called from function yasr_display_dashboard_log_wiget,
         declared on yasr-db-function  ******/
@@ -674,6 +672,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         else {
             $page_num = 1;
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+                wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
         }
 
         $limit = 8; //max number of row to echo 
