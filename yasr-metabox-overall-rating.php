@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
   </div>
 
 <?php
-   	function yasr_overall_rating_javascript($nonce) {
+   	function yasr_overall_rating_javascript() {
 
       $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
 
