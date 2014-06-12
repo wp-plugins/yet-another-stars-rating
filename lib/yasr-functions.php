@@ -44,89 +44,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     	);
 	}
 
-	add_action( 'admin_init', 'yasr_multi_form_init' );
-
-	function yasr_multi_form_init() {
-    	register_setting(
-        	'yasr_multi_form', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
-        	'yasr_auto_insert_options' //The name of an option to sanitize and save.
-    	);
-
-    	$option = get_option( 'yasr_auto_insert_options' );
-
-    	//To avoid undifined index, i put here the default value
-    	if (!$option || !$option['enabled'] || !$option['what'] || !$option['where']) {
-    		$option['enabled']=0;
-    		$option['what']='overall_rating';
-    		$option['where']='top';
-    	}
-
-    	add_settings_section( 'yasr_auto_insert_section_id', __('Auto insert Settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
-    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
-    		add_settings_field( 'yasr_what_auto_insert', __('What?', 'yasr'), 'yasr_what_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
-       		add_settings_field( 'yasr_where_auto_insert', __('Where?', 'yasr'), 'yasr_where_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
-
-	}
-
-
-	function yasr_section_callback() {
-    	//_e('Manage auto insert', 'yasr');
-	}
-
-	function yasr_auto_insert_callback($option) {
-
-    	?>
-
-    	<?php _e('Yes', 'yasr') ?>
-    		<input type='radio' name='yasr_auto_insert_options[enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['enabled']==1) echo " checked=\"checked\" "; ?>  /> 
-			&nbsp;&nbsp;&nbsp;
-
-		<?php _e('No', 'yasr') ?>
-    		<input type='radio' name='yasr_auto_insert_options[enabled]' value='0' id='yasr_auto_insert_radio_off' 
-    		<?php if ($option['enabled']==0) {
-    				echo " checked=\"checked\" />";
-    				echo ("<script>
-    				jQuery( document ).ready(function() {
-    					jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
-    				});
-					</script>") ;
-    			}
-    		?> 
-    			  
-
-    <?php
-	} //End yasr_auto_insert_callback
-
-	function yasr_what_auto_insert_callback($option) {	
-		?>
-
-    	<input type="radio" name="yasr_auto_insert_options[what]" value="overall_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='overall_rating') echo " checked=\"checked\" "; ?> >
-    		<?php _e('Overall Rating / Author Rating', 'yasr') ?>
-   			<br />
-
-    	<input type="radio" name="yasr_auto_insert_options[what]" value="visitor_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
-    		<?php _e('Visitor Votes', 'yasr')?>
-   			<br />
-
-    	<input type="radio" name="yasr_auto_insert_options[what]" value="both" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='both') echo " checked=\"checked\" "; ?> >
-    		<?php _e('Both', 'yasr')?>
-
-    <?php
-	} //end function yasr_what_auto_insert_callback
-
-	function yasr_where_auto_insert_callback($option) {
-		?>
-
-		<input type="radio" name="yasr_auto_insert_options[where]" value="top" class="yasr_auto_insert_where_what_radio" <?php if ($option['where']==='top' ) echo " checked=\"checked\" ";  ?> >
-			<?php _e('Before the post', 'yasr')?>
-			<br />
-
-    	<input type="radio" name="yasr_auto_insert_options[where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['where']==='bottom') echo " checked=\"checked\" "; ?> >
-    		<?php _e('After the post', 'yasr')?>
-    		<br />
-
-    <?php
-	} //End function yasr_where_auto_insert_callback
 
 	// Settings Page Content 
 	function yasr_settings_page_callback () {
@@ -137,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
     <div class="wrap">
 
-        <h2>Settings API Demo</h2>
+        <h2>Yet Another Stars Rating: Settings</h2>
 
         <?php
 
@@ -168,15 +85,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     	}
         ?>
 
-        <div class="yasr-settingsdiv">
-        	<form action="options.php" method="post" id="yasr_settings_form">
-            	<?php
-            	settings_fields( 'yasr_multi_form' );
-            	do_settings_sections( 'yasr_settings_page' );
-            	submit_button( __('Save') );
-            	?>
-        	</form>
-        </div>
+
+	    <div class="yasr-settingsdiv">
+	        <form action="options.php" method="post" id="yasr_settings_form">
+	            <?php
+		            settings_fields( 'yasr_auto_insert_options_group' );
+		            settings_fields( 'yasr_choose_snippet_group' );		            
+		            do_settings_sections('yasr_settings_page' );
+	            	submit_button( __('Save') );
+	           	?>
+	       	</form>
+	    </div>
 
         <!--End div wrap is in yasr-settings-page-->
 
@@ -403,27 +322,72 @@ function yasr_edit_multi_form() {
 
 		$schema=NULL; //To avoid undefined variable notice outside the loop
 
-		$overall_rating=yasr_get_overall_rating();
+		$choosen_snippet = get_option( 'yasr_snippet_option' );
 
-		if($overall_rating && $overall_rating != '-1') {
+		if ($choosen_snippet['what'] == 'overall_rating') {
 
-			if(is_singular() && is_main_query() ) {
-				global $post;
+			$overall_rating=yasr_get_overall_rating();
 
-				$div = "<div itemprop=\"review\" itemscope itemtype=\"http://schema.org/Review\">";
-				$title = "<span itemprop=\"about\">". get_the_title($post->ID) ."</span>";
-				$author = __(' reviewed by ', 'yasr') . "<span itemprop=\"author\">" . get_the_author() . "</span>";
-				$date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
-				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"reviewRating\">" . $overall_rating . "</span>" . __(' on 5.0' , 'yasr');
-				$end_div= "</div>";
+			if($overall_rating && $overall_rating != '-1') {
 
-				$schema = $div . $title . $author . $date . $rating . $end_div;
+				if(is_singular() && is_main_query() ) {
+					global $post;
+
+					$div = "<div itemprop=\"review\" itemscope itemtype=\"http://schema.org/Review\">";
+					$title = "<span itemprop=\"about\">". get_the_title() ."</span>";
+					$author = __(' reviewed by ', 'yasr') . "<span itemprop=\"author\">" . get_the_author() . "</span>";
+					$date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
+					$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"reviewRating\">" . $overall_rating . "</span>" . __(' on 5.0' , 'yasr');
+					$end_div= "</div>";
+
+					$schema = $div . $title . $author . $date . $rating . $end_div;
+				}
+
+			} //END id if $overall_rating != '-1'
+
+			if( is_singular() && is_main_query() ) {
+				return $content . $schema;
 			}
+
+			else {
+				return $content;
+			}
+
+		} 
+
+		if ($choosen_snippet['what'] == 'visitor_rating') {
+
+			$visitor_rating = yasr_get_vistor_rating();
+
+			if ($visitor_rating['sum'] != 0) {
+
+				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
+
+				$average_rating=round($average_rating, 1);
+
+				$div_1 = "<div itemscope itemtype=\"http://schema.org/Product\">";
+				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
+				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
+				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>" . __(' out of' ,'yasr') . "<span itemprop=\"bestRating\">5</span>";
+				$n_ratings = __(' based on ', 'yasr') . "<span itemprop=\"ratingCount\">" . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
+				$end_span_1 = "</span>";
+				$end_div_1 = "</div>";
+
+				$schema = $div_1 . $title . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
+
+			}
+
+			if( is_singular() && is_main_query() ) {
+					return $content . $schema;
+				}
+
+				else {
+					return $content;
+				}
+
 		}
 
-		return $content . $schema;
-
-	} //END id if $overall_rating != '-1'
+	} //End function
 
 
 
