@@ -85,12 +85,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     	}
         ?>
 
+        <h2 class="nav-tab-wrapper">
+    		<a href="#" class="nav-tab">Display Options</a>
+    		<a href="#" class="nav-tab">Social Options</a>
+		</h2>
+
 
 	    <div class="yasr-settingsdiv">
 	        <form action="options.php" method="post" id="yasr_settings_form">
 	            <?php
 		            settings_fields( 'yasr_auto_insert_options_group' );
-		            settings_fields( 'yasr_choose_snippet_group' );		            
+		            //settings_fields( 'yasr_choose_snippet_group' );		            
 		            do_settings_sections('yasr_settings_page' );
 	            	submit_button( __('Save') );
 	           	?>
@@ -105,174 +110,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	} //End yasr_settings_page_content
 
-
-/****** Create a form for settings page to create new multi set ******/
-function yasr_display_multi_set_form() {
-	?>
-		
-		<h4 align="center">Add New Multiple Set</h4>
-		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
-		<p>
-		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
-			<strong><?php _e("Name", 'yasr')?></strong> 
-			<input type="text" name="multi-set-name" id="new-multi-set-name" class="input-text-multi-set">
-			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
-
-			<p></p>
-			<?php _e("You can insert up to nine element") ?>
-			<br />
-
-			<?php for($i=1; $i<=9; $i++) { 
-
-				echo "<strong>" . __("Element ", 'yasr') . "#$i" . "</strong>";
-				?>
-				<input type="text" name="multi-set-name-element-<?php echo $i ?>" id="multi-set-name-element-<?php echo $i ?>" class="input-text-multi-set">
-				<br />
-
-			<?php } //End foreach
-
-			wp_nonce_field( 'add-multi-set', 'add-nonce-new-multi-set' ) ?><!-- a little security to process on submission -->
-
-	       	<br />
-			<input type="submit" value="<?php _e("Create New Set", 'yasr') ?>" class="button-primary"/>
-		</form>
-
-	<?php 
-} //End function
-
-
-/****** This function print the form to edit multi-set ******/
-function yasr_edit_multi_form() {
-
-	$multi_set=yasr_get_multi_set();
-
-	global $wpdb;
-
-	$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
-
-	if ($n_multi_set > 1) {
-		?>
-
-			<button href="#" class="button-delete" id="yasr-manage-multi-set"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
-			<div class="yasr-manage-multiset">
-
-				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
-
-				<select id ="yasr_select_edit_set">
-    				<?php foreach ($multi_set as $name) { ?>
-		    		<option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
-	  				<?php } //End foreach ?>
-  				</select>
-					
-			</div>
-
-				<?php
-	} //End if n_multi_set >1
-
-	elseif ($n_multi_set == 1) {
-
-		$set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id, parent_set_id AS set_id
-		                            FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-		                            ORDER BY field_id ASC");
-
-		foreach ($multi_set as $find_set_id) {
-			$set_type = $find_set_id->set_id;
-		}
-
-		?>
-		
-			<button href="#" class="button-delete" id="yasr-manage-multi-set-single"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
-			<div class="yasr-manage-multiset-single">
-
-				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
-
-		        		<input type="hidden" name="yasr_edit_multi_set_form" value="<?php echo $set_type ?>" />
-
-						<table id="yasr-table-form-edit-multi-set">
-		                <tr>
-
-		                    <td id="yasr-table-form-edit-multi-set-header"> 
-		                         <?php _e('Field name', 'yasr') ?>
-		                    </td>
-
-		                     <td id="yasr-table-form-edit-multi-set-remove"> 
-		                        <?php _e('Remove', 'yasr') ?> 
-		                     </td>
-
-		                </tr>
-
-						<?php
-
-		       			$i=1;
-		        		foreach ($set_name as $name) {
-		                echo "
-		                <tr>
-		                    
-		                    <td width=\"80%\">
-		                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
-		                    </td>
-
-		                    <td width=\"20%\" style=\"text-align:center\">
-		                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
-		                    </td>
-
-		                </tr>
-		                ";
-		                $i++;
-		            }
-
-
-		            $i = $i-1; //This is the number of the fields
-
-		            echo "
-
-		            <input type=\"hidden\" name=\"yasr-edit-form-number-elements\" id=\"yasr-edit-form-number-elements\" value=\"$i\">
-
-		            </table>
-
-		            <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
-		            <tr>
-
-		                <td width=\"80%\">Remove whole set?</td>
-
-		                <td width=\"20%\" style=\"text-align:center\">
-		                    <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
-		                </td>
-
-		            </tr>
-
-		            </table>
-
-		            ";
-
-		            echo "<p>";
-		                _e("If you remove something you will remove all the votes for that set or field. This operation CAN'T BE undone." , "yasr");
-		            echo "</p>";
-
-		            wp_nonce_field( 'edit-multi-set', 'add-nonce-edit-multi-set' ) 
-
-		            ?>
-
-		            <div id="yasr-element-limit" style="display:none; color:red"><?php _e("You can use up to 9 elements" , "yasr") ?></div>
-
-		            <input type="button" class="button-delete" id="yasr-add-field-edit-multiset" value="<?php _e('Add element', 'yasr'); ?>"> 
-
-		            <input type="submit" value="<?php _e('Save changes', 'yasr') ?>" class="button-primary" >	
-
-				</form>
-
-			</div>
-
-		<?php
-	}
-
-	else {
-		_e("No multiple set were found");
-	}
-
-}//End function
 
 
 /****** Create 2 metaboxes in post and pages ******/
@@ -322,9 +159,14 @@ function yasr_edit_multi_form() {
 
 		$schema=NULL; //To avoid undefined variable notice outside the loop
 
-		$choosen_snippet = get_option( 'yasr_snippet_option' );
+		$choosen_snippet = get_option( 'yasr_auto_insert_options' );
 
-		if ($choosen_snippet['what'] == 'overall_rating') {
+		if(!$choosen_snippet) {
+			$choosen_snippet = array();
+			$choosen_snippet['snippet'] = 'overall_rating';
+		}
+
+		if ($choosen_snippet['snippet'] == 'overall_rating') {
 
 			$overall_rating=yasr_get_overall_rating();
 
@@ -355,7 +197,7 @@ function yasr_edit_multi_form() {
 
 		} 
 
-		if ($choosen_snippet['what'] == 'visitor_rating') {
+		if ($choosen_snippet['snippet'] == 'visitor_rating') {
 
 			$visitor_rating = yasr_get_vistor_rating();
 
@@ -368,7 +210,7 @@ function yasr_edit_multi_form() {
 				$div_1 = "<div itemscope itemtype=\"http://schema.org/Product\">";
 				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
 				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
-				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>" . __(' out of' ,'yasr') . "<span itemprop=\"bestRating\">5</span>";
+				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>" . __(' out of ' ,'yasr') . "<span itemprop=\"bestRating\">5</span>";
 				$n_ratings = __(' based on ', 'yasr') . "<span itemprop=\"ratingCount\">" . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
 				$end_span_1 = "</span>";
 				$end_div_1 = "</div>";
