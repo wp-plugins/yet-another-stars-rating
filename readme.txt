@@ -50,7 +50,7 @@ If with gd-star-rating you're using a different number of stars from the default
 == Changelog ==
 
 = 0.2.6 =
-* Many bug fixes on the setting page
+* Many bug fixes on the settings page
 
 = 0.2.5 =
 * Bug fix on multi set 
