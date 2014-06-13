@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.2.6
+Stable tag: 0.2.7
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,8 +49,9 @@ If with gd-star-rating you're using a different number of stars from the default
 
 == Changelog ==
 
-= 0.2.6 =
+= 0.2.7 =
 * Many bug fixes on the settings page
+* Minor change and code cleanup
 
 = 0.2.5 =
 * Bug fix on multi set 

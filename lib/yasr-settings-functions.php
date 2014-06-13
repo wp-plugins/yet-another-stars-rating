@@ -141,40 +141,6 @@
 		}
 
 
-
-/****** Add choose snippet option ******/
-
-/*
-
-	add_action( 'admin_init', 'yasr_choose_snippet_init' );
-
-		function yasr_choose_snippet_init() {
-
-			register_setting(
-				'yasr_choose_snippet_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
-				'yasr_snippet_option' //The name of an option to sanitize and save.
-				);
-
-			$choosen_snippet = get_option( 'yasr_snippet_option' );
-
-			if (!$choosen_snippet || !$choosen_snippet['what']) {
-	    		$choosen_snippet['what']='overall_rating';
-	    	}
-
-			add_settings_section('yasr_choose_snippet_section_id', __('What rich snippets do you want to use?', 'yasr'), 'yasr_snippet_section_callback', 'yasr_settings_page');
-				add_settings_field( 'yasr_choose_snippet_id', __('Choose one', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_choose_snippet_section_id', $choosen_snippet );
-
-		}
-
-
-		function yasr_snippet_section_callback() {
-		}
-*/
-
-		
-
-
-
 /****** Create a form for settings page to create new multi set ******/
 function yasr_display_multi_set_form() {
 	?>
