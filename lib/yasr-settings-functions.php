@@ -27,6 +27,10 @@
 	    		$option['where']='top';
 	    	}
 
+	    	if ($option && !$option['snippet']) {
+	    		$option['snippet']='overall_rating';
+	    	}
+
 
 	    	add_settings_section( 'yasr_auto_insert_section_id', __('Auto insert Settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
