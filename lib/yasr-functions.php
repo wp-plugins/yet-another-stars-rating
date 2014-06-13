@@ -85,12 +85,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     	}
         ?>
 
-        <h2 class="nav-tab-wrapper">
-    		<a href="#" class="nav-tab">Display Options</a>
-    		<a href="#" class="nav-tab">Social Options</a>
-		</h2>
-
-
 	    <div class="yasr-settingsdiv">
 	        <form action="options.php" method="post" id="yasr_settings_form">
 	            <?php
