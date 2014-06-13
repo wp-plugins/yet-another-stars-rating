@@ -80,7 +80,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
                     $set_type = $_POST['set_id'];
                     $post_id = $_POST['post_id'];
-                    $nonce_visitor = $_POST['nonce_visitor'];
                 }
                 else {
                     exit();
@@ -88,10 +87,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 if ( ! current_user_can( 'manage_options' ) ) {
                     wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
-                }
-
-                 if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
-                    die( 'Security check' ); 
                 }
 
                 global $wpdb;
@@ -826,10 +821,15 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if(isset($_POST['rating']) && isset($_POST['post_id'])) {
                 $rating = $_POST['rating'];
                 $post_id = $_POST['post_id'];
+                $nonce_visitor = $_POST['nonce_visitor'];
             }
             else {
                 exit();
             }
+
+            if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
+                    die( 'Security check' ); 
+                }
 
             $row_exists_result=NULL; //Avoid Undefined variable notice
             $new_row_result=NULL; ////Avoid Undefined variable notice
