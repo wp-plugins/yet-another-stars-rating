@@ -12,7 +12,7 @@ Yet Another Stars Rating is a simple plugin which allows you and / or your visit
 == Description ==
 Yet Another Stars Rating (YASR) is a new system review based on jquery plugin RateIT. 
 With YASR you can make your own review or let your visitors vote, and you can even create multiple sets (a set of stars for each aspect to
-rate). Review scores will be indexed by search engines through snippets .
+rate). Review scores or visitor ratings will be indexed by search engines through snippets .
 Most important, if you are a gd star rating user, with YASR you can import all the data from gd star rating (which isn't maintained anymore).
 
 = How To use =
