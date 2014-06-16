@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.2.6
+Stable tag: 0.2.8
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Yet Another Stars Rating is a simple plugin which allows you and / or your visit
 == Description ==
 Yet Another Stars Rating (YASR) is a new system review based on jquery plugin RateIT. 
 With YASR you can make your own review or let your visitors vote, and you can even create multiple sets (a set of stars for each aspect to
-rate). Review scores will be indexed by search engines through snippets .
+rate). Review scores or visitor ratings will be indexed by search engines through snippets .
 Most important, if you are a gd star rating user, with YASR you can import all the data from gd star rating (which isn't maintained anymore).
 
 = How To use =
@@ -49,8 +49,12 @@ If with gd-star-rating you're using a different number of stars from the default
 
 == Changelog ==
 
-= 0.2.6 =
+= 0.2.8 =
+* Settings page has been rewritten: now it use multi tab navigation
+
+= 0.2.7 =
 * Many bug fixes on the settings page
+* Minor change and code cleanup
 
 = 0.2.5 =
 * Bug fix on multi set 

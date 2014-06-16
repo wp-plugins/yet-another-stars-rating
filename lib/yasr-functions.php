@@ -50,55 +50,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     	if ( ! current_user_can( 'manage_options' ) ) {
         	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
     	}
-?>
-
-    <div class="wrap">
-
-        <h2>Yet Another Stars Rating: Settings</h2>
-
-        <?php
-
-        $error_new_multi_set=yasr_process_new_multi_set_form(); //defined in yasr-db-functions
-
-        $error_edit_multi_set=yasr_process_edit_multi_set_form(); //defined in yasr-db-functions
-
-        if ($error_new_multi_set) {
-        	echo "<div class=\"error\"> <p> <strong>";
-
-          		foreach ($error_new_multi_set as $error) {
-          			_e($error, 'yasr'); 
-          			echo "<br />";
-          		}
-
-    		echo "</strong></p></div>"; 
-    	}
-
-        if ($error_edit_multi_set) {
-        	echo "<div class=\"error\"> <p> <strong>";
-
-          		foreach ($error_edit_multi_set as $error) {
-          			_e($error, 'yasr'); 
-          			echo "<br />";
-          		}
-
-    		echo "</strong></p></div>"; 
-    	}
-        ?>
-
-	    <div class="yasr-settingsdiv">
-	        <form action="options.php" method="post" id="yasr_settings_form">
-	            <?php
-		            settings_fields( 'yasr_auto_insert_options_group' );
-		            //settings_fields( 'yasr_choose_snippet_group' );		            
-		            do_settings_sections('yasr_settings_page' );
-	            	submit_button( __('Save') );
-	           	?>
-	       	</form>
-	    </div>
-
-        <!--End div wrap is in yasr-settings-page-->
-
-<?php
 
 	include(YASR_ABSOLUTE_PATH  . '/yasr-settings-page.php');
 
@@ -141,90 +92,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		}
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
 	}
-
-
-
-
-/****** Add review schema data at the end of the post *******/
-
-	add_filter('the_content', 'yasr_add_overall_rating_schema');
-
-	function yasr_add_overall_rating_schema($content) {
-
-		$schema=NULL; //To avoid undefined variable notice outside the loop
-
-		$choosen_snippet = get_option( 'yasr_auto_insert_options' );
-
-		if(!$choosen_snippet) {
-			$choosen_snippet = array();
-			$choosen_snippet['snippet'] = 'overall_rating';
-		}
-
-		if ($choosen_snippet['snippet'] == 'overall_rating') {
-
-			$overall_rating=yasr_get_overall_rating();
-
-			if($overall_rating && $overall_rating != '-1') {
-
-				if(is_singular() && is_main_query() ) {
-					global $post;
-
-					$div = "<div itemprop=\"review\" itemscope itemtype=\"http://schema.org/Review\">";
-					$title = "<span itemprop=\"about\">". get_the_title() ."</span>";
-					$author = __(' reviewed by ', 'yasr') . "<span itemprop=\"author\">" . get_the_author() . "</span>";
-					$date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
-					$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"reviewRating\">" . $overall_rating . "</span>" . __(' on 5.0' , 'yasr');
-					$end_div= "</div>";
-
-					$schema = $div . $title . $author . $date . $rating . $end_div;
-				}
-
-			} //END id if $overall_rating != '-1'
-
-			if( is_singular() && is_main_query() ) {
-				return $content . $schema;
-			}
-
-			else {
-				return $content;
-			}
-
-		} 
-
-		if ($choosen_snippet['snippet'] == 'visitor_rating') {
-
-			$visitor_rating = yasr_get_vistor_rating();
-
-			if ($visitor_rating['sum'] != 0) {
-
-				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
-
-				$average_rating=round($average_rating, 1);
-
-				$div_1 = "<div itemscope itemtype=\"http://schema.org/Product\">";
-				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
-				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
-				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>" . __(' out of ' ,'yasr') . "<span itemprop=\"bestRating\">5</span>";
-				$n_ratings = __(' based on ', 'yasr') . "<span itemprop=\"ratingCount\">" . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
-				$end_span_1 = "</span>";
-				$end_div_1 = "</div>";
-
-				$schema = $div_1 . $title . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
-
-			}
-
-			if( is_singular() && is_main_query() ) {
-					return $content . $schema;
-				}
-
-				else {
-					return $content;
-				}
-
-		}
-
-	} //End function
-
 
 
 /****** Auto insert shortcode  ******/
@@ -292,6 +159,86 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	} //End function yasr_auto_insert_shortcode_callback
 
+
+/****** Add review schema data at the end of the post *******/
+
+	add_filter('the_content', 'yasr_add_overall_rating_schema');
+
+	function yasr_add_overall_rating_schema($content) {
+
+		$schema=NULL; //To avoid undefined variable notice outside the loop
+
+		$choosen_snippet = get_option( 'yasr_auto_insert_options' );
+
+		if(!$choosen_snippet) {
+			$choosen_snippet = array();
+			$choosen_snippet['snippet'] = 'overall_rating';
+		}
+
+		if ($choosen_snippet['snippet'] == 'overall_rating') {
+
+			$overall_rating=yasr_get_overall_rating();
+
+			if($overall_rating && $overall_rating != '-1') {
+
+				if(is_singular() && is_main_query() ) {
+					global $post;
+
+					$div = "<div itemprop=\"review\" itemscope itemtype=\"http://schema.org/Review\">";
+					$title = "<span itemprop=\"about\">". get_the_title() ."</span>";
+					$author = __(' reviewed by ', 'yasr') . "<span itemprop=\"author\">" . get_the_author() . "</span>";
+					$date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
+					$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"reviewRating\">" . $overall_rating . "</span>" . __(' on 5.0' , 'yasr');
+					$end_div= "</div>";
+
+					$schema = $div . $title . $author . $date . $rating . $end_div;
+				}
+
+			} //END id if $overall_rating != '-1'
+
+			if( is_singular() && is_main_query() ) {
+				return $content . $schema;
+			}
+
+			else {
+				return $content;
+			}
+
+		}  //end if ($choosen_snippet['snippet'] == 'overall_rating')
+
+		if ($choosen_snippet['snippet'] == 'visitor_rating') {
+
+			$visitor_rating = yasr_get_vistor_rating();
+
+			if ($visitor_rating['sum'] != 0) {
+
+				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
+
+				$average_rating=round($average_rating, 1);
+
+				$div_1 = "<div itemscope itemtype=\"http://schema.org/Product\">";
+				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
+				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
+				$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>" . __(' out of ' ,'yasr') . "<span itemprop=\"bestRating\">5</span>";
+				$n_ratings = __(' based on ', 'yasr') . "<span itemprop=\"ratingCount\">" . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
+				$end_span_1 = "</span>";
+				$end_div_1 = "</div>";
+
+				$schema = $div_1 . $title . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
+
+			}
+
+			if( is_singular() && is_main_query() ) {
+					return $content . $schema;
+			}
+
+			else {
+					return $content;
+			}
+
+		}
+
+	} //End function
 
 
 /****** Create a new button in Tinymce for use shortag
