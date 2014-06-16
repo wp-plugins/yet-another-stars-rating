@@ -141,45 +141,11 @@
 		}
 
 
-
-/****** Add choose snippet option ******/
-
-/*
-
-	add_action( 'admin_init', 'yasr_choose_snippet_init' );
-
-		function yasr_choose_snippet_init() {
-
-			register_setting(
-				'yasr_choose_snippet_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
-				'yasr_snippet_option' //The name of an option to sanitize and save.
-				);
-
-			$choosen_snippet = get_option( 'yasr_snippet_option' );
-
-			if (!$choosen_snippet || !$choosen_snippet['what']) {
-	    		$choosen_snippet['what']='overall_rating';
-	    	}
-
-			add_settings_section('yasr_choose_snippet_section_id', __('What rich snippets do you want to use?', 'yasr'), 'yasr_snippet_section_callback', 'yasr_settings_page');
-				add_settings_field( 'yasr_choose_snippet_id', __('Choose one', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_choose_snippet_section_id', $choosen_snippet );
-
-		}
-
-
-		function yasr_snippet_section_callback() {
-		}
-*/
-
-		
-
-
-
 /****** Create a form for settings page to create new multi set ******/
 function yasr_display_multi_set_form() {
 	?>
 		
-		<h4 align="center">Add New Multiple Set</h4>
+		<h4 class="yasr-multi-set-form-headers">Add New Multiple Set</h4>
 		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
 		<p>
 		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
@@ -223,9 +189,9 @@ function yasr_edit_multi_form() {
 	if ($n_multi_set > 1) {
 		?>
 
-			<button href="#" class="button-delete" id="yasr-manage-multi-set"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
 			<div class="yasr-manage-multiset">
+
+				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
 
 				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
 
@@ -252,9 +218,9 @@ function yasr_edit_multi_form() {
 
 		?>
 		
-			<button href="#" class="button-delete" id="yasr-manage-multi-set-single"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
 			<div class="yasr-manage-multiset-single">
+
+				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
 
 				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
 
