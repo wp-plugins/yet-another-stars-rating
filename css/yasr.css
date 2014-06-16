@@ -9,12 +9,13 @@
 
 
 h2.nav-tab-wrapper, h3.nav-tab-wrapper {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 .nav-tab-active, .nav-tab-active:hover {
-    background-color: white;
+    background-color: white !important;
 }
+
 
 @media (min-width: 972px) {
 
