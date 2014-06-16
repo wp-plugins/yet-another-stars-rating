@@ -145,7 +145,7 @@
 function yasr_display_multi_set_form() {
 	?>
 		
-		<h4 align="center">Add New Multiple Set</h4>
+		<h4 class="yasr-multi-set-form-headers">Add New Multiple Set</h4>
 		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
 		<p>
 		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
@@ -189,9 +189,9 @@ function yasr_edit_multi_form() {
 	if ($n_multi_set > 1) {
 		?>
 
-			<button href="#" class="button-delete" id="yasr-manage-multi-set"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
 			<div class="yasr-manage-multiset">
+
+				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
 
 				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
 
@@ -218,9 +218,9 @@ function yasr_edit_multi_form() {
 
 		?>
 		
-			<button href="#" class="button-delete" id="yasr-manage-multi-set-single"> <?php _e("Manage existing multi-set", 'yasr'); ?> </button>
-
 			<div class="yasr-manage-multiset-single">
+
+				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
 
 				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
 
