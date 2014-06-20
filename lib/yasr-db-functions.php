@@ -280,6 +280,9 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 				}
 
 				echo "...&nbsp;&nbsp;<button class=\"yasr-log-pagenum\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
+
+				echo "<span id=\"yasr-loader-log-metabox\" style=\"display:none\">&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>";
+
 			}
 
 			echo "
@@ -297,6 +300,8 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 		//Log
 		jQuery('.yasr-log-pagenum').on('click', function() {
 
+			jQuery('#yasr-loader-log-metabox').show();
+
 			var data = { 
 				action : 'yasr_change_log_page',
 				pagenum: jQuery(this).val(),
@@ -304,6 +309,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 			};
 
 			jQuery.post(ajaxurl, data, function(response) {
+				jQuery('yasr-loader-log-metabox').hide();
 				jQuery('#yasr-log-container').html(response);
 			});
 
@@ -313,13 +319,15 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			jQuery('.yasr-log-page-num').on('click', function() {
 
+				jQuery('#yasr-loader-log-metabox').show();
+
 				var data = { 
 					action : 'yasr_change_log_page',
 					pagenum: jQuery(this).val(),
-
 				};
 
 				jQuery.post(ajaxurl, data, function(response) {
+					jQuery('yasr-loader-log-metabox').hide();
 					jQuery('#yasr-log-container').html(response);
 				});
 

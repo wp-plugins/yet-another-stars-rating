@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     <div class="rateit bigstars" id="yasr_rateit_overall" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-value="<?php echo $overall_rating ?>" data-rateit-step="0.1" data-rateit-resetable="true" data-rateit-readonly="false">
     </div>
 
+    <div id="loader-overall-rating" style="display:none;" >&nbsp;<?php _e("Loading, please wait","yasr"); ?><img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+    </div>
+
 </p>
 
 	<div>
@@ -36,43 +39,49 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 ?>
 	<script>
-   		jQuery(document).ready(function($) {
-   			$('#yasr_rateit_overall').on('rated', function() { 
-   				var el = jQuery(this);
-   				var postid = <?php the_ID(); ?>;
-  				var value = el.rateit('value');
-   				var value = value.toFixed(1); //
+   		jQuery(document).ready(function() {
 
-   				var data = {
-   					action: 'yasr_send_overall_rating',
-            nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
-   					rating: value,
-   					post_id: postid
-   				};
+     			jQuery('#yasr_rateit_overall').on('rated', function() { 
+            jQuery('#loader-overall-rating').show();
+     				var el = jQuery(this);
+     				var postid = <?php the_ID(); ?>;
+    				var value = el.rateit('value');
+     				var value = value.toFixed(1); //
 
-  				//Send value to the Server
-  				$.post(ajaxurl, data, function(response) {
-  					 jQuery('#yasr_rateit_overall_value').text('You\'ve rated it: ' + value); 
-  				}) ;
- 			});
+     				var data = {
+     					action: 'yasr_send_overall_rating',
+              nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
+     					rating: value,
+     					post_id: postid
+     				};
 
-   			$('#yasr_rateit_overall').on('reset', function() { 
-   				var el = jQuery(this);
-   				var postid = <?php the_ID(); ?>;
-  				var value = '-1';
+    				//Send value to the Server
+    				jQuery.post(ajaxurl, data, function(response) {
+              jQuery('#loader-overall-rating').hide();
+    					jQuery('#yasr_rateit_overall_value').text('You\'ve rated it: ' + value); 
+    				}) ;
 
-   				var data = {
-   					action: 'yasr_send_overall_rating',
-            nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
-   					rating: value,
-   					post_id: postid
-   				};
+   			  });
 
-  				//Send value to the Server
-  				$.post(ajaxurl, data, function(response) {
-  					 jQuery('#yasr_rateit_overall_value').text('You\'ve reset the vote'); 
-  				}) ;
- 			});
+     			jQuery('#yasr_rateit_overall').on('reset', function() { 
+            jQuery('#loader-overall-rating').show();
+     				var el = jQuery(this);
+     				var postid = <?php the_ID(); ?>;
+    				var value = '-1';
+
+     				var data = {
+     					action: 'yasr_send_overall_rating',
+              nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
+     					rating: value,
+     					post_id: postid
+     				};
+
+    				//Send value to the Server
+    				jQuery.post(ajaxurl, data, function(response) {
+              jQuery('#loader-overall-rating').hide();
+    					jQuery('#yasr_rateit_overall_value').text('You\'ve reset the vote'); 
+    				}) ;
+   			  });
 
    		});
 	</script>        

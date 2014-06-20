@@ -334,7 +334,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 					           		jQuery('#yasr-element-limit').show();
 					           		jQuery('#yasr-add-field-edit-multiset').hide();
 					            	return false;
-								}   
+							}   
 					 
 								var newTextBoxDiv = jQuery(document.createElement('tr'))
 					 
@@ -356,23 +356,23 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 				?>
 
-
 				    //If more then 1 set is used...
-					jQuery('#yasr_select_edit_set').on("change", function() {
+					jQuery('#yasr-button-select-set-edit-form').on("click", function() {
 						    
 						    var data = {
 						    	action : 'yasr_get_multi_set',
-						    	set_id : jQuery(this).val()
+						    	set_id : jQuery('#yasr_select_edit_set').val()
 						    } 
 						    
 						    jQuery.post(ajaxurl, data, function(response) {
 						    	jQuery('#yasr-multi-set-response').show();
-						    	jQuery('#yasr-multi-set-response').toggle;
 			     				jQuery('#yasr-multi-set-response').html(response);
 			     			});
 
-					});
+			     			return false; // prevent default click action from happening!
+  	                        e.preventDefault(); // same thing as above
 
+					});
 			 
 					jQuery(document).ajaxComplete(function(){
 
