@@ -50,11 +50,15 @@ function shortcode_visitor_votes_callback () {
             }
       }
 
-    	$medium_rating=round($medium_rating, 1);
+      $image = YASR_IMG_DIR . "/loader.gif";
+
+      $loader_html = "<div id=\"loader-visitor-rating\" >&nbsp; " . __("Loading, please wait","yasr") . " <img src= \" $image \"></div>";
+
+    	 $medium_rating=round($medium_rating, 1);
 
           if ($votes_number>0) {
-        	    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-        	    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
+              $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+              </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
           }
 
           else {
@@ -63,10 +67,10 @@ function shortcode_visitor_votes_callback () {
           }
 
 
-    	?>
+      ?>
 
-    	<script>
-    	jQuery(document).ready(function() {
+      <script>
+      jQuery(document).ready(function() {
 
             var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
             jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
@@ -79,25 +83,27 @@ function shortcode_visitor_votes_callback () {
 
                 jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
                     var el = jQuery(this);
-      				      var value = el.rateit('value');
-       				      var value = value.toFixed(1); //
-       				      var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+                    var value = el.rateit('value');
+                    var value = value.toFixed(1); //
+                    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
-       				      var data = {
-       					        action: 'yasr_send_visitor_rating',
-       					        rating: value,
-       					        post_id: postid,
+                    jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
+
+                    var data = {
+                        action: 'yasr_send_visitor_rating',
+                        rating: value,
+                        post_id: postid,
                         nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
-       				      };
+                    };
 
-      				      //Send value to the Server
-      				      jQuery.post(ajaxurl, data, function(response) {
-      					        jQuery('#yasr_visitor_votes').html(response); 
-      					        jQuery('.rateit').rateit();
+                    //Send value to the Server
+                    jQuery.post(ajaxurl, data, function(response) {
+                        jQuery('#yasr_visitor_votes').html(response); 
+                        jQuery('.rateit').rateit();
                         //Create a cookie to disable double vote
                         jQuery.cookie(cookiename, value, { expires : 360 }); 
                     }) ;          
-     			      });
+                });
             } //End if (!jQuery.cookie(cookiename))
 
             //Else user cannot vote
@@ -121,7 +127,7 @@ function shortcode_visitor_votes_callback () {
 
       });
 
-     	</script>
+      </script>
 
  	<?php
 

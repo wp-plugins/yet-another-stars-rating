@@ -200,6 +200,9 @@ function yasr_edit_multi_form() {
 		    		<option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
 	  				<?php } //End foreach ?>
   				</select>
+
+  				<button href="#" class="button-delete" id="yasr-button-select-set-edit-form"><?php _e("Select"); ?></button>
+
 					
 			</div>
 
