@@ -71,7 +71,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 		    <div class="yasr-settingsdiv">
 		        <form action="options.php" method="post" id="yasr_settings_form">
 		            <?php
-			            settings_fields( 'yasr_auto_insert_options_group' );
+			            settings_fields( 'yasr_general_options_group' );
 			            do_settings_sections('yasr_settings_page' );
 		            	submit_button( __('Save') );
 		           	?>
