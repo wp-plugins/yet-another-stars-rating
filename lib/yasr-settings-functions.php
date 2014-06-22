@@ -109,7 +109,7 @@
 	    	?>
 
 			<input type='radio' name='yasr_general_options[allowed_user]' value='logged_only' class='yasr_auto_insert_loggedonly' <?php if ($option['allowed_user']==='logged_only') echo " checked=\"checked\" "; ?>  /> 
-				<?php _e('Allow logged only users', 'yasr')?>
+				<?php _e('Allow only logged-in users', 'yasr')?>
 				<br />
 
 			<input type='radio' name='yasr_general_options[allowed_user]' value='allow_anonymous' class='yasr_auto_insert_loggedonly' <?php if ($option['allowed_user']==='allow_anonymous') echo " checked=\"checked\" "; ?>  /> 
