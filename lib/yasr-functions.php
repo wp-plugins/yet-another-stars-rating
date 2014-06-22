@@ -100,9 +100,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_auto_insert_shortcode_callback($content) {
 
-		$option = get_option( 'yasr_auto_insert_options' );
+		$option = get_option( 'yasr_general_options' );
 
-		if ($option['enabled'] == 1) {
+		if ($option['auto_insert_enabled'] == 1) {
 
 			$auto_insert_shortcode=NULL; //To avoid undefined variable notice outside the loop (if (is_singular) )
 
@@ -111,8 +111,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 				$overall_rating_shortcode='[yasr_overall_rating]';
 				$visitor_votes_shortcode='[yasr_visitor_votes]';
 
-				if ($option['what']=='overall_rating') {
-					switch ($option['where']) {
+				if ($option['auto_insert_what']==='overall_rating') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
 							return $overall_rating_shortcode . $content;
 							break;
@@ -123,8 +123,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 					} //End Switch
 				} //end ($option['what']=='overall_rating')
 
-				elseif ($option['what']=='visitor_rating') {
-					switch ($option['where']) {
+				elseif ($option['auto_insert_what']==='visitor_rating') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
 							return $visitor_votes_shortcode . $content;
 							break;
@@ -135,8 +135,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 					} //End Switch
 				}
 
-				elseif ($option['what']=='both') {
-					switch ($option['where']) {
+				elseif ($option['auto_insert_what']==='both') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
 							return $overall_rating_shortcode . $visitor_votes_shortcode . $content;
 							break;
@@ -168,7 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 		$schema=NULL; //To avoid undefined variable notice outside the loop
 
-		$choosen_snippet = get_option( 'yasr_auto_insert_options' );
+		$choosen_snippet = get_option( 'yasr_general_options' );
 
 		if(!$choosen_snippet) {
 			$choosen_snippet = array();
