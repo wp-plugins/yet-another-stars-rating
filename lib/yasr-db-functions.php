@@ -341,4 +341,41 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 	} //End callback function
 
+
+
+/****** Check if a logged in user has already rated. Return user vote for a post if exists  ******/
+
+function yasr_check_if_user_already_voted() {
+	global $wpdb;
+
+	global $current_user;
+    get_currentuserinfo();
+
+    $user_id = $current_user->ID;
+
+    $post_id = get_the_ID();
+
+    $result = $wpdb->get_results("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE post_id=$post_id AND user_id=$user_id ORDER BY id DESC LIMIT 1 ");
+
+    if ($result) {
+
+    	foreach ($result as $row) {
+
+    		$vote = $row->vote;
+
+    	}
+
+    	return $vote;
+
+    }
+
+    else {
+
+    	return FALSE;
+
+    }
+
+
+}
+
 ?>

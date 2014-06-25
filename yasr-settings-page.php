@@ -5,7 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 if ( !current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ));
 }
+
 ?>
+
+
 
 	<div class="wrap">
 
@@ -64,7 +67,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
         <?php 
 
-        if ($active_tab=='general_settings') {
+        if ($active_tab == 'general_settings') {
 
         ?>
 
@@ -175,7 +178,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 	<?php 
 
-	if ($active_tab=='manage_multi') {
+	if ($active_tab == 'manage_multi') {
 
 		$multi_set=yasr_get_multi_set();
 
@@ -293,7 +296,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 
    <script type="text/javascript">
 
-	//First Div code
+	//-------------------General Settings Code---------------------
+
+	//First Div
 		jQuery('#yasr_auto_insert_radio_on').on('click', function(){
 			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', false);
 		});
@@ -302,13 +307,56 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
 		});
 
+		jQuery('#yasr-snippet-explained-link').on('click', function () {
+			jQuery('#yasr-snippet-explained').toggle('slow');
+		});
+
+
+	//Second div code
+
+		//On click show proceed button
+		jQuery('#import-gdstar').on('click', function() { 
+			jQuery('#yasr-import-gdstar-div').toggle();
+		});
+
+		//On click begin step1
+		jQuery('#import-button').on('click', function() {
+
+			var data = { 
+				action : 'yasr_import_step1'
+			};
+
+			jQuery.post(ajaxurl, data, function(response) {
+				jQuery('#result-import').html(response);
+			});
+
+		}); //End step1
+
+		jQuery('#result-import').on('click', '.yasr-result-step-1', function() {
+			//Now we are going to prepare another ajax call to check if multiple set exists
+
+			var data = {
+				action: 'yasr_import_multi_set'
+			};
+				
+			jQuery.post(ajaxurl, data, function(response) {
+				jQuery('#result-import').append(response);
+			});
+
+		}); //End second ajax call */
+
+		//Reload page after importing is done
+		jQuery('#result-import').on('click', '.yasr-result-step-2', function() {
+			location.reload(true);
+		});
 
 <?php 
 
-		if ($active_tab=='manage_multi') { 
+		//--------------Multi Sets Page ------------------
+
+		if ($active_tab==='manage_multi') { 
 			?>
 
-			//Second div code
 				jQuery('#yasr-multi-set-doc-link').on('click', function() {
 					jQuery('#yasr-multi-set-doc-box').toggle("slow");
 				});
@@ -406,44 +454,5 @@ if ( !current_user_can( 'manage_options' ) ) {
 		} //end if $active_tab=='manage_multi'
 		  	
 ?>
-
-
-	//Terzo div code
-
-		//On click show proceed button
-		jQuery('#import-gdstar').on('click', function() { 
-			jQuery('#yasr-import-gdstar-div').toggle();
-		});
-
-		//On click begin step1
-		jQuery('#import-button').on('click', function() {
-
-			var data = { 
-				action : 'yasr_import_step1'
-			};
-
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#result-import').html(response);
-			});
-
-		}); //End step1
-
-		jQuery('#result-import').on('click', '.yasr-result-step-1', function() {
-			//Now we are going to prepare another ajax call to check if multiple set exists
-
-			var data = {
-				action: 'yasr_import_multi_set'
-			};
-				
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#result-import').append(response);
-			});
-
-		}); //End second ajax call */
-
-		//Reload page after importing is done
-		jQuery('#result-import').on('click', '.yasr-result-step-2', function() {
-			location.reload(true);
-		});
  		
  </script>

@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,12 +42,15 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Yet Another Star Rating menu in Settings and set your options.
 
-
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.3.1 =
+* Avoid multiple vote in a same post for logged in user
+* Bug fixes and cleanup
 
 = 0.3.0 =
 * Now admin can choose if allow only logged in users to vote or logged in and anonymous

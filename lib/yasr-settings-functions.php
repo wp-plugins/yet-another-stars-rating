@@ -138,8 +138,11 @@
 		    		<?php _e('Aggregate Rating', 'yasr')?>
 		   			<br />
 
-		   		<div class="yasr_snippet_explained">
-		   			<p>&nbsp;</p>
+		   			<br />
+
+		   		<a href="#" id="yasr-snippet-explained-link"><?php _e("What is this?", "yasr") ?></a>
+
+		   		<div id="yasr-snippet-explained" style="display:none">
 		   			<?php 
 
 		   				_e("If you select \"Review Rating\", your site will be indexed from search engines like this: ", "yasr");
