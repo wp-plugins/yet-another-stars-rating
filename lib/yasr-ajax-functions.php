@@ -95,96 +95,112 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 //If this is a new post or post has no multi values data
                 if (!$set_values) {
-                        echo "<p>";
+                    echo "<p>";
 
-                        _e('Choose a vote for each element', 'yasr');
+                    _e('Choose a vote for each element', 'yasr');
 
-                        echo "
+                    echo "
 
-                        <br /> <br />
+                    <br /> <br />
 
-                        <table class=\"yasr_table_multi_set_admin\">";
-                        //Get Set fields name
-                        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
-                            FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                            WHERE parent_set_id=$set_type 
-                            ORDER BY field_id ASC");
+                    <table class=\"yasr_table_multi_set_admin\">";
+                    //Get Set fields name
+                    $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+                        FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
+                        WHERE parent_set_id=$set_type 
+                        ORDER BY field_id ASC");
 
-                        foreach ($set_name as $name) {
+                    foreach ($set_name as $name) {
 
-                            //get the highest id in table
-                            $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
-                
-                            if (!$highest_id) {
-                                $new_id=0;
-                            }
-
-                            foreach ($highest_id as $id) {
-                               $new_id=$id->id + 1;
-                            }
-
-                            $query_success=$wpdb->replace(
-                            YASR_MULTI_SET_VALUES_TABLE,
-                            array (
-                                    'id'=>$new_id,
-                                    'post_id'=>$post_id,
-                                    'field_id'=>$name->id,
-                                    'votes'=>'-1',
-                                    'set_type'=>$set_type
-                                    ),
-                            array ("%d", "%d", "%d", "%s", "%d")
-                            );
-
-                            echo "<tr> <td>";
-                            echo "$name->name </td>"; 
-                            echo "<td> <div class=\"rateit bigstars multi\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td>";
-                            echo "</tr>";
+                        //get the highest id in table
+                        $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+            
+                        if (!$highest_id) {
+                            $new_id=0;
                         }
-                        echo "</table>
 
-                        </p>";
+                        foreach ($highest_id as $id) {
+                           $new_id=$id->id + 1;
+                        }
 
-                        echo "<p>";
+                        $query_success=$wpdb->replace(
+                        YASR_MULTI_SET_VALUES_TABLE,
+                        array (
+                                'id'=>$new_id,
+                                'post_id'=>$post_id,
+                                'field_id'=>$name->id,
+                                'votes'=>'-1',
+                                'set_type'=>$set_type
+                                ),
+                        array ("%d", "%d", "%d", "%s", "%d")
+                        );
 
-                        _e("Remember to insert this shortcode", "yasr"); 
-                        echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
-                        _e("where you want to display this multi set", "yasr");
+                        echo "<tr> <td>";
+                        echo "$name->name </td>"; 
+                        echo "<td> 
+                                <div class=\"rateit bigstars multi\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div>
+                              
+                                <span id=\"yasr-loader-multi-set-field-$set_content->id\" style=\"display:none;\" >&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>
+                              </td>
+                              </tr>";
 
-                        echo "</p>";
+                    
+                    } //End foreach
+
+                    echo "</table>
+
+                    </p>";
+
+                    echo "<p>";
+
+                    _e("Remember to insert this shortcode", "yasr"); 
+                    echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
+                    _e("where you want to display this multi set", "yasr");
+
+                    echo "</p>";
 
                 } //
 
                 //else means that post already has vote and here I show it
                 else {
+                    _e('Choose a vote for every element', 'yasr');
 
-                        _e('Choose a vote for every element', 'yasr');
+                    echo "<table class=\"yasr_table_multi_set_admin\">";
 
-                        echo "<table class=\"yasr_table_multi_set_admin\">";
-                        foreach ($set_values as $set_content) {
-                                echo "<tr><td width=\"50%\">$set_content->name </td>";
+                    foreach ($set_values as $set_content) {
 
-                                $integer_vote = floor($set_content->vote);
-                                if($set_content->vote < ($integer_vote+0.3)) {
-                                    $set_content->vote = $integer_vote;
-                                }
-                                elseif ($set_content->vote >= ($integer_vote+0.3) AND $set_content->vote < ($integer_vote+0.7)) {
-                                    $set_content->vote = $integer_vote+0.5;
-                                }
-                                elseif ($set_content->vote >= ($integer_vote+0.7)) {
-                                    $set_content->vote = $integer_vote+1;
-                                }
+                        echo "<tr><td width=\"50%\">$set_content->name </td>";
 
-                                echo "<td width=\"50%\"> <div class=\"rateit bigstars multi\" id=\"$set_content->id\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> </td></tr>";
-                        } //End foreach
-                        echo "</table>";
+                        $integer_vote = floor($set_content->vote);
+                        if($set_content->vote < ($integer_vote+0.3)) {
+                            $set_content->vote = $integer_vote;
+                        }
+                        elseif ($set_content->vote >= ($integer_vote+0.3) AND $set_content->vote < ($integer_vote+0.7)) {
+                            $set_content->vote = $integer_vote+0.5;
+                        }
+                        elseif ($set_content->vote >= ($integer_vote+0.7)) {
+                            $set_content->vote = $integer_vote+1;
+                        }
 
-                        echo "<p>";
+                        echo "<td width=\"50%\"> 
+                                <div class=\"rateit bigstars multi\" id=\"$set_content->id\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$set_content->vote\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div> 
 
-                        _e("Remember to insert this shortcode", "yasr"); 
-                        echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
-                        _e("where you want to display this multi set", "yasr");
+                                <span id=\"yasr-loader-multi-set-field-$set_content->id\" style=\"display:none;\" >&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\"></span>
+                              </td>
+                            </tr>";
 
-                        echo "</p>";
+
+                    } //End foreach
+
+                    echo "</table>";
+
+                    echo "<p>";
+
+                    _e("Remember to insert this shortcode", "yasr"); 
+                    echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
+                    _e("where you want to display this multi set", "yasr");
+
+                    echo "</p>";
                 }
 
                 die();
@@ -682,6 +698,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                     echo "...&nbsp;&nbsp;<button class=\"yasr-log-page-num\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
                 }
 
+                echo "<span id=\"yasr-loader-log-metabox\" style=\"display:none;\" >&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>";
+
             }
 
             echo "
@@ -794,7 +812,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
             elseif ($new_row_result) {
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote casts", "yasr") . ")";
+                <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote cast", "yasr") . ")";
             }
 
             die(); // this is required to return a proper result
@@ -817,7 +835,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         }
 
         echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <br /><strong>" . __("You've already voted this article with $rating", "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
+        <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
 
 
 

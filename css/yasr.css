@@ -64,6 +64,12 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     }
 }
 
+#yasr-snippet-explained {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 10px;
+}
+
 .yasr-list-set-table {
     margin-left:5px; 
 }
