@@ -182,6 +182,19 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
         background: #FFFFFF;
     }
 
+.yasr-multi-set-name-field {
+    color: #555;
+}
+
+.yasr-top-10-highest-rated tr:nth-child(odd) {
+        background: #FFFFec;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-top-10-highest-rated tr:nth-child(even) {
+        background: #FFFFFF;
+    }
+
+
 .yasr_table_multi_set_admin {
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -212,6 +225,7 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 .yasr_table_multi_set_admin tr:nth-child(even) {
         background: #FFFFFF;
     }
+
 
 #yasr-log-container  {
     width: 98%;
