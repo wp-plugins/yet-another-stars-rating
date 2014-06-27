@@ -5,7 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 if ( !current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ));
 }
+
 ?>
+
+
 
 	<div class="wrap">
 
@@ -64,14 +67,14 @@ if ( !current_user_can( 'manage_options' ) ) {
 
         <?php 
 
-        if ($active_tab=='general_settings') {
+        if ($active_tab == 'general_settings') {
 
         ?>
 
 		    <div class="yasr-settingsdiv">
 		        <form action="options.php" method="post" id="yasr_settings_form">
 		            <?php
-			            settings_fields( 'yasr_auto_insert_options_group' );
+			            settings_fields( 'yasr_general_options_group' );
 			            do_settings_sections('yasr_settings_page' );
 		            	submit_button( __('Save') );
 		           	?>
@@ -175,7 +178,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 	<?php 
 
-	if ($active_tab=='manage_multi') {
+	if ($active_tab == 'manage_multi') {
 
 		$multi_set=yasr_get_multi_set();
 
@@ -293,7 +296,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 
    <script type="text/javascript">
 
-	//First Div code
+	//-------------------General Settings Code---------------------
+
+	//First Div
 		jQuery('#yasr_auto_insert_radio_on').on('click', function(){
 			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', false);
 		});
@@ -302,113 +307,12 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
 		});
 
-
-<?php 
-
-		if ($active_tab=='manage_multi') { 
-			?>
-
-			//Second div code
-				jQuery('#yasr-multi-set-doc-link').on('click', function() {
-					jQuery('#yasr-multi-set-doc-box').toggle("slow");
-				});
-
-				jQuery('#yasr-multi-set-doc-link-hide').on('click', function() {
-					jQuery('#yasr-multi-set-doc-box').toggle("slow");
-				});
-
-				<?php if ($n_multi_set == 1) { ?>
+		jQuery('#yasr-snippet-explained-link').on('click', function () {
+			jQuery('#yasr-snippet-explained').toggle('slow');
+		});
 
 
-					jQuery('#yasr-manage-multi-set-single').on('click', function() {
-
-						jQuery('.yasr-manage-multiset-single').toggle();
-
-						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
-
-				    	counter++;
-
-						jQuery("#yasr-add-field-edit-multiset").on('click', function() {
-
-							if(counter>9){
-					           		jQuery('#yasr-element-limit').show();
-					           		jQuery('#yasr-add-field-edit-multiset').hide();
-					            	return false;
-								}   
-					 
-								var newTextBoxDiv = jQuery(document.createElement('tr'))
-					 
-								newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-					 
-								newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-					 
-					 			counter++;
-
-					 	});
-
-					});
-
-				<?php 
-
-				} //End if ($n_multi_set == 1)
-
-				if ($n_multi_set > 1) { 
-
-				?>
-
-
-				    //If more then 1 set is used...
-					jQuery('#yasr_select_edit_set').on("change", function() {
-						    
-						    var data = {
-						    	action : 'yasr_get_multi_set',
-						    	set_id : jQuery(this).val()
-						    } 
-						    
-						    jQuery.post(ajaxurl, data, function(response) {
-						    	jQuery('#yasr-multi-set-response').show();
-						    	jQuery('#yasr-multi-set-response').toggle;
-			     				jQuery('#yasr-multi-set-response').html(response);
-			     			});
-
-					});
-
-			 
-					jQuery(document).ajaxComplete(function(){
-
-						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
-
-				    	counter++;
-			 
-				    	jQuery("#yasr-add-field-edit-multiset").on('click', function() {
-				 
-							if(counter>9){
-				           		jQuery('#yasr-element-limit').show();
-				           		jQuery('#yasr-add-field-edit-multiset').hide();
-				            	return false;
-							}   
-				 
-							var newTextBoxDiv = jQuery(document.createElement('tr'))
-				 
-							newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-				 
-							newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-				 
-				 			counter++;
-
-				    	});
-			 
-			  		});
-
-<?php 
-		  		} //End if ($n_multi_set > 1) 
-
-		} //end if $active_tab=='manage_multi'
-		  	
-?>
-
-
-	//Terzo div code
+	//Second div code
 
 		//On click show proceed button
 		jQuery('#import-gdstar').on('click', function() { 
@@ -445,5 +349,110 @@ if ( !current_user_can( 'manage_options' ) ) {
 		jQuery('#result-import').on('click', '.yasr-result-step-2', function() {
 			location.reload(true);
 		});
+
+<?php 
+
+		//--------------Multi Sets Page ------------------
+
+		if ($active_tab==='manage_multi') { 
+			?>
+
+				jQuery('#yasr-multi-set-doc-link').on('click', function() {
+					jQuery('#yasr-multi-set-doc-box').toggle("slow");
+				});
+
+				jQuery('#yasr-multi-set-doc-link-hide').on('click', function() {
+					jQuery('#yasr-multi-set-doc-box').toggle("slow");
+				});
+
+				<?php if ($n_multi_set == 1) { ?>
+
+
+					jQuery('#yasr-manage-multi-set-single').on('click', function() {
+
+						jQuery('.yasr-manage-multiset-single').toggle();
+
+						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
+
+				    	counter++;
+
+						jQuery("#yasr-add-field-edit-multiset").on('click', function() {
+
+							if(counter>9){
+					           		jQuery('#yasr-element-limit').show();
+					           		jQuery('#yasr-add-field-edit-multiset').hide();
+					            	return false;
+							}   
+					 
+								var newTextBoxDiv = jQuery(document.createElement('tr'))
+					 
+								newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+					 
+								newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+					 
+					 			counter++;
+
+					 	});
+
+					});
+
+				<?php 
+
+				} //End if ($n_multi_set == 1)
+
+				if ($n_multi_set > 1) { 
+
+				?>
+
+				    //If more then 1 set is used...
+					jQuery('#yasr-button-select-set-edit-form').on("click", function() {
+						    
+						    var data = {
+						    	action : 'yasr_get_multi_set',
+						    	set_id : jQuery('#yasr_select_edit_set').val()
+						    } 
+						    
+						    jQuery.post(ajaxurl, data, function(response) {
+						    	jQuery('#yasr-multi-set-response').show();
+			     				jQuery('#yasr-multi-set-response').html(response);
+			     			});
+
+			     			return false; // prevent default click action from happening!
+  	                        e.preventDefault(); // same thing as above
+
+					});
+			 
+					jQuery(document).ajaxComplete(function(){
+
+						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
+
+				    	counter++;
+			 
+				    	jQuery("#yasr-add-field-edit-multiset").on('click', function() {
+				 
+							if(counter>9){
+				           		jQuery('#yasr-element-limit').show();
+				           		jQuery('#yasr-add-field-edit-multiset').hide();
+				            	return false;
+							}   
+				 
+							var newTextBoxDiv = jQuery(document.createElement('tr'))
+				 
+							newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+				 
+							newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+				 
+				 			counter++;
+
+				    	});
+			 
+			  		});
+
+<?php 
+		  		} //End if ($n_multi_set > 1) 
+
+		} //end if $active_tab=='manage_multi'
+		  	
+?>
  		
  </script>
