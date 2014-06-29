@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,14 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.3.3 =
+* Created a new shortcode that will allow to insert Top 10 highest rated product by author  
+* When a post or page is permanently deleted, yasr will delete every votes for that post or page
+* Fixed "add element button" when only 1 multi set is used
+* Updated jquery cookie from 1.4.0 to 1.4.1 and minified it
+* Minor Bug fixes
+
 
 = 0.3.2 =
 * Forced multiset field name to be #555 . This is to avoid reading problem when using light font color

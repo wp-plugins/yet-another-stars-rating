@@ -342,6 +342,52 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 	} //End callback function
 
 
+/****** Delete data value from yasr tabs when a post or page is deleted
+Added since yasr 0.3.3
+******/
+
+add_action ('admin_init', 'admin_init_delete_data_on_post_callback');
+
+	function admin_init_delete_data_on_post_callback () {
+
+		if ( current_user_can ('delete_posts') ) {
+
+			add_action( 'delete_post', 'yasr_erase_data_on_post_page_remove_callback' );
+
+		}
+
+	}
+
+	function yasr_erase_data_on_post_page_remove_callback($pid) {
+
+		global $wpdb;
+
+			//Delete overall rating
+			$wpdb->delete(
+				YASR_VOTES_TABLE,
+				array (
+					'post_id' => $pid
+					),
+				array (
+					'%d'
+					)
+				);
+
+			//Delete multi value
+			$wpdb->delete(
+				YASR_MULTI_SET_VALUES_TABLE,
+				array (
+					'post_id' => $pid
+					),
+				array (
+					'%d'
+					)
+				);
+		
+
+	}
+
+
 
 /****** Check if a logged in user has already rated. Return user vote for a post if exists  ******/
 

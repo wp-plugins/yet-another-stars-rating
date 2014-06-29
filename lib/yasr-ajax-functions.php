@@ -140,7 +140,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         echo "<td> 
                                 <div class=\"rateit bigstars multi\" id=\"$name->id\" data-rateit-value=\"\"  data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-step=\"0.5\" data-rateit-resetable=\"true\" data-rateit-readonly=\"false\"></div>
                               
-                                <span id=\"yasr-loader-multi-set-field-$set_content->id\" style=\"display:none;\" >&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>
+                                <span id=\"yasr-loader-multi-set-field-$name->id\" style=\"display:none;\" >&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>
                               </td>
                               </tr>";
 
@@ -347,7 +347,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <?php } //End if
 
                     elseif ($n_multi_set==1) { ?>
-                        <tr>\
+                        <tr>
                             <th><label for="yasr-size"><?php _e("Insert Multiset:"); ?></label></th>
                             <td>
                                 <?php foreach ($multi_set as $name) { ?>
@@ -357,14 +357,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                             </td>
                         </tr>
                     <?php 
-                        }
+                    }
                     //End elseif ?>
+
+                    <tr>
+                        <th><label for="yasr-id"><?php _e("Top 10 overall ratings"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
+                        <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
+                    </tr>
 
                 </table>
             </div>
 
             <script>
-                // Add shortcode fore overall rating
+                // Add shortcode for overall rating
                 jQuery('#yasr-overall').on("click", function(){
                     var shortcode = '[yasr_overall_rating]';
                     // inserts the shortcode into the active editor
@@ -415,6 +421,15 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 <?php 
                 }
                 //End elseif ?>
+
+                // Add shortcode for top 10 by overall ratings
+                jQuery('#yasr-top-10-overall-rating').on("click", function(){
+                    var shortcode = '[yasr_10_ten_highest_rated]';
+                    // inserts the shortcode into the active editor
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                    // closes Thickbox
+                    tb_remove();
+                });
 
             </script>
 
@@ -722,101 +737,103 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
 /****** Yasr insert visitor votes, called from yasr-shortcode-function ******/
     
-        add_action( 'wp_ajax_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
-        add_action( 'wp_ajax_nopriv_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
+    add_action( 'wp_ajax_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
+    add_action( 'wp_ajax_nopriv_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
 
-        function yasr_insert_visitor_votes_callback () {
-            if(isset($_POST['rating']) && isset($_POST['post_id'])) {
-                $rating = $_POST['rating'];
-                $post_id = $_POST['post_id'];
-                $nonce_visitor = $_POST['nonce_visitor'];
-            }
-            else {
-                exit();
-            }
-
-            if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
-                    die( 'Security check' ); 
-                }
-
-            $row_exists_result=NULL; //Avoid Undefined variable notice
-            $new_row_result=NULL; ////Avoid Undefined variable notice
-
-            global $wpdb;
-
-            $row_exists = $wpdb->get_results ("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . "
-                                            WHERE post_id=$post_id");
-
-            //If post already has vote, find where it is and sum it
-            if ($row_exists) {
-                foreach ($row_exists as $user_votes) {
-                    $number_of_votes = $user_votes->number_of_votes;
-                    $user_votes_sum = $user_votes->sum_votes;
-                }
-
-                $number_of_votes=$number_of_votes+1;
-                $user_votes_sum=$user_votes_sum+$rating;
-
-                $row_exists_result=$wpdb->update(
-                    YASR_VOTES_TABLE,
-                    array (
-                        'number_of_votes' => $number_of_votes,
-                        'sum_votes' => $user_votes_sum,
-                        ),
-                    array (
-                        'post_id' => $post_id
-                        ),
-                    array('%d', '%s' ),
-                    array( '%d' ) 
-                );
-                
-            } //End if row_exists
-
-            else {
-                $new_row_result=$wpdb->replace (
-                    YASR_VOTES_TABLE,
-                    array (
-                        'post_id' => $post_id,
-                        'number_of_votes' => 1,
-                        'overall_rating' => '-1',
-                        'sum_votes' => $rating
-                        ),
-                    array ('%d', "%d", "%s", "%s")
-                    );
-            }
-
-            if ($row_exists_result || $new_row_result ) {
-                global $current_user;
-                get_currentuserinfo();
-
-                $result_insert_log = $wpdb->replace (
-                    YASR_LOG_TABLE,
-                    array (
-                        'post_id' => $post_id,
-                        'multi_set_id' => -1,
-                        'user_id' => $current_user->ID,
-                        'vote' => $rating,
-                        'date' => date('Y-m-d H:i:s'),
-                        'ip' => $_SERVER['REMOTE_ADDR']
-                        ), 
-                    array ('%d', '%d', '%d', '%s', '%s', '%s')
-                    );
-            }
-
-            if($row_exists_result) {
-                $total_rating = ($user_votes_sum / $number_of_votes);
-                $total_rating=round ($total_rating, 1);
-                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <br /><strong>" . __("Vote Saved" , "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $total_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
-            }
-
-            elseif ($new_row_result) {
-                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote cast", "yasr") . ")";
-            }
-
-            die(); // this is required to return a proper result
+    function yasr_insert_visitor_votes_callback () {
+        if(isset($_POST['rating']) && isset($_POST['post_id'])) {
+            $rating = $_POST['rating'];
+            $post_id = $_POST['post_id'];
+            $nonce_visitor = $_POST['nonce_visitor'];
         }
+        else {
+            exit();
+        }
+
+        if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
+                die( 'Security check' ); 
+            }
+
+        $row_exists_result=NULL; //Avoid Undefined variable notice
+        $new_row_result=NULL; ////Avoid Undefined variable notice
+
+        global $wpdb;
+
+        $row_exists = $wpdb->get_results ("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . "
+                                        WHERE post_id=$post_id");
+
+        //If post already has vote, find where it is and sum it
+        if ($row_exists) {
+            foreach ($row_exists as $user_votes) {
+                $number_of_votes = $user_votes->number_of_votes;
+                $user_votes_sum = $user_votes->sum_votes;
+            }
+
+            $number_of_votes=$number_of_votes+1;
+            $user_votes_sum=$user_votes_sum+$rating;
+
+            $row_exists_result=$wpdb->update(
+                YASR_VOTES_TABLE,
+                array (
+                    'number_of_votes' => $number_of_votes,
+                    'sum_votes' => $user_votes_sum,
+                    ),
+                array (
+                    'post_id' => $post_id
+                    ),
+                array('%d', '%s' ),
+                array( '%d' ) 
+            );
+            
+        } //End if row_exists
+
+        else {
+            $new_row_result=$wpdb->replace (
+                YASR_VOTES_TABLE,
+                array (
+                    'post_id' => $post_id,
+                    'number_of_votes' => 1,
+                    'overall_rating' => '-1',
+                    'sum_votes' => $rating
+                    ),
+                array ('%d', "%d", "%s", "%s")
+                );
+        }
+
+        if ($row_exists_result || $new_row_result ) {
+            global $current_user;
+            get_currentuserinfo();
+
+            $result_insert_log = $wpdb->replace (
+                YASR_LOG_TABLE,
+                array (
+                    'post_id' => $post_id,
+                    'multi_set_id' => -1,
+                    'user_id' => $current_user->ID,
+                    'vote' => $rating,
+                    'date' => date('Y-m-d H:i:s'),
+                    'ip' => $_SERVER['REMOTE_ADDR']
+                    ), 
+                array ('%d', '%d', '%d', '%s', '%s', '%s')
+                );
+        }
+
+        if($row_exists_result) {
+            $total_rating = ($user_votes_sum / $number_of_votes);
+            $total_rating=round ($total_rating, 1);
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br /><strong>" . __("Vote Saved" , "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $total_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
+        }
+
+        elseif ($new_row_result) {
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote cast", "yasr") . ")";
+        }
+
+        die(); // this is required to return a proper result
+    }
+
+
 
 /****** Echo a readonly star set if user has already voted for a post ******/
 

@@ -368,9 +368,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 				<?php if ($n_multi_set == 1) { ?>
 
 
-					jQuery('#yasr-manage-multi-set-single').on('click', function() {
+					//jQuery('#yasr-manage-multi-set-single').on('click', function() {
 
-						jQuery('.yasr-manage-multiset-single').toggle();
+						//jQuery('.yasr-manage-multiset-single').toggle();
 
 						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
 
@@ -394,7 +394,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 					 	});
 
-					});
+				//	});
 
 				<?php 
 

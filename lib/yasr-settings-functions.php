@@ -98,6 +98,9 @@
 	    		<?php _e('After the post', 'yasr')?>
 	    		<br />
 
+	    		<p>&nbsp;</p>
+
+	    		<hr />
 
 	    	<?php
 
@@ -115,7 +118,6 @@
 			<input type='radio' name='yasr_general_options[allowed_user]' value='allow_anonymous' class='yasr_auto_insert_loggedonly' <?php if ($option['allowed_user']==='allow_anonymous') echo " checked=\"checked\" "; ?>  /> 
 				<?php _e('Allow everybody (logged in and anonymous)', 'yasr')?>
 				<br />
-
 
 				<p>&nbsp;</p>
 
@@ -197,7 +199,6 @@ function yasr_display_multi_set_form() {
 
 
 
-/****** This function print the form to edit multi-set ******/
 function yasr_edit_multi_form() {
 
 	$multi_set=yasr_get_multi_set();
@@ -265,22 +266,30 @@ function yasr_edit_multi_form() {
 						<?php
 
 		       			$i=1;
-		        		foreach ($set_name as $name) {
-		                echo "
-		                <tr>
+
+		       			//Put in an array the field_id used for this set, to avoid overwrite
+		        		$array_used_field_id = array();
+
+            			foreach ($set_name as $name) {
+
+            				$array_used_field_id[] .= $name->id;
+
+			                echo "
+			                <tr>
 		                    
-		                    <td width=\"80%\">
-		                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
-		                    </td>
+			                    <td width=\"80%\">
+			                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
+			                    </td>
 
-		                    <td width=\"20%\" style=\"text-align:center\">
-		                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
-		                    </td>
+			                    <td width=\"20%\" style=\"text-align:center\">
+			                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
+			                    </td>
 
-		                </tr>
-		                ";
+		                	</tr>
+		                	";
+		                	
 		                $i++;
-		            }
+		            	}
 
 
 		            $i = $i-1; //This is the number of the fields
@@ -376,7 +385,15 @@ function yasr_edit_multi_form() {
                 </tr>
             
         <?php
+
+        	//Put in an array the field_id used for this set, to avoid overwrite
+
+        	$array_used_field_id = array();
+
             foreach ($set_name as $name) {
+
+            	$array_used_field_id .= $name->id;
+
                 echo "
                 <tr>
                     
@@ -438,6 +455,7 @@ function yasr_edit_multi_form() {
         die();
 
     } //End function 
+
 
 
 
@@ -593,7 +611,6 @@ function yasr_process_new_multi_set_form()
 
 
 
-/****** Process Edit multi set form ******/
 function yasr_process_edit_multi_set_form() {
 
 	$error = FALSE;

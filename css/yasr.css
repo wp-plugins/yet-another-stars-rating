@@ -1,3 +1,5 @@
+/****** ADMIN RULES ******/
+
 #multi_rating_table 
 {
 	vertical-align: text-top;
@@ -7,7 +9,7 @@
     display: block;
 }
 
-
+/*** Top menu navigation ***/
 h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     border-bottom: none !important;
 }
@@ -15,6 +17,8 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 .nav-tab-active, .nav-tab-active:hover {
     background-color: white !important;
 }
+
+/*** End top navigation ***/
 
 
 @media (min-width: 972px) {
@@ -79,6 +83,23 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     clear: both;
 }
 
+
+/*** Rules for import data from gd star rating ***/
+
+.yasr-result-step-1{
+    padding-left: 25px;
+    padding-top: 10px;
+}
+
+.yasr-result-step-2{
+    padding-left: 45px;
+}
+
+/*** End rules import gd star data ***/
+
+
+/*** Rules for Multi set page ***/
+
 .yasr-multi-set-form-headers {
     text-align: center;
 }
@@ -123,15 +144,6 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     margin-bottom: 10px;
 }
 
-.yasr-result-step-1{
-    padding-left: 25px;
-    padding-top: 10px;
-}
-
-.yasr-result-step-2{
-    padding-left: 45px;
-}
-
 #yasr-multi-set-response {
     margin-top: 10px;
     padding: 10px;
@@ -173,28 +185,6 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     color: red; 
 }
 
-
-.yasr_table_multi_set_shortcode tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr_table_multi_set_shortcode tr:nth-child(even) {
-        background: #FFFFFF;
-    }
-
-.yasr-multi-set-name-field {
-    color: #555;
-}
-
-.yasr-top-10-highest-rated tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-top-10-highest-rated tr:nth-child(even) {
-        background: #FFFFFF;
-    }
-
-
 .yasr_table_multi_set_admin {
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -225,6 +215,8 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 .yasr_table_multi_set_admin tr:nth-child(even) {
         background: #FFFFFF;
     }
+
+/*** End rules for multi set admin page ***/
 
 
 #yasr-log-container  {
@@ -277,3 +269,26 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     padding-top: 7px;
     text-align: center;
 }
+
+
+/****** NON ADMIN RULES ******/
+
+.yasr_table_multi_set_shortcode tr:nth-child(odd) {
+        background: #FFFFec;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr_table_multi_set_shortcode tr:nth-child(even) {
+        background: #FFFFFF;
+    }
+
+.yasr-multi-set-name-field {
+    color: #555;
+}
+
+.yasr-top-10-highest-rated tr:nth-child(odd) {
+        background: #FFFFec;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-top-10-highest-rated tr:nth-child(even) {
+        background: #FFFFFF;
+    }
