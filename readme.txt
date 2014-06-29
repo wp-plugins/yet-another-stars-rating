@@ -51,6 +51,7 @@ If with gd-star-rating you're using a different number of stars from the default
 = 0.3.3 =
 * Created a new shortcode that will allow to insert Top 10 highest rated product by author  
 * When a post or page is permanently deleted, yasr will delete every votes for that post or page
+* Overall Rating is now avaible in home page and archive pages
 * Fixed "add element button" when only 1 multi set is used
 * Updated jquery cookie from 1.4.0 to 1.4.1 and minified it
 * Minor Bug fixes
