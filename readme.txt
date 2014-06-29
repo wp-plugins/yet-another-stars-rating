@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.2.9
+Stable tag: 0.3.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,12 +42,34 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Yet Another Star Rating menu in Settings and set your options.
 
-
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.3.3 =
+* Created a new shortcode that will allow to insert Top 10 highest rated product by author  
+* When a post or page is permanently deleted, yasr will delete every votes for that post or page
+* Fixed "add element button" when only 1 multi set is used
+* Updated jquery cookie from 1.4.0 to 1.4.1 and minified it
+* Minor Bug fixes
+
+
+= 0.3.2 =
+* Forced multiset field name to be #555 . This is to avoid reading problem when using light font color
+
+= 0.3.1 =
+* Avoid multiple vote in a same post for logged in user
+* Bug fixes and cleanup
+
+= 0.3.0 =
+* Now admin can choose if allow only logged in users to vote or logged in and anonymous
+* Code cleanup and bug fixes
+
+= 0.2.10 =
+* Added loading image when ajax is called
+* Added "select button" when choosing a multi set 
 
 = 0.2.9 =
 * Settings page has been rewritten: now it use multi tab navigation

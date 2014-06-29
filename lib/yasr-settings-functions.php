@@ -7,35 +7,35 @@
 
 		function yasr_auto_insert_options_init() {
 	    	register_setting(
-	        	'yasr_auto_insert_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
-	        	'yasr_auto_insert_options' //The name of an option to sanitize and save.
-	    	);
+	        	'yasr_general_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
+	        	'yasr_general_options' //The name of an option to sanitize and save.
+	    	);	    	
 
-	    	$option = get_option( 'yasr_auto_insert_options' );
+	    	$option = get_option( 'yasr_general_options' );
 
 	    	//To avoid undifined index, i put here the default value
 	    	if (!$option) {
 	    		$option = array();
-	    		$option['enabled']=0;
-	    		$option['what']='overall_rating';
-	    		$option['where']='top';
-	    		$option['snippet']='overall_rating';
+	    		$option['auto_insert_enabled'] = 0;
+	    		$option['auto_insert_what'] = 'overall_rating';
+	    		$option['auto_insert_where'] = 'top';
+	    		$option['snippet'] = 'overall_rating';
+	    		$option['allowed_user'] = 'allow_anonymous';
+
+	    		add_option("yasr_general_options", $option); //Write here the default value if there is not option
 	    	} 
 
-	    	if ($option && $option['enabled']==0) {
-	    		$option['what']='overall_rating';
-	    		$option['where']='top';
+	    	//This is to avoid undefined offset
+	    	if ($option && $option['auto_insert_enabled']==0) {
+	    		$option['auto_insert_what']='overall_rating';
+	    		$option['auto_insert_where']='top';
 	    	}
-
-	    	if ($option && !$option['snippet']) {
-	    		$option['snippet']='overall_rating';
-	    	}
-
 
 	    	add_settings_section( 'yasr_auto_insert_section_id', __('Auto insert Settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
 	    		add_settings_field( 'yasr_what_auto_insert', __('What?', 'yasr'), 'yasr_what_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
 	       		add_settings_field( 'yasr_where_auto_insert', __('Where?', 'yasr'), 'yasr_where_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
+	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
 
 		}
@@ -51,12 +51,12 @@
 
 	    	<?php _e('Yes', 'yasr') ?>
 
-	    		<input type='radio' name='yasr_auto_insert_options[enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['enabled']==1) echo " checked=\"checked\" "; ?>  /> 
+	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['auto_insert_enabled']==1) echo " checked=\"checked\" "; ?>  /> 
 				&nbsp;&nbsp;&nbsp;
 
 			<?php _e('No', 'yasr') ?>
-	    		<input type='radio' name='yasr_auto_insert_options[enabled]' value='0' id='yasr_auto_insert_radio_off' 
-	    		<?php if ($option['enabled']==0) {
+	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='0' id='yasr_auto_insert_radio_off' 
+	    		<?php if ($option['auto_insert_enabled']==0) {
 	    				echo " checked=\"checked\" />";
 	    				echo ("<script>
 	    				jQuery( document ).ready(function() {
@@ -73,15 +73,15 @@
 		function yasr_what_auto_insert_callback($option) {	
 			?>
 
-	    	<input type="radio" name="yasr_auto_insert_options[what]" value="overall_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='overall_rating') echo " checked=\"checked\" "; ?> >
+	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="overall_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='overall_rating') echo " checked=\"checked\" "; ?> >
 	    		<?php _e('Overall Rating / Author Rating', 'yasr') ?>
 	   			<br />
 
-	    	<input type="radio" name="yasr_auto_insert_options[what]" value="visitor_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
+	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="visitor_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
 	    		<?php _e('Visitor Votes', 'yasr')?>
 	   			<br />
 
-	    	<input type="radio" name="yasr_auto_insert_options[what]" value="both" class="yasr_auto_insert_where_what_radio" <?php if ($option['what']==='both') echo " checked=\"checked\" "; ?> >
+	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="both" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='both') echo " checked=\"checked\" "; ?> >
 	    		<?php _e('Both', 'yasr')?>
 
 	    <?php
@@ -90,38 +90,61 @@
 		function yasr_where_auto_insert_callback($option) {
 			?>
 
-			<input type="radio" name="yasr_auto_insert_options[where]" value="top" class="yasr_auto_insert_where_what_radio" <?php if ($option['where']==='top' ) echo " checked=\"checked\" ";  ?> >
+			<input type="radio" name="yasr_general_options[auto_insert_where]" value="top" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='top' ) echo " checked=\"checked\" ";  ?> >
 				<?php _e('Before the post', 'yasr')?>
 				<br />
 
-	    	<input type="radio" name="yasr_auto_insert_options[where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['where']==='bottom') echo " checked=\"checked\" "; ?> >
+	    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
 	    		<?php _e('After the post', 'yasr')?>
 	    		<br />
 
+	    		<p>&nbsp;</p>
 
-	    	<p>&nbsp;</p>
-
-	    	<hr>
+	    		<hr />
 
 	    	<?php
 
 	    }
 
 
+	    function yasr_allow_only_logged_in_callback($option) {
+
+	    	?>
+
+			<input type='radio' name='yasr_general_options[allowed_user]' value='logged_only' class='yasr_auto_insert_loggedonly' <?php if ($option['allowed_user']==='logged_only') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Allow only logged-in users', 'yasr')?>
+				<br />
+
+			<input type='radio' name='yasr_general_options[allowed_user]' value='allow_anonymous' class='yasr_auto_insert_loggedonly' <?php if ($option['allowed_user']==='allow_anonymous') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Allow everybody (logged in and anonymous)', 'yasr')?>
+				<br />
+
+				<p>&nbsp;</p>
+
+				<hr>
+
+		<?php
+
+		} //End function
+
+
 	    function yasr_choose_snippet_callback($option) {
 
 			?>
 
-		    	<input type="radio" name="yasr_auto_insert_options[snippet]" value="overall_rating" class="yasr_choose_snippet" <?php if ($option['snippet']==='overall_rating') echo " checked=\"checked\" "; ?> >
+		    	<input type="radio" name="yasr_general_options[snippet]" value="overall_rating" class="yasr_choose_snippet" <?php if ($option['snippet']==='overall_rating') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('Review Rating', 'yasr') ?>
 		   			<br />
 
-		    	<input type="radio" name="yasr_auto_insert_options[snippet]" value="visitor_rating" class="yasr_choose_snippet" <?php if ($option['snippet']==='visitor_rating') echo " checked=\"checked\" "; ?> >
+		    	<input type="radio" name="yasr_general_options[snippet]" value="visitor_rating" class="yasr_choose_snippet" <?php if ($option['snippet']==='visitor_rating') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('Aggregate Rating', 'yasr')?>
 		   			<br />
 
-		   		<div class="yasr_snippet_explained">
-		   			<p>&nbsp;</p>
+		   			<br />
+
+		   		<a href="#" id="yasr-snippet-explained-link"><?php _e("What is this?", "yasr") ?></a>
+
+		   		<div id="yasr-snippet-explained" style="display:none">
 		   			<?php 
 
 		   				_e("If you select \"Review Rating\", your site will be indexed from search engines like this: ", "yasr");
@@ -134,11 +157,10 @@
 		   			 ?>
 		   		</div>
 
-
-
 	<?php
 
-		}
+		} //End function yasr_choose_snippet_callback
+
 
 
 /****** Create a form for settings page to create new multi set ******/
@@ -177,7 +199,6 @@ function yasr_display_multi_set_form() {
 
 
 
-/****** This function print the form to edit multi-set ******/
 function yasr_edit_multi_form() {
 
 	$multi_set=yasr_get_multi_set();
@@ -200,6 +221,9 @@ function yasr_edit_multi_form() {
 		    		<option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
 	  				<?php } //End foreach ?>
   				</select>
+
+  				<button href="#" class="button-delete" id="yasr-button-select-set-edit-form"><?php _e("Select"); ?></button>
+
 					
 			</div>
 
@@ -242,22 +266,30 @@ function yasr_edit_multi_form() {
 						<?php
 
 		       			$i=1;
-		        		foreach ($set_name as $name) {
-		                echo "
-		                <tr>
+
+		       			//Put in an array the field_id used for this set, to avoid overwrite
+		        		$array_used_field_id = array();
+
+            			foreach ($set_name as $name) {
+
+            				$array_used_field_id[] .= $name->id;
+
+			                echo "
+			                <tr>
 		                    
-		                    <td width=\"80%\">
-		                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
-		                    </td>
+			                    <td width=\"80%\">
+			                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
+			                    </td>
 
-		                    <td width=\"20%\" style=\"text-align:center\">
-		                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
-		                    </td>
+			                    <td width=\"20%\" style=\"text-align:center\">
+			                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
+			                    </td>
 
-		                </tr>
-		                ";
+		                	</tr>
+		                	";
+		                	
 		                $i++;
-		            }
+		            	}
 
 
 		            $i = $i-1; //This is the number of the fields
@@ -353,7 +385,15 @@ function yasr_edit_multi_form() {
                 </tr>
             
         <?php
+
+        	//Put in an array the field_id used for this set, to avoid overwrite
+
+        	$array_used_field_id = array();
+
             foreach ($set_name as $name) {
+
+            	$array_used_field_id .= $name->id;
+
                 echo "
                 <tr>
                     
@@ -415,6 +455,7 @@ function yasr_edit_multi_form() {
         die();
 
     } //End function 
+
 
 
 
@@ -570,7 +611,6 @@ function yasr_process_new_multi_set_form()
 
 
 
-/****** Process Edit multi set form ******/
 function yasr_process_edit_multi_set_form() {
 
 	$error = FALSE;

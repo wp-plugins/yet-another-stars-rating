@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
-		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
+		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
 
 
@@ -94,60 +94,322 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	}
 
 
-/****** Auto insert shortcode  ******/
+
+/****** Return html code that will output overall rating stars. Used in auto insert overall rating ******/
+
+function overall_rating_auto_insert_code () {
+
+    $overall_rating=yasr_get_overall_rating();
+
+    if (!$overall_rating) {
+        $overall_rating = "-1";
+    }
+
+    $shortcode_html="<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+      </div>";
+
+    $option = get_option( 'yasr_general_options' );
+
+    return $shortcode_html;
+
+} //End function
+
+
+
+/****** Return html code that will output visitor rating stars. It's almost the same 
+than shortcode_visitor_votes_callback used in yasr-shortcode function, but work only when 
+is called and have initial different conditions ******/
+
+function visitor_votes_auto_insert_code () {
+
+    $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
+
+    if( is_singular() && is_main_query() ) {
+
+        $ajax_nonce_visitor = wp_create_nonce( "yasr_nonce_insert_visitor_rating" );
+
+    	$votes=yasr_get_visitor_votes();
+
+        $medium_rating=0;   //Avoid undefined variable
+
+    	if (!$votes) {
+    		$votes=0;         //Avoid undefined variable if there is not overall rating
+    		$votes_number=0;  //Avoid undefined variable
+    	}
+
+        else {
+    		foreach ($votes as $user_votes) {
+    			$votes_number = $user_votes->number_of_votes;
+                if ($votes_number !=0 ) {
+    			    $medium_rating = ($user_votes->sum_votes/$votes_number);
+                }
+            }
+        }
+
+        $allow_logged_option = get_option( 'yasr_general_options' );
+
+        if (!$allow_logged_option) {
+            $allow_logged_option = array();
+            $allow_logged_option['allowed_user']='allow_anonymous';
+        }
+
+        $image = YASR_IMG_DIR . "/loader.gif";
+
+        $loader_html = "<div id=\"loader-visitor-rating\" >&nbsp; " . __("Loading, please wait","yasr") . " <img src= \" $image \"></div>";
+
+        $medium_rating=round($medium_rating, 1);
+
+        //if anonymous are allowed to vote
+        if ($allow_logged_option['allowed_user']==='allow_anonymous') {
+
+            //I've to block a logged in user that has already rated
+            if ( is_user_logged_in() ) {
+
+                //Chek if a logged in user has already rated for this post
+                $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                //If user has already rated show readonly stars
+                if ($vote_if_user_already_rated) {
+
+                    global $current_user;
+                    get_currentuserinfo();
+
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                }
+
+                //else logged user can vote 
+                else {
+
+                    $vote_if_user_already_rated = 0;
+
+                    if ($votes_number>0) {
+                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
+                    }
+
+                    else {
+                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                        </div><br /> " . __("No rating yet" , "yasr") . "</div>";
+                    }
+
+                } //End else
+
+            } //End if user is logged
+
+
+            //else is not logged can vote
+            else {
+
+                if ($votes_number>0) {
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
+                }
+
+                else {
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                    </div><br /> " . __("No rating yet" , "yasr") . "</div>";
+                }
+
+            } //end else
+      
+        } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
+
+
+
+        //If only logged in users can vote
+        elseif ($allow_logged_option['allowed_user']==='logged_only') {
+
+            //If user is logged in and can vote
+            if ( is_user_logged_in() ) {
+
+                //Chek if a logged in user has already rated for this post
+                $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                if ($vote_if_user_already_rated) {
+
+                    global $current_user;
+                    get_currentuserinfo();
+
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                }
+
+                else {
+
+                    if ($votes_number>0) {
+                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
+                    }
+
+                    else {
+                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                        </div><br /> " . __("No rating yet" , "yasr") . "</div>";
+                    }
+
+                }
+
+
+        } //End if user is logged in
+
+          //Else mean user is not logged in
+            else {
+
+
+                if ($votes_number>0) {
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                    </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br />" . __("You must sign to vote", "yasr") . "</div>";
+                }
+
+                else {
+                    $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                    </div><br /> " . __("No rating yet" , "yasr") . "<br />" . _e("You must sign to vote", "") . "</div>";
+                }
+
+            }
+          
+    }
+
+
+      ?>
+
+      <script>
+        jQuery(document).ready(function() {
+
+            var logged_message_showed = false; 
+
+            logged_message_showed = jQuery("#yasr_rateit_visitor_votes_logged_rated").attr("data-rateit-value");
+
+            if (logged_message_showed) {
+                  logged_message_showed = true;
+            }
+
+            
+
+            var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
+            jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
+
+            var postid = <?php the_ID(); ?>;
+            var cookiename = "yasr_visitor_vote_" + postid;
+
+            //If there is not cookie allow visitor to vote
+            if (!jQuery.cookie(cookiename)) {
+
+                jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
+                    var el = jQuery(this);
+                    var value = el.rateit('value');
+                    var value = value.toFixed(1); //
+                    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+                    jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
+
+                    var data = {
+                        action: 'yasr_send_visitor_rating',
+                        rating: value,
+                        post_id: postid,
+                        nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+                    };
+
+                    //Send value to the Server
+                    jQuery.post(ajaxurl, data, function(response) {
+                        jQuery('#yasr_visitor_votes').html(response); 
+                        jQuery('.rateit').rateit();
+                        //Create a cookie to disable double vote
+                        jQuery.cookie(cookiename, value, { expires : 360 }); 
+                    }) ;          
+                });
+            } //End if (!jQuery.cookie(cookiename))
+
+            //Else user cannot vote
+            else {
+
+                //if php read only stars are not be showes echo readonly stars from cookie
+                if (!logged_message_showed) {
+
+                    var cookievote=jQuery.cookie(cookiename);
+                    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+                    var data = {
+                        action: 'yasr_readonly_visitor_shortcode',
+                        rating: cookievote,
+                        votes: <?php echo $medium_rating ?>,
+                        votes_number: <?php echo $votes_number ?>,
+                        post_id: postid
+                    }
+
+                    jQuery.post(ajaxurl, data, function(response) {
+                        jQuery('#yasr_visitor_votes').html(response);
+                        jQuery('.rateit').rateit();
+                    });
+
+                }
+
+            } //End else !logged_user_already_rated)
+
+      });
+
+      </script>
+
+ 	<?php
+
+  } //End if is singular
+
+  return $shortcode_html;
+
+} //End function shortcode_visitor_votes_callback
+
+/****** Auto insert overall rating and visitor rating  ******/
 
 	add_filter('the_content', 'yasr_auto_insert_shortcode_callback');
 
 	function yasr_auto_insert_shortcode_callback($content) {
 
-		$option = get_option( 'yasr_auto_insert_options' );
+		$option = get_option( 'yasr_general_options' );
 
-		if ($option['enabled'] == 1) {
+		if ($option['auto_insert_enabled'] == 1) {
 
 			$auto_insert_shortcode=NULL; //To avoid undefined variable notice outside the loop (if (is_singular) )
 
-			if( is_singular() && is_main_query() ) {
+				$overall_rating_code = overall_rating_auto_insert_code();
+				$visitor_votes_code = visitor_votes_auto_insert_code();
 
-				$overall_rating_shortcode='[yasr_overall_rating]';
-				$visitor_votes_shortcode='[yasr_visitor_votes]';
-
-				if ($option['what']=='overall_rating') {
-					switch ($option['where']) {
+				if ($option['auto_insert_what']==='overall_rating') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
-							return $overall_rating_shortcode . $content;
+							return $overall_rating_code . $content;
 							break;
 					
 						case 'bottom':
-							return $content . $overall_rating_shortcode;
+							return $content . $overall_rating_code;
 							break;
 					} //End Switch
 				} //end ($option['what']=='overall_rating')
 
-				elseif ($option['what']=='visitor_rating') {
-					switch ($option['where']) {
+				elseif ($option['auto_insert_what']==='visitor_rating') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
-							return $visitor_votes_shortcode . $content;
+							return $visitor_votes_code . $content;
 							break;
 					
 						case 'bottom':
-							return $content . $visitor_votes_shortcode;
+							return $content . $visitor_votes_code;
 							break;
 					} //End Switch
 				}
 
-				elseif ($option['what']=='both') {
-					switch ($option['where']) {
+				elseif ($option['auto_insert_what']==='both') {
+					switch ($option['auto_insert_where']) {
 						case 'top':
-							return $overall_rating_shortcode . $visitor_votes_shortcode . $content;
+							return $overall_rating_code . $visitor_votes_code . $content;
 							break;
 					
 						case 'bottom':
-							return $content . $overall_rating_shortcode . $visitor_votes_shortcode;
+							return $content . $overall_rating_code . $visitor_votes_code;
 							break;
 					} //End Switch
 				}
-
-			} //End  if( is_singular() && is_main_query() )
 
 			return $content;
 
@@ -168,7 +430,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 		$schema=NULL; //To avoid undefined variable notice outside the loop
 
-		$choosen_snippet = get_option( 'yasr_auto_insert_options' );
+		$choosen_snippet = get_option( 'yasr_general_options' );
 
 		if(!$choosen_snippet) {
 			$choosen_snippet = array();
