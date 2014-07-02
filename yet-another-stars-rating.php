@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.3.3
+ * Version: 0.3.4
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.3.3');
+define('YASR_VERSION_NUM', '0.3.4');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -63,9 +63,10 @@ require (YASR_ABSOLUTE_PATH . '/lib/yasr-shortcode-functions.php');
 
 $version_installed = get_option('yasr-version') ;
 
+
 //If this is a fresh new installation or version < 0.2.0
 
-if (!$version_installed || $version_installed < '0.2.0' ) {
+if (!$version_installed ) {
 
 	yasr_install();
 
@@ -73,7 +74,7 @@ if (!$version_installed || $version_installed < '0.2.0' ) {
 
 // If user is using a version < 0.3.0 import option
 
-if (!$version_installed || $version_installed < '0.3.0' ) {
+if ($version_installed && $version_installed < '0.3.0' ) {
 
 	$old_options = get_option ( 'yasr_auto_insert_options' );
 
@@ -107,8 +108,6 @@ if (!$version_installed || $version_installed < '0.3.0' ) {
 } //End if (!$version_installed || $version_installed < '0.3.0' )
 
 
-update_option('yasr-version', YASR_VERSION_NUM);
-
 global $wpdb;
 
 define ("YASR_VOTES_TABLE", $wpdb->prefix . 'yasr_votes');
@@ -121,5 +120,25 @@ define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
 
 define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
+
+if ($version_installed && $version_installed < '0.3.4') {
+
+	$wpdb->query ("ALTER TABLE " . YASR_MULTI_SET_FIELDS_TABLE . " MODIFY field_name VARCHAR( 23 )");
+
+	$option = array();
+	$option['auto_insert_enabled'] = 0;
+	$option['auto_insert_what'] = 'overall_rating';
+	$option['auto_insert_where'] = 'top';
+	$option['show_overall_in_loop'] = 'disabled';
+	$option['text_before_stars'] = 0;
+	$option['snippet'] = 'overall_rating';
+	$option['allowed_user'] = 'allow_anonymous';
+
+	update_option("yasr_general_options", $option);
+
+}
+
+
+update_option('yasr-version', YASR_VERSION_NUM);
 
 ?>
