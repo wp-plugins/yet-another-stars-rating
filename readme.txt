@@ -48,6 +48,14 @@ If with gd-star-rating you're using a different number of stars from the default
 
 == Changelog ==
 
+= 0.3.4 =
+* In settings page is now possible add some custom text to make appear before "Overall Rating" or "Visitor's Rating" are showed
+* In settings page is now possible to show "Overall Rating" only in the post / page or even in Home page, Archive Page, etc.
+* Removed bug that could appear in some case when removing or adding field in multiset form editor
+* After a multiset is created/edited now you get redirected on multiset settings tab and not in general settings
+* Various bugfixes
+* Under the hood changes
+
 = 0.3.3 =
 * Created a new shortcode that will allow to insert Top 10 highest rated product by author  
 * When a post or page is permanently deleted, yasr will delete every votes for that post or page

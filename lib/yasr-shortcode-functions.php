@@ -10,22 +10,53 @@ function shortcode_overall_rating_callback () {
 
     $option = get_option( 'yasr_general_options' );
 
+    //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on visitor rating.
+    //If auto insert is on overall rating this shortcode must return nothing
+
     if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'visitor_rating' )) {
 
         $overall_rating=yasr_get_overall_rating();
 
-    	if (!$overall_rating) {
-    	    $overall_rating = "-1";
-    	}
+        if (!$overall_rating) {
+            $overall_rating = "-1";
+        }
 
-        $shortcode_html="<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-     	</div>";
+        if($option['text_before_stars'] == 1 && $option['text_before_overall'] != '') {
+            $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
+                                    <span id=\"yasr-custom-text-before-overall\">$option[text_before_overall]</span>
+                                    <div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                                    </div>
+                               </div>"; 
+        }
 
-        return $shortcode_html;
+        else {
 
-    }
+        $shortcode_html = "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+        </div>";
 
-} 
+        }
+
+        //IF show overall rating in loop is disabled use is_singular && is_main query
+        if ($option['show_overall_in_loop'] === 'disabled') {
+
+            if( is_singular() && is_main_query() ) {
+
+                return $shortcode_html;
+
+            }
+
+        }
+
+        //else don't
+        elseif ($option['show_overall_in_loop'] === 'enabled') {
+
+            return $shortcode_html;
+
+        }
+
+    } //end if auto insert enabled == 0
+
+} //end function
 
 
 /****** Add shortcode for user vote ******/
@@ -35,6 +66,9 @@ add_shortcode ('yasr_visitor_votes', 'shortcode_visitor_votes_callback');
 function shortcode_visitor_votes_callback () {
 
     $option = get_option( 'yasr_general_options' );
+
+    //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
+    //If auto insert is on visitor rating this shortcode must return nothing
 
     if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'overall_rating' )) {
 
@@ -167,8 +201,7 @@ function shortcode_visitor_votes_callback () {
 
                     }
 
-
-            } //End if user is logged in
+                } //End if user is logged in
 
               //Else mean user is not logged in
                 else {
@@ -185,8 +218,17 @@ function shortcode_visitor_votes_callback () {
                     }
 
                 }
-              
-        }
+  
+            }
+
+            if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
+        
+                $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
+                <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
+
+                $shortcode_html = $shortcode_html_tmp;
+
+            }
 
 
           ?>
@@ -266,11 +308,11 @@ function shortcode_visitor_votes_callback () {
 
           });
 
-          </script>
+        </script>
 
      	<?php
 
-      } //End if is singular
+    } //End if is singular
 
       return $shortcode_html;
 
