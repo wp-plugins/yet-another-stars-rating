@@ -1,0 +1,45 @@
+.yasr_table_multi_set_shortcode {
+    border: 1px solid #ffffff;
+    border-spacing: 1px;
+    border-collapse: separate;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.yasr_table_multi_set_shortcode td {
+    padding: 8px;
+}
+
+.yasr_table_multi_set_shortcode tr:nth-child(odd) {
+        background: #292929;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr_table_multi_set_shortcode tr:nth-child(even) {
+        background: #161616;
+    }
+
+
+.yasr-multi-set-name-field {
+    color: #ffffff;
+}
+
+
+.yasr-top-10-highest-rated {
+    border-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.yasr-top-10-highest-rated td {
+    padding: 8px;
+}
+
+.yasr-top-10-highest-rated tr:nth-child(odd) {
+        background: #292929;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-top-10-highest-rated tr:nth-child(even) {
+        background: #161616;
+    }
