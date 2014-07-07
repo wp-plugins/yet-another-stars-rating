@@ -68,6 +68,12 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     }
 }
 
+#yasr-color-scheme-preview {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 10px;
+}
+
 #yasr-snippet-explained {
     border: 2px dashed #CCC;
     padding: 15px;
@@ -293,23 +299,3 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     display: inline-block;
     vertical-align: top;
 }
-
-.yasr_table_multi_set_shortcode tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr_table_multi_set_shortcode tr:nth-child(even) {
-        background: #FFFFFF;
-    }
-
-.yasr-multi-set-name-field {
-    color: #555;
-}
-
-.yasr-top-10-highest-rated tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-top-10-highest-rated tr:nth-child(even) {
-        background: #FFFFFF;
-    }

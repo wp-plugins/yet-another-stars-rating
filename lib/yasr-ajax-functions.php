@@ -851,8 +851,23 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             exit();
         }
 
-        echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
+
+        //Check if user specifyed a custom text to display when a vistor har rated
+        $option = get_option('yasr_general_options');
+
+        if($option['text_before_stars'] == 1 && $option['custom_text_user_voted'] != '') {
+
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br /> $option[custom_text_user_voted] </strong>";
+
+        }
+
+        else {
+
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
+
+        }
 
 
 

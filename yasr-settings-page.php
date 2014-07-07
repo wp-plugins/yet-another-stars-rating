@@ -309,6 +309,12 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery('.yasr-general-options-text-before').prop('disabled', true);
 		});
 
+		jQuery('#yasr-color-scheme-preview-link').on('click', function () {
+			jQuery('#yasr-color-scheme-preview').toggle('slow');
+			return false; // prevent default click action from happening!
+			preventDefault(); // prevent default click action from happening!
+		});
+
 		jQuery('#yasr-snippet-explained-link').on('click', function () {
 			jQuery('#yasr-snippet-explained').toggle('slow');
 			return false; // prevent default click action from happening!

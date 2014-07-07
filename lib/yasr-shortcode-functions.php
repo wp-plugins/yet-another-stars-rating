@@ -358,10 +358,10 @@ function shortcode_multi_set_callback( $atts ) {
                     WHERE parent_set_id=$setid 
                     ORDER BY field_id ASC");
 
-    	$shortcode_html="<table>";
+    	$shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
 
      	foreach ($set_name as $set_content) {
-        	$shortcode_html .=  "<tr> <td>$set_content->name </td>
+        	$shortcode_html .=  "<tr> <td><span class=\"yasr-multi-set-name-field\">$set_content->name </span></td>
       		   					 <td><div class=\"rateit\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
         						 </tr>";
         }

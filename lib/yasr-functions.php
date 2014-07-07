@@ -12,6 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		wp_enqueue_style( 'rateitcss', YASR_CSS_DIR . 'rateit.css', FALSE, NULL, 'all' );
 		wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
+
+        $chosen_color=NULL;
+
+        $chosen_color = get_option( 'yasr_general_options' );
+
+        //default color
+        if(!$chosen_color || !$chosen_color['scheme_color'] ) {
+            $chosen_color = array();
+            $chosen_color['scheme_color'] = 'light';
+        }
+
+        //If choosen is light or not dark (force to be default)
+        if ($chosen_color['scheme_color'] === 'light' || $chosen_color['scheme_color'] != 'dark' ) {
+            wp_enqueue_style( 'yasrcsslightscheme', YASR_CSS_DIR . 'yasr-table-light.css', array('yasrcss'), NULL, 'all' );
+        }
+
+        elseif ($chosen_color['scheme_color'] === 'dark') {
+            wp_enqueue_style( 'yasrcssdarkscheme', YASR_CSS_DIR . 'yasr-table-dark.css', array('yasrcss'), NULL, 'all' );
+        }
+
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}

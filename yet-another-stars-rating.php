@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.3.4
+ * Version: 0.3.5
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.3.4');
+define('YASR_VERSION_NUM', '0.3.5');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -72,42 +72,6 @@ if (!$version_installed ) {
 
 }
 
-// If user is using a version < 0.3.0 import option
-
-if ($version_installed && $version_installed < '0.3.0' ) {
-
-	$old_options = get_option ( 'yasr_auto_insert_options' );
-
-	if ($old_options && $old_options['enabled']==0){
-
-		$new_options = array(
-			"auto_insert_enabled" => $old_options['enabled'],
-			"allowed_user" => 'allow_anonymous', //This is not imported, it's just the default value
-			"snippet" =>$old_options['snippet']
-			);
-
-	}
-
-	elseif ($old_options && $old_options['enabled']==1) {
-
-		$new_options = array(
-			"auto_insert_enabled" => $old_options['enabled'],
-			"auto_insert_what" => $old_options['what'],
-			"auto_insert_where" => $old_options['where'],
-    		"allowed_user" => 'allow_anonymous', //This is not imported, it's just the default value
-    		"snippet" =>$old_options['snippet']
-    		);
-	}
-
-	$options_added=add_option("yasr_general_options", $new_options);
-
-	if ($options_added) {
-		delete_option('yasr_auto_insert_options');
-	}
-
-} //End if (!$version_installed || $version_installed < '0.3.0' )
-
-
 global $wpdb;
 
 define ("YASR_VOTES_TABLE", $wpdb->prefix . 'yasr_votes');
@@ -137,7 +101,6 @@ if ($version_installed && $version_installed < '0.3.4') {
 	update_option("yasr_general_options", $option);
 
 }
-
 
 update_option('yasr-version', YASR_VERSION_NUM);
 

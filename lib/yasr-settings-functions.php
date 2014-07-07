@@ -23,12 +23,14 @@
 	    	if ($option && $option['text_before_stars']==0) {
 	    		$option['text_before_overall']='';
 	    		$option['text_before_visitor_rating']='';
+	    		$option['custom_text_user_voted']='';
 	    	}
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
 
@@ -162,6 +164,11 @@
 
 			<input type='text' name='yasr_general_options[text_before_visitor_rating]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
 				<?php _e('Custom text to display before visitor rating', 'yasr')?>
+
+			<br /> <br />
+
+			<input type='text' name='yasr_general_options[custom_text_user_voted]' class='yasr-general-options-text-before' value='<?php echo ("$option[custom_text_user_voted]"); ?>' maxlength="60"/> 
+				<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
 			
 
 			<p>&nbsp;</p>
@@ -169,6 +176,44 @@
 			<hr>
 
 			<?php
+	    }
+
+
+	    function yasr_color_scheme_callback($option) {
+
+	    	?>
+
+	    	<input type='radio' name='yasr_general_options[scheme_color]' value='light' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='light') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Light', 'yasr')?>
+				
+			&nbsp;&nbsp;&nbsp;
+
+			<input type='radio' name='yasr_general_options[scheme_color]' value='dark' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='dark') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Dark', 'yasr')?>
+				<br />
+
+				<br />
+
+			<a href="#" id="yasr-color-scheme-preview-link"><?php _e("Preview", "yasr") ?></a>
+
+			<div id="yasr-color-scheme-preview" style="display:none">
+		   			<?php 
+
+		   				_e("Light theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png>";
+
+		   				echo "<br /> <br />";
+
+		   				_e("Dark Theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/dark-multi-set.png>";
+		   			 ?>
+		   	</div>
+
+			<p>&nbsp;</p>
+
+			<hr>
+
+	    	<?php
 	    }
 
 

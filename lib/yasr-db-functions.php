@@ -85,6 +85,7 @@ function yasr_install() {
 		$option['text_before_stars'] = 0;
 		$option['snippet'] = 'overall_rating';
 		$option['allowed_user'] = 'allow_anonymous';
+		$option['scheme_color'] = 'light';
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
 
