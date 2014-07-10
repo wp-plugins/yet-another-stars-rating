@@ -12,6 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		wp_enqueue_style( 'rateitcss', YASR_CSS_DIR . 'rateit.css', FALSE, NULL, 'all' );
 		wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
+
+        $chosen_color=NULL;
+
+        $chosen_color = get_option( 'yasr_general_options' );
+
+        //default color
+        if(!$chosen_color || !$chosen_color['scheme_color'] ) {
+            $chosen_color = array();
+            $chosen_color['scheme_color'] = 'light';
+        }
+
+        //If choosen is light or not dark (force to be default)
+        if ($chosen_color['scheme_color'] === 'light' || $chosen_color['scheme_color'] != 'dark' ) {
+            wp_enqueue_style( 'yasrcsslightscheme', YASR_CSS_DIR . 'yasr-table-light.css', array('yasrcss'), NULL, 'all' );
+        }
+
+        elseif ($chosen_color['scheme_color'] === 'dark') {
+            wp_enqueue_style( 'yasrcssdarkscheme', YASR_CSS_DIR . 'yasr-table-dark.css', array('yasrcss'), NULL, 'all' );
+        }
+
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
@@ -80,14 +100,14 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	}
 
 	function yasr_metabox_overall_rating_content() {
-		if ( !current_user_can( 'manage_options' ) )  {
+		if ( !current_user_can( 'publish_posts' ) )  {
 			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
 		}
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-overall-rating.php');
 	}
 
 	function yasr_metabox_multiple_rating_content() {
-		if ( !current_user_can( 'manage_options' ) )  {
+		if ( !current_user_can( 'publish_posts' ) )  {
 			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
 		}
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
@@ -105,12 +125,40 @@ function overall_rating_auto_insert_code () {
         $overall_rating = "-1";
     }
 
-    $shortcode_html="<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-      </div>";
-
     $option = get_option( 'yasr_general_options' );
 
-    return $shortcode_html;
+    if($option['text_before_stars'] == 1 && $option['text_before_overall'] != '') {
+            $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
+                                    <span id=\"yasr-custom-text-before-overall\">$option[text_before_overall]</span>
+                                    <div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                                    </div>
+                               </div>"; 
+        }
+
+    else {
+
+        $shortcode_html="<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                        </div>";
+
+    }
+
+    //IF show overall rating in loop is disabled use is_singular && is_main query
+    if ($option['show_overall_in_loop'] === 'disabled') {
+
+        if( is_singular() && is_main_query() ) {
+
+            return $shortcode_html;
+
+        }
+
+    }
+
+    //else don't
+    elseif ($option['show_overall_in_loop'] === 'enabled') {
+
+        return $shortcode_html;
+
+    }
 
 } //End function
 
@@ -146,11 +194,15 @@ function visitor_votes_auto_insert_code () {
             }
         }
 
-        $allow_logged_option = get_option( 'yasr_general_options' );
+        $option = get_option( 'yasr_general_options' );
 
-        if (!$allow_logged_option) {
+        if ( !$option ) {
             $allow_logged_option = array();
             $allow_logged_option['allowed_user']='allow_anonymous';
+        }
+
+        else {
+            $allow_logged_option = $option;
         }
 
         $image = YASR_IMG_DIR . "/loader.gif";
@@ -158,6 +210,7 @@ function visitor_votes_auto_insert_code () {
         $loader_html = "<div id=\"loader-visitor-rating\" >&nbsp; " . __("Loading, please wait","yasr") . " <img src= \" $image \"></div>";
 
         $medium_rating=round($medium_rating, 1);
+
 
         //if anonymous are allowed to vote
         if ($allow_logged_option['allowed_user']==='allow_anonymous') {
@@ -252,9 +305,9 @@ function visitor_votes_auto_insert_code () {
                 }
 
 
-        } //End if user is logged in
+            } //End if user is logged in
 
-          //Else mean user is not logged in
+            //Else mean user is not logged in
             else {
 
 
@@ -270,12 +323,22 @@ function visitor_votes_auto_insert_code () {
 
             }
           
-    }
+        } //end ($allow_logged_option['allowed_user']==='logged_only')
 
 
-      ?>
+        if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
+        
+            $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
+                <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
 
-      <script>
+                $shortcode_html = $shortcode_html_tmp;
+
+        }
+
+
+        ?>
+
+        <script>
         jQuery(document).ready(function() {
 
             var logged_message_showed = false; 
@@ -348,17 +411,19 @@ function visitor_votes_auto_insert_code () {
 
             } //End else !logged_user_already_rated)
 
-      });
+        });
 
-      </script>
+        </script>
 
- 	<?php
+ 	  <?php
 
-  } //End if is singular
+      return $shortcode_html;
 
-  return $shortcode_html;
+    } //End if is singular
 
 } //End function shortcode_visitor_votes_callback
+
+
 
 /****** Auto insert overall rating and visitor rating  ******/
 
@@ -441,7 +506,7 @@ function visitor_votes_auto_insert_code () {
 
 			$overall_rating=yasr_get_overall_rating();
 
-			if($overall_rating && $overall_rating != '-1') {
+			if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
 
 				if(is_singular() && is_main_query() ) {
 					global $post;
@@ -507,31 +572,31 @@ function visitor_votes_auto_insert_code () {
 (Thanks to wordpress.stackexchange) ******/
 
 // init process for registering our button
- add_action('init', 'yasr_shortcode_button_init');
- function yasr_shortcode_button_init() {
+add_action('init', 'yasr_shortcode_button_init');
+    function yasr_shortcode_button_init() {
 
-      //Abort early if the user will never see TinyMCE
-      if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
+        //Abort early if the user will never see TinyMCE
+        if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
            return;
 
-      //Add a callback to regiser our tinymce plugin   
-      add_filter("mce_external_plugins", "yasr_register_tinymce_plugin"); 
+        //Add a callback to regiser our tinymce plugin   
+        add_filter("mce_external_plugins", "yasr_register_tinymce_plugin"); 
 
-      // Add a callback to add our button to the TinyMCE toolbar
-      add_filter('mce_buttons', 'yasr_add_tinymce_button');
+        // Add a callback to add our button to the TinyMCE toolbar
+        add_filter('mce_buttons', 'yasr_add_tinymce_button');
 
-}
+    }
 
 
-//This callback registers our plug-in
-function yasr_register_tinymce_plugin($plugin_array) {
-    $plugin_array['yasr_button'] = YASR_JS_DIR . 'addButton_tinymcs.js';
-    return $plugin_array;
-}
+    //This callback registers our plug-in
+    function yasr_register_tinymce_plugin($plugin_array) {
+        $plugin_array['yasr_button'] = YASR_JS_DIR . 'addButton_tinymcs.js';
+        return $plugin_array;
+    }
 
-//This callback adds our button to the toolbar
-function yasr_add_tinymce_button($buttons) {
-            //Add the button ID to the $button array
-    $buttons[] = "yasr_button";
-    return $buttons;
-}
+    //This callback adds our button to the toolbar
+    function yasr_add_tinymce_button($buttons) {
+                //Add the button ID to the $button array
+        $buttons[] = "yasr_button";
+        return $buttons;
+    }
