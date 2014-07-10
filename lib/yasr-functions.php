@@ -100,14 +100,14 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	}
 
 	function yasr_metabox_overall_rating_content() {
-		if ( !current_user_can( 'manage_options' ) )  {
+		if ( !current_user_can( 'publish_posts' ) )  {
 			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
 		}
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-overall-rating.php');
 	}
 
 	function yasr_metabox_multiple_rating_content() {
-		if ( !current_user_can( 'manage_options' ) )  {
+		if ( !current_user_can( 'publish_posts' ) )  {
 			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
 		}
 		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
@@ -305,9 +305,9 @@ function visitor_votes_auto_insert_code () {
                 }
 
 
-        } //End if user is logged in
+            } //End if user is logged in
 
-          //Else mean user is not logged in
+            //Else mean user is not logged in
             else {
 
 
@@ -323,22 +323,22 @@ function visitor_votes_auto_insert_code () {
 
             }
           
-    }
+        } //end ($allow_logged_option['allowed_user']==='logged_only')
 
 
-    if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
+        if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
         
-        $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
-            <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
+            $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
+                <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
 
-            $shortcode_html = $shortcode_html_tmp;
+                $shortcode_html = $shortcode_html_tmp;
 
-    }
+        }
 
 
-      ?>
+        ?>
 
-      <script>
+        <script>
         jQuery(document).ready(function() {
 
             var logged_message_showed = false; 
@@ -411,15 +411,15 @@ function visitor_votes_auto_insert_code () {
 
             } //End else !logged_user_already_rated)
 
-      });
+        });
 
-      </script>
+        </script>
 
- 	<?php
+ 	  <?php
 
-  } //End if is singular
+      return $shortcode_html;
 
-    return $shortcode_html;
+    } //End if is singular
 
 } //End function shortcode_visitor_votes_callback
 
@@ -506,7 +506,7 @@ function visitor_votes_auto_insert_code () {
 
 			$overall_rating=yasr_get_overall_rating();
 
-			if($overall_rating && $overall_rating != '-1') {
+			if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
 
 				if(is_singular() && is_main_query() ) {
 					global $post;

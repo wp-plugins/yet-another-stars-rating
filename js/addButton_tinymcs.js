@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
                         // triggers the thickbox
                         var width = jQuery(window).width(), W = ( 720 < width ) ? 720 : width;
                         W = W - 80;
-                        tb_show( 'Insert YASR Shortcode', '#TB_inline?width=' + W + '&inlineId=yasr-form' );
+                        tb_show( 'Insert YASR Shortcode', '#TB_inline?width=' + W + '&&height=700&inlineId=yasr-form' );
 
                     tinymce.execCommand('mceInsertContent', false, content);
                 });

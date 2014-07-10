@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 exit();
             }
 
-            if ( ! current_user_can( 'manage_options' ) ) {
+            if ( ! current_user_can( 'publish_posts' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
             }
 
@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     exit();
                 }
 
-                if ( ! current_user_can( 'manage_options' ) ) {
+                if ( ! current_user_can( 'publish_posts' ) ) {
                     wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
                 }
 
@@ -224,7 +224,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 exit();
             }
 
-            if ( ! current_user_can( 'manage_options' ) ) {
+            if ( ! current_user_can( 'publish_posts' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
             }
 
@@ -361,10 +361,19 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     //End elseif ?>
 
                     <tr>
-                        <th><label for="yasr-id"><?php _e("Top 10 overall ratings"); ?></label></th>
+                        <th><label for="yasr-10-overall"><?php _e("Top 10 overall ratings"); ?></label></th>
                         <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
                         <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
                     </tr>
+
+                    <!-- 
+                    <tr>
+                        <th><label for="yasr-10-active-users"><?php // _e("Most active users"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
+                        <small><?php // _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
+                    </tr>
+
+                    -->
 
                 </table>
             </div>
@@ -424,7 +433,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 // Add shortcode for top 10 by overall ratings
                 jQuery('#yasr-top-10-overall-rating').on("click", function(){
-                    var shortcode = '[yasr_10_ten_highest_rated]';
+                    var shortcode = '[yasr_top_ten_highest_rated]';
+                    // inserts the shortcode into the active editor
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                    // closes Thickbox
+                    tb_remove();
+                });
+
+
+                // Add shortcode for top 10 by overall ratings
+                jQuery('#yasr-top-10-active-users').on("click", function(){
+                    var shortcode = '[yasr_top_ten_active_users]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes Thickbox
@@ -464,7 +483,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             <div class="yasr-result-step-1">
                 <?php
                 if ($check_query_success) {  
-                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr'); ?>
+                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr');
+
+                    update_option('yasr-gdstar-imported', '1');
+
+                    ?>
                     <br />
                     <?php _e ("Step2: I will check if you used multiple set and if so I will import it. THIS MAY TAKE A WHILE!", 'yasr'); ?>
                     <br />
@@ -528,7 +551,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                             echo "&nbsp;&nbsp;&nbsp;";
                             _e( "All votes has been successfull imported.", 'yasr'); 
                             echo "<br />";
-                            update_option('yasr-gdstar-imported', '1');
+                            //update_option('yasr-gdstar-imported', '1');
                             echo "<button href=\"#\" class=\"button-delete\" id=\"end-import\">" . __('Done', 'yasr') . "</button>";
 
                         }

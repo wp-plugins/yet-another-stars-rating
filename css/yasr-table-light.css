@@ -38,8 +38,33 @@
 
 .yasr-top-10-highest-rated tr:nth-child(odd) {
         background: #FFFFec;
-    }
+}
     /*  Define the background color for all the EVEN background rows  */
 .yasr-top-10-highest-rated tr:nth-child(even) {
         background: #FFFFFF;
-    }
+}
+
+
+.yasr-top-10-active-users {
+    border-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.yasr-top-10-active-users th {
+    color: #555;
+}
+
+.yasr-top-10-active-users td {
+    padding: 8px;
+    width: 50%;
+}
+
+.yasr-top-10-active-users tr:nth-child(odd) {
+        background: #FFFFec;
+}
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-top-10-active-users tr:nth-child(even) {
+        background: #FFFFFF;
+}

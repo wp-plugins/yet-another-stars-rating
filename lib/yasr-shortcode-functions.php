@@ -308,13 +308,13 @@ function shortcode_visitor_votes_callback () {
 
           });
 
-        </script>
+            </script>
 
-     	<?php
+     	    <?php
 
-    } //End if is singular
+            return $shortcode_html;
 
-      return $shortcode_html;
+        } //End if is singular
 
     } //End if auto_insert_enabled
 
@@ -351,7 +351,7 @@ function shortcode_multi_set_callback( $atts ) {
     	$shortcode_html.="</table>";
     }
 
-    //If there is not vote for that set...(it should always be there, because when adding new post all set are initialized to -1)
+    //If there is not vote for that set...i.e. add shortcode without initialize it
     else {
     	$set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
@@ -375,7 +375,7 @@ function shortcode_multi_set_callback( $atts ) {
 
 /****** Add top 10 highest rated post *****/
 
-add_shortcode ('yasr_10_ten_highest_rated', 'yasr_top_ten_highest_rated_callback');
+add_shortcode ('yasr_top_ten_highest_rated', 'yasr_top_ten_highest_rated_callback');
 
 function yasr_top_ten_highest_rated_callback () {
 
@@ -400,8 +400,8 @@ function yasr_top_ten_highest_rated_callback () {
             $link = get_permalink($result->post_id); //Get permalink from post it
 
             $shortcode_html .= "<tr>
-                                    <td><a href=\"$link\">$post_title</a></td>
-                                    <td><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
+                                    <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
+                                    <td width=\"40%\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
                                 </tr>";
 
 
@@ -414,11 +414,62 @@ function yasr_top_ten_highest_rated_callback () {
     } //end if $query_result
 
     else {
-        _e("There was an error while getting result for yasr_10_ten_highest_rated shortcode. Please report it", "yasr");
+        _e("You don't have any votes stored", "yasr");
     }
 
 } //End function
 
 
+
+/****** Add top 10 most active user *****/
+
+add_shortcode ('yasr_top_ten_active_users', 'yasr_top_ten_active_users_callback');
+
+function yasr_top_ten_active_users_callback () {
+
+    global $wpdb;
+
+    $query_result = $wpdb->get_results("SELECT COUNT( user_id ) as total_count, user_id as user
+                                        FROM " . YASR_LOG_TABLE . "
+                                        GROUP BY user_id 
+                                        ORDER BY ( total_count ) DESC
+                                        LIMIT 10");
+
+    if ($query_result) {
+
+        $shortcode_html = "
+        <table class=\"yasr-top-10-active-users\">
+        <tr>
+         <th>UserName</th>
+         <th>Votes Number</th>
+        </tr>
+        ";
+
+        foreach ($query_result as $result) {
+
+            $user_data = get_userdata( $result->user );
+
+            $user_profile = the_author_meta( 'user_url', $result->user );
+
+            if (!$user_data) {
+                $user_data = new stdClass;
+                $user_data->user_login = 'Anonymous';
+            }
+
+            $shortcode_html .= "<tr>
+                                    <td><a href=\"$user_profile\">$user_data->user_login</a></td>
+                                    <td><a href=\"#\">$result->total_count</a></td>
+                                </tr>";
+        }
+
+
+        $shortcode_html .= "</table>";
+
+        return $shortcode_html;
+
+    }
+
+
+} //End function
 
 ?>
