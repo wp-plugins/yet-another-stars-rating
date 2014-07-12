@@ -10,22 +10,53 @@ function shortcode_overall_rating_callback () {
 
     $option = get_option( 'yasr_general_options' );
 
+    //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on visitor rating.
+    //If auto insert is on overall rating this shortcode must return nothing
+
     if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'visitor_rating' )) {
 
         $overall_rating=yasr_get_overall_rating();
 
-    	if (!$overall_rating) {
-    	    $overall_rating = "-1";
-    	}
+        if (!$overall_rating) {
+            $overall_rating = "-1";
+        }
 
-        $shortcode_html="<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-     	</div>";
+        if($option['text_before_stars'] == 1 && $option['text_before_overall'] != '') {
+            $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
+                                    <span id=\"yasr-custom-text-before-overall\">$option[text_before_overall]</span>
+                                    <div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                                    </div>
+                               </div>"; 
+        }
 
-        return $shortcode_html;
+        else {
 
-    }
+        $shortcode_html = "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+        </div>";
 
-} 
+        }
+
+        //IF show overall rating in loop is disabled use is_singular && is_main query
+        if ($option['show_overall_in_loop'] === 'disabled') {
+
+            if( is_singular() && is_main_query() ) {
+
+                return $shortcode_html;
+
+            }
+
+        }
+
+        //else don't
+        elseif ($option['show_overall_in_loop'] === 'enabled') {
+
+            return $shortcode_html;
+
+        }
+
+    } //end if auto insert enabled == 0
+
+} //end function
 
 
 /****** Add shortcode for user vote ******/
@@ -35,6 +66,9 @@ add_shortcode ('yasr_visitor_votes', 'shortcode_visitor_votes_callback');
 function shortcode_visitor_votes_callback () {
 
     $option = get_option( 'yasr_general_options' );
+
+    //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
+    //If auto insert is on visitor rating this shortcode must return nothing
 
     if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'overall_rating' )) {
 
@@ -167,8 +201,7 @@ function shortcode_visitor_votes_callback () {
 
                     }
 
-
-            } //End if user is logged in
+                } //End if user is logged in
 
               //Else mean user is not logged in
                 else {
@@ -185,8 +218,17 @@ function shortcode_visitor_votes_callback () {
                     }
 
                 }
-              
-        }
+  
+            }
+
+            if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
+        
+                $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
+                <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
+
+                $shortcode_html = $shortcode_html_tmp;
+
+            }
 
 
           ?>
@@ -266,13 +308,13 @@ function shortcode_visitor_votes_callback () {
 
           });
 
-          </script>
+            </script>
 
-     	<?php
+     	    <?php
 
-      } //End if is singular
+            return $shortcode_html;
 
-      return $shortcode_html;
+        } //End if is singular
 
     } //End if auto_insert_enabled
 
@@ -309,17 +351,17 @@ function shortcode_multi_set_callback( $atts ) {
     	$shortcode_html.="</table>";
     }
 
-    //If there is not vote for that set...(it should always be there, because when adding new post all set are initialized to -1)
+    //If there is not vote for that set...i.e. add shortcode without initialize it
     else {
     	$set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
                     WHERE parent_set_id=$setid 
                     ORDER BY field_id ASC");
 
-    	$shortcode_html="<table>";
+    	$shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
 
      	foreach ($set_name as $set_content) {
-        	$shortcode_html .=  "<tr> <td>$set_content->name </td>
+        	$shortcode_html .=  "<tr> <td><span class=\"yasr-multi-set-name-field\">$set_content->name </span></td>
       		   					 <td><div class=\"rateit\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
         						 </tr>";
         }
@@ -333,13 +375,13 @@ function shortcode_multi_set_callback( $atts ) {
 
 /****** Add top 10 highest rated post *****/
 
-add_shortcode ('yasr_10_ten_highest_rated', 'yasr_top_ten_highest_rated_callback');
+add_shortcode ('yasr_top_ten_highest_rated', 'yasr_top_ten_highest_rated_callback');
 
 function yasr_top_ten_highest_rated_callback () {
 
     global $wpdb;
 
-    $query_result = $wpdb->get_results("SELECT v.overall_rating, v.post_id, p.post_status
+    $query_result = $wpdb->get_results("SELECT v.overall_rating, v.post_id
                                         FROM " . YASR_VOTES_TABLE . " AS v, $wpdb->posts AS p
                                         WHERE  v.post_id = p.ID
                                         AND p.post_status = 'publish'
@@ -351,15 +393,13 @@ function yasr_top_ten_highest_rated_callback () {
 
         foreach ($query_result as $result) {
 
-            $post_status = get_post_status($result->post_id);
-
             $post_title = get_the_title($result->post_id);
 
             $link = get_permalink($result->post_id); //Get permalink from post it
 
             $shortcode_html .= "<tr>
-                                    <td><a href=\"$link\">$post_title</a></td>
-                                    <td><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
+                                    <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
+                                    <td width=\"40%\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
                                 </tr>";
 
 
@@ -372,11 +412,145 @@ function yasr_top_ten_highest_rated_callback () {
     } //end if $query_result
 
     else {
-        _e("There was an error while getting result for yasr_10_ten_highest_rated shortcode. Please report it", "yasr");
+        _e("You don't have any votes stored", "yasr");
     }
 
 } //End function
 
 
+/****** Add top 5 most active reviewer ******/
+
+add_shortcode ('yasr_top_5_reviewers', 'yasr_top_5_reviewers_callback');
+
+function yasr_top_5_reviewers_callback () {
+
+    global $wpdb;
+
+    $query_result = $wpdb->get_results("SELECT COUNT( reviewer_id ) as total_count, reviewer_id as reviewer
+                                        FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p
+                                        WHERE  post_id = p.ID
+                                        AND p.post_status = 'publish'
+                                        GROUP BY reviewer_id
+                                        ORDER BY (total_count) DESC
+                                        LIMIT 5");
+
+
+    if ($query_result) {
+
+        $shortcode_html = "
+        <table class=\"yasr-top-5-active-reviewer\">
+        <tr>
+         <th>Author</th>
+         <th>Reviews</th>
+        </tr>
+        ";
+
+        foreach ($query_result as $result) {
+
+            $user_data = get_userdata($result->reviewer);
+
+            if ($user_data) {
+
+                $user_profile = get_author_posts_url($result->reviewer);
+
+            }
+
+            else {
+
+                $user_profile = '#';
+                $user_data = new stdClass;
+                $user_data->user_login = 'Anonymous';
+            
+            }
+
+
+            $shortcode_html .= "<tr>
+                                    <td><a href=\"$user_profile\">$user_data->user_login</a></td>
+                                    <td>$result->total_count</td>
+                                </tr>";
+                                
+        }
+
+        $shortcode_html .= "</table>";
+
+        return $shortcode_html;
+
+    }
+
+    else {
+
+        _e("Problem while retriving the top 5 most active reviewers. Did you published any review?");
+
+    }
+
+
+} //End top 5 reviewers function
+
+
+
+
+
+/****** Add top 10 most active user *****/
+
+add_shortcode ('yasr_top_ten_active_users', 'yasr_top_ten_active_users_callback');
+
+function yasr_top_ten_active_users_callback () {
+
+    global $wpdb;
+
+    $query_result = $wpdb->get_results("SELECT COUNT( user_id ) as total_count, user_id as user
+                                        FROM " . YASR_LOG_TABLE . ", $wpdb->posts AS p
+                                        WHERE  post_id = p.ID
+                                        AND p.post_status = 'publish'
+                                        GROUP BY user_id 
+                                        ORDER BY ( total_count ) DESC
+                                        LIMIT 10");
+
+    if ($query_result) {
+
+        $shortcode_html = "
+        <table class=\"yasr-top-10-active-users\">
+        <tr>
+         <th>UserName</th>
+         <th>Number of votes</th>
+        </tr>
+        ";
+
+        foreach ($query_result as $result) {
+
+            $user_data = get_userdata($result->user);
+
+            if ($user_data) {
+
+                $user_profile = get_author_posts_url($result->user);
+
+            }
+
+            else {
+                $user_profile = '#';
+                $user_data = new stdClass;
+                $user_data->user_login = 'Anonymous';
+            }
+
+            $shortcode_html .= "<tr>
+                                    <td><a href=\"$user_profile\">$user_data->user_login</a></td>
+                                    <td>$result->total_count</td>
+                                </tr>";
+
+        }
+
+
+        $shortcode_html .= "</table>";
+
+        return $shortcode_html;
+
+    }
+
+    else {
+        _e("Problem while retriving the top 10 active users chart. Are you sure you have votes to show?");
+    }
+
+
+} //End function
 
 ?>

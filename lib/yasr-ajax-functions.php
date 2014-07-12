@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 exit();
             }
 
-            if ( ! current_user_can( 'manage_options' ) ) {
+            if ( ! current_user_can( 'publish_posts' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
             }
 
@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     exit();
                 }
 
-                if ( ! current_user_can( 'manage_options' ) ) {
+                if ( ! current_user_can( 'publish_posts' ) ) {
                     wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
                 }
 
@@ -224,7 +224,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 exit();
             }
 
-            if ( ! current_user_can( 'manage_options' ) ) {
+            if ( ! current_user_can( 'publish_posts' ) ) {
                 wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
             }
 
@@ -318,6 +318,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         $n_multi_set=$wpdb->num_rows;
         
         ?>
+
             <div id="yasr-form">
                 <table id="yasr-table" class="form-table">
                     <tr>
@@ -361,9 +362,21 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     //End elseif ?>
 
                     <tr>
-                        <th><label for="yasr-id"><?php _e("Top 10 overall ratings"); ?></label></th>
+                        <th><label for="yasr-10-overall"><?php _e("Top 10 overall ratings"); ?></label></th>
                         <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
                         <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="Insert Top 5 most active reviewers"/><br />
+                        <small><?php _e("Insert Top 5 active reviewers"); ?></small></td>
+                    </tr>
+
+                    <tr>
+                        <th><label for="yasr-10-active-users"><?php _e("Most active users"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
+                        <small><?php _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
                     </tr>
 
                 </table>
@@ -375,8 +388,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     var shortcode = '[yasr_overall_rating]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    tb_remove();
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
                 });
 
                 //Add shortcode for visitors rating
@@ -385,7 +398,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes Thickbox
-                    tb_remove();
+                    jQuery('#yasr-form').dialog('close');
                 });
 
                 <?php if ($n_multi_set>1) { ?>
@@ -398,8 +411,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         shortcode += ']';
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        tb_remove();
+                        // closes jqueryui
+                        jQuery('#yasr-form').dialog('close');
                     });
 
                 <?php } //End if
@@ -414,8 +427,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         shortcode += ']';
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        tb_remove();
+                        // closes jqueryui
+                        jQuery('#yasr-form').dialog('close');
                     });
 
                 <?php 
@@ -424,11 +437,29 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 // Add shortcode for top 10 by overall ratings
                 jQuery('#yasr-top-10-overall-rating').on("click", function(){
-                    var shortcode = '[yasr_10_ten_highest_rated]';
+                    var shortcode = '[yasr_top_ten_highest_rated]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    tb_remove();
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
+                });
+
+                // Add shortcode for top 5 active reviewer
+                jQuery('#yasr-5-active-reviewers').on("click", function(){
+                    var shortcode = '[yasr_top_5_reviewers]';
+                    // inserts the shortcode into the active editor
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
+                });
+
+                // Add shortcode for top 10 active users
+                jQuery('#yasr-top-10-active-users').on("click", function(){
+                    var shortcode = '[yasr_top_ten_active_users]';
+                    // inserts the shortcode into the active editor
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
                 });
 
             </script>
@@ -464,7 +495,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             <div class="yasr-result-step-1">
                 <?php
                 if ($check_query_success) {  
-                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr'); ?>
+                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr');
+
+                    update_option('yasr-gdstar-imported', '1');
+
+                    ?>
                     <br />
                     <?php _e ("Step2: I will check if you used multiple set and if so I will import it. THIS MAY TAKE A WHILE!", 'yasr'); ?>
                     <br />
@@ -528,7 +563,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                             echo "&nbsp;&nbsp;&nbsp;";
                             _e( "All votes has been successfull imported.", 'yasr'); 
                             echo "<br />";
-                            update_option('yasr-gdstar-imported', '1');
+                            //update_option('yasr-gdstar-imported', '1');
                             echo "<button href=\"#\" class=\"button-delete\" id=\"end-import\">" . __('Done', 'yasr') . "</button>";
 
                         }
@@ -851,8 +886,23 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             exit();
         }
 
-        echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
+
+        //Check if user specifyed a custom text to display when a vistor har rated
+        $option = get_option('yasr_general_options');
+
+        if($option['text_before_stars'] == 1 && $option['custom_text_user_voted'] != '') {
+
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br /> $option[custom_text_user_voted] </strong>";
+
+        }
+
+        else {
+
+            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
+
+        }
 
 
 
