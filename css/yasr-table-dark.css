@@ -46,6 +46,34 @@
 
 
 
+.yasr-top-5-active-reviewer {
+    color: #ffffff;
+    border-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.yasr-top-5-active-reviewer th {
+    padding: 12px;
+    color: white;
+}
+
+.yasr-top-5-active-reviewer td {
+    padding: 8px;
+    width: 50%;
+}
+
+.yasr-top-5-active-reviewer tr:nth-child(odd) {
+        background: #292929;
+}
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-top-5-active-reviewer tr:nth-child(even) {
+        background: #161616;
+}
+
+
+
 .yasr-top-10-active-users {
     border-spacing: 1px;
     margin-top: 10px;
@@ -54,11 +82,13 @@
 }
 
 .yasr-top-10-active-users th {
+    padding: 12px;
     color: white;
 }
 
 .yasr-top-10-active-users td {
     padding: 8px;
+    color: white;
     width: 50%;
 }
 

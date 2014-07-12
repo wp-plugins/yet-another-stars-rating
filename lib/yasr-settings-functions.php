@@ -842,7 +842,7 @@ function yasr_process_edit_multi_set_form() {
   				else {
 
   					//Check if field name is changed
-  					$field_name_in_db = $wpdb->get_results("SELECT field_name FROM " . YASR_MULTI_SET_FIELDS_TABLE . " WHERE field_id=$field_id");
+  					$field_name_in_db = $wpdb->get_results("SELECT field_name FROM " . YASR_MULTI_SET_FIELDS_TABLE . " WHERE field_id=$field_id AND parent_set_id=$set_id");
 
   					foreach ($field_name_in_db as $field_in_db) {
   						$field_name_in_database = $field_in_db->field_name;

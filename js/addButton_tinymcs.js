@@ -5,12 +5,16 @@ jQuery(document).ready(function() {
                 // Register command for when button is clicked
                 ed.addCommand('yasr_insert_shortcode', function() {
 
-                        // triggers the thickbox
-                        var width = jQuery(window).width(), W = ( 720 < width ) ? 720 : width;
-                        W = W - 80;
-                        tb_show( 'Insert YASR Shortcode', '#TB_inline?width=' + W + '&&height=700&inlineId=yasr-form' );
+                        jQuery('#yasr-form').dialog({
+                            title: 'Insert YASR shortcode',
+                            width: 'auto', // overcomes width:'auto' and maxWidth bug
+                            maxWidth: 600,
+                            height: 'auto',
+                            modal: true,
+                            fluid: true, //new option
+                            resizable: false
 
-                    tinymce.execCommand('mceInsertContent', false, content);
+                        });
                 });
 
             // Register buttons - trigger above command when clicked
@@ -25,6 +29,7 @@ jQuery(document).ready(function() {
 
     // executes this when the DOM is ready
     jQuery(document).ready(function(){
+
         var data = { 
             action: 'yasr_create_shortcode'
         }

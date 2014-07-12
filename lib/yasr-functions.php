@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		wp_enqueue_style( 'rateitcss', YASR_CSS_DIR . 'rateit.css', FALSE, NULL, 'all' );
 		wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
+        wp_enqueue_style( 'jqueryui', YASR_CSS_DIR . 'jquery-ui.min.css', FALSE, NULL, 'all' );
 
         $chosen_color=NULL;
 
@@ -32,6 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_enqueue_style( 'yasrcssdarkscheme', YASR_CSS_DIR . 'yasr-table-dark.css', array('yasrcss'), NULL, 'all' );
         }
 
+        wp_enqueue_script( 'jquery-ui-dialog' );
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
@@ -100,17 +102,23 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	}
 
 	function yasr_metabox_overall_rating_content() {
-		if ( !current_user_can( 'publish_posts' ) )  {
-			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
+		if ( current_user_can( 'publish_posts' ) )  {
+			include (YASR_ABSOLUTE_PATH . '/yasr-metabox-overall-rating.php');
 		}
-		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-overall-rating.php');
+		else {
+            _e("You don't have enought privileges to insert overall rating");
+        }
+
 	}
 
 	function yasr_metabox_multiple_rating_content() {
-		if ( !current_user_can( 'publish_posts' ) )  {
-			wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
+		if ( current_user_can( 'publish_posts' ) )  {
+			include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
 		}
-		include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
+        else {
+            _e("You don't have enought privileges to insert multi-set");
+        }
+		
 	}
 
 
@@ -310,7 +318,6 @@ function visitor_votes_auto_insert_code () {
             //Else mean user is not logged in
             else {
 
-
                 if ($votes_number>0) {
                     $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
                     </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br />" . __("You must sign to vote", "yasr") . "</div>";
@@ -318,7 +325,7 @@ function visitor_votes_auto_insert_code () {
 
                 else {
                     $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                    </div><br /> " . __("No rating yet" , "yasr") . "<br />" . _e("You must sign to vote", "") . "</div>";
+                    </div><br /> " . __("No rating yet" , "yasr") . "<br />" . __("You must sign to vote", "") . "</div>";
                 }
 
             }
@@ -576,7 +583,7 @@ add_action('init', 'yasr_shortcode_button_init');
     function yasr_shortcode_button_init() {
 
         //Abort early if the user will never see TinyMCE
-        if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') && get_user_option('rich_editing') == 'true')
+        if ( ! current_user_can('publish_posts') && ! current_user_can('publish_posts') && get_user_option('rich_editing') == 'true')
            return;
 
         //Add a callback to regiser our tinymce plugin   

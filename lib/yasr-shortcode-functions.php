@@ -381,7 +381,7 @@ function yasr_top_ten_highest_rated_callback () {
 
     global $wpdb;
 
-    $query_result = $wpdb->get_results("SELECT v.overall_rating, v.post_id, p.post_status
+    $query_result = $wpdb->get_results("SELECT v.overall_rating, v.post_id
                                         FROM " . YASR_VOTES_TABLE . " AS v, $wpdb->posts AS p
                                         WHERE  v.post_id = p.ID
                                         AND p.post_status = 'publish'
@@ -392,8 +392,6 @@ function yasr_top_ten_highest_rated_callback () {
         $shortcode_html = "<table class=\"yasr-top-10-highest-rated\">";
 
         foreach ($query_result as $result) {
-
-            $post_status = get_post_status($result->post_id);
 
             $post_title = get_the_title($result->post_id);
 
@@ -420,6 +418,77 @@ function yasr_top_ten_highest_rated_callback () {
 } //End function
 
 
+/****** Add top 5 most active reviewer ******/
+
+add_shortcode ('yasr_top_5_reviewers', 'yasr_top_5_reviewers_callback');
+
+function yasr_top_5_reviewers_callback () {
+
+    global $wpdb;
+
+    $query_result = $wpdb->get_results("SELECT COUNT( reviewer_id ) as total_count, reviewer_id as reviewer
+                                        FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p
+                                        WHERE  post_id = p.ID
+                                        AND p.post_status = 'publish'
+                                        GROUP BY reviewer_id
+                                        ORDER BY (total_count) DESC
+                                        LIMIT 5");
+
+
+    if ($query_result) {
+
+        $shortcode_html = "
+        <table class=\"yasr-top-5-active-reviewer\">
+        <tr>
+         <th>Author</th>
+         <th>Reviews</th>
+        </tr>
+        ";
+
+        foreach ($query_result as $result) {
+
+            $user_data = get_userdata($result->reviewer);
+
+            if ($user_data) {
+
+                $user_profile = get_author_posts_url($result->reviewer);
+
+            }
+
+            else {
+
+                $user_profile = '#';
+                $user_data = new stdClass;
+                $user_data->user_login = 'Anonymous';
+            
+            }
+
+
+            $shortcode_html .= "<tr>
+                                    <td><a href=\"$user_profile\">$user_data->user_login</a></td>
+                                    <td>$result->total_count</td>
+                                </tr>";
+                                
+        }
+
+        $shortcode_html .= "</table>";
+
+        return $shortcode_html;
+
+    }
+
+    else {
+
+        _e("Problem while retriving the top 5 most active reviewers. Did you published any review?");
+
+    }
+
+
+} //End top 5 reviewers function
+
+
+
+
 
 /****** Add top 10 most active user *****/
 
@@ -430,7 +499,9 @@ function yasr_top_ten_active_users_callback () {
     global $wpdb;
 
     $query_result = $wpdb->get_results("SELECT COUNT( user_id ) as total_count, user_id as user
-                                        FROM " . YASR_LOG_TABLE . "
+                                        FROM " . YASR_LOG_TABLE . ", $wpdb->posts AS p
+                                        WHERE  post_id = p.ID
+                                        AND p.post_status = 'publish'
                                         GROUP BY user_id 
                                         ORDER BY ( total_count ) DESC
                                         LIMIT 10");
@@ -441,25 +512,31 @@ function yasr_top_ten_active_users_callback () {
         <table class=\"yasr-top-10-active-users\">
         <tr>
          <th>UserName</th>
-         <th>Votes Number</th>
+         <th>Number of votes</th>
         </tr>
         ";
 
         foreach ($query_result as $result) {
 
-            $user_data = get_userdata( $result->user );
+            $user_data = get_userdata($result->user);
 
-            $user_profile = the_author_meta( 'user_url', $result->user );
+            if ($user_data) {
 
-            if (!$user_data) {
+                $user_profile = get_author_posts_url($result->user);
+
+            }
+
+            else {
+                $user_profile = '#';
                 $user_data = new stdClass;
                 $user_data->user_login = 'Anonymous';
             }
 
             $shortcode_html .= "<tr>
                                     <td><a href=\"$user_profile\">$user_data->user_login</a></td>
-                                    <td><a href=\"#\">$result->total_count</a></td>
+                                    <td>$result->total_count</td>
                                 </tr>";
+
         }
 
 
@@ -467,6 +544,10 @@ function yasr_top_ten_active_users_callback () {
 
         return $shortcode_html;
 
+    }
+
+    else {
+        _e("Problem while retriving the top 10 active users chart. Are you sure you have votes to show?");
     }
 
 

@@ -318,6 +318,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         $n_multi_set=$wpdb->num_rows;
         
         ?>
+
             <div id="yasr-form">
                 <table id="yasr-table" class="form-table">
                     <tr>
@@ -366,14 +367,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
                     </tr>
 
-                    <!-- 
                     <tr>
-                        <th><label for="yasr-10-active-users"><?php // _e("Most active users"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
-                        <small><?php // _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
+                        <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="Insert Top 5 most active reviewers"/><br />
+                        <small><?php _e("Insert Top 5 active reviewers"); ?></small></td>
                     </tr>
 
-                    -->
+                    <tr>
+                        <th><label for="yasr-10-active-users"><?php _e("Most active users"); ?></label></th>
+                        <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
+                        <small><?php _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
+                    </tr>
 
                 </table>
             </div>
@@ -384,8 +388,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     var shortcode = '[yasr_overall_rating]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    tb_remove();
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
                 });
 
                 //Add shortcode for visitors rating
@@ -394,7 +398,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes Thickbox
-                    tb_remove();
+                    jQuery('#yasr-form').dialog('close');
                 });
 
                 <?php if ($n_multi_set>1) { ?>
@@ -407,8 +411,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         shortcode += ']';
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        tb_remove();
+                        // closes jqueryui
+                        jQuery('#yasr-form').dialog('close');
                     });
 
                 <?php } //End if
@@ -423,8 +427,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         shortcode += ']';
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        tb_remove();
+                        // closes jqueryui
+                        jQuery('#yasr-form').dialog('close');
                     });
 
                 <?php 
@@ -436,18 +440,26 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     var shortcode = '[yasr_top_ten_highest_rated]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    tb_remove();
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
                 });
 
+                // Add shortcode for top 5 active reviewer
+                jQuery('#yasr-5-active-reviewers').on("click", function(){
+                    var shortcode = '[yasr_top_5_reviewers]';
+                    // inserts the shortcode into the active editor
+                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
+                });
 
-                // Add shortcode for top 10 by overall ratings
+                // Add shortcode for top 10 active users
                 jQuery('#yasr-top-10-active-users').on("click", function(){
                     var shortcode = '[yasr_top_ten_active_users]';
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    tb_remove();
+                    // closes jqueryui
+                    jQuery('#yasr-form').dialog('close');
                 });
 
             </script>
