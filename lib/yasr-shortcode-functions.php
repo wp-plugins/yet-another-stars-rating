@@ -214,7 +214,7 @@ function shortcode_visitor_votes_callback () {
 
                     else {
                         $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                        </div><br /> " . __("No rating yet" , "yasr") . "<br />" . _e("You must sign to vote", "") . "</div>";
+                        </div><br /> " . __("No rating yet" , "yasr") . "<br />" . __("You must sign to vote", "") . "</div>";
                     }
 
                 }
