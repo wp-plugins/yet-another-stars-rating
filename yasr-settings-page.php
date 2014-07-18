@@ -82,7 +82,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 	        	<br />
 	        	<?php _e('Thank you!'); ?>
 	        	<br />
-	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
 	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
 	        	</a>
         	</div>
@@ -246,7 +246,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 	        	<?php _e('Thank you!'); ?>
 	        	<br />
 	        	
-	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
 	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
 	        	</a>
 
@@ -271,7 +271,7 @@ if ( !current_user_can( 'manage_options' ) ) {
         	<?php _e('Thank you!'); ?>
         	<br />
         	
-        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
 	        	<?php echo("<img src=\"" . YASR_IMG_DIR . "\"/paypal.png>"); ?>
 	        </a>
 
