@@ -68,6 +68,12 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     }
 }
 
+#yasr-color-scheme-preview {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 10px;
+}
+
 #yasr-snippet-explained {
     border: 2px dashed #CCC;
     padding: 15px;
@@ -273,22 +279,28 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 
 /****** NON ADMIN RULES ******/
 
-.yasr_table_multi_set_shortcode tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr_table_multi_set_shortcode tr:nth-child(even) {
-        background: #FFFFFF;
-    }
-
-.yasr-multi-set-name-field {
-    color: #555;
+.yasr_schema{
+    font-size: small;
 }
 
-.yasr-top-10-highest-rated tr:nth-child(odd) {
-        background: #FFFFec;
-    }
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-top-10-highest-rated tr:nth-child(even) {
-        background: #FFFFFF;
-    }
+#yasr-custom-text-before-overall {
+    padding-right: 5px;
+    padding-bottom: 10px;
+    vertical-align: top;
+}
+
+.yasr-container-custom-text-and-visitor-rating {
+    /**/
+}
+
+#yasr-custom-text-before-visitor-rating {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 15px;
+}
+
+#yasr_visitor_votes {
+    font-size: small;
+    display: inline-block;
+    vertical-align: top;
+}
