@@ -1,5 +1,5 @@
 === Yasr - Yet Another Stars Rating ===
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
