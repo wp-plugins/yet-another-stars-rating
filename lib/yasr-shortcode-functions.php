@@ -418,6 +418,160 @@ function yasr_top_ten_highest_rated_callback () {
 } //End function
 
 
+/****** Add top 10 most rated / highest rated post *****/
+
+add_shortcode ('yasr_most_or_highest_rated_posts', 'yasr_most_or_highest_rated_posts_callback');
+
+function yasr_most_or_highest_rated_posts_callback () {
+
+    $chart_type = 'most'; //default value;
+
+    if (isset($_GET['yasr-order-by'])) {
+
+        $chart_type = $_GET['yasr-order-by'];
+
+        if ($chart_type != 'most' && $chart_type != 'highest') {
+
+            $chart_type = 'most';
+
+        }
+
+    }
+
+    global $wpdb;
+
+    $post_url = get_permalink();
+
+    if ($chart_type === 'most' ) {
+
+        $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
+                                            FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
+                                            WHERE post_id = p.ID
+                                            AND p.post_status = 'publish'
+                                            ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
+
+        if ($query_result_most_rated) {
+
+            $shortcode_html = "<div class=\"yasr_multi_chart_container\"><table class=\"yasr-most-or-highest-rated-posts\">
+                                <tr>
+                                    <th>Post / Page</th>
+                                    <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
+                                </tr>
+                               </div>";
+
+            foreach ($query_result_most_rated as $result) {
+
+                $rating = $result->sum_votes / $result->number_of_votes;
+
+                $rating = round($rating, 1);
+
+                $post_title = get_the_title($result->post_id);
+
+                $link = get_permalink($result->post_id); //Get permalink from post it
+
+                $shortcode_html .= "<tr>
+                                        <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
+                                        <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                        <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
+                                    </tr>";
+
+
+            } //End foreach
+
+            $shortcode_html .= "</table>";
+
+            ?>
+
+            <script>
+
+            jQuery(document).ready(function() {
+
+                //Link do nothing
+                jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
+
+                    return false; // prevent default click action from happening!
+
+                });
+
+                var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+                //This send an ajax request to show the highest rated: 
+                //THIS WORK ONLY ON FIRST PAGE LOAD.
+                jQuery('#yasr_multi_chart_highest').on("click", function () {
+
+                    var data = {
+                        order_by: 'highest',
+                        action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
+                    };
+
+                    jQuery.post(ajaxurl, data, function(response) {
+                        jQuery('.yasr_multi_chart_container').html(response);
+                        jQuery('.rateit').rateit();
+                    });
+
+                    return false; // prevent default click action from happening!
+
+                });
+
+
+                jQuery(document).ajaxComplete(function() {
+
+                    //This send an ajax request to show the highest rated.
+                    //I need this again to make it work after ajax has been called
+                    jQuery('#yasr_multi_chart_highest').on("click", function () {
+
+                        var data = {
+                            order_by: 'highest',
+                            action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
+                        };
+
+                        jQuery.post(ajaxurl, data, function(response) {
+                            jQuery('.yasr_multi_chart_container').html(response);
+                            jQuery('.rateit').rateit();
+                        });
+
+                        return false; // prevent default click action from happening!
+
+                    });
+
+                    //This send an ajax to come back to most rated
+                    jQuery('#yasr_multi_chart_most').on("click", function () {
+
+                        var data = {
+                            order_by: 'most',
+                            action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
+                        };
+
+                        jQuery.post(ajaxurl, data, function(response) {
+                            jQuery('.yasr_multi_chart_container').html(response);
+                            jQuery('.rateit').rateit();
+                        });
+
+                        return false; // prevent default click action from happening!
+
+                    });
+
+                });
+
+            });
+
+            </script>
+
+            <?php
+
+            return $shortcode_html;
+
+        } //end if $query_result
+
+        else {
+            _e("You don't have any user votes stored", "yasr");
+        }
+
+    }
+
+} //End function
+
+
 /****** Add top 5 most active reviewer ******/
 
 add_shortcode ('yasr_top_5_reviewers', 'yasr_top_5_reviewers_callback');

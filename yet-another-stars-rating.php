@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.3.7
+ * Version: 0.3.8
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.3.7');
+define('YASR_VERSION_NUM', '0.3.8');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -44,7 +44,7 @@ define( "YASR_LANG_DIR", YASR_RELATIVE_PATH . '/languages/' );
 define ("YASR_JS_DIR",  plugins_url( YASR_RELATIVE_PATH . '/js/' ));
 
 //CSS directory
-define ("YASR_CSS_DIR", plugins_url(YASR_RELATIVE_PATH . '/css/' ));
+define ("YASR_CSS_DIR", plugins_url( YASR_RELATIVE_PATH . '/css/' ));
 
 //IMG directory
 define ("YASR_IMG_DIR", plugins_url( YASR_RELATIVE_PATH . '/img/'));
@@ -97,6 +97,16 @@ if ($version_installed && $version_installed < '0.3.4') {
 	$option['text_before_stars'] = 0;
 	$option['snippet'] = 'overall_rating';
 	$option['allowed_user'] = 'allow_anonymous';
+
+	update_option("yasr_general_options", $option);
+
+}
+
+if ($version_installed && $version_installed < '0.3.8') {
+
+	$option = get_option( 'yasr_general_options' );
+
+	$option['auto_insert_exclude_pages'] = 'yes'; 
 
 	update_option("yasr_general_options", $option);
 

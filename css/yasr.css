@@ -279,6 +279,10 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 
 /****** NON ADMIN RULES ******/
 
+.yasr_schema{
+    font-size: small;
+}
+
 #yasr-custom-text-before-overall {
     padding-right: 5px;
     padding-bottom: 10px;
@@ -296,6 +300,7 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
 }
 
 #yasr_visitor_votes {
+    font-size: small;
     display: inline-block;
     vertical-align: top;
 }

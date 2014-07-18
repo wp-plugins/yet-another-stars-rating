@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
         init : function(ed, url) {
                 // Register command for when button is clicked
                 ed.addCommand('yasr_insert_shortcode', function() {
-
+                    
                         jQuery('#yasr-form').dialog({
                             title: 'Insert YASR shortcode',
                             width: 'auto', // overcomes width:'auto' and maxWidth bug

@@ -1,9 +1,9 @@
 === Yasr - Yet Another Stars Rating ===
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S963KJ3UW5XG
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.3.7
+Stable tag: 0.3.8
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,7 +46,14 @@ If with gd-star-rating you're using a different number of stars from the default
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
 
+
 == Changelog ==
+
+= 0.3.8 = 
+* Added new chart: Top 10 most rated / highest rated posts from visitors (show up only posts rated at least twice)
+* New setting: it's possibile now to explude pages from auto insert
+* Css changes
+* Various bugfixes
 
 = 0.3.7 =
 * Added new chart: Top 5 most active reviewers

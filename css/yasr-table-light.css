@@ -44,6 +44,32 @@
         background: #FFFFFF;
 }
 
+.yasr-most-or-highest-rated-posts {
+    border-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.yasr-most-or-highest-rated-posts th {
+    padding: 12px;
+    color: #555;
+}
+
+.yasr-most-or-highest-rated-posts td {
+    padding: 8px;
+    width: 50%;
+    color: #555;
+}
+
+.yasr-most-or-highest-rated-posts tr:nth-child(odd) {
+        background: #FFFFec;
+}
+    /*  Define the background color for all the EVEN background rows  */
+.yasr-most-or-highest-rated-posts tr:nth-child(even) {
+        background: #FFFFFF;
+}
+
 
 .yasr-top-5-active-reviewer {
     border-spacing: 1px;

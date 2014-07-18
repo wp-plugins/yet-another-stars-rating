@@ -17,6 +17,7 @@
 	    	if ($option && $option['auto_insert_enabled']==0) {
 	    		$option['auto_insert_what']='overall_rating';
 	    		$option['auto_insert_where']='top';
+	    		$option['auto_insert_exclude_pages']='yes';
 	    	}
 
 	    	//This is to avoid undefined offset
@@ -27,7 +28,7 @@
 	    	}
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
-	    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
+	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert otions', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option);
@@ -45,6 +46,9 @@
 
 	    	?>
 
+
+	    		<strong><?php _e('Use Auto Insert?', 'yasr'); ?></strong>
+				<br />
 	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['auto_insert_enabled']==1) echo " checked='checked' "; ?>  /> 
 	    		<?php _e('Yes', 'yasr') ?>
 				&nbsp;&nbsp;&nbsp;
@@ -96,6 +100,17 @@
 		    		<br />
 
 		    	<p>&nbsp;</p>
+
+		    	<strong><?php _e('Exclude Pages?', 'yasr'); ?></strong>
+		    	<br />
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="yes" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_exclude_pages']==='yes' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Yes', 'yasr')?>
+
+				&nbsp;&nbsp;&nbsp;
+
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="no" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_exclude_pages']==='no') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('No', 'yasr')?>
+		    		<br />
 
 		    	<hr />
 	    			  

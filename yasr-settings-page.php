@@ -82,12 +82,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 	        	<br />
 	        	<?php _e('Thank you!'); ?>
 	        	<br />
-	        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-					<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-					<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-				</form>
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
         	</div>
 
 			<div class="yasr-space-settings-div">
@@ -248,12 +245,11 @@ if ( !current_user_can( 'manage_options' ) ) {
 	        	<br />
 	        	<?php _e('Thank you!'); ?>
 	        	<br />
-	        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-					<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-					<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-				</form>
+	        	
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
+
         </div>
 
 		<div class="yasr-space-settings-div">
@@ -274,12 +270,10 @@ if ( !current_user_can( 'manage_options' ) ) {
         	<br />
         	<?php _e('Thank you!'); ?>
         	<br />
-        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-				<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-				<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-			</form>
+        	
+        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MMPXXGQL7M4T6">
+	        	<?php echo("<img src=\"" . YASR_IMG_DIR . "\"/paypal.png>"); ?>
+	        </a>
 
         </div>
 
@@ -312,13 +306,11 @@ if ( !current_user_can( 'manage_options' ) ) {
 		jQuery('#yasr-color-scheme-preview-link').on('click', function () {
 			jQuery('#yasr-color-scheme-preview').toggle('slow');
 			return false; // prevent default click action from happening!
-			preventDefault(); // prevent default click action from happening!
 		});
 
 		jQuery('#yasr-snippet-explained-link').on('click', function () {
 			jQuery('#yasr-snippet-explained').toggle('slow');
 			return false; // prevent default click action from happening!
-			preventDefault(); // prevent default click action from happening!
 		});
 
 
@@ -422,7 +414,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 		     			});
 
 		     			return false; // prevent default click action from happening!
-	            			preventDefault(); // same thing as above
+	            		preventDefault(); // same thing as above
 
 					});
 			 
