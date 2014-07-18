@@ -135,8 +135,6 @@ function overall_rating_auto_insert_code () {
 
     $option = get_option( 'yasr_general_options' );
 
-    if ($option['auto_insert_exclude_pages'] === 'no') {
-
         if($option['text_before_stars'] == 1 && $option['text_before_overall'] != '') {
                 $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
                                         <span id=\"yasr-custom-text-before-overall\">$option[text_before_overall]</span>
@@ -155,28 +153,50 @@ function overall_rating_auto_insert_code () {
         //IF show overall rating in loop is disabled use is_singular && is_main query
         if ($option['show_overall_in_loop'] === 'disabled') {
 
-            if( is_singular() && is_main_query() ) {
+            //If pages are not excluted
+            if ($option['auto_insert_exclude_pages'] === 'no') {
+
+                if( is_singular() && is_main_query() ) {
+
+                    return $shortcode_html;
+
+                }
+
+            }
+
+            //If page are excluted
+            else {
+
+                if( is_singular() && is_main_query() && !is_page() )
+
+                    return $shortcode_html;
+
+            }
+
+        } // End if ($option['show_overall_in_loop'] === 'disabled') {
+
+        //If overall rating in loop is enabled don't use is_singular && is main_query
+        elseif ($option['show_overall_in_loop'] === 'enabled') {
+
+            //If pages are not excluted return always
+            if ($option['auto_insert_exclude_pages'] === 'no') {
 
                 return $shortcode_html;
 
             }
 
+            //Else if page are excluted return only if is not a page
+            else {
+
+                if ( !is_page() ) {
+
+                    return $shortcode_html;
+
+                }
+
+            }
+
         }
-
-        //else don't
-        elseif ($option['show_overall_in_loop'] === 'enabled') {
-
-            return $shortcode_html;
-
-        }
-
-    } // End if ($option['auto_insert_exclude_pages'] === 'no') {
-
-    elseif ($option['auto_insert_exclude_pages'] === 'yes') {
-
-        return NULL;
-
-    }
 
 } //End function
 
@@ -189,8 +209,6 @@ is called and have initial different conditions ******/
 function visitor_votes_auto_insert_code () {
 
     $option = get_option( 'yasr_general_options' );
-
-    if ($option['auto_insert_exclude_pages'] === 'no') {
 
         $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
@@ -438,17 +456,23 @@ function visitor_votes_auto_insert_code () {
 
      	    <?php
 
-            return $shortcode_html;
+            if ($option['auto_insert_exclude_pages'] === 'no') {
+
+                return $shortcode_html;
+
+            }
+
+            else {
+
+                if ( !is_page() ) {
+
+                    return $shortcode_html;
+
+                }
+
+            }
 
         } //End if is singular
-
-    } // End if ($option['auto_insert_exclude_pages'] === 'no')
-
-    elseif ($option['auto_insert_exclude_pages'] === 'yes') {
-
-        return NULL;
-
-    }
 
 } //End function shortcode_visitor_votes_callback
 

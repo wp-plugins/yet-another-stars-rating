@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.3.8
+Stable tag: 0.3.9
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,9 @@ If with gd-star-rating you're using a different number of stars from the default
 
 
 == Changelog ==
+
+= 0.3.9 =
+* Fixed page exclusion
 
 = 0.3.8 = 
 * Added new chart: Top 10 most rated / highest rated posts from visitors (show up only posts rated at least twice)
