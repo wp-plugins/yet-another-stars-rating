@@ -4,10 +4,10 @@ jQuery(document).ready(function() {
         init : function(ed, url) {
                 // Register command for when button is clicked
                 ed.addCommand('yasr_insert_shortcode', function() {
-                    
-                        jQuery('#yasr-form').dialog({
+
+                        jQuery('#yasr-tinypopup-form').dialog({
                             title: 'Insert YASR shortcode',
-                            width: 'auto', // overcomes width:'auto' and maxWidth bug
+                            width: 500, // overcomes width:'auto' and maxWidth bug
                             maxWidth: 600,
                             height: 'auto',
                             modal: true,
@@ -39,8 +39,8 @@ jQuery(document).ready(function() {
 
             var response=button_content;
 
-            var table = jQuery(response).find('yasr-form');
             jQuery(response).appendTo('body').hide();  
+
         }); 
     });
 

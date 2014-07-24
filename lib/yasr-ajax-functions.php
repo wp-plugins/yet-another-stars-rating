@@ -319,77 +319,118 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         
         ?>
 
-            <div id="yasr-form">
+            <div id="yasr-tinypopup-form">
 
-                <table id="yasr-table" class="form-table">
-                    <tr>
-                        <th><label for="yasr-overall"><?php _e("Overall Rating / Review"); ?></label></th>
-                        <td><input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="Insert Overall Rating" /><br />
-                        <small><?php _e("Insert Overall Rating / Review for this post"); ?></small></td>
-                    </tr>
-                    <tr>
-                        <th><label for="yasr-id"><?php _e("Visitor Votes"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="Insert Visitor Votes"/><br />
-                        <small><?php _e("Insert the ability for your visitor to vote"); ?></small></td>
-                    </tr>
+                <h2 class="nav-tab-wrapper yasr-underline">
+                    <a href="#" id="yasr-link-tab-main" class="nav-tab nav-tab-active">Main</a>
+                    <a href="#" id="yasr-link-tab-charts" class="nav-tab">Charts</a>
 
-                    <?php if ($n_multi_set>1) { //If multiple Set are found ?>
+                    <a href="https://wordpress.org/plugins/yet-another-stars-rating/faq/" target="_blank" id="yasr-tinypopup-link-doc">Read the doc</a>
 
+                </h2>
+
+                <div id="yasr-content-tab-main">
+
+                    <table id="yasr-table-tiny-popup-main" class="form-table">
                         <tr>
-                            <th><label for="yasr-size"><?php _e("If you want to insert a multi-set, pick one:"); ?></label></th>
-                            <td>
-                                <?php foreach ($multi_set as $name) { ?>
-                                    <input type="radio" value="<?php echo $name->set_id ?>" name="yasr_tinymce_pick_set" class="yasr_tinymce_select_set"><?php echo $name->set_name ?>
-                                    <br />
-                                <?php } //End foreach ?>
-                            <small><?php _e("Choose wich set you want to insert."); ?></small>
-                            </td>
+                            <th><label for="yasr-overall"><?php _e("Overall Rating / Review"); ?></label></th>
+                            <td><input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="Insert Overall Rating" /><br />
+                            <small><?php _e("Insert Overall Rating / Review for this post"); ?></small></td>
+                        </tr>
+                        <tr>
+                            <th><label for="yasr-id"><?php _e("Visitor Votes"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="Insert Visitor Votes"/><br />
+                            <small><?php _e("Insert the ability for your visitor to vote"); ?></small></td>
                         </tr>
 
-                    <?php } //End if
+                        <?php if ($n_multi_set>1) { //If multiple Set are found ?>
 
-                    elseif ($n_multi_set==1) { ?>
+                            <tr>
+                                <th><label for="yasr-size"><?php _e("If you want to insert a multi-set, pick one:"); ?></label></th>
+                                <td>
+                                    <?php foreach ($multi_set as $name) { ?>
+                                        <input type="radio" value="<?php echo $name->set_id ?>" name="yasr_tinymce_pick_set" class="yasr_tinymce_select_set"><?php echo $name->set_name ?>
+                                        <br />
+                                    <?php } //End foreach ?>
+                                <small><?php _e("Choose wich set you want to insert."); ?></small>
+                                </td>
+                            </tr>
+
+                        <?php } //End if
+
+                        elseif ($n_multi_set==1) { ?>
+                            <tr>
+                                <th><label for="yasr-size"><?php _e("Insert Multiset:"); ?></label></th>
+                                <td>
+                                    <?php foreach ($multi_set as $name) { ?>
+                                        <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" >Insert Multiple Set</button><br />
+                                        <small><?php _e("Insert multiple set <?php echo $name->set_name ?> in this post ?"); ?></small>
+                                    <?php } //End foreach ?>
+                                </td>
+                            </tr>
+                        <?php 
+                        }
+                        //End elseif ?>
+                    </table>
+
+                </div>
+
+                <div id="yasr-content-tab-charts" style="display:none">
+
+                    <table id="yasr-table-tiny-popup-charts" class="form-table">
                         <tr>
-                            <th><label for="yasr-size"><?php _e("Insert Multiset:"); ?></label></th>
-                            <td>
-                                <?php foreach ($multi_set as $name) { ?>
-                                    <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" >Insert Multiple Set</button><br />
-                                    <small><?php _e("Insert multiple set <?php echo $name->set_name ?> in this post ?"); ?></small>
-                                <?php } //End foreach ?>
-                            </td>
+                            <th><label for="yasr-10-overall"><?php _e("Top 10 overall ratings"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
+                            <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
                         </tr>
-                    <?php 
-                    }
-                    //End elseif ?>
 
-                    <tr>
-                        <th><label for="yasr-10-overall"><?php _e("Top 10 overall ratings"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
-                        <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
-                    </tr>
+                        <tr>
+                            <th><label for="yasr-10-highest-most-rated"><?php _e("Top 10 by visitors"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="Insert Top 10 posts by visitors"/><br />
+                            <small><?php _e("Insert Top 10 most or higher rated posts from visitors"); ?></small></td>
+                        </tr>
 
-                    <tr>
-                        <th><label for="yasr-10-highest-most-rated"><?php _e("Top 10 by visitors"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="Insert Top 10 posts by visitors"/><br />
-                        <small><?php _e("Insert Top 10 most or higher rated posts from visitors"); ?></small></td>
-                    </tr>
+                        <tr>
+                            <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="Insert Top 5 most active reviewers"/><br />
+                            <small><?php _e("Insert Top 5 active reviewers"); ?></small></td>
+                        </tr>
 
-                    <tr>
-                        <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="Insert Top 5 most active reviewers"/><br />
-                        <small><?php _e("Insert Top 5 active reviewers"); ?></small></td>
-                    </tr>
+                        <tr>
+                            <th><label for="yasr-10-active-users"><?php _e("Most active users"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
+                            <small><?php _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
+                        </tr>
 
-                    <tr>
-                        <th><label for="yasr-10-active-users"><?php _e("Most active users"); ?></label></th>
-                        <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
-                        <small><?php _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
-                    </tr>
+                    </table>
 
-                </table>
+                </div>
+
             </div>
 
             <script>
+
+                // When click on chart chart hide tab-main and show tab-charts
+                jQuery('#yasr-link-tab-charts').on("click", function(){
+
+                    jQuery('#yasr-link-tab-main').removeClass('nav-tab-active');
+                    jQuery('#yasr-link-tab-charts').addClass('nav-tab-active');
+
+                    jQuery('#yasr-content-tab-main').hide();
+                    jQuery('#yasr-content-tab-charts').show();
+
+                });
+
+                // When click on main tab hide tab-main and show tab-charts
+                jQuery('#yasr-link-tab-main').on("click", function(){
+
+                    jQuery('#yasr-link-tab-charts').removeClass('nav-tab-active');
+                    jQuery('#yasr-link-tab-main').addClass('nav-tab-active');
+
+                    jQuery('#yasr-content-tab-charts').hide();
+                    jQuery('#yasr-content-tab-main').show();
+
+                });
 
                 // Add shortcode for overall rating
                 jQuery('#yasr-overall').on("click", function(){
@@ -397,7 +438,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes jqueryui
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
                 //Add shortcode for visitors rating
@@ -406,7 +447,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes Thickbox
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
                 <?php if ($n_multi_set>1) { ?>
@@ -420,7 +461,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                         // closes jqueryui
-                        jQuery('#yasr-form').dialog('close');
+                        jQuery('#yasr-tinypopup-form').dialog('close');
                     });
 
                 <?php } //End if
@@ -436,7 +477,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         // inserts the shortcode into the active editor
                         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                         // closes jqueryui
-                        jQuery('#yasr-form').dialog('close');
+                        jQuery('#yasr-tinypopup-form').dialog('close');
                     });
 
                 <?php 
@@ -449,7 +490,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes jqueryui
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
                 // Add shortcode for 10 highest most rated
@@ -458,7 +499,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes jqueryui
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
                 // Add shortcode for top 5 active reviewer
@@ -467,7 +508,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes jqueryui
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
                 // Add shortcode for top 10 active users
@@ -476,7 +517,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     // inserts the shortcode into the active editor
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
                     // closes jqueryui
-                    jQuery('#yasr-form').dialog('close');
+                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
             </script>
@@ -933,6 +974,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
 /****** Order yasr_multi_chart ******/
 
+/****** Order yasr_multi_chart ******/
+
     add_action ( 'wp_ajax_yasr_multi_chart_most_highest', 'yasr_multi_chart_most_highest_callback' );
     add_action ( 'wp_ajax_nopriv_yasr_multi_chart_most_highest', 'yasr_multi_chart_most_highest_callback' );
 
@@ -1048,5 +1091,6 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         die();
 
     } //End function
+
 
 ?>

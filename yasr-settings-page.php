@@ -52,7 +52,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 		?>
 
-        <h2 class="nav-tab-wrapper">
+        <h2 class="nav-tab-wrapper yasr-no-underline">
             <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings') echo 'nav-tab-active'; ?>" > General Settings </a>
             <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > Multi Sets </a>
         </h2>
@@ -272,7 +272,7 @@ if ( !current_user_can( 'manage_options' ) ) {
         	<br />
         	
         	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-	        	<?php echo("<img src=\"" . YASR_IMG_DIR . "\"/paypal.png>"); ?>
+	        	<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
 	        </a>
 
         </div>

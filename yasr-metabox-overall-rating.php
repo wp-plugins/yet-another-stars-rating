@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	add_action( 'admin_footer', 'yasr_overall_rating_javascript' );
 
+  $option = get_option('yasr_general_options');
+
 ?>
 
 <span id="yasr_rateit_actual_overall_rating">
@@ -28,8 +30,18 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	<div>
 
-   	<span id="yasr_rateit_overall_value"></span>
+      <span id="yasr_rateit_overall_value"></span>
 	
+      <?php 
+
+        if($option['auto_insert_enabled'] == 0) {
+
+          echo "Remember to insert this shoortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating";
+
+        }
+
+      ?>
+
   </div>
 
 <?php

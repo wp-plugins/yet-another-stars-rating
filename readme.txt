@@ -74,6 +74,10 @@ Of course no: you can easly add it on visual editor clicking on the yellow star 
 
 == Changelog ==
 
+= 0.4.0 =
+* Popup shortcode creatore it's now tabbed and got a link to the new doc
+* Minor changes and bugfixes
+
 = 0.3.9 =
 * Fixed page exclusion
 

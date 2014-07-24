@@ -10,16 +10,29 @@
 }
 
 /*** Top menu navigation ***/
-h2.nav-tab-wrapper, h3.nav-tab-wrapper {
+.yasr-no-underline {
     border-bottom: none !important;
 }
 
 .nav-tab-active, .nav-tab-active:hover {
-    background-color: white !important;
+    background-color: white ;
 }
 
 /*** End top navigation ***/
 
+/*** Tinymce popup ***/
+
+
+.yasr-underline {
+    border-bottom: 1px solid #CCC !important;
+}
+
+#yasr-tinypopup-link-doc {
+    float: right;
+    font-size: 12px;
+}
+
+/*** End tinymce popup ***/
 
 @media (min-width: 972px) {
 
@@ -223,6 +236,13 @@ h2.nav-tab-wrapper, h3.nav-tab-wrapper {
     }
 
 /*** End rules for multi set admin page ***/
+
+
+
+/*** Popup in tinymce ***/
+
+
+
 
 
 #yasr-log-container  {
