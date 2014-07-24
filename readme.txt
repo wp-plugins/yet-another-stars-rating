@@ -45,28 +45,30 @@ If with gd-star-rating you're using a different number of stars from the default
 == Frequently Asked Questions ==
 
 = What is "Overall Rating"? =
-It's the vote put from who write the review: readers can see this vote in read-only. Reviewer can vote using the box on the top rigth when writing a new articole or post (he / she must have at least "Author" role). Remember to insert this shortcode  **[yasr_overall_rating]**  to make appear where you want. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc)
+It is the vote given by who writes the review: readers are able to see this vote in read-only mode. Reviewer can vote using the box on the top rigth when writing a new article or post (he or she must have at least the "Author" role). Remember to insert this shortcode **[yasr_overall_rating]** to make it appear where you like. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc).
 
 = What is "Visitor Rating"? =
-It's the vote that allows your visitors to vote: just paste this shortcode  **[yasr_visitor_votes]**  where you want the stars to appear. This works only in single post or pages
+It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This works only in single posts or pages.
 
 = What is "Multi Set"? =
-It's the feature that make YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
+It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
 
 = What is "Top 10 overall ratings" ? =
-It's the chart of the 10 highest rated item from reviewer. To insert it into a post or page, just paste this shortcode  **[yasr_top_ten_highest_rated]** 
+It is the 10 highest rated item chart by reviewer. In order to insert it into a post or page, just paste this shortcode **[yasr_top_ten_highest_rated]**
 
 = What is "Top 10 by visitors" ? =
-This is 2 charts in 1. Infact, this chart will be display both the  most rated  posts/pages or the  highest rated  posts/pages. In order to appear in this chart item must be rated at least twice. Paste this shortcode to make appear where you want **[yasr_most_or_highest_rated_posts]**
+This is 2 charts in 1. Infact, this chart shows both the most rated posts/pages or the highest rated posts/pages. 
+For an item to appear in this chart, it has to be rated twice at least.
+Paste this shortcode to make it appear where you want **[yasr_top_5_reviewers]**
 
 = What is "Most active reviewers" ? =
-If in your site there are more than 1 person writing reviews, this chart will show up the most 5 active reviewer. Shortcode is  **[yasr_top_5_reviewers]** 
+If in your site there are more than 1 person writing reviews, this chart will show the 5 most active reviewers. Shortcode is **[yasr_top_5_reviewers]**
 
 = What is Most "active users" ? =
-When a visitor (logged in or not) rates a post/page, rating are stored in the database. This chart will show the 10 most active users; show up login name if was logged in, "Anonymous" otherwise. The shortcode : **[yasr_top_ten_active_users]**
+When a visitor (logged in or not) rates a post/page, his rating is stored in the database. This chart will show the 10 most active users, displaying the login name if logged in or "Anonymous" otherwise. The shortcode : **[yasr_top_ten_active_users]**
 
 = Wait, wait! Do I need to keep in mind all this shortcode? =
-Of course no: you can easly add it on visual editor clicking on the yellow star and then choose what to insert
+Of course not: you can easily add it on the visual editor just by clicking on the yellow star and then choose what to insert.
 
 == Screenshots ==
 1. Example of yasr in a videogame review
