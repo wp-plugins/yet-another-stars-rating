@@ -42,10 +42,35 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Yet Another Star Rating menu in Settings and set your options.
 
+== Frequently Asked Questions ==
+
+= What is "Overall Rating"? =
+It's the vote put from who write the review: readers can see this vote in read-only. Reviewer can vote using the box on the top rigth when writing a new articole or post (he / she must have at least "Author" role). Remember to insert this shortcode  **[yasr_overall_rating]**  to make appear where you want. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc)
+
+= What is "Visitor Rating"? =
+It's the vote that allows your visitors to vote: just paste this shortcode  **[yasr_visitor_votes]**  where you want the stars to appear. This works only in single post or pages
+
+= What is "Multi Set"? =
+It's the feature that make YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
+
+= What is "Top 10 overall ratings" ? =
+It's the chart of the 10 highest rated item from reviewer. To insert it into a post or page, just paste this shortcode  **[yasr_top_ten_highest_rated]** 
+
+= What is "Top 10 by visitors" ? =
+This is 2 charts in 1. Infact, this chart will be display both the  most rated  posts/pages or the  highest rated  posts/pages. In order to appear in this chart item must be rated at least twice. Paste this shortcode to make appear where you want  [yasr_top_5_reviewers] 
+
+= What is "Most active reviewers" ? =
+If in your site there are more than 1 person writing reviews, this chart will show up the most 5 active reviewer. Shortcode is  **[yasr_top_5_reviewers]** 
+
+= What is Most "active users" ? =
+When a visitor (logged in or not) rates a post/page, rating are stored in the database. This chart will show the 10 most active users; show up login name if was logged in, "Anonymous" otherwise. The shortcode : **[yasr_top_ten_active_users]**
+
+= Wait, wait! Do I need to keep in mind all this shortcode? =
+Of course no: you can easly add it on visual editor clicking on the yellow star and then choose what to insert
+
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
-
 
 == Changelog ==
 
