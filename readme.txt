@@ -1,9 +1,9 @@
 === Yasr - Yet Another Stars Rating ===
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8S963KJ3UW5XG
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.3.3
+Stable tag: 0.3.9
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,15 +42,80 @@ If with gd-star-rating you're using a different number of stars from the default
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Yet Another Star Rating menu in Settings and set your options.
 
+== Frequently Asked Questions ==
+
+= What is "Overall Rating"? =
+It's the vote put from who write the review: readers can see this vote in read-only. Reviewer can vote using the box on the top rigth when writing a new articole or post (he / she must have at least "Author" role). Remember to insert this shortcode  **[yasr_overall_rating]**  to make appear where you want. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc)
+
+= What is "Visitor Rating"? =
+It's the vote that allows your visitors to vote: just paste this shortcode  **[yasr_visitor_votes]**  where you want the stars to appear. This works only in single post or pages
+
+= What is "Multi Set"? =
+It's the feature that make YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
+
+= What is "Top 10 overall ratings" ? =
+It's the chart of the 10 highest rated item from reviewer. To insert it into a post or page, just paste this shortcode  **[yasr_top_ten_highest_rated]** 
+
+= What is "Top 10 by visitors" ? =
+This is 2 charts in 1. Infact, this chart will be display both the  most rated  posts/pages or the  highest rated  posts/pages. In order to appear in this chart item must be rated at least twice. Paste this shortcode to make appear where you want **[yasr_most_or_highest_rated_posts]**
+
+= What is "Most active reviewers" ? =
+If in your site there are more than 1 person writing reviews, this chart will show up the most 5 active reviewer. Shortcode is  **[yasr_top_5_reviewers]** 
+
+= What is Most "active users" ? =
+When a visitor (logged in or not) rates a post/page, rating are stored in the database. This chart will show the 10 most active users; show up login name if was logged in, "Anonymous" otherwise. The shortcode : **[yasr_top_ten_active_users]**
+
+= Wait, wait! Do I need to keep in mind all this shortcode? =
+Of course no: you can easly add it on visual editor clicking on the yellow star and then choose what to insert
+
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
 
 == Changelog ==
 
+= 0.4.0 =
+* Popup shortcode creatore it's now tabbed and got a link to the new doc
+* Minor changes and bugfixes
+
+= 0.3.9 =
+* Fixed page exclusion
+
+= 0.3.8 = 
+* Added new chart: Top 10 most rated / highest rated posts from visitors (show up only posts rated at least twice)
+* New setting: it's possibile now to explude pages from auto insert
+* Css changes
+* Various bugfixes
+
+= 0.3.7 =
+* Added new chart: Top 5 most active reviewers
+* Added new chart: Top 10 most active users (in visitor rating)
+* Changed popup for shortcode creator in visual editor, switched from thickbox to jquery ui dialog
+* Removed javascript error when the shortcode creator is called
+* Fixed multiset form editor
+* Various bugfixes
+
+= 0.3.6 =
+* Changed permission: now while writing a post or page everyone with a role >= author can insert votes
+* Some bugfixes
+
+= 0.3.5 =
+* Added a new dark style to better suite dark theme
+* Added a new custom text to show when a non logged user has voted
+* Css minor changes
+
+= 0.3.4 =
+* In settings page is now possible add some custom text to make appear before "Overall Rating" or "Visitor's Rating" are showed
+* In settings page is now possible to show "Overall Rating" only in the post / page or even in Home page, Archive Page, etc.
+* Removed bug that could appear in some case when removing or adding field in multiset form editor
+* After a multiset is created/edited now you get redirected on multiset settings tab and not in general settings
+* Various bugfixes
+* Under the hood changes
+
 = 0.3.3 =
 * Created a new shortcode that will allow to insert Top 10 highest rated product by author  
 * When a post or page is permanently deleted, yasr will delete every votes for that post or page
+* Overall Rating is now avaible in home page and archive pages
 * Fixed "add element button" when only 1 multi set is used
 * Updated jquery cookie from 1.4.0 to 1.4.1 and minified it
 * Minor Bug fixes
