@@ -59,7 +59,7 @@ It is the 10 highest rated item chart by reviewer. In order to insert it into a 
 = What is "Top 10 by visitors" ? =
 This is 2 charts in 1. Infact, this chart shows both the most rated posts/pages or the highest rated posts/pages. 
 For an item to appear in this chart, it has to be rated twice at least.
-Paste this shortcode to make it appear where you want **[yasr_top_5_reviewers]**
+Paste this shortcode to make it appear where you want **[yasr_most_or_highest_rated_posts]**
 
 = What is "Most active reviewers" ? =
 If in your site there are more than 1 person writing reviews, this chart will show the 5 most active reviewers. Shortcode is **[yasr_top_5_reviewers]**
