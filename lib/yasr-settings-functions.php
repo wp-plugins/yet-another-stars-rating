@@ -18,6 +18,7 @@
 	    		$option['auto_insert_what']='overall_rating';
 	    		$option['auto_insert_where']='top';
 	    		$option['auto_insert_exclude_pages']='yes';
+	    		$option['auto_insert_size']='large';
 	    	}
 
 	    	//This is to avoid undefined offset
@@ -28,7 +29,7 @@
 	    	}
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
-	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert otions', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
+	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option);
@@ -98,6 +99,25 @@
 		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('After the post', 'yasr')?>
 		    		<br />
+
+		    	<p>&nbsp;</p>
+
+		    	<strong><?php _e('Size', 'yasr'); ?></strong>
+		    	<br />
+		    	<div class="yasr-option-size">
+			    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="small" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='small' ) echo " checked=\"checked\" ";  ?> >
+						<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-small.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Small', 'yasr')?></span>
+				</div>
+
+				<div class="yasr-option-size">
+		    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="medium" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='medium' ) echo " checked=\"checked\" ";  ?> >
+					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-medium.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Medium', 'yasr')?></span>
+				</div>
+
+		    	<div class="yasr-option-size">
+				<input type="radio" name="yasr_general_options[auto_insert_size]" value="large" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='large' ) echo " checked=\"checked\" ";  ?> >
+					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-large.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Large', 'yasr')?></span>
+				</div>
 
 		    	<p>&nbsp;</p>
 
@@ -215,12 +235,12 @@
 		   			<?php 
 
 		   				_e("Light theme", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr-multi-set.png>";
 
 		   				echo "<br /> <br />";
 
 		   				_e("Dark Theme", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/dark-multi-set.png>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "dark-multi-set.png>";
 		   			 ?>
 		   	</div>
 
@@ -273,12 +293,12 @@
 		   			<?php 
 
 		   				_e("If you select \"Review Rating\", your site will be indexed from search engines like this: ", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr_review.png>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr_review.png>";
 
 		   				echo "<br /> <br />";
 
 		   				_e("If, instead, you choose \"Aggregate Rating\", your site will be indexed like this", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr_aggregate.jpg>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr_aggregate.jpg>";
 		   			 ?>
 		   		</div>
 

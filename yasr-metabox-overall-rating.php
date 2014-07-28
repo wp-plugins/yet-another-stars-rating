@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	add_action( 'admin_footer', 'yasr_overall_rating_javascript' );
 
-  $option = get_option('yasr_general_options');
 
 ?>
 
@@ -34,9 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	
       <?php 
 
-        if($option['auto_insert_enabled'] == 0) {
+        if( YASR_AUTO_INSERT_ENABLED == 0 ) {
 
-          echo "Remember to insert this shoortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating";
+          echo "Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating";
 
         }
 

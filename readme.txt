@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.0
+Stable tag: 0.4.1
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,11 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.4.1 =
+* Added 2 sizes for "overall_rating" and "visitor_votes" stars sets, now you can choose between 16px, 24px and 32px (default)
+* MANY code changes: it should be a little faster
+* Fixed typo errors
 
 = 0.4.0 =
 * Popup shortcode creatore it's now tabbed and got a link to the new doc

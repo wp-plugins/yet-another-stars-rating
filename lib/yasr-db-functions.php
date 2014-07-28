@@ -81,6 +81,7 @@ function yasr_install() {
 		$option['auto_insert_enabled'] = 0;
 		$option['auto_insert_what'] = 'overall_rating';
 		$option['auto_insert_where'] = 'top';
+		$option['auto_insert_size']='large';
 		$option['auto_insert_exclude_pages'] = 'yes'; 
 		$option['show_overall_in_loop'] = 'disabled';
 		$option['text_before_stars'] = 0;

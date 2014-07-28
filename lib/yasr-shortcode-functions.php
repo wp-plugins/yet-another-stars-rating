@@ -6,14 +6,24 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 add_shortcode ('yasr_overall_rating', 'shortcode_overall_rating_callback');
 
-function shortcode_overall_rating_callback () {
+function shortcode_overall_rating_callback ($atts) {
 
-    $option = get_option( 'yasr_general_options' );
+    if (!$atts) {
+        $size = 'large';
+    }
+
+    else {
+        extract( shortcode_atts (
+            array(
+                'size' => 'string',
+            ), $atts )
+        );
+    }
 
     //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on visitor rating.
     //If auto insert is on overall rating this shortcode must return nothing
 
-    if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'visitor_rating' )) {
+    if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating' )) {
 
         $overall_rating=yasr_get_overall_rating();
 
@@ -21,23 +31,38 @@ function shortcode_overall_rating_callback () {
             $overall_rating = "-1";
         }
 
-        if($option['text_before_stars'] == 1 && $option['text_before_overall'] != '') {
+        $shortcode_html = '';
+
+        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
+
             $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
-                                    <span id=\"yasr-custom-text-before-overall\">$option[text_before_overall]</span>
-                                    <div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                                    </div>
-                               </div>"; 
+                                    <span id=\"yasr-custom-text-before-overall\">" . YASR_TEXT_BEFORE_OVERALL . "</span>";
+
         }
 
-        else {
+        switch ($size) {
+            case 'small':
+                        $shortcode_html .= "<div class=\"rateit\" id=\"yasr_rateit_overall\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+                        break;
 
-        $shortcode_html = "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-        </div>";
+            case 'medium':
+                        $shortcode_html .= "<div class=\"rateit medium\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+                        break;
 
+            case 'large':
+                        $shortcode_html .= "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
+                        break;
+        }
+
+
+        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
+
+            $shortcode_html .= "</div>";
+        
         }
 
         //IF show overall rating in loop is disabled use is_singular && is_main query
-        if ($option['show_overall_in_loop'] === 'disabled') {
+        if (YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
 
             if( is_singular() && is_main_query() ) {
 
@@ -48,7 +73,7 @@ function shortcode_overall_rating_callback () {
         }
 
         //else don't
-        elseif ($option['show_overall_in_loop'] === 'enabled') {
+        elseif (YASR_SHOW_OVERALL_IN_LOOP === 'enabled') {
 
             return $shortcode_html;
 
@@ -63,14 +88,12 @@ function shortcode_overall_rating_callback () {
 
 add_shortcode ('yasr_visitor_votes', 'shortcode_visitor_votes_callback');
 
-function shortcode_visitor_votes_callback () {
-
-    $option = get_option( 'yasr_general_options' );
+function shortcode_visitor_votes_callback ($atts) {
 
     //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
     //If auto insert is on visitor rating this shortcode must return nothing
 
-    if ($option['auto_insert_enabled'] == 0 || ($option['auto_insert_enabled'] == 1 && $option['auto_insert_what'] === 'overall_rating' )) {
+    if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'overall_rating' )) {
 
         $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
@@ -96,12 +119,6 @@ function shortcode_visitor_votes_callback () {
                 }
             }
 
-            $allow_logged_option = get_option( 'yasr_general_options' );
-
-            if (!$allow_logged_option) {
-                $allow_logged_option = array();
-                $allow_logged_option['allowed_user']='allow_anonymous';
-            }
 
             $image = YASR_IMG_DIR . "/loader.gif";
 
@@ -109,122 +126,370 @@ function shortcode_visitor_votes_callback () {
 
             $medium_rating=round($medium_rating, 1);
 
-            //if anonymous are allowed to vote
-            if ($allow_logged_option['allowed_user']==='allow_anonymous') {
-
-                //I've to block a logged in user that has already rated
-                if ( is_user_logged_in() ) {
-
-                    //Chek if a logged in user has already rated for this post
-                    $vote_if_user_already_rated = yasr_check_if_user_already_voted();
-
-                    //If user has already rated show readonly stars
-                    if ($vote_if_user_already_rated) {
-
-                        global $current_user;
-                        get_currentuserinfo();
-
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
-
-                    }
-
-                    //else logged user can vote 
-                    else {
-
-                        $vote_if_user_already_rated = 0;
-
-                        if ($votes_number>0) {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                            </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
-                        }
-
-                        else {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                            </div><br /> " . __("No rating yet" , "yasr") . "</div>";
-                        }
-
-                    } //End else
-
-                } //End if user is logged
-
-
-                //else is not logged can vote
-                else {
-
-                    if ($votes_number>0) {
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
-                    }
-
-                    else {
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                        </div><br /> " . __("No rating yet" , "yasr") . "</div>";
-                    }
-
-                } //end else
-          
-            } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
-
-
-
-            //If only logged in users can vote
-            elseif ($allow_logged_option['allowed_user']==='logged_only') {
-
-                //If user is logged in and can vote
-                if ( is_user_logged_in() ) {
-
-                    //Chek if a logged in user has already rated for this post
-                    $vote_if_user_already_rated = yasr_check_if_user_already_voted();
-
-                    if ($vote_if_user_already_rated) {
-
-                        global $current_user;
-                        get_currentuserinfo();
-
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
-
-                    }
-
-                    else {
-
-                        if ($votes_number>0) {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                            </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
-                        }
-
-                        else {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
-                            </div><br /> " . __("No rating yet" , "yasr") . "</div>";
-                        }
-
-                    }
-
-                } //End if user is logged in
-
-              //Else mean user is not logged in
-                else {
-
-
-                    if ($votes_number>0) {
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                        </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br />" . __("You must sign to vote", "yasr") . "</div>";
-                    }
-
-                    else {
-                        $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                        </div><br /> " . __("No rating yet" , "yasr") . "<br />" . __("You must sign to vote", "") . "</div>";
-                    }
-
-                }
-  
+            if (!$atts) {
+                $size = 'large';
             }
 
-            if($option['text_before_stars'] == 1 && $option['text_before_visitor_rating'] != '') {
+            else {
+                extract( shortcode_atts (
+                    array(
+                        'size' => 'string',
+                    ), $atts )
+                );
+            }
+
+            if ($size == 'small') {
+
+                //if anonymous are allowed to vote
+                if (YASR_ALLOWED_USER === 'allow_anonymous') {
+
+                    //I've to block a logged in user that has already rated
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        //If user has already rated show readonly stars
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <strong><span class=\"yasr-visitor-shortcode-small-already-voted-text\">" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</span></strong></div>";
+
+                        }
+
+                        //else logged user can vote 
+                        else {
+
+                            $vote_if_user_already_rated = 0;
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                        } //End else
+
+                    } //End if user is logged
+
+
+                    //else if is not logged can vote
+                    else {
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                    } //end else
+              
+                } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
+
+
+
+                //If only logged in users can vote
+                elseif (YASR_ALLOWED_USER === 'logged_only') {
+
+                    //If user is logged in and can vote
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <strong><span=\"class=\"yasr-visitor-shortcode-small-already-voted-text\">\">" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</span></strong></div>";
+
+                        }
+
+                        else {
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                        }
+
+                    } //End if user is logged in
+
+                  //Else mean user is not logged in
+                    else {
+
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            " . __("You must sign to vote", "yasr") . "</div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            </div>";
+                        }
+
+                    }
+      
+                }
+
+            } //End if $size == 'small'
+
+            if ($size == 'medium') {
+
+                //if anonymous are allowed to vote
+                if (YASR_ALLOWED_USER === 'allow_anonymous') {
+
+                    //I've to block a logged in user that has already rated
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        //If user has already rated show readonly stars
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                        }
+
+                        //else logged user can vote 
+                        else {
+
+                            $vote_if_user_already_rated = 0;
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                        } //End else
+
+                    } //End if user is logged
+
+
+                    //else if is not logged can vote
+                    else {
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                    } //end else
+              
+                } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
+
+
+
+                //If only logged in users can vote
+                elseif (YASR_ALLOWED_USER === 'logged_only') {
+
+                    //If user is logged in and can vote
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                        }
+
+                        else {
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                        }
+
+                    } //End if user is logged in
+
+                  //Else mean user is not logged in
+                    else {
+
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            " . __("You must sign to vote", "yasr") . "</div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            </div>";
+                        }
+
+                    }
+      
+                }
+
+            } //End if $size == 'medium'
+
+            if ($size == 'large') {
+
+                //if anonymous are allowed to vote
+                if (YASR_ALLOWED_USER === 'allow_anonymous') {
+
+                    //I've to block a logged in user that has already rated
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        //If user has already rated show readonly stars
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                        }
+
+                        //else logged user can vote 
+                        else {
+
+                            $vote_if_user_already_rated = 0;
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            }
+
+                        } //End else
+
+                    } //End if user is logged
+
+
+                    //else if is not logged can vote
+                    else {
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                        }
+
+                    } //end else
+              
+                } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
+
+
+
+                //If only logged in users can vote
+                elseif (YASR_ALLOWED_USER === 'logged_only') {
+
+                    //If user is logged in and can vote
+                    if ( is_user_logged_in() ) {
+
+                        //Chek if a logged in user has already rated for this post
+                        $vote_if_user_already_rated = yasr_check_if_user_already_voted();
+
+                        if ($vote_if_user_already_rated) {
+
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+
+                        }
+
+                        else {
+
+                            if ($votes_number>0) {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                            else {
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
+                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                </div>";
+                            }
+
+                        }
+
+                    } //End if user is logged in
+
+                  //Else mean user is not logged in
+                    else {
+
+
+                        if ($votes_number>0) {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            " . __("You must sign to vote", "yasr") . "</div>";
+                        }
+
+                        else {
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            </div>";
+                        }
+
+                    }
+      
+                }
+
+            } //End if $size == 'large'
+
+            if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_VISITOR_RATING != '') {
         
                 $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
-                <div id=\"yasr-custom-text-before-visitor-rating\">$option[text_before_visitor_rating]</div>" .  $shortcode_html . "</div>"; 
+                <div id=\"yasr-custom-text-before-visitor-rating\">" . YASR_TEXT_BEFORE_VISITOR_RATING . "</div><br />" .  $shortcode_html . "</div>"; 
 
                 $shortcode_html = $shortcode_html_tmp;
 
@@ -399,7 +664,7 @@ function yasr_top_ten_highest_rated_callback () {
 
             $shortcode_html .= "<tr>
                                     <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                    <td width=\"40%\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
+                                    <td width=\"40%\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
                                 </tr>";
 
 
@@ -471,7 +736,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
                 $shortcode_html .= "<tr>
                                         <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                        <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                        <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
                                         <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
                                     </tr>";
 

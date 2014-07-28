@@ -332,15 +332,41 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 <div id="yasr-content-tab-main">
 
                     <table id="yasr-table-tiny-popup-main" class="form-table">
+
                         <tr>
                             <th><label for="yasr-overall"><?php _e("Overall Rating / Review"); ?></label></th>
-                            <td><input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="Insert Overall Rating" /><br />
-                            <small><?php _e("Insert Overall Rating / Review for this post"); ?></small></td>
+                            <td>
+                                <input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="Insert Overall Rating" /><br />
+                                <small><?php _e("Insert Overall Rating / Review for this post"); ?></small>
+
+                                <div id="yasr-overall-choose-size">
+                                    <small><?php _e("Choose Size"); ?><small>
+                                    <div class="yasr-tinymce-button-size">
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-small" name="yasr-overall-insert-small" value="Small" />
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-medium" name="yasr-overall-insert-medium" value="Medium" />
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-large" name="yasr-overall-insert-large" value="Large" />
+                                    </div>
+                                </div>
+
+                            </td>
                         </tr>
+
                         <tr>
                             <th><label for="yasr-id"><?php _e("Visitor Votes"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="Insert Visitor Votes"/><br />
-                            <small><?php _e("Insert the ability for your visitor to vote"); ?></small></td>
+                            <td>
+                                <input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="Insert Visitor Votes"/><br />
+                                <small><?php _e("Insert the ability for your visitor to vote"); ?></small>
+
+                                <div id="yasr-visitor-choose-size">
+                                    <small><?php _e("Choose Size"); ?><small>
+                                    <div class="yasr-tinymce-button-size">
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-small" name="yasr-visitor-insert-small" value="Small" />
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-medium" name="yasr-visitor-insert-medium" value="Medium" />
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-large" name="yasr-visitor-insert-large" value="Large" />
+                                    </div>
+                                </div>
+
+                            </td>
                         </tr>
 
                         <?php if ($n_multi_set>1) { //If multiple Set are found ?>
@@ -432,23 +458,63 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 });
 
-                // Add shortcode for overall rating
+                // Add shortcode for overall rating                
                 jQuery('#yasr-overall').on("click", function(){
-                    var shortcode = '[yasr_overall_rating]';
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes jqueryui
-                    jQuery('#yasr-tinypopup-form').dialog('close');
+                    jQuery('#yasr-overall-choose-size').toggle('slow');
                 });
+
+                    jQuery('#yasr-overall-insert-small').on("click", function(){
+                        var shortcode = '[yasr_overall_rating size="small"]';
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes jqueryui
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
+
+                    jQuery('#yasr-overall-insert-medium').on("click", function(){
+                        var shortcode = '[yasr_overall_rating size="medium"]';
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes jqueryui
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
+
+                    jQuery('#yasr-overall-insert-large').on("click", function(){
+                        var shortcode = '[yasr_overall_rating size="large"]';
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes jqueryui
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
 
                 //Add shortcode for visitors rating
                 jQuery('#yasr-visitor-votes').on("click", function(){
-                    var shortcode = '[yasr_visitor_votes]';   
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes Thickbox
-                    jQuery('#yasr-tinypopup-form').dialog('close');
+                    jQuery('#yasr-visitor-choose-size').toggle('slow');
                 });
+
+                    jQuery('#yasr-visitor-insert-small').on("click", function(){
+                        var shortcode = '[yasr_visitor_votes size="small"]';   
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes Thickbox
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
+
+                    jQuery('#yasr-visitor-insert-medium').on("click", function(){
+                        var shortcode = '[yasr_visitor_votes size="medium"]';   
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes Thickbox
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
+
+                    jQuery('#yasr-visitor-insert-large').on("click", function(){
+                        var shortcode = '[yasr_visitor_votes size="large"]';   
+                        // inserts the shortcode into the active editor
+                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+                        // closes Thickbox
+                        jQuery('#yasr-tinypopup-form').dialog('close');
+                    });
 
                 <?php if ($n_multi_set>1) { ?>
 
@@ -916,14 +982,16 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         if($row_exists_result) {
             $total_rating = ($user_votes_sum / $number_of_votes);
-            $total_rating=round ($total_rating, 1);
+            $medium_rating=round ($total_rating, 1);
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <br /><strong>" . __("Vote Saved" , "yasr") . "</strong><br />" . __("Average Rating", "yasr") . " $total_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")";
+            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+            <strong>" . __("Vote Saved" , "yasr") . "</strong>";
         }
 
         elseif ($new_row_result) {
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <br /><strong>". __("Vote Saved" , "yasr") . "</strong><br />Rating $rating / 5 (1 " . __("vote cast", "yasr") . ")";
+            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+            <strong>". __("Vote Saved" , "yasr");
         }
 
         die(); // this is required to return a proper result
@@ -949,19 +1017,20 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
 
         //Check if user specifyed a custom text to display when a vistor har rated
-        $option = get_option('yasr_general_options');
 
-        if($option['text_before_stars'] == 1 && $option['custom_text_user_voted'] != '') {
+        if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br /> $option[custom_text_user_voted] </strong>";
+            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+            <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
 
         }
 
         else {
 
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <br />" . __("Average Rating", "yasr") . " $average_rating / 5 ($number_of_votes " . __("votes casts", "yasr") . ")<strong><br />" . __("You've already voted this article with $rating", "yasr") . "</strong>";
+            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+            <strong>" . __("You've already voted this article with $rating", "yasr") . "</strong>";
 
         }
 
@@ -1026,7 +1095,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
                     echo ( "<tr>
                                             <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                            <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                            <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
                                             <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
                             </tr>"
 
@@ -1071,7 +1140,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
                     echo ("<tr>
                                 <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit charts\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
                                 <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
                         </tr>");
 

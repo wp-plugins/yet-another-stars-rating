@@ -81,6 +81,23 @@
     }
 }
 
+.yasr-option-size {
+    vertical-align: bottom;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.yasr-img-option-size {
+    height: 30px;
+    vertical-align: middle;
+}
+
+.yasr-text-options-size {
+    height: 30px;
+    vertical-align: middle;
+    padding-left: 8px;
+}
+
 #yasr-color-scheme-preview {
     border: 2px dashed #CCC;
     padding: 15px;
@@ -241,7 +258,30 @@
 
 /*** Popup in tinymce ***/
 
+#yasr-overall-choose-size {
+    display: none;
+    margin-top: 20px;
+    border: 2px dashed #CCC;
+    padding-bottom: 10px;
+    margin-left: 8px;
+    padding-left: 8px;
+}
 
+.yasr-tinymce-button-size {
+    padding-top: 5px;
+}
+
+#yasr-visitor-choose-size {
+    display: none;
+    margin-top: 20px;
+    border: 2px dashed #CCC;
+    padding-bottom: 10px;
+    margin-left: 8px;
+    padding-left: 8px;
+}
+
+
+/*** End popup tinymce***/
 
 
 
@@ -252,7 +292,6 @@
 .yasr-log-div-child {
     padding-top: 5px;
     border-bottom: 1px solid #BBD8E7;
-    padding-bottom: 20px;
 }
 
 #yasr-log-image {
@@ -323,4 +362,16 @@
     font-size: small;
     display: inline-block;
     vertical-align: top;
+}
+
+.yasr-total-average-text {
+    display: block;
+}
+
+.yasr-total-average-text-medium {
+    display: block;
+}
+
+.yasr-visitor-shortcode-small-already-voted-text{
+    display: block;
 }
