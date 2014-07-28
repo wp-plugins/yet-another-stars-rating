@@ -1,6 +1,6 @@
 === Yasr - Yet Another Stars Rating ===
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC
-Tags: Rating, Review, Star, Snippet, Rich snippet, Schema, Schema.org, Serp
+Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
 Stable tag: 0.4.1
