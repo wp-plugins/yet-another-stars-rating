@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,9 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 2. Another example of a restaurant review
 
 == Changelog ==
+
+= 0.4.2 =
+* Fixed log table, last updated broke it
 
 = 0.4.1 =
 * Added 2 sizes for "overall_rating" and "visitor_votes" stars sets, now you can choose between 16px, 24px and 32px (default)
