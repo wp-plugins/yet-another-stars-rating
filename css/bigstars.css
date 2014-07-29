@@ -13,11 +13,13 @@ div.bigstars div.rateit-range
 div.bigstars div.rateit-hover
 {
     background: url('../img/star-gold32.png');
+    height: 32px;
 }
 
 div.bigstars div.rateit-selected
 {
     background: url('../img/star-red32.png');
+    height: 32px;
 }
 
 div.bigstars div.rateit-reset
@@ -31,6 +33,7 @@ div.bigstars div.rateit-reset
 div.bigstars div.rateit-reset:hover
 {
     background: url('../img/star-white32.png');
+    height: 32px;
 }
 
 
@@ -38,24 +41,24 @@ div.bigstars div.rateit-reset:hover
 
 /* Creating set 24px image with yellow color read only. Used in charts */
 
-div.charts div.rateit-range
+div.medium div.rateit-range
 {
 
     background: url('../img/star-white24.png');
     height: 24px;
 }
 
-div.charts div.rateit-hover
+div.medium div.rateit-hover
 {
     background: url('../img/star-gold24.png');
 }
 
-div.charts div.rateit-selected
+div.medium div.rateit-selected
 {
     background: url('../img/star-gold24.png');
 }
 
-div.charts div.rateit-reset
+div.medium div.rateit-reset
 {
     background: url('../img/star-black24.png');
     width: 24px;
@@ -63,7 +66,7 @@ div.charts div.rateit-reset
 
 }
 
-div.charts div.rateit-reset:hover
+div.medium div.rateit-reset:hover
 {
     background: url('../img/star-white24.png');
 }
