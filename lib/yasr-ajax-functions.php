@@ -984,13 +984,13 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $total_rating = ($user_votes_sum / $number_of_votes);
             $medium_rating=round ($total_rating, 1);
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
             <strong>" . __("Vote Saved" , "yasr") . "</strong>";
         }
 
         elseif ($new_row_result) {
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
             <strong>". __("Vote Saved" , "yasr");
         }
 
@@ -1021,7 +1021,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
             <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
 
         }
@@ -1029,7 +1029,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         else {
 
             echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
             <strong>" . __("You've already voted this article with $rating", "yasr") . "</strong>";
 
         }
@@ -1052,35 +1052,27 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         global $wpdb;
 
-        $chart_type = 'most'; //default value;
-
-        if (isset($_POST['order_by'])) {
-
-            $chart_type = $_POST['order_by'];
-
-            if ($chart_type != 'most' && $chart_type != 'highest') {
-
-                $chart_type = 'most';
-
-            }
-
-        }
-
-        if ($chart_type === 'most' ) {
-
             $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
                                                 FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
                                                 WHERE post_id = p.ID
                                                 AND p.post_status = 'publish'
                                                 ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
 
+            $query_result_highest = $wpdb->get_results("SELECT (sum_votes / number_of_votes) as result, post_id, number_of_votes
+                                                FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
+                                                WHERE post_id = p.ID
+                                                AND number_of_votes >= 2
+                                                AND p.post_status = 'publish'
+                                                ORDER BY result DESC, number_of_votes DESC LIMIT 10
+                                                ");
+
             if ($query_result_most_rated) {
 
-                echo ( "<table class=\"yasr-most-or-highest-rated-posts\">
-                                    <tr>
-                                        <th>Post / Page</th>
-                                        <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
-                                    </tr>"
+                echo ( "<table class=\"yasr-most-rated-posts\">
+                            <tr>
+                                <th>Post / Page</th>
+                                <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
+                            </tr>"
                     );
 
                 foreach ($query_result_most_rated as $result) {
@@ -1094,9 +1086,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                     $link = get_permalink($result->post_id); //Get permalink from post it
 
                     echo ( "<tr>
-                                            <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                            <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                                            <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
+                                <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
+                                    <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                    <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
+                                </td>
                             </tr>"
 
                          );
@@ -1108,25 +1101,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
             } //End if $query_result_most_rated)
 
-        } // End if  ($chart_type === 'most' )
-
-        elseif ($chart_type ==='highest') {
-
-            $query_result_highest = $wpdb->get_results("SELECT (sum_votes / number_of_votes) as result, post_id, number_of_votes
-                                                FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
-                                                WHERE post_id = p.ID
-                                                AND number_of_votes >= 2
-                                                AND p.post_status = 'publish'
-                                                ORDER BY result DESC, number_of_votes DESC LIMIT 10
-                                                ");
-
+            
             if ($query_result_highest) {
 
-                echo ( "<table class=\"yasr-most-or-highest-rated-posts\">
-                                    <tr>
-                                        <th>Post / Page</th>
-                                        <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Highest Rated</a></th>
-                                    </tr>"
+                echo ( "<table class=\"yasr-highest-rated-posts\">
+                            <tr>
+                                <th>Post / Page</th>
+                                <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Highest Rated</a></th>
+                            </tr>"
 
                       );
 
@@ -1141,8 +1123,9 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                     echo ("<tr>
                                 <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
                                 <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                                <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
-                        </tr>");
+                                    <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
+                                </td>
+                           </tr>");
 
 
                 } //End foreach
@@ -1150,12 +1133,6 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 echo "</table>";
 
             } //end if $query_result
-
-            else {
-                _e("You don't have any user votes stored, or they're not enought. In order to appear in this chart, post must have at least 2 votes. Post whith less than 2 vote are ignored", "yasr");
-            }
-
-        } //End if ($chart_type ==='highest')
     
         die();
 

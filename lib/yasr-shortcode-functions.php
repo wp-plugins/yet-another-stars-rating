@@ -153,7 +153,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
                             <strong><span class=\"yasr-visitor-shortcode-small-already-voted-text\">" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</span></strong></div>";
 
                         }
@@ -165,12 +165,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                         } //End else
@@ -183,12 +183,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                     } //end else
@@ -209,7 +209,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             <strong><span=\"class=\"yasr-visitor-shortcode-small-already-voted-text\">\">" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</span></strong></div>";
 
                         }
@@ -218,13 +218,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
@@ -238,13 +238,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             " . __("You must sign to vote", "yasr") . "</div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-small\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             </div>";
                         }
 
@@ -269,7 +269,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
                             <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
@@ -281,12 +281,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                         } //End else
@@ -299,12 +299,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                     } //end else
@@ -325,7 +325,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
@@ -334,13 +334,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
@@ -354,13 +354,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             " . __("You must sign to vote", "yasr") . "</div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text-medium\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text-medium\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             </div>";
                         }
 
@@ -385,7 +385,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span> 
                             <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
@@ -397,12 +397,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                             }
 
                         } //End else
@@ -415,12 +415,12 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span></div>";
                         }
 
                     } //end else
@@ -441,7 +441,7 @@ function shortcode_visitor_votes_callback ($atts) {
                         if ($vote_if_user_already_rated) {
 
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             <strong>" . __("You've already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
@@ -450,13 +450,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                             if ($votes_number>0) {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
                             else {
                                 $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
-                                <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                                 </div>";
                             }
 
@@ -470,13 +470,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             " . __("You must sign to vote", "yasr") . "</div>";
                         }
 
                         else {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit bigstars\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <span class=\"yasr-total-average-text\"> " . __("[Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
                             </div>";
                         }
 
@@ -664,7 +664,10 @@ function yasr_top_ten_highest_rated_callback () {
 
             $shortcode_html .= "<tr>
                                     <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                    <td width=\"40%\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
+                                    <td width=\"40%\">
+                                        <div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$result->overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                        <span class=\"yasr-highest-rated-text\">" . __("Rating", "yasr") . " $result->overall_rating </span>
+                                        </td>
                                 </tr>";
 
 
@@ -717,12 +720,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
         if ($query_result_most_rated) {
 
-            $shortcode_html = "<div class=\"yasr_multi_chart_container\"><table class=\"yasr-most-or-highest-rated-posts\">
-                                <tr>
-                                    <th>Post / Page</th>
-                                    <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
-                                </tr>
-                               </div>";
+            $shortcode_html = "<div class=\"yasr-most-or-highest-rated-posts\" ></div>";
 
             foreach ($query_result_most_rated as $result) {
 
@@ -734,16 +732,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
                 $link = get_permalink($result->post_id); //Get permalink from post it
 
-                $shortcode_html .= "<tr>
-                                        <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                        <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                                        <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]</td>
-                                    </tr>";
-
-
             } //End foreach
-
-            $shortcode_html .= "</table>";
 
             ?>
 
@@ -758,59 +747,37 @@ function yasr_most_or_highest_rated_posts_callback () {
 
                 });
 
-                var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-
-                //This send an ajax request to show the highest rated: 
-                //THIS WORK ONLY ON FIRST PAGE LOAD.
-                jQuery('#yasr_multi_chart_highest').on("click", function () {
-
-                    var data = {
-                        order_by: 'highest',
+                var data = {
                         action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
                     };
 
-                    jQuery.post(ajaxurl, data, function(response) {
-                        jQuery('.yasr_multi_chart_container').html(response);
-                        jQuery('.rateit').rateit();
-                    });
+                var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
-                    return false; // prevent default click action from happening!
+                jQuery.post(ajaxurl, data, function(response) {
 
-                });
+                    jQuery('.yasr-most-or-highest-rated-posts').html(response);
+                    jQuery('.rateit').rateit();
 
+                    //By default, hide the highest rated chart
+                    jQuery('.yasr-highest-rated-posts').hide();
 
-                jQuery(document).ajaxComplete(function() {
-
-                    //This send an ajax request to show the highest rated.
-                    //I need this again to make it work after ajax has been called
+                    //On click on highest, hide most and show highest
                     jQuery('#yasr_multi_chart_highest').on("click", function () {
 
-                        var data = {
-                            order_by: 'highest',
-                            action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
-                        };
+                        jQuery('.yasr-most-rated-posts').hide();
 
-                        jQuery.post(ajaxurl, data, function(response) {
-                            jQuery('.yasr_multi_chart_container').html(response);
-                            jQuery('.rateit').rateit();
-                        });
+                        jQuery('.yasr-highest-rated-posts').show();
 
                         return false; // prevent default click action from happening!
 
                     });
 
-                    //This send an ajax to come back to most rated
+                    //Vice versa
                     jQuery('#yasr_multi_chart_most').on("click", function () {
 
-                        var data = {
-                            order_by: 'most',
-                            action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
-                        };
+                        jQuery('.yasr-highest-rated-posts').hide();
 
-                        jQuery.post(ajaxurl, data, function(response) {
-                            jQuery('.yasr_multi_chart_container').html(response);
-                            jQuery('.rateit').rateit();
-                        });
+                        jQuery('.yasr-most-rated-posts').show();
 
                         return false; // prevent default click action from happening!
 

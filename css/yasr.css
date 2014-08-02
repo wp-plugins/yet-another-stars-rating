@@ -339,6 +339,13 @@
 
 /****** NON ADMIN RULES ******/
 
+.loader-visitor-rating-chart {
+    display: none;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
 .yasr_schema{
     font-size: small;
 }
@@ -374,5 +381,9 @@
 }
 
 .yasr-visitor-shortcode-small-already-voted-text{
+    display: block;
+}
+
+.yasr-highest-rated-text{
     display: block;
 }
