@@ -44,6 +44,13 @@
         background: #161616;
 }
 
+#loader-most-highest-chart {
+    color: #ffffff;
+    background-color: #161616;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
 
 .yasr-most-or-highest-rated-posts {
     color: #ffffff;

@@ -339,13 +339,6 @@
 
 /****** NON ADMIN RULES ******/
 
-.loader-visitor-rating-chart {
-    display: none;
-    text-align: center;
-    width: 50%;
-    margin: 0 auto;
-}
-
 .yasr_schema{
     font-size: small;
 }

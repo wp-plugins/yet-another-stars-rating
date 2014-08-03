@@ -692,114 +692,72 @@ add_shortcode ('yasr_most_or_highest_rated_posts', 'yasr_most_or_highest_rated_p
 
 function yasr_most_or_highest_rated_posts_callback () {
 
-    $chart_type = 'most'; //default value;
+    $image = YASR_IMG_DIR . "/loader.gif";
 
-    if (isset($_GET['yasr-order-by'])) {
+    $loader_html = "<div id=\"loader-most-highest-chart\" >&nbsp; " . __("Chart is loading, please wait","yasr") . " <img src= \" $image \"></div>";
 
-        $chart_type = $_GET['yasr-order-by'];
+    $shortcode_html = "<div class=\"yasr-most-or-highest-rated-posts\" >" . $loader_html . "</div>";
 
-        if ($chart_type != 'most' && $chart_type != 'highest') {
+    ?>
 
-            $chart_type = 'most';
+    <script>
 
-        }
+    jQuery(document).ready(function() {
 
-    }
+        //Link do nothing
+        jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
 
-    global $wpdb;
+            return false; // prevent default click action from happening!
 
-    $post_url = get_permalink();
+        });
 
-    if ($chart_type === 'most' ) {
+        var data = {
+                action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
+            };
 
-        $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
-                                            FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
-                                            WHERE post_id = p.ID
-                                            AND p.post_status = 'publish'
-                                            ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
+        var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
-        if ($query_result_most_rated) {
+        jQuery.post(ajaxurl, data, function(response) {
 
-            $shortcode_html = "<div class=\"yasr-most-or-highest-rated-posts\" ></div>";
+            jQuery('.yasr-most-or-highest-rated-posts').html(response);
+            jQuery('.rateit').rateit();
 
-            foreach ($query_result_most_rated as $result) {
+            //By default, hide the highest rated chart
+            jQuery('.yasr-highest-rated-posts').hide();
 
-                $rating = $result->sum_votes / $result->number_of_votes;
+            //On click on highest, hide most and show highest
+            jQuery('#yasr_multi_chart_highest').on("click", function () {
 
-                $rating = round($rating, 1);
+                jQuery('.yasr-most-rated-posts').hide();
 
-                $post_title = get_the_title($result->post_id);
+                jQuery('.yasr-highest-rated-posts').show();
 
-                $link = get_permalink($result->post_id); //Get permalink from post it
-
-            } //End foreach
-
-            ?>
-
-            <script>
-
-            jQuery(document).ready(function() {
-
-                //Link do nothing
-                jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
-
-                    return false; // prevent default click action from happening!
-
-                });
-
-                var data = {
-                        action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
-                    };
-
-                var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-
-                jQuery.post(ajaxurl, data, function(response) {
-
-                    jQuery('.yasr-most-or-highest-rated-posts').html(response);
-                    jQuery('.rateit').rateit();
-
-                    //By default, hide the highest rated chart
-                    jQuery('.yasr-highest-rated-posts').hide();
-
-                    //On click on highest, hide most and show highest
-                    jQuery('#yasr_multi_chart_highest').on("click", function () {
-
-                        jQuery('.yasr-most-rated-posts').hide();
-
-                        jQuery('.yasr-highest-rated-posts').show();
-
-                        return false; // prevent default click action from happening!
-
-                    });
-
-                    //Vice versa
-                    jQuery('#yasr_multi_chart_most').on("click", function () {
-
-                        jQuery('.yasr-highest-rated-posts').hide();
-
-                        jQuery('.yasr-most-rated-posts').show();
-
-                        return false; // prevent default click action from happening!
-
-                    });
-
-                });
+                return false; // prevent default click action from happening!
 
             });
 
-            </script>
+            //Vice versa
+            jQuery('#yasr_multi_chart_most').on("click", function () {
 
-            <?php
+                jQuery('.yasr-highest-rated-posts').hide();
 
-            return $shortcode_html;
+                jQuery('.yasr-most-rated-posts').show();
 
-        } //end if $query_result
+                return false; // prevent default click action from happening!
 
-        else {
-            _e("You don't have any user votes stored", "yasr");
-        }
+            });
 
-    }
+        });
+
+    });
+
+
+    </script>
+
+    <?php
+
+    return $shortcode_html;
+
 
 } //End function
 
