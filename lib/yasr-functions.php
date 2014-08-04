@@ -75,7 +75,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 	add_action( 'add_meta_boxes', 'yasr_add_metaboxes' );
 
 	function yasr_add_metaboxes() {
-		$post_type_where_display_metabox=array('post', 'page');
+
+        //Default post type where display metabox
+        $post_type_where_display_metabox = array('post', 'page');
+
+        //get the custom post type
+        $custom_post_types = yasr_get_custom_post_type();
+
+        if ($custom_post_types) {
+
+            //First merge array then changes keys to int
+            $post_type_where_display_metabox = array_values(array_merge($post_type_where_display_metabox, $custom_post_types));     
+
+        }
+
 		$multi_set=yasr_get_multi_set(); 
 		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
 		if ($multi_set) {
@@ -845,7 +858,7 @@ function visitor_votes_auto_insert_code () {
 (Thanks to wordpress.stackexchange) ******/
 
 // init process for registering our button
-add_action('init', 'yasr_shortcode_button_init');
+add_action('admin_init', 'yasr_shortcode_button_init');
     function yasr_shortcode_button_init() {
 
         //Abort early if the user will never see TinyMCE
@@ -872,4 +885,30 @@ add_action('init', 'yasr_shortcode_button_init');
                 //Add the button ID to the $button array
         $buttons[] = "yasr_button";
         return $buttons;
+    }
+
+
+/****** Return the custom post type if exists ******/
+
+add_action( 'admin_init', 'yasr_get_custom_post_type');
+    function yasr_get_custom_post_type() {
+
+        $args = array(
+            'public'   => true,
+            '_builtin' => false
+        );
+
+        $output = 'names'; // names or objects, note names is the default
+        $operator = 'and'; // 'and' or 'or'
+
+        $post_types = get_post_types( $args, $output, $operator ); 
+
+        if ($post_types) {
+            return ($post_types);
+        }
+
+        else {
+            return FALSE;
+        }
+
     }

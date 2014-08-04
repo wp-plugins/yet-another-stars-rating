@@ -629,8 +629,14 @@ function yasr_process_new_multi_set_form()
   			$multi_set_name_element_[2]=$_POST['multi-set-name-element-2'];
 
   			//If multi set name is shorter than 3 characher come back
-   			if (mb_strlen($multi_set_name) < 3 || mb_strlen($multi_set_name_element_[1]) <3 || mb_strlen($multi_set_name_element_[2]) <3 ) {
-   				$array_errors[] = "Content field must be longer then 3 chars";
+   			if (mb_strlen($multi_set_name) < 3 || mb_strlen($multi_set_name_element_[1]) <3 || mb_strlen($multi_set_name_element_[2]) < 3 ) {
+   				$array_errors[] = "Content field must be longer than 3 chars";
+   				$error=TRUE;
+   			} 
+
+
+   			if (mb_strlen($multi_set_name) > 23 || mb_strlen($multi_set_name_element_[1]) > 23 || mb_strlen($multi_set_name_element_[2]) > 23 ) {
+   				$array_errors[] = "Content field must be shorter than 23 chars";
    				$error=TRUE;
    			} 
 
@@ -657,6 +663,11 @@ function yasr_process_new_multi_set_form()
 
   						if (mb_strlen($multi_set_name_element_[$i]) < 3) {
   							$array_errors[] = "Field # $i must be at least 3 characters";
+   							$error=TRUE;
+  						}
+
+  						if (mb_strlen($multi_set_name_element_[$i]) > 23) {
+  							$array_errors[] = "Field # $i must be shorter than 23 characters";
    							$error=TRUE;
   						}
 
@@ -807,10 +818,13 @@ function yasr_process_edit_multi_set_form() {
 				$array_errors[] .= __("Something goes wrong trying to delete a multi-set . Please report it", 'yasr');
   			}
 
-  			if ($remove_set_values==FALSE) {
+
+  			//Comment this out, if try to delete an empty set print error
+  			/*if ($remove_set_values==FALSE) {
   				$error = TRUE; 
 				$array_errors[] .= __("Something goes wrong trying to delete data fields for a set. Please report it", 'yasr');
 			}
+			*/
 
 			//Comment this out, will echo error even if the value for that field it's just empty
 			/*if ($remove_set_votes==FALSE) {
@@ -869,9 +883,14 @@ function yasr_process_edit_multi_set_form() {
   				$field_id = $_POST["db-id-for-element-$i"];
 
 	  			//if elements name is shorter than 3 chars
-	  			if (mb_strlen($field_name) <3 ) {
-	  						$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
-	   						$error=TRUE;
+	  			if (mb_strlen($field_name) <3) {
+					$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
+					$error=TRUE;
+	  			}
+
+	  			if(mb_strlen($field_name) > 23) {
+	  				$array_errors[] = __("Field # $i must be shorter than 23 characters", "yasr");
+					$error=TRUE;
 	  			}
 
   				else {
@@ -928,6 +947,11 @@ function yasr_process_edit_multi_set_form() {
   							$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
    							$error=TRUE;
   				}
+
+  				if(mb_strlen($field_name) > 23) {
+	  				$array_errors[] = __("Field # $i must be shorter than 23 characters", "yasr");
+					$error=TRUE;
+	  			}
 
   				//if field is not empty
   				elseif ($field_name != '') {

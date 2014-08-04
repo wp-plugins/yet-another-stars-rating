@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.4
+Stable tag: 0.4.5
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,11 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Chart Top 10 overall ratings
 
 == Changelog ==
+
+= 0.4.5 =
+* New feature: Added custom post type support!
+* Some fixes while editing / updating a multi-set
+* Minor changes
 
 = 0.4.4 =
 * Code cleanup on chart Top 10 by visitors: on first load load it should be about 30% faster
