@@ -5,20 +5,19 @@ SOURCE: Oxygen Team
 
 div.bigstars div.rateit-range
 {
-
     background: url('../img/star-white32.png');
     height: 32px;
 }
 
 div.bigstars div.rateit-hover
 {
-    background: url('../img/star-gold32.png');
+    background: url('../img/star-red32.png');
     height: 32px;
 }
 
 div.bigstars div.rateit-selected
 {
-    background: url('../img/star-red32.png');
+    background: url('../img/star-gold32.png');
     height: 32px;
 }
 
@@ -39,7 +38,7 @@ div.bigstars div.rateit-reset:hover
 
 /***** Added by Dario Curvino ******/
 
-/* Creating set 24px image with yellow color read only. Used in charts */
+/* Creating set 24px image with yellow color read only. */
 
 div.medium div.rateit-range
 {
@@ -50,7 +49,7 @@ div.medium div.rateit-range
 
 div.medium div.rateit-hover
 {
-    background: url('../img/star-gold24.png');
+    background: url('../img/star-red24.png');
 }
 
 div.medium div.rateit-selected

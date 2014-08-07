@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, Schema, Schema.org, Serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.5
+Stable tag: 0.4.6
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,14 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 == Changelog ==
 
+= 0.4.6 =
+* New feature: you can add your own css rules!
+* Popup shortcode creator use the built-in wordpress style, fresher and lighter
+* Fixed many bugs in shortcode [yasr_visitor_votes] : if you've had problem with a size that was not "large", try it now!
+* Swiched color for all stars set: yellow by default, red only when is active
+* Changed file name jquery.cookie.min.js in jquery-cookie.min.js, to avoid conflict with apache mod_security (thank's SubZeroD) 
+* Many code changes
+
 = 0.4.5 =
 * New feature: Added custom post type support!
 * Some fixes while editing / updating a multi-set
@@ -102,7 +110,7 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 * Fixed typo errors
 
 = 0.4.0 =
-* Popup shortcode creatore it's now tabbed and got a link to the new doc
+* Popup shortcode creator it's now tabbed and got a link to the new doc
 * Minor changes and bugfixes
 
 = 0.3.9 =

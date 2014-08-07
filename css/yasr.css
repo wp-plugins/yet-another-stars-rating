@@ -344,8 +344,14 @@
 }
 
 #yasr-custom-text-before-overall {
-    padding-right: 5px;
-    padding-bottom: 10px;
+    display: block;
+    padding-right: 15px;
+    vertical-align: top;
+}
+
+#yasr-custom-text-before-visitor-rating {
+    display: block;
+    padding-right: 15px;
     vertical-align: top;
 }
 
@@ -354,7 +360,7 @@
 }
 
 #yasr-custom-text-before-visitor-rating {
-    display: inline-block;
+    display: block;
     vertical-align: top;
     padding-right: 15px;
 }

@@ -53,23 +53,24 @@ if ( !current_user_can( 'manage_options' ) ) {
 		?>
 
         <h2 class="nav-tab-wrapper yasr-no-underline">
-            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings') echo 'nav-tab-active'; ?>" > General Settings </a>
+            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings' || ($active_tab != 'manage_multi' && $active_tab != 'style_options')) echo 'nav-tab-active'; ?>" > General Settings </a>
             <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > Multi Sets </a>
+            <a href="?page=yasr_settings_page&tab=style_options" class="nav-tab <?php if ($active_tab == 'style_options') echo 'nav-tab-active'; ?>" > Styles </a>
         </h2>
 
 
 
         <?php 
 
-        if ($active_tab == 'general_settings') {
+        if ($active_tab == 'general_settings' || $active_tab != 'manage_multi' && $active_tab != 'style_options') {
 
-        ?>
+        	?>
 
 		    <div class="yasr-settingsdiv">
 		        <form action="options.php" method="post" id="yasr_settings_form">
 		            <?php
 			            settings_fields( 'yasr_general_options_group' );
-			            do_settings_sections('yasr_settings_page' );
+			            do_settings_sections('yasr_general_settings_tab' );
 		            	submit_button( __('Save') );
 		           	?>
 		       	</form>
@@ -90,7 +91,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 			<div class="yasr-space-settings-div">
 			</div>
 
-		<?php 
+			<?php 
 
 			$gd_star_rating_found = yasr_search_gd_star_rating();
 
@@ -124,7 +125,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 				<div class="yasr-space-settings-div">
 				</div>
 
-		<?php
+			<?php
 
 			} //End If $gd_star_rating_found && !$gd_star_imported
 
@@ -177,8 +178,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 		$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
 
-
-	?>
+		?>
 
 		<div class="yasr-settingsdiv">
 				
@@ -260,7 +260,43 @@ if ( !current_user_can( 'manage_options' ) ) {
 	} //End if ($active_tab=='manage_multi')
 
 
-	
+	if ($active_tab == 'style_options') {
+
+		?>
+
+		<div class="yasr-settingsdiv">
+		        <form action="options.php" method="post" id="yasr_settings_form">
+		            <?php
+			            settings_fields( 'yasr_style_options_group' );
+			            do_settings_sections('yasr_style_tab' );
+		            	submit_button( __('Save') );
+		           	?>
+		       	</form>
+		</div>
+
+
+		<div class="yasr-donatedivdx" style="display:none">
+	        <h3><?php _e('Donations'); ?></h3>
+
+	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+	        	<br />
+	        	<?php _e('Thank you!'); ?>
+	        	<br />
+	        	
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
+
+        </div>
+
+		<div class="yasr-space-settings-div">
+		</div>
+
+
+		<?php
+
+	}
+
 ?>
 
 	<div class="yasr-donatedivbottom" style="display:none">

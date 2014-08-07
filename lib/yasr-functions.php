@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 /***** Adding javascript and css *****/
 
 	add_action( 'wp_enqueue_scripts', 'yasr_add_scripts' );  
-	add_action( 'admin_enqueue_scripts', 'yasr_add_scripts' );
+	add_action( 'admin_enqueue_scripts', 'yasr_add_admin_scripts' );
 
 	function yasr_add_scripts () {
+
 		wp_enqueue_style( 'rateitcss', YASR_CSS_DIR . 'rateit.css', FALSE, NULL, 'all' );
 		wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
-        wp_enqueue_style( 'jqueryui', YASR_CSS_DIR . 'jquery-ui.min.css', FALSE, NULL, 'all' );
 
 
         //If choosen is light or not dark (force to be default)
@@ -24,10 +24,25 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_enqueue_style( 'yasrcssdarkscheme', YASR_CSS_DIR . 'yasr-table-dark.css', array('yasrcss'), NULL, 'all' );
         }
 
-        wp_enqueue_script( 'jquery-ui-dialog' );
+        if (YASR_CUSTOM_CSS_RULES) {
+            wp_add_inline_style( 'yasrcss', YASR_CUSTOM_CSS_RULES );
+        }
+
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
-		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery.cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
+		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
+
+    function yasr_add_admin_scripts () {
+
+        wp_enqueue_style( 'rateitcss', YASR_CSS_DIR . 'rateit.css', FALSE, NULL, 'all' );
+        wp_enqueue_style( 'rateitbigstars', YASR_CSS_DIR . 'bigstars.css', array('rateitcss'), NULL, 'all' );
+        wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', array('rateitcss'), NULL, 'all' );
+        wp_enqueue_style( 'wp-jquery-ui-dialog' );
+
+        wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
+        wp_enqueue_script( 'jquery-ui-dialog' );
+
+    }
 
 
 
@@ -273,8 +288,8 @@ function visitor_votes_auto_insert_code () {
                             global $current_user;
                             get_currentuserinfo();
 
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
-                            </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                            <br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
 
@@ -284,12 +299,12 @@ function visitor_votes_auto_insert_code () {
                             $vote_if_user_already_rated = 0;
 
                             if ($votes_number>0) {
-                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                                 </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
                             }
 
                             else {
-                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                                 </div><br /> " . __("No rating yet" , "yasr") . "</div>";
                             }
 
@@ -302,12 +317,12 @@ function visitor_votes_auto_insert_code () {
                     else {
 
                         if ($votes_number>0) {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                             </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
                         }
 
                         else {
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                             </div><br /> " . __("No rating yet" , "yasr") . "</div>";
                         }
 
@@ -330,7 +345,7 @@ function visitor_votes_auto_insert_code () {
                             global $current_user;
                             get_currentuserinfo();
 
-                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
+                            $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes_logged_rated\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\">
                             </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ") <br /><strong>" . __("User ") . "$current_user->user_login" . __(" has already voted this article with $vote_if_user_already_rated ", "yasr") . "</strong></div>";
 
                         }
@@ -338,12 +353,12 @@ function visitor_votes_auto_insert_code () {
                         else {
 
                             if ($votes_number>0) {
-                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                                 </div><br /> " . __("Average Rating", "yasr") . " $medium_rating / 5 (" .  __("$votes_number votes casts" , "yasr") . ")</div>";
                             }
 
                             else {
-                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
+                                $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"rateit\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"0\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\">
                                 </div><br /> " . __("No rating yet" , "yasr") . "</div>";
                             }
 
@@ -372,7 +387,7 @@ function visitor_votes_auto_insert_code () {
             } // end if YASR_AUTO_INSERT_SIZE === 'small'
 
 
-            if (YASR_AUTO_INSERT_SIZE === 'medium') {
+            elseif (YASR_AUTO_INSERT_SIZE === 'medium') {
 
                 //if anonymous are allowed to vote
                 if (YASR_ALLOWED_USER === 'allow_anonymous') {
@@ -488,7 +503,7 @@ function visitor_votes_auto_insert_code () {
             } // end if YASR_AUTO_INSERT_SIZE === 'medium'
 
 
-            if (YASR_AUTO_INSERT_SIZE === 'large') {
+            elseif (YASR_AUTO_INSERT_SIZE === 'large') {
 
                 //if anonymous are allowed to vote
                 if (YASR_ALLOWED_USER === 'allow_anonymous') {
@@ -607,7 +622,7 @@ function visitor_votes_auto_insert_code () {
             if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_VISITOR_RATING != '') {
             
                 $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
-                    <div id=\"yasr-custom-text-before-visitor-rating\">" . YASR_TEXT_BEFORE_VISITOR_RATING . "</div>" .  $shortcode_html . "</div>"; 
+                    <span id=\"yasr-custom-text-before-visitor-rating\">" . YASR_TEXT_BEFORE_VISITOR_RATING . "</span>" .  $shortcode_html . "</div>"; 
 
                     $shortcode_html = $shortcode_html_tmp;
 
@@ -627,10 +642,10 @@ function visitor_votes_auto_insert_code () {
                       logged_message_showed = true;
                 }
 
-                
-
                 var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
                 jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
+
+                var size = "<?php echo (YASR_AUTO_INSERT_SIZE) ; ?>";
 
                 var postid = <?php the_ID(); ?>;
                 var cookiename = "yasr_visitor_vote_" + postid;
@@ -650,6 +665,7 @@ function visitor_votes_auto_insert_code () {
                             action: 'yasr_send_visitor_rating',
                             rating: value,
                             post_id: postid,
+                            size: size,
                             nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
                         };
 
@@ -675,6 +691,7 @@ function visitor_votes_auto_insert_code () {
                         var data = {
                             action: 'yasr_readonly_visitor_shortcode',
                             rating: cookievote,
+                            size: size,
                             votes: <?php echo $medium_rating ?>,
                             votes_number: <?php echo $votes_number ?>,
                             post_id: postid

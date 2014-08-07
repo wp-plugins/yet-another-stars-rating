@@ -1,11 +1,11 @@
 <?php
 
 
-/****** Add auto insert option ******/
+/****** Add yasr general option ******/
 
-	add_action( 'admin_init', 'yasr_auto_insert_options_init' ); //This is for auto insert options
+	add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
 
-		function yasr_auto_insert_options_init() {
+		function yasr_general_options_init() {
 	    	register_setting(
 	        	'yasr_general_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
 	        	'yasr_general_options' //The name of an option to sanitize and save.
@@ -28,13 +28,13 @@
 	    		$option['custom_text_user_voted']='';
 	    	}
 
-	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
-	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_settings_page',  'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_general_options_section_id', $option );
+	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_general_settings_tab' );
+	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
 		}
 
@@ -56,13 +56,15 @@
 
 			
 	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='0' id='yasr_auto_insert_radio_off' 
-	    		<?php if ($option['auto_insert_enabled']==0) {
+	    		<?php 
+	    			if ($option['auto_insert_enabled']==0) {
 	    				echo " checked='checked' />";
-	    				echo ("<script>
-	    				jQuery( document ).ready(function() {
-	    					jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
-	    				});
-						</script>") ;
+	    				echo ("
+	    					<script>
+	    						jQuery( document ).ready(function() {
+	    							jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
+	    						});
+							</script>") ;
 	    			}
 
 	    			else {
@@ -1006,6 +1008,44 @@ function yasr_process_edit_multi_set_form() {
 
 	
 } //End yasr_process_edit_multi_set_form() function
+
+
+add_action( 'admin_init', 'yasr_style_options_init' ); //This is for auto insert options
+
+		function yasr_style_options_init() {
+	    	register_setting(
+	        	'yasr_style_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
+	        	'yasr_style_options' //The name of an option to sanitize and save.
+	    	);	    	
+
+	    	$style_options = get_option( 'yasr_style_options' );
+
+	    	if (!$style_options) {
+
+	    		$style_options = array();
+	    		$style_options['textarea'] = NULL;
+
+	    	}
+
+	    	add_settings_section( 'yasr_style_options_section_id', __('Style Options', 'yasr'), 'yasr_style_section_callback', 'yasr_style_tab' );
+	    		add_settings_field( 'yasr_style_options_textarea', __('Custom CSS Styles', 'yasr'), 'yasr_style_options_textarea_callback', 'yasr_style_tab', 'yasr_style_options_section_id', $style_options );
+
+		}
+
+		function yasr_style_section_callback () {
+			_e("Please use text area below to write your own CSS styles to override the default ones.", "yasr");
+			echo "<strong>";
+			_e("Leave it blank if you don't know what you're doing", "yasr");
+			echo "</strong>";
+		}
+
+		function yasr_style_options_textarea_callback ($style_options) {
+
+			echo ("
+				<textarea rows=\"20\" cols=\"50\" name=\"yasr_style_options[textarea]\" id=\"yasr_style_options_textarea\">$style_options[textarea]</textarea> 
+				");
+
+		}
 
 
 /*************************BEGIN IMPORT FUNCTIONS*******************************/

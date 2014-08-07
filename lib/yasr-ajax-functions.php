@@ -906,6 +906,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if(isset($_POST['rating']) && isset($_POST['post_id'])) {
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
+            $size = $_POST['size'];
             $nonce_visitor = $_POST['nonce_visitor'];
         }
         else {
@@ -983,15 +984,59 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if($row_exists_result) {
             $total_rating = ($user_votes_sum / $number_of_votes);
             $medium_rating=round ($total_rating, 1);
-            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
-            <strong>" . __("Vote Saved" , "yasr") . "</strong>";
+
+            if ($size == 'small') {
+
+                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
+
+            }
+
+            elseif ($size == 'medium') {
+
+                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
+
+            }
+
+            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
+
+                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
+
+            }
+
         }
 
         elseif ($new_row_result) {
-            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
-            <strong>". __("Vote Saved" , "yasr");
+
+            $number_of_votes = 1;
+
+            if ($size == 'small') {
+
+                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating/5" , "yasr") . "]</span>
+                <strong>". __("Vote Saved" , "yasr");
+
+            }
+
+            if ($size == 'medium') {
+
+                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating/5" , "yasr") . "]</span>
+                <strong>". __("Vote Saved" , "yasr");
+
+            }
+
+            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
+                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating/5" , "yasr") . "]</span>
+                <strong>". __("Vote Saved" , "yasr");
+            }
+        
         }
 
         die(); // this is required to return a proper result
@@ -1008,6 +1053,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['votes']) && isset($_POST['votes_number'])) {
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
+            $size = $_POST['size'];
             $average_rating= $_POST['votes'];
             $number_of_votes = $_POST['votes_number'];
         }
@@ -1020,9 +1066,23 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
-            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
-            <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            if ($size == 'small') {
+                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            }
+
+            if ($size == 'medium') {
+                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            }
+
+            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
+                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $average_rating/5" , "yasr") . "]</span>
+                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            }
 
         }
 
@@ -1041,7 +1101,6 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
     } //End callback function
 
 
-/****** Order yasr_multi_chart ******/
 
 /****** Order yasr_multi_chart ******/
 
