@@ -323,12 +323,12 @@ function yasr_display_multi_set_form() {
 			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
 
 			<p></p>
-			<?php _e("You can insert up to nine element") ?>
+			<?php _e("You can insert up to nine element", "yasr") ?>
 			<br />
 
 			<?php for($i=1; $i<=9; $i++) { 
 
-				echo "<strong>" . __("Element ", 'yasr') . "#$i" . "</strong>";
+				echo "<strong>" . __("Element ", "yasr") . "#$i" . "</strong>";
 				?>
 				<input type="text" name="multi-set-name-element-<?php echo $i ?>" id="multi-set-name-element-<?php echo $i ?>" class="input-text-multi-set">
 				<br />
@@ -359,7 +359,7 @@ function yasr_edit_multi_form() {
 
 			<div class="yasr-manage-multiset">
 
-				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
+				<h4 class="yasr-multi-set-form-headers"><?php _e("Manage Multiple Set" , "yasr"); ?></h4>
 
 				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
 
@@ -447,7 +447,7 @@ function yasr_edit_multi_form() {
 		            <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
 		            <tr>
 
-		                <td width=\"80%\">Remove whole set?</td>
+		                <td width=\"80%\">" . __("Remove whole set?", "yasr") . "</td>
 
 		                <td width=\"20%\" style=\"text-align:center\">
 		                    <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
@@ -736,13 +736,13 @@ function yasr_process_new_multi_set_form()
    						}
 
    						else {
-   							_e("Something goes wrong trying insert set field name. Please report it", 'yasr');
+   							_e("Something goes wrong trying insert set field name. Please report it", "yasr");
    						}
 
    					} //End if $insert_multi_name_success
 
    					else {
-   						_e("Something goes wrong trying insert multi set name. Please report it", 'yasr');
+   						_e("Something goes wrong trying insert multi set name. Please report it", "yasr");
    					}
 
    			} //End if !$error

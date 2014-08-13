@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.6
+Stable tag: 0.4.7
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,9 @@ their respective score. Once YASR is installed you just have to go to "Settings"
 This operation can take some time, don't stop it! Once it's done you just need to replace the gd-star-rating's shortcode with the YASR tags.
 If with gd-star-rating you're using a different number of stars from the default of 5, YASR will automatically convert all the scores in a range from 1 to 5.
 
+= Supported Languages =
+* English
+* German (thanks to Josef Seidl)
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
@@ -78,6 +81,12 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Chart Top 10 overall ratings
 
 == Changelog ==
+
+= 0.4.7 =
+* Visitor votes has changed: if an user is logged in, now it's possibile to update the given vote
+* Using css sprite instead of single images
+* Using only 2 css instead 4
+* Added German Translation (thanks to Josef Seidl)
 
 = 0.4.6 =
 * New feature: you can add your own css rules!

@@ -36,7 +36,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         //Show this message if auto insert is off or if auto insert is not set to show overall rating (so if it is set to visitor rating)
         if( YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating') ) {
 
-          _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
+            echo "<div>";
+                _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
+            echo "</div>";
 
         }
 

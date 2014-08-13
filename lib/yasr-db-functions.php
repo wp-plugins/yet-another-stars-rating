@@ -116,7 +116,7 @@ function yasr_get_overall_rating() {
 
 
 /****** Get visitor rating ******/
-function yasr_get_vistor_rating() {
+/*function yasr_get_vistor_rating() {
 	global $wpdb;
 
 	$post_id=get_the_ID();
@@ -135,7 +135,7 @@ function yasr_get_vistor_rating() {
 		}
 	}
 
-}
+}*/
 
 
 

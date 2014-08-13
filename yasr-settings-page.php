@@ -53,9 +53,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 		?>
 
         <h2 class="nav-tab-wrapper yasr-no-underline">
-            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings' || ($active_tab != 'manage_multi' && $active_tab != 'style_options')) echo 'nav-tab-active'; ?>" > General Settings </a>
-            <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > Multi Sets </a>
-            <a href="?page=yasr_settings_page&tab=style_options" class="nav-tab <?php if ($active_tab == 'style_options') echo 'nav-tab-active'; ?>" > Styles </a>
+            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings' || ($active_tab != 'manage_multi' && $active_tab != 'style_options')) echo 'nav-tab-active'; ?>" > <?php _e("General Settings", "yasr"); ?> </a>
+            <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > <?php _e("Multi Sets", "yasr"); ?> </a>
+            <a href="?page=yasr_settings_page&tab=style_options" class="nav-tab <?php if ($active_tab == 'style_options') echo 'nav-tab-active'; ?>" > <?php _e("Styles", "yasr"); ?> </a>
         </h2>
 
 
@@ -182,11 +182,11 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 		<div class="yasr-settingsdiv">
 				
-			<h3> <?php _e("Manage multi-set"); ?></h3>
+			<h3> <?php _e("Manage multi-set", "yasr"); ?></h3>
 
 			<p>
 
-				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi-set?") ?></a>
+				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi-set?", "yasr") ?></a>
 
 			</p>
 
@@ -210,7 +210,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 				<br /> <br />
 
-				<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message") ?></a>
+				<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
 
 			</div>
 
@@ -241,9 +241,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 		<div class="yasr-donatedivdx" style="display:none">
 	        <h3><?php _e('Donations'); ?></h3>
 
-	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
 	        	<br />
-	        	<?php _e('Thank you!'); ?>
+	        	<?php _e('Thank you!', 'yasr'); ?>
 	        	<br />
 	        	
 	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
@@ -278,9 +278,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 		<div class="yasr-donatedivdx" style="display:none">
 	        <h3><?php _e('Donations'); ?></h3>
 
-	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
 	        	<br />
-	        	<?php _e('Thank you!'); ?>
+	        	<?php _e('Thank you!', 'yasr'); ?>
 	        	<br />
 	        	
 	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
@@ -302,9 +302,9 @@ if ( !current_user_can( 'manage_options' ) ) {
 	<div class="yasr-donatedivbottom" style="display:none">
         	<h3><?php _e('Donations'); ?></h3>
 
-        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
         	<br />
-        	<?php _e('Thank you!'); ?>
+        	<?php _e('Thank you!', 'yasr'); ?>
         	<br />
         	
         	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">

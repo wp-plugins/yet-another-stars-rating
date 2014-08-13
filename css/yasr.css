@@ -1,3 +1,170 @@
+/****** Rate it rules *****/
+
+.rateit {
+    display: -moz-inline-box;
+    display: inline-block;
+    position: relative;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.rateit .rateit-range
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url('../img/star.png');
+    height: 16px;
+    outline: none;
+}
+
+.rateit .rateit-range * {
+    display:block;
+}
+
+/* for IE 6 */
+* html .rateit, * html .rateit .rateit-range
+{
+    display: inline;
+}
+
+/* for IE 7 */
+* + html .rateit, * + html .rateit .rateit-range
+{
+    display: inline;
+}
+
+.rateit .rateit-hover, .rateit .rateit-selected
+{
+    position: absolute;
+    left: 0px;
+}
+
+.rateit .rateit-hover-rtl, .rateit .rateit-selected-rtl
+{
+    left: auto;
+    right: 0px;
+}
+
+.rateit .rateit-hover
+{
+    background: url('../img/star.png') left -16px;
+}
+
+.rateit .rateit-hover-rtl
+{
+    background-position: right -16px;
+}
+
+.rateit .rateit-selected
+{
+    background: url('../img/star.png') left -32px;
+}
+
+.rateit .rateit-selected-rtl
+{
+    background-position: right -32px;
+}
+
+.rateit .rateit-preset
+{
+    background: url('../img/star.png') left -48px;
+}
+
+.rateit .rateit-preset-rtl
+{
+    background: url('../img/star.png') left -48px;
+}
+
+.rateit button.rateit-reset
+{
+    background: url('../img/delete.gif') 0 0;
+    width: 16px;
+    height: 16px;
+    display: -moz-inline-box;
+    display: inline-block;
+    float: left;
+    outline: none;
+    border:none;
+    padding: 0;
+}
+
+.rateit button.rateit-reset:hover, .rateit button.rateit-reset:focus
+{
+    background-position: 0 -16px;
+}
+
+.yasr_settings_fields_content {
+    background-color: #F7F7F7;
+}
+
+/*
+IMAGES BY: Oxygen Team
+*/
+
+/* Creating set 24px image . */
+
+div.medium .rateit-range
+{
+    /*White*/
+    background: url('../img/stars24.png') left 0px;
+    width: 24px; 
+    height: 24px;
+}
+
+div.medium .rateit-hover
+{
+    /*Red*/
+    background: url('../img/stars24.png') left -29px;
+    width: 24px; 
+    height: 24px;
+    display: none
+
+}
+
+div.medium .rateit-selected
+{
+    /*Yellow*/
+    background: url('../img/stars24.png') left -58px ;
+    width: 24px; 
+    height: 24px;
+}
+
+/* Creating set 32 */
+
+div.bigstars .rateit-range
+{
+    /*White*/
+    background: url('../img/stars32.png') left 0px ; 
+    width: 32px; 
+    height: 32px;
+}
+
+div.bigstars .rateit-hover
+{
+    /*red*/
+    background: url('../img/stars32.png') left -74px ; 
+    width: 32px; 
+    height: 32px;
+    display: none
+}
+
+div.bigstars .rateit-selected
+{
+    /*Gold*/
+    background: url('../img/stars32.png') left -37px ; 
+    width: 32px; 
+    height: 32px;
+}
+
+/****** End rateit rules ******/
+
+
 /****** ADMIN RULES ******/
 
 #multi_rating_table 
