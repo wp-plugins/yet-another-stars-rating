@@ -8,8 +8,6 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 ?>
 
-
-
 	<div class="wrap">
 
         <h2>Yet Another Stars Rating: Settings</h2>
@@ -23,10 +21,10 @@ if ( !current_user_can( 'manage_options' ) ) {
         if ($error_new_multi_set) {
         	echo "<div class=\"error\"> <p> <strong>";
 
-          		foreach ($error_new_multi_set as $error) {
-          			_e($error, 'yasr'); 
-          			echo "<br />";
-          		}
+      		foreach ($error_new_multi_set as $error) {
+      			_e($error, 'yasr'); 
+      			echo "<br />";
+      		}
 
     		echo "</strong></p></div>"; 
     	}
@@ -34,48 +32,45 @@ if ( !current_user_can( 'manage_options' ) ) {
         if ($error_edit_multi_set) {
         	echo "<div class=\"error\"> <p> <strong>";
 
-          		foreach ($error_edit_multi_set as $error) {
-          			_e($error, 'yasr'); 
-          			echo "<br />";
-          		}
+      		foreach ($error_edit_multi_set as $error) {
+      			_e($error, 'yasr'); 
+      			echo "<br />";
+      		}
 
     		echo "</strong></p></div>"; 
     	}
 
 			
-		if( isset( $_GET[ 'tab' ] ) ) {
-
+		if (isset($_GET['tab'])) {
     		$active_tab = $_GET[ 'tab' ];
-
 		}
 
 		else {
-
 			$active_tab = 'general_settings';
-
 		}
 
 
 		?>
 
-        <h2 class="nav-tab-wrapper">
-            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings') echo 'nav-tab-active'; ?>" > General Settings </a>
-            <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > Multi Sets </a>
+        <h2 class="nav-tab-wrapper yasr-no-underline">
+            <a href="?page=yasr_settings_page&tab=general_settings" class="nav-tab <?php if ($active_tab == 'general_settings' || ($active_tab != 'manage_multi' && $active_tab != 'style_options')) echo 'nav-tab-active'; ?>" > <?php _e("General Settings", "yasr"); ?> </a>
+            <a href="?page=yasr_settings_page&tab=manage_multi" class="nav-tab <?php if ($active_tab == 'manage_multi') echo 'nav-tab-active'; ?>" > <?php _e("Multi Sets", "yasr"); ?> </a>
+            <a href="?page=yasr_settings_page&tab=style_options" class="nav-tab <?php if ($active_tab == 'style_options') echo 'nav-tab-active'; ?>" > <?php _e("Styles", "yasr"); ?> </a>
         </h2>
 
 
 
         <?php 
 
-        if ($active_tab == 'general_settings') {
+        if ($active_tab == 'general_settings' || $active_tab != 'manage_multi' && $active_tab != 'style_options') {
 
-        ?>
+        	?>
 
 		    <div class="yasr-settingsdiv">
 		        <form action="options.php" method="post" id="yasr_settings_form">
 		            <?php
 			            settings_fields( 'yasr_general_options_group' );
-			            do_settings_sections('yasr_settings_page' );
+			            do_settings_sections('yasr_general_settings_tab' );
 		            	submit_button( __('Save') );
 		           	?>
 		       	</form>
@@ -88,18 +83,15 @@ if ( !current_user_can( 'manage_options' ) ) {
 	        	<br />
 	        	<?php _e('Thank you!'); ?>
 	        	<br />
-	        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-					<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-					<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-				</form>
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
         	</div>
 
 			<div class="yasr-space-settings-div">
 			</div>
 
-		<?php 
+			<?php 
 
 			$gd_star_rating_found = yasr_search_gd_star_rating();
 
@@ -133,7 +125,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 				<div class="yasr-space-settings-div">
 				</div>
 
-		<?php
+			<?php
 
 			} //End If $gd_star_rating_found && !$gd_star_imported
 
@@ -148,19 +140,19 @@ if ( !current_user_can( 'manage_options' ) ) {
 		        	<button href="#" class="button-delete" id="import-gdstar"><?php _e('Ok, Import Again'); ?></button>
 
 		        	<div id="yasr-import-gdstar-div" style="display:none;">
-		          			<strong>
-		          				<?php _e("Click on Proceed to Import again Gd Star Rating Data. This may take a while!"); ?>
-		          			</strong>
-		          				<br />
-		          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
+	          			<strong>
+	          				<?php _e("Click on Proceed to Import again Gd Star Rating Data. This may take a while!"); ?>
+	          			</strong>
+	          				<br />
+	          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
 
-		          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
-		          				</span>
-		          				
-		          				<br />
+	          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+	          				</span>
+	          				
+	          				<br />
 
-		          			<div id="result-import">	
-		          			</div>
+	          			<div id="result-import">	
+	          			</div>
 
 					</div>
 				</div>
@@ -186,63 +178,62 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 		$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
 
-
-	?>
+		?>
 
 		<div class="yasr-settingsdiv">
 				
-				<h3> <?php _e("Manage multi-set"); ?></h3>
+			<h3> <?php _e("Manage multi-set", "yasr"); ?></h3>
 
-				<p>
+			<p>
 
-					<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi-set?") ?></a>
+				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi-set?", "yasr") ?></a>
 
-				</p>
+			</p>
 
-				<div id="yasr-multi-set-doc-box" style="display:none">
-					<?php _e("Multi-set allows you to insert a rate for each aspect about the product / local business / whetever
-					you're reviewing, example in the image below.", "yasr");
+			<div id="yasr-multi-set-doc-box" style="display:none">
+				<?php _e("Multi-set allows you to insert a rate for each aspect about the product / local business / whetever
+				you're reviewing, example in the image below.", "yasr");
 
-					echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
+				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
 
-					_e("You can create up to 99 different multi-sets and each one can contain up to 9 different fields. 
-						Once you've saved it, you can insert the rates while typing your article in the box below the editor, 
-						as you can see in this image (click to see it larger)", "yasr");
+				_e("You can create up to 99 different multi-sets and each one can contain up to 9 different fields. 
+					Once you've saved it, you can insert the rates while typing your article in the box below the editor, 
+					as you can see in this image (click to see it larger)", "yasr");
 
-					echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
+				echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
 
-					_e("In order to insert your text into a post or page, you can either past
-						the short code that will appear at the bottom of the box or just click
-						on the star in the graphic editor and select \"Insert Multi-Set\".", "yasr");
+				_e("In order to insert your text into a post or page, you can either past
+					the short code that will appear at the bottom of the box or just click
+					on the star in the graphic editor and select \"Insert Multi-Set\".", "yasr");
 
-					?>
+				?>
 
-					<br /> <br />
+				<br /> <br />
 
-					<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message") ?></a>
+				<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
+
+			</div>
+
+			<div class="yasr-multi-set-left">
+
+				<div class="yasr-new-multi-set" >
+
+					<?php yasr_display_multi_set_form(); ?>
+
+				</div> <!--yasr-new-multi-set-->
+
+
+			</div> <!--End yasr-multi-set-left-->
+
+			<div class="yasr-multi-set-right">
+
+				<?php yasr_edit_multi_form(); ?>
+
+				<div id="yasr-multi-set-response" style="display:none">
 
 				</div>
 
-				<div class="yasr-multi-set-left">
-
-					<div class="yasr-new-multi-set" >
-
-						<?php yasr_display_multi_set_form(); ?>
-
-					</div> <!--yasr-new-multi-set-->
-
-
-				</div> <!--End yasr-multi-set-left-->
-
-				<div class="yasr-multi-set-right">
-
-					<?php yasr_edit_multi_form(); ?>
-
-					<div id="yasr-multi-set-response" style="display:none">
-
-					</div>
-
-				</div> <!--End yasr-multi-set-right-->
+			</div> <!--End yasr-multi-set-right-->
 
 
 		</div>
@@ -250,16 +241,15 @@ if ( !current_user_can( 'manage_options' ) ) {
 		<div class="yasr-donatedivdx" style="display:none">
 	        <h3><?php _e('Donations'); ?></h3>
 
-	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
 	        	<br />
-	        	<?php _e('Thank you!'); ?>
+	        	<?php _e('Thank you!', 'yasr'); ?>
 	        	<br />
-	        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick">
-					<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-					<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-					<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-				</form>
+	        	
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
+
         </div>
 
 		<div class="yasr-space-settings-div">
@@ -270,22 +260,56 @@ if ( !current_user_can( 'manage_options' ) ) {
 	} //End if ($active_tab=='manage_multi')
 
 
-	
+	if ($active_tab == 'style_options') {
+
+		?>
+
+		<div class="yasr-settingsdiv">
+		        <form action="options.php" method="post" id="yasr_settings_form">
+		            <?php
+			            settings_fields( 'yasr_style_options_group' );
+			            do_settings_sections('yasr_style_tab' );
+		            	submit_button( __('Save') );
+		           	?>
+		       	</form>
+		</div>
+
+
+		<div class="yasr-donatedivdx" style="display:none">
+	        <h3><?php _e('Donations'); ?></h3>
+
+	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
+	        	<br />
+	        	<?php _e('Thank you!', 'yasr'); ?>
+	        	<br />
+	        	
+	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        	</a>
+
+        </div>
+
+		<div class="yasr-space-settings-div">
+		</div>
+
+
+		<?php
+
+	}
+
 ?>
 
 	<div class="yasr-donatedivbottom" style="display:none">
         	<h3><?php _e('Donations'); ?></h3>
 
-        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. '); ?>
+        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
         	<br />
-        	<?php _e('Thank you!'); ?>
+        	<?php _e('Thank you!', 'yasr'); ?>
         	<br />
-        	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="F3XJX2BSG3H4J">
-				<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
-				<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-			</form>
+        	
+        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+	        	<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+	        </a>
 
         </div>
 
@@ -307,8 +331,22 @@ if ( !current_user_can( 'manage_options' ) ) {
 			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
 		});
 
+		jQuery('#yasr_text_before_star_on').on('click', function(){
+			jQuery('.yasr-general-options-text-before').prop('disabled', false);
+		});
+
+		jQuery('#yasr_text_before_star_off').on('click', function(){
+			jQuery('.yasr-general-options-text-before').prop('disabled', true);
+		});
+
+		jQuery('#yasr-color-scheme-preview-link').on('click', function () {
+			jQuery('#yasr-color-scheme-preview').toggle('slow');
+			return false; // prevent default click action from happening!
+		});
+
 		jQuery('#yasr-snippet-explained-link').on('click', function () {
 			jQuery('#yasr-snippet-explained').toggle('slow');
+			return false; // prevent default click action from happening!
 		});
 
 
@@ -355,6 +393,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 		//--------------Multi Sets Page ------------------
 
 		if ($active_tab==='manage_multi') { 
+			
 			?>
 
 				jQuery('#yasr-multi-set-doc-link').on('click', function() {
@@ -367,34 +406,27 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 				<?php if ($n_multi_set == 1) { ?>
 
+					var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
 
-					//jQuery('#yasr-manage-multi-set-single').on('click', function() {
+			    	counter++;
 
-						//jQuery('.yasr-manage-multiset-single').toggle();
+					jQuery("#yasr-add-field-edit-multiset").on('click', function() {
 
-						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
-
-				    	counter++;
-
-						jQuery("#yasr-add-field-edit-multiset").on('click', function() {
-
-							if(counter>9){
-					           		jQuery('#yasr-element-limit').show();
-					           		jQuery('#yasr-add-field-edit-multiset').hide();
-					            	return false;
-							}   
-					 
-								var newTextBoxDiv = jQuery(document.createElement('tr'))
-					 
-								newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-					 
-								newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-					 
-					 			counter++;
+						if(counter>9){
+			           		jQuery('#yasr-element-limit').show();
+			           		jQuery('#yasr-add-field-edit-multiset').hide();
+			            	return false;
+						}   
+				 
+							var newTextBoxDiv = jQuery(document.createElement('tr'))
+				 
+							newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+				 
+							newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+				 
+				 			counter++;
 
 					 	});
-
-				//	});
 
 				<?php 
 
@@ -407,18 +439,18 @@ if ( !current_user_can( 'manage_options' ) ) {
 				    //If more then 1 set is used...
 					jQuery('#yasr-button-select-set-edit-form').on("click", function() {
 						    
-						    var data = {
-						    	action : 'yasr_get_multi_set',
-						    	set_id : jQuery('#yasr_select_edit_set').val()
-						    } 
-						    
-						    jQuery.post(ajaxurl, data, function(response) {
-						    	jQuery('#yasr-multi-set-response').show();
-			     				jQuery('#yasr-multi-set-response').html(response);
-			     			});
+					    var data = {
+					    	action : 'yasr_get_multi_set',
+					    	set_id : jQuery('#yasr_select_edit_set').val()
+					    } 
+					    
+					    jQuery.post(ajaxurl, data, function(response) {
+					    	jQuery('#yasr-multi-set-response').show();
+		     				jQuery('#yasr-multi-set-response').html(response);
+		     			});
 
-			     			return false; // prevent default click action from happening!
-  	                        e.preventDefault(); // same thing as above
+		     			return false; // prevent default click action from happening!
+	            		preventDefault(); // same thing as above
 
 					});
 			 

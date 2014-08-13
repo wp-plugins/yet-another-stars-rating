@@ -35,7 +35,7 @@ function yasr_install() {
 	$sql_yasr_multi_set_fields ="CREATE TABLE IF NOT EXISTS $yasr_multi_set_fields (
   		id bigint(20) NOT NULL,
   		parent_set_id int(2) NOT NULL,
-  		field_name text COLLATE utf8_unicode_ci NOT NULL,
+  		field_name varchar(23) COLLATE utf8_unicode_ci NOT NULL,
   		field_id int(2) NOT NULL,
   		PRIMARY KEY (id),
   		UNIQUE KEY id (id)
@@ -71,6 +71,28 @@ function yasr_install() {
 	dbDelta( $sql_yasr_multi_value_table );
 	dbDelta( $sql_yasr_log_table );
 
+
+	//Write default option settings
+	$option = get_option( 'yasr_general_options' );
+
+	if (!$option) {
+
+		$option = array();
+		$option['auto_insert_enabled'] = 0;
+		$option['auto_insert_what'] = 'overall_rating';
+		$option['auto_insert_where'] = 'top';
+		$option['auto_insert_size']='large';
+		$option['auto_insert_exclude_pages'] = 'yes'; 
+		$option['show_overall_in_loop'] = 'disabled';
+		$option['text_before_stars'] = 0;
+		$option['snippet'] = 'overall_rating';
+		$option['allowed_user'] = 'allow_anonymous';
+		$option['scheme_color'] = 'light';
+
+		add_option("yasr_general_options", $option); //Write here the default value if there is not option
+
+	}
+
 }
 
 
@@ -94,7 +116,7 @@ function yasr_get_overall_rating() {
 
 
 /****** Get visitor rating ******/
-function yasr_get_vistor_rating() {
+/*function yasr_get_vistor_rating() {
 	global $wpdb;
 
 	$post_id=get_the_ID();
@@ -113,7 +135,7 @@ function yasr_get_vistor_rating() {
 		}
 	}
 
-}
+}*/
 
 
 
@@ -257,9 +279,12 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 	                else {
 						echo "<button class=\"yasr-log-pagenum\" value=\"$i\">$i</button>&nbsp;&nbsp;";
+
 					}
 
 				}
+
+				echo "<span id=\"yasr-loader-log-metabox\" style=\"display:none;\">&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>";
 
 			}
 
@@ -281,7 +306,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 				echo "...&nbsp;&nbsp;<button class=\"yasr-log-pagenum\" value=\"$num_of_pages\">Last &raquo;</button>&nbsp;&nbsp;";
 
-				echo "<span id=\"yasr-loader-log-metabox\" style=\"display:none\">&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>";
+				echo "<span id=\"yasr-loader-log-metabox\" style=\"display:none;\">&nbsp;<img src=\"" . YASR_IMG_DIR . "/loader.gif\" ></span>";
 
 			}
 
@@ -309,7 +334,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 			};
 
 			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('yasr-loader-log-metabox').hide();
+				jQuery('#yasr-loader-log-metabox').hide();
 				jQuery('#yasr-log-container').html(response);
 			});
 
@@ -327,8 +352,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 				};
 
 				jQuery.post(ajaxurl, data, function(response) {
-					jQuery('yasr-loader-log-metabox').hide();
-					jQuery('#yasr-log-container').html(response);
+					jQuery('#yasr-log-container').html(response); //This will hide the loader gif too
 				});
 
 			});
