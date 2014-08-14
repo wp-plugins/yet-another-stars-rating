@@ -38,7 +38,7 @@ If with gd-star-rating you're using a different number of stars from the default
 
 = Supported Languages =
 * English
-* German (thanks to Josef Seidl)
+* German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ )
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
