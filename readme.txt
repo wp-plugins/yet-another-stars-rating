@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 0.4.7
+Stable tag: 0.4.8
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ If with gd-star-rating you're using a different number of stars from the default
 
 = Supported Languages =
 * English
+* Italian
 * German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ )
 
 == Installation ==
@@ -67,7 +68,7 @@ Paste this shortcode to make it appear where you want **[yasr_most_or_highest_ra
 = What is "Most active reviewers" ? =
 If in your site there are more than 1 person writing reviews, this chart will show the 5 most active reviewers. Shortcode is **[yasr_top_5_reviewers]**
 
-= What is Most "active users" ? =
+= What is "Most active users" ? =
 When a visitor (logged in or not) rates a post/page, his rating is stored in the database. This chart will show the 10 most active users, displaying the login name if logged in or "Anonymous" otherwise. The shortcode : **[yasr_top_ten_active_users]**
 
 = Wait, wait! Do I need to keep in mind all this shortcode? =
@@ -81,6 +82,12 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Chart Top 10 overall ratings
 
 == Changelog ==
+
+= 0.4.8 =
+* Many bug fix and code changes for i18n
+* Yasr.css have been sperated in 2 files: 1 for admin and 1 for frontend
+* Added Italian translation
+* Many many other little bug fixes
 
 = 0.4.7 =
 * Visitor votes has changed: if an user is logged in, now it's possibile to update the given vote

@@ -407,6 +407,16 @@ add_action ('admin_init', 'admin_init_delete_data_on_post_callback');
 					'%d'
 					)
 				);
+
+			$wpdb->delete(
+				YASR_LOG_TABLE,
+				array (
+					'post_id' => $pid
+					),
+				array (
+					'%d'
+					)
+				);
 		
 
 	}

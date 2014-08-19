@@ -46,12 +46,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         			array('%s', '%d')
         		);
 
-        	if($update_result) {
-        		echo $rating;
-        	}
-            //else this is a new post or post has no visitor ratings
-            else {
-                $replace_result=$wpdb->replace(
+            //If update result fails this is a new post or post has no visitor ratings
+        	if(!$update_result) {
+
+        		$replace_result=$wpdb->replace(
                     YASR_VOTES_TABLE,
                     array (
                         'post_id' => $post_id,
@@ -60,9 +58,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         ),
                     array('%d', '%s', '%d')
                 );
-                if ($replace_result){
-                    echo $rating;
+
+        	}
+            
+            if ($update_result || $replace_result) {
+
+                if ($rating != '-1') { 
+                    $text = __("You've rated it ", "yasr");
+                    echo $text . $rating;
                 }
+                else {
+                    $text = __("You've reset the vote", "yasr");
+                    echo $text;
+                }
+
             }
 
 			die(); // this is required to return a proper result
@@ -74,7 +83,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         used in yasr-metabox-multiple-rating******/
 
         add_action( 'wp_ajax_yasr_send_id_nameset', 'yasr_output_multiple_set_callback' );
-
 
         function yasr_output_multiple_set_callback() {
                 if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
@@ -322,10 +330,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             <div id="yasr-tinypopup-form">
 
                 <h2 class="nav-tab-wrapper yasr-underline">
-                    <a href="#" id="yasr-link-tab-main" class="nav-tab nav-tab-active">Main</a>
-                    <a href="#" id="yasr-link-tab-charts" class="nav-tab">Charts</a>
+                    <a href="#" id="yasr-link-tab-main" class="nav-tab nav-tab-active"><?php _e("Main", "yasr"); ?></a>
+                    <a href="#" id="yasr-link-tab-charts" class="nav-tab"><?php _e("Charts" , "yasr"); ?></a>
 
-                    <a href="https://wordpress.org/plugins/yet-another-stars-rating/faq/" target="_blank" id="yasr-tinypopup-link-doc">Read the doc</a>
+                    <a href="https://wordpress.org/plugins/yet-another-stars-rating/faq/" target="_blank" id="yasr-tinypopup-link-doc"><?php _e("Read the doc", "yasr"); ?></a>
 
                 </h2>
 
@@ -334,17 +342,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <table id="yasr-table-tiny-popup-main" class="form-table">
 
                         <tr>
-                            <th><label for="yasr-overall"><?php _e("Overall Rating / Review"); ?></label></th>
+                            <th><label for="yasr-overall"><?php _e("Overall Rating / Review", "yasr"); ?></label></th>
                             <td>
-                                <input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="Insert Overall Rating" /><br />
-                                <small><?php _e("Insert Overall Rating / Review for this post"); ?></small>
+                                <input type="button" class="button-primary" id="yasr-overall" name="yasr-overall" value="<?php _e("Insert Overall Rating", "yasr"); ?>" /><br />
+                                <small><?php _e("Insert Overall Rating / Review for this post", "yasr"); ?></small>
 
                                 <div id="yasr-overall-choose-size">
-                                    <small><?php _e("Choose Size"); ?><small>
+                                    <small><?php _e("Choose Size", "yasr"); ?><small>
                                     <div class="yasr-tinymce-button-size">
-                                        <input type="button" class="button-secondary" id="yasr-overall-insert-small" name="yasr-overall-insert-small" value="Small" />
-                                        <input type="button" class="button-secondary" id="yasr-overall-insert-medium" name="yasr-overall-insert-medium" value="Medium" />
-                                        <input type="button" class="button-secondary" id="yasr-overall-insert-large" name="yasr-overall-insert-large" value="Large" />
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-small" name="yasr-overall-insert-small" value="<?php _e("Small", "yasr"); ?>" />
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-medium" name="yasr-overall-insert-medium" value="<?php _e("Medium", "yasr"); ?>" />
+                                        <input type="button" class="button-secondary" id="yasr-overall-insert-large" name="yasr-overall-insert-large" value="<?php _e("Large", "yasr"); ?>" />
                                     </div>
                                 </div>
 
@@ -352,17 +360,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-id"><?php _e("Visitor Votes"); ?></label></th>
+                            <th><label for="yasr-id"><?php _e("Visitor Votes", "yasr"); ?></label></th>
                             <td>
-                                <input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="Insert Visitor Votes"/><br />
-                                <small><?php _e("Insert the ability for your visitor to vote"); ?></small>
+                                <input type="button" class="button-primary" name="yasr-visitor-votes" id="yasr-visitor-votes" value="<?php _e("Insert Visitor Votes", "yasr"); ?>" /><br />
+                                <small><?php _e("Insert the ability for your visitor to vote", "yasr"); ?></small>
 
                                 <div id="yasr-visitor-choose-size">
-                                    <small><?php _e("Choose Size"); ?><small>
+                                    <small><?php _e("Choose Size", "yasr"); ?><small>
                                     <div class="yasr-tinymce-button-size">
-                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-small" name="yasr-visitor-insert-small" value="Small" />
-                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-medium" name="yasr-visitor-insert-medium" value="Medium" />
-                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-large" name="yasr-visitor-insert-large" value="Large" />
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-small" name="yasr-visitor-insert-small" value="<?php _e("Small", "yasr"); ?>" />
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-medium" name="yasr-visitor-insert-medium" value="<?php _e("Medium", "yasr"); ?>" />
+                                        <input type="button" class="button-secondary" id="yasr-visitor-insert-large" name="yasr-visitor-insert-large" value="<?php _e("Large", "yasr"); ?>" />
                                     </div>
                                 </div>
 
@@ -372,13 +380,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         <?php if ($n_multi_set>1) { //If multiple Set are found ?>
 
                             <tr>
-                                <th><label for="yasr-size"><?php _e("If you want to insert a multi-set, pick one:"); ?></label></th>
+                                <th><label for="yasr-size"><?php _e("If you want to insert a Multi Set, pick one:", "yasr"); ?></label></th>
                                 <td>
                                     <?php foreach ($multi_set as $name) { ?>
                                         <input type="radio" value="<?php echo $name->set_id ?>" name="yasr_tinymce_pick_set" class="yasr_tinymce_select_set"><?php echo $name->set_name ?>
                                         <br />
                                     <?php } //End foreach ?>
-                                <small><?php _e("Choose wich set you want to insert."); ?></small>
+                                <small><?php _e("Choose wich set you want to insert.", "yasr"); ?></small>
                                 </td>
                             </tr>
 
@@ -386,11 +394,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                         elseif ($n_multi_set==1) { ?>
                             <tr>
-                                <th><label for="yasr-size"><?php _e("Insert Multiset:"); ?></label></th>
+                                <th><label for="yasr-size"><?php _e("Insert Multiset:", "yasr"); ?></label></th>
                                 <td>
                                     <?php foreach ($multi_set as $name) { ?>
-                                        <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" >Insert Multiple Set</button><br />
-                                        <small><?php _e("Insert multiple set <?php echo $name->set_name ?> in this post ?"); ?></small>
+                                        <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" ><?php _e("Insert Multiple Set", "yasr"); ?></button><br />
+                                        <small><?php _e("Insert multiple set in this post ?", "yasr"); ?></small>
                                     <?php } //End foreach ?>
                                 </td>
                             </tr>
@@ -405,27 +413,27 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     <table id="yasr-table-tiny-popup-charts" class="form-table">
                         <tr>
-                            <th><label for="yasr-10-overall"><?php _e("Top 10 overall ratings"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="Insert Top 10 highest rated"/><br />
-                            <small><?php _e("Insert Top 10 highest rated by post author"); ?></small></td>
+                            <th><label for="yasr-10-overall"><?php _e("Top 10 Overall Ratings", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="<?php _e("Insert Top 10 highest rated", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 highest rated by post author", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-10-highest-most-rated"><?php _e("Top 10 by visitors"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="Insert Top 10 posts by visitors"/><br />
-                            <small><?php _e("Insert Top 10 most or higher rated posts from visitors"); ?></small></td>
+                            <th><label for="yasr-10-highest-most-rated"><?php _e("Top 10 Visitor Ratings", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="<?php _e("Insert Top 10 posts by visitors", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 most or higher rated posts from visitors", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="Insert Top 5 most active reviewers"/><br />
-                            <small><?php _e("Insert Top 5 active reviewers"); ?></small></td>
+                            <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="<?php _e("Insert Top 5 most active reviewers", "yasr")?> " /><br />
+                            <small><?php _e("Insert Top 5 active reviewers", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-10-active-users"><?php _e("Most active users"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="Insert Top 10 most active users"/><br />
-                            <small><?php _e("Insert Top 10 active users in visitor ratings"); ?></small></td>
+                            <th><label for="yasr-10-active-users"><?php _e("Most active users", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="<?php _e("Insert Top 10 most active users", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 active users in Visitor Ratings", "yasr"); ?></small></td>
                         </tr>
 
                     </table>
@@ -619,13 +627,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             <div class="yasr-result-step-1">
                 <?php
                 if ($check_query_success) {  
-                    _e( "Reviews and visitor votes have been successfull imported.", 'yasr');
+                    _e( "Reviews and Visitor Votes have been successfull imported.", 'yasr');
 
                     update_option('yasr-gdstar-imported', '1');
 
                     ?>
                     <br />
-                    <?php _e ("Step2: I will check if you used multiple set and if so I will import it. THIS MAY TAKE A WHILE!", 'yasr'); ?>
+                    <?php _e ("Step2: I will check if you used Multiple Sets and if so I will import them. THIS MAY TAKE A WHILE!", 'yasr'); ?>
                     <br />
                         <button href=\"#\" class=\"button-primary\" id=\"import-button-step2\"> <?php _e('Proceed Step 2', 'yasr');?> </button>
                         <span id="loader2" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
@@ -663,7 +671,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             //If multiple set are found
             if($multi_set_names) {
                 echo "<br /><strong>";
-                _e("I've found multiple set! Importing..." , 'yasr');
+                _e("I've found Multiple Set! Importing..." , 'yasr');
                 echo "</strong><br />";
 
                 //If multi set are found write in yasr_multi_set table
@@ -672,9 +680,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 //If insert succes, go ahed
                 if ($insert_multi_set) {
                     echo "&nbsp;&nbsp;&nbsp;";
-                    _e("Multi set's name has been successfull imported.", 'yasr');
+                    _e("Multi Set's name has been successfull imported.", 'yasr');
                     echo "<br /><strong>"; 
-                    _e("Now I'm going to import multi set data", 'yasr');
+                    _e("Now I'm going to import Multi Set data", 'yasr');
                     echo "</strong> <br />";
 
                     //Import multiple set's values from GD star rating
@@ -687,13 +695,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                             echo "&nbsp;&nbsp;&nbsp;";
                             _e( "All votes has been successfull imported.", 'yasr'); 
                             echo "<br />";
-                            //update_option('yasr-gdstar-imported', '1');
                             echo "<button href=\"#\" class=\"button-delete\" id=\"end-import\">" . __('Done', 'yasr') . "</button>";
 
                         }
                         else {
                             echo "&nbsp;&nbsp;&nbsp;";
-                            _e("I've found multiple set votes but I couldn't insert into db", 'yasr');
+                            _e("I've found Multiple Set's votes but I couldn't insert into db", 'yasr');
                             echo  "<br />";
                         }
                     } //End if $multi_data 
@@ -701,7 +708,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     //Multiple set are found, but there is not data
                     else { 
                         echo "&nbsp;&nbsp;&nbsp;";
-                        _e( "I've found multi set but with no data", 'yasr'); 
+                        _e( "I've found Multi Set but with no data", 'yasr'); 
                         echo "<br />";
                     }
 
@@ -710,7 +717,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 //Query failed insert set name 
                 else {
                     echo "&nbsp;&nbsp;&nbsp;";
-                    _e("I've found multi set name but I couldn't insert into db", 'yasr');
+                    _e("I've found Multi Sets names but I couldn't insert into db", 'yasr');
                     echo "<br />";
                 }
             
@@ -718,7 +725,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             else {
                 echo "&nbsp;&nbsp;&nbsp;";
-                _e ("Multiset was not found. Imported is done!", 'yasr');
+                _e ("Multisets were not found. Imported is done!", 'yasr');
             }
 
             echo "</div>";
@@ -951,11 +958,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         } //End if row_exists
 
         else {
+
+            $number_of_votes = 1;
+
             $new_row_result=$wpdb->replace (
                 YASR_VOTES_TABLE,
                 array (
                     'post_id' => $post_id,
-                    'number_of_votes' => 1,
+                    'number_of_votes' => $number_of_votes,
                     'overall_rating' => '-1',
                     'sum_votes' => $rating
                     ),
@@ -1013,12 +1023,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         elseif ($new_row_result) {
 
-            $number_of_votes = 1;
-
             if ($size == 'small') {
 
                 echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
 
             }
@@ -1026,14 +1034,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($size == 'medium') {
 
                 echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
 
             }
 
             elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
             }
         

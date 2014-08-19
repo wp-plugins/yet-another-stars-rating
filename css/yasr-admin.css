@@ -1,0 +1,500 @@
+/****** Rate it rules *****/
+
+.rateit {
+    display: -moz-inline-box;
+    display: inline-block;
+    position: relative;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.rateit .rateit-range
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url('../img/star.png');
+    height: 16px;
+    outline: none;
+}
+
+.rateit .rateit-range * {
+    display:block;
+}
+
+/* for IE 6 */
+* html .rateit, * html .rateit .rateit-range
+{
+    display: inline;
+}
+
+/* for IE 7 */
+* + html .rateit, * + html .rateit .rateit-range
+{
+    display: inline;
+}
+
+.rateit .rateit-hover, .rateit .rateit-selected
+{
+    position: absolute;
+    left: 0px;
+}
+
+.rateit .rateit-hover-rtl, .rateit .rateit-selected-rtl
+{
+    left: auto;
+    right: 0px;
+}
+
+.rateit .rateit-hover
+{
+    background: url('../img/star.png') left -16px;
+}
+
+.rateit .rateit-hover-rtl
+{
+    background-position: right -16px;
+}
+
+.rateit .rateit-selected
+{
+    background: url('../img/star.png') left -32px;
+}
+
+.rateit .rateit-selected-rtl
+{
+    background-position: right -32px;
+}
+
+.rateit .rateit-preset
+{
+    background: url('../img/star.png') left -48px;
+}
+
+.rateit .rateit-preset-rtl
+{
+    background: url('../img/star.png') left -48px;
+}
+
+.rateit button.rateit-reset
+{
+    background: url('../img/delete.gif') 0 0;
+    width: 16px;
+    height: 16px;
+    display: -moz-inline-box;
+    display: inline-block;
+    float: left;
+    outline: none;
+    border:none;
+    padding: 0;
+}
+
+.rateit button.rateit-reset:hover, .rateit button.rateit-reset:focus
+{
+    background-position: 0 -16px;
+}
+
+.yasr_settings_fields_content {
+    background-color: #F7F7F7;
+}
+
+/*
+IMAGES BY: Oxygen Team
+*/
+
+/* Creating set 24px image . */
+
+div.medium .rateit-range
+{
+    /*White*/
+    background: url('../img/stars24.png') left 0px;
+    width: 24px; 
+    height: 24px;
+}
+
+div.medium .rateit-hover
+{
+    /*Red*/
+    background: url('../img/stars24.png') left -29px;
+    width: 24px; 
+    height: 24px;
+    display: none
+
+}
+
+div.medium .rateit-selected
+{
+    /*Yellow*/
+    background: url('../img/stars24.png') left -58px ;
+    width: 24px; 
+    height: 24px;
+}
+
+/* Creating set 32 */
+
+div.bigstars .rateit-range
+{
+    /*White*/
+    background: url('../img/stars32.png') left 0px ; 
+    width: 32px; 
+    height: 32px;
+}
+
+div.bigstars .rateit-hover
+{
+    /*red*/
+    background: url('../img/stars32.png') left -74px ; 
+    width: 32px; 
+    height: 32px;
+    display: none
+}
+
+div.bigstars .rateit-selected
+{
+    /*Gold*/
+    background: url('../img/stars32.png') left -37px ; 
+    width: 32px; 
+    height: 32px;
+}
+
+/****** End rateit rules ******/
+
+/********** ADMIN RULES **********/
+
+#multi_rating_table 
+{
+	vertical-align: text-top;
+}
+
+.yasr-form-result {
+    display: block;
+}
+
+/*** Top menu navigation ***/
+.yasr-no-underline {
+    border-bottom: none !important;
+}
+
+.nav-tab-active, .nav-tab-active:hover {
+    background-color: white ;
+}
+
+/*** End top navigation ***/
+
+
+@media (min-width: 972px) {
+
+    .yasr-settingsdiv {
+	    float:left; 
+        display:block; 
+        width:70%; 
+        background-color:#FFF;
+        border: 1px solid #DDD;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-bottom: 10px;
+    }
+
+    .yasr-donatedivdx {
+        float:right; 
+        display:block !important; 
+        width:15%; 
+        background-color:#FFF;
+        border: 1px solid #DDD;
+        padding: 25px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 971px) {
+
+    .yasr-settingsdiv {
+        float:left; 
+        display:block; 
+        width:95%; 
+        background-color:#FFF;
+        border: 1px solid #DDD;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+    }
+
+    .yasr-donatedivbottom { 
+        display:block !important; 
+        width:95%; 
+        background-color:#FFF;
+        border: 1px solid #DDD;
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+.yasr-option-size {
+    vertical-align: bottom;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.yasr-img-option-size {
+    height: 30px;
+    vertical-align: middle;
+}
+
+.yasr-text-options-size {
+    height: 30px;
+    vertical-align: middle;
+    padding-left: 8px;
+}
+
+#yasr-color-scheme-preview {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 10px;
+}
+
+#yasr-snippet-explained {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 10px;
+}
+
+.yasr-list-set-table {
+    margin-left:5px; 
+}
+
+.yasr-space-settings-div {
+    padding-bottom: 15px;
+    clear: both;
+}
+
+
+/*** Rules for import data from gd star rating ***/
+
+.yasr-result-step-1{
+    padding-left: 25px;
+    padding-top: 10px;
+}
+
+.yasr-result-step-2{
+    padding-left: 45px;
+}
+
+/*** End rules import gd star data ***/
+
+
+/*** Rules for Multi set page ***/
+
+.yasr-multi-set-form-headers {
+    text-align: center;
+}
+
+.yasr-multi-set-left {
+    float:left;
+    width: 40%;
+}
+
+.yasr-multi-set-right {
+    float:right;
+    width: 55%;
+}
+
+.yasr-new-multi-set {
+    overflow: auto;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
+.yasr-manage-multiset {
+    overflow: auto;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
+.yasr-manage-multiset-single {
+    overflow: auto;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
+
+.yasr-input-text-multi-set{
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+#yasr-multi-set-response {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
+#yasr-multi-set-response2 {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
+#yasr-multi-set-doc-box {
+    border: 2px dashed #CCC;
+    padding: 15px;
+    margin: 30px;
+}
+
+#yasr-table-form-edit-multi-set {
+    width: 100%;
+}
+
+#yasr-table-form-edit-multi-set-header {
+    text-align: center;
+    padding: 5px;
+}
+
+#yasr-table-form-edit-multi-set-remove {
+    text-align: center;
+    padding: 5px;
+}
+
+.yasr-edit-form-remove-entire-set {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    color: red; 
+}
+
+.yasr_table_multi_set_admin {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 20px;
+}
+
+@media (min-width: 972px) {
+    .yasr_table_multi_set_admin {
+        width: 70%;
+    }
+}
+
+
+@media (max-width: 971px) {
+    .yasr_table_multi_set_admin {
+        width: 90%;
+    }
+}
+
+ .yasr_table_multi_set_admin td {
+        width: 50%
+    }
+
+.yasr_table_multi_set_admin tr:nth-child(odd) {
+        background: #feffd3;
+    }
+    /*  Define the background color for all the EVEN background rows  */
+.yasr_table_multi_set_admin tr:nth-child(even) {
+        background: #FFFFFF;
+    }
+
+/*** End rules for multi set admin page ***/
+
+
+
+/*** Popup in tinymce ***/
+
+
+.yasr-underline {
+    border-bottom: 1px solid #CCC !important;
+}
+
+#yasr-tinypopup-link-doc {
+    float: right;
+    font-size: 12px;
+}
+
+#yasr-overall-choose-size {
+    display: none;
+    margin-top: 20px;
+    border: 2px dashed #CCC;
+    padding-bottom: 10px;
+    margin-left: 8px;
+    padding-left: 8px;
+}
+
+.yasr-tinymce-button-size {
+    padding-top: 5px;
+}
+
+#yasr-visitor-choose-size {
+    display: none;
+    margin-top: 20px;
+    border: 2px dashed #CCC;
+    padding-bottom: 10px;
+    margin-left: 8px;
+    padding-left: 8px;
+}
+
+
+/*** End popup tinymce***/
+
+
+
+#yasr-log-container  {
+    width: 98%;
+}
+
+.yasr-log-div-child {
+    padding-top: 5px;
+    border-bottom: 1px solid #BBD8E7;
+    padding-bottom: 20px;
+}
+
+#yasr-log-image {
+    list-style-type: none;
+    display: inline-block; 
+    float:left;
+}
+
+#yasr-log-child-head {
+    padding-left: 37px;
+}
+
+#yasr-log-vote {
+    color: red;
+}
+
+#yasr-log-post {
+    color: #2683AE;
+}
+
+#yasr-log-ip-date {
+    padding-top: 5px;
+}
+
+#yasr-log-ip {
+    float:left;
+    padding-left: 5px;
+}
+
+#yasr-log-date {
+    float: right;
+}
+
+#yasr-log-next-rows {
+    padding-top: 15px;
+    text-align: right;
+}
+
+#yasr-log-page-navigation {
+    padding-top: 7px;
+    text-align: center;
+}

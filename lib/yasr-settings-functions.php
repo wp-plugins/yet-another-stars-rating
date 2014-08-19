@@ -30,7 +30,7 @@
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_general_settings_tab' );
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show overall rating in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show "Overall Rating" in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
@@ -195,12 +195,12 @@
 	    	<br /> <br />
 
 	    	<input type='text' name='yasr_general_options[text_before_overall]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_overall]"); ?>' maxlength="40"/> 
-				<?php _e('Custom text to display before overall rating', 'yasr')?>
+				<?php _e('Custom text to display before Overall Rating', 'yasr')?>
 			
 			<br /> <br />
 
 			<input type='text' name='yasr_general_options[text_before_visitor_rating]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
-				<?php _e('Custom text to display before visitor rating', 'yasr')?>
+				<?php _e('Custom text to display before Visitor Rating', 'yasr')?>
 
 			<br /> <br />
 
@@ -314,8 +314,8 @@
 function yasr_display_multi_set_form() {
 	?>
 		
-		<h4 class="yasr-multi-set-form-headers">Add New Multiple Set</h4>
-		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
+		<h4 class="yasr-multi-set-form-headers"><?php _e("Add New Multiple Set", "yasr"); ?></h4>
+		<em><?php _e('Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
 		<p>
 		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page&tab=manage_multi') ?>" id="form_add_multi_set" method="post">
 			<strong><?php _e("Name", 'yasr')?></strong> 
@@ -391,7 +391,7 @@ function yasr_edit_multi_form() {
 		
 			<div class="yasr-manage-multiset-single">
 
-				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
+				<h4 class="yasr-multi-set-form-headers"><?php _e("Manage Multiple Set", "yasr"); ?></h4>
 
 				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page&tab=manage_multi') ?>" id="form_edit_multi_set" method="post">
 
@@ -481,7 +481,7 @@ function yasr_edit_multi_form() {
 	}
 
 	else {
-		_e("No multiple set were found");
+		_e("No Multiple Set were found");
 	}
 
 }//End function
@@ -565,7 +565,7 @@ function yasr_edit_multi_form() {
             <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
             <tr>
 
-                <td width=\"80%\">Remove whole set?</td>
+                <td width=\"80%\">" . __("Remove whole set?", "yasr") . "</td>
 
                 <td width=\"20%\" style=\"text-align:center\">
                     <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
@@ -742,7 +742,7 @@ function yasr_process_new_multi_set_form()
    					} //End if $insert_multi_name_success
 
    					else {
-   						_e("Something goes wrong trying insert multi set name. Please report it", "yasr");
+   						_e("Something goes wrong trying insert Multi Set name. Please report it", "yasr");
    					}
 
    			} //End if !$error
@@ -751,7 +751,7 @@ function yasr_process_new_multi_set_form()
   		
   		//Else multi set's name and first 2 elements are empty
    		else {
-   			$array_errors[] = "Multi set's name and first 2 elements can't be empty";
+   			$array_errors[] = "Multi Set's name and first 2 elements can't be empty";
    			$error=TRUE;
    		}
 
@@ -817,7 +817,7 @@ function yasr_process_edit_multi_set_form() {
 
   			if ($remove_set==FALSE) {
   				$error = TRUE; 
-				$array_errors[] .= __("Something goes wrong trying to delete a multi-set . Please report it", 'yasr');
+				$array_errors[] .= __("Something goes wrong trying to delete a Multi Set . Please report it", 'yasr');
   			}
 
 
@@ -863,7 +863,7 @@ function yasr_process_edit_multi_set_form() {
 
   				if ($remove_field == FALSE) {
 					$error = TRUE; 
-					$array_errors[] = __("Something goes wrong trying to delete a multi-set element. Please report it", 'yasr');
+					$array_errors[] = __("Something goes wrong trying to delete a Multi Set's element. Please report it", 'yasr');
   				}
 
 
@@ -927,7 +927,7 @@ function yasr_process_edit_multi_set_form() {
 
 	  					if ($insert_field_name == FALSE) {
 	  						$error = TRUE; 
-							$array_errors[] = __("Something goes wrong trying to update a multi set element. Please report it", 'yasr');
+							$array_errors[] = __("Something goes wrong trying to update a Multi Set's element. Please report it", 'yasr');
 	  					}
 
   				    } //End if ($field_name_in_database != $field_name) {
@@ -1068,7 +1068,7 @@ function yasr_search_gd_star_rating () {
 		}
 
 		else {
-			__( 'No previous Gd Star Ratings installation was found', 'yasr' );
+			__( 'No previous Gd Star Rating installation was found', 'yasr' );
 		}
 	}
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2014-08-13 14:28+0100\n"
-"PO-Revision-Date: 2014-08-13 14:28+0100\n"
+"POT-Creation-Date: 2014-08-17 14:04+0100\n"
+"PO-Revision-Date: 2014-08-17 14:04+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: En\n"
@@ -146,16 +146,16 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: ../yasr-metabox-overall-rating.php:17
+#: ../yasr-metabox-overall-rating.php:14
 msgid "Rate this article / item"
 msgstr ""
 
-#: ../yasr-metabox-overall-rating.php:25
+#: ../yasr-metabox-overall-rating.php:22
 #: ../lib/yasr-shortcode-functions.php:125 ../lib/yasr-functions.php:266
 msgid "Loading, please wait"
 msgstr ""
 
-#: ../yasr-metabox-overall-rating.php:40
+#: ../yasr-metabox-overall-rating.php:37
 msgid ""
 "Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> "
 "where you want to display this rating"
@@ -336,15 +336,18 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:111
+#: ../lib/yasr-settings-functions.php:111 ../lib/yasr-ajax-functions.php:345
+#: ../lib/yasr-ajax-functions.php:363
 msgid "Small"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:116
+#: ../lib/yasr-settings-functions.php:116 ../lib/yasr-ajax-functions.php:346
+#: ../lib/yasr-ajax-functions.php:364
 msgid "Medium"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:121
+#: ../lib/yasr-settings-functions.php:121 ../lib/yasr-ajax-functions.php:347
+#: ../lib/yasr-ajax-functions.php:365
 msgid "Large"
 msgstr ""
 
@@ -628,8 +631,24 @@ msgstr ""
 msgid "Choose a vote for every element"
 msgstr ""
 
+#: ../lib/yasr-ajax-functions.php:325
+msgid "Main"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:326
+msgid "Charts"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:328
+msgid "Read the doc"
+msgstr ""
+
 #: ../lib/yasr-ajax-functions.php:337
 msgid "Overall Rating / Review"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:339
+msgid "Insert Overall Rating"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:340
@@ -638,6 +657,10 @@ msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:343 ../lib/yasr-ajax-functions.php:361
 msgid "Choose Size"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:357
+msgid "Insert Visitor Votes"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:358
@@ -660,12 +683,20 @@ msgstr ""
 msgid "Top 10 overall ratings"
 msgstr ""
 
+#: ../lib/yasr-ajax-functions.php:409
+msgid "Insert Top 10 highest rated"
+msgstr ""
+
 #: ../lib/yasr-ajax-functions.php:410
 msgid "Insert Top 10 highest rated by post author"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:414
 msgid "Top 10 by visitors"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:415
+msgid "Insert Top 10 posts by visitors"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:416
@@ -676,12 +707,20 @@ msgstr ""
 msgid "Most active reviewers"
 msgstr ""
 
+#: ../lib/yasr-ajax-functions.php:421
+msgid "Insert Top 5 most active reviewers"
+msgstr ""
+
 #: ../lib/yasr-ajax-functions.php:422
 msgid "Insert Top 5 active reviewers"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:426
 msgid "Most active users"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:427
+msgid "Insert Top 10 most active users"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:428

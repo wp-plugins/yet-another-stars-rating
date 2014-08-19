@@ -8,9 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		$overall_rating = "-1";
 	}
 
-	add_action( 'admin_footer', 'yasr_overall_rating_javascript' );
-
-
 ?>
 
 <span id="yasr_rateit_actual_overall_rating">
@@ -47,9 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
   </div>
 
 <?php
-   	function yasr_overall_rating_javascript() {
 
-      $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
+  $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
 
 ?>
 	<script>
@@ -72,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     				//Send value to the Server
     				jQuery.post(ajaxurl, data, function(response) {
               jQuery('#loader-overall-rating').hide();
-    					jQuery('#yasr_rateit_overall_value').text('You\'ve rated it: ' + value); 
+    					jQuery('#yasr_rateit_overall_value').text(response); 
     				}) ;
 
    			  });
@@ -93,20 +89,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     				//Send value to the Server
     				jQuery.post(ajaxurl, data, function(response) {
               jQuery('#loader-overall-rating').hide();
-    					jQuery('#yasr_rateit_overall_value').text('You\'ve reset the vote'); 
+    					jQuery('#yasr_rateit_overall_value').text(response); 
     				}) ;
    			  });
 
    		});
-	</script>        
-
-
-	<?php
-
-		} //End yasr overall_rating_javascript
-
-		//The callback function is called from plugin first page
-
-
-
-	?>
+	</script>
