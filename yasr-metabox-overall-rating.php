@@ -8,8 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		$overall_rating = "-1";
 	}
 
-	add_action( 'admin_footer', 'yasr_overall_rating_javascript' );
-
 ?>
 
 <span id="yasr_rateit_actual_overall_rating">
@@ -28,14 +26,26 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	<div>
 
-   	<span id="yasr_rateit_overall_value"></span>
+      <span id="yasr_rateit_overall_value"></span>
 	
+      <?php 
+
+        //Show this message if auto insert is off or if auto insert is not set to show overall rating (so if it is set to visitor rating)
+        if( YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating') ) {
+
+            echo "<div>";
+                _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
+            echo "</div>";
+
+        }
+
+      ?>
+
   </div>
 
 <?php
-   	function yasr_overall_rating_javascript() {
 
-      $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
+  $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
 
 ?>
 	<script>
@@ -58,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     				//Send value to the Server
     				jQuery.post(ajaxurl, data, function(response) {
               jQuery('#loader-overall-rating').hide();
-    					jQuery('#yasr_rateit_overall_value').text('You\'ve rated it: ' + value); 
+    					jQuery('#yasr_rateit_overall_value').text(response); 
     				}) ;
 
    			  });
@@ -79,20 +89,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     				//Send value to the Server
     				jQuery.post(ajaxurl, data, function(response) {
               jQuery('#loader-overall-rating').hide();
-    					jQuery('#yasr_rateit_overall_value').text('You\'ve reset the vote'); 
+    					jQuery('#yasr_rateit_overall_value').text(response); 
     				}) ;
    			  });
 
    		});
-	</script>        
-
-
-	<?php
-
-		} //End yasr overall_rating_javascript
-
-		//The callback function is called from plugin first page
-
-
-
-	?>
+	</script>
