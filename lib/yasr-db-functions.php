@@ -115,30 +115,6 @@ function yasr_get_overall_rating() {
 }
 
 
-/****** Get visitor rating ******/
-/*function yasr_get_vistor_rating() {
-	global $wpdb;
-
-	$post_id=get_the_ID();
-
-	$result=$wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
-
-	if ($result) {
-
-		$visitor_rating = array();
-
-		foreach ($result as $rating) {
-			$visitor_rating['votes_number']=$rating->number_of_votes;
-			$visitor_rating['sum']=$rating->sum_votes;
-
-			return $visitor_rating;
-		}
-	}
-
-}*/
-
-
-
 /****** Get multi set name ******/
 function yasr_get_multi_set() {
 	global $wpdb;

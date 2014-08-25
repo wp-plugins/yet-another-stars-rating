@@ -3,7 +3,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
 
 /****** Add shortcode for overall rating ******/
-
 add_shortcode ('yasr_overall_rating', 'shortcode_overall_rating_callback');
 
 function shortcode_overall_rating_callback ($atts) {
@@ -19,11 +18,6 @@ function shortcode_overall_rating_callback ($atts) {
             ), $atts )
         );
     }
-
-    //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on visitor rating.
-    //If auto insert is on overall rating this shortcode must return nothing
-
-    if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating' )) {
 
         $overall_rating=yasr_get_overall_rating();
 
@@ -62,24 +56,52 @@ function shortcode_overall_rating_callback ($atts) {
         }
 
         //IF show overall rating in loop is disabled use is_singular && is_main query
-        if (YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
+        if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
 
-            if( is_singular() && is_main_query() ) {
+            //If pages are not excluted
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
+
+                if( is_singular() && is_main_query() ) {
+
+                    return $shortcode_html;
+
+                }
+
+            }
+
+            //If page are excluted
+            else {
+
+                if( is_singular() && is_main_query() && !is_page() )
+
+                    return $shortcode_html;
+
+            }
+
+        } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
+
+        //If overall rating in loop is enabled don't use is_singular && is main_query
+        elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
+
+            //If pages are not excluted return always
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
 
                 return $shortcode_html;
 
             }
 
+            //Else if page are excluted return only if is not a page
+            else {
+
+                if ( !is_page() ) {
+
+                    return $shortcode_html;
+
+                }
+
+            }
+
         }
-
-        //else don't
-        elseif (YASR_SHOW_OVERALL_IN_LOOP === 'enabled') {
-
-            return $shortcode_html;
-
-        }
-
-    } //end if auto insert enabled == 0
 
 } //end function
 
@@ -93,7 +115,7 @@ function shortcode_visitor_votes_callback ($atts) {
     //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
     //If auto insert is on visitor rating this shortcode must return nothing
 
-    if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'overall_rating' )) {
+    //if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'overall_rating' )) {
 
         $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
@@ -101,20 +123,20 @@ function shortcode_visitor_votes_callback ($atts) {
 
             $ajax_nonce_visitor = wp_create_nonce( "yasr_nonce_insert_visitor_rating" );
 
-        	$votes=yasr_get_visitor_votes();
+            $votes=yasr_get_visitor_votes();
 
             $medium_rating=0;   //Avoid undefined variable
 
-        	if (!$votes) {
-        		$votes=0;         //Avoid undefined variable if there is not overall rating
-        		$votes_number=0;  //Avoid undefined variable
-        	}
+            if (!$votes) {
+                $votes=0;         //Avoid undefined variable if there is not overall rating
+                $votes_number=0;  //Avoid undefined variable
+            }
 
             else {
-        		foreach ($votes as $user_votes) {
-        			$votes_number = $user_votes->number_of_votes;
+                foreach ($votes as $user_votes) {
+                    $votes_number = $user_votes->number_of_votes;
                     if ($votes_number !=0 ) {
-        			    $medium_rating = ($user_votes->sum_votes/$votes_number);
+                        $medium_rating = ($user_votes->sum_votes/$votes_number);
                     }
                 }
             }
@@ -497,82 +519,23 @@ function shortcode_visitor_votes_callback ($atts) {
 
           ?>
 
-        <script>
-            jQuery(document).ready(function() {
+            <script>
+                jQuery(document).ready(function() {
 
-                var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
-                jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
+                    var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
+                    jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipvalues[value-1]); });
 
-                var postid = <?php the_ID(); ?>;
-                var cookiename = "yasr_visitor_vote_" + postid;
-                var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+                    var postid = <?php the_ID(); ?>;
+                    var cookiename = "yasr_visitor_vote_" + postid;
+                    var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
 
-                var size = "<?php echo $size ?>";
+                    var size = "<?php echo $size ?>";
 
-                //json encode convert php type to javascript type
-                var logged_user = <?php echo json_encode(is_user_logged_in()); ?>
+                    //json encode convert php type to javascript type
+                    var logged_user = <?php echo json_encode(is_user_logged_in()); ?>
 
-                //On click Insert visitor votes
-                jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
-                    var el = jQuery(this);
-                    var value = el.rateit('value');
-                    var value = value.toFixed(1); //
-
-                    jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
-
-                    var data = {
-                        action: 'yasr_send_visitor_rating',
-                        rating: value,
-                        post_id: postid,
-                        size: size,
-                        nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
-                    };
-
-                    //Send value to the Server
-                    jQuery.post(ajaxurl, data, function(response) {
-                        //response
-                        jQuery('#yasr_visitor_votes').html(response); 
-                        jQuery('.rateit').rateit();
-                        //Create a cookie to disable double vote
-                        jQuery.cookie(cookiename, value, { expires : 360 }); 
-                    }) ;          
-                });
-                //} //End if (!jQuery.cookie(cookiename))
-
-
-                //If user is not logged in
-                if (! logged_user) {
-
-                    //Check if has cookie
-                    if (jQuery.cookie(cookiename)) {                
-
-                        var cookievote=jQuery.cookie(cookiename);
-                        var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-
-                        var data = {
-                            action: 'yasr_readonly_visitor_shortcode',
-                            size: size,
-                            rating: cookievote,
-                            votes: <?php echo $medium_rating ?>,
-                            votes_number: <?php echo $votes_number ?>,
-                            post_id: postid
-                        }
-
-                        jQuery.post(ajaxurl, data, function(response) {
-                            jQuery('#yasr_visitor_votes').html(response);
-                            jQuery('.rateit').rateit();
-                        });
-
-                    } //End if jquery cookie
-
-                }
-
-                //If a logged in user has already voted, he/she can update the vote
-
-                else {
-
-                    jQuery('#yasr-rateit-visitor-votes-logged-rated').on('rated', function() {
-
+                    //On click Insert visitor votes
+                    jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
                         var el = jQuery(this);
                         var value = el.rateit('value');
                         var value = value.toFixed(1); //
@@ -580,12 +543,12 @@ function shortcode_visitor_votes_callback ($atts) {
                         jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
 
                         var data = {
-                                action: 'yasr_update_visitor_rating',
-                                rating: value,
-                                post_id: postid,
-                                size: size,
-                                nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
-                            };
+                            action: 'yasr_send_visitor_rating',
+                            rating: value,
+                            post_id: postid,
+                            size: size,
+                            nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+                        };
 
                         //Send value to the Server
                         jQuery.post(ajaxurl, data, function(response) {
@@ -594,26 +557,103 @@ function shortcode_visitor_votes_callback ($atts) {
                             jQuery('.rateit').rateit();
                             //Create a cookie to disable double vote
                             jQuery.cookie(cookiename, value, { expires : 360 }); 
-                        }) ;      
+                        }) ;          
+                    });
+                    //} //End if (!jQuery.cookie(cookiename))
 
-                    });//End function update vote
 
+                    //If user is not logged in
+                    if (! logged_user) {
+
+                        //Check if has cookie
+                        if (jQuery.cookie(cookiename)) {                
+
+                            var cookievote=jQuery.cookie(cookiename);
+                            var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+
+                            var data = {
+                                action: 'yasr_readonly_visitor_shortcode',
+                                size: size,
+                                rating: cookievote,
+                                votes: <?php echo $medium_rating ?>,
+                                votes_number: <?php echo $votes_number ?>,
+                                post_id: postid
+                            }
+
+                            jQuery.post(ajaxurl, data, function(response) {
+                                jQuery('#yasr_visitor_votes').html(response);
+                                jQuery('.rateit').rateit();
+                            });
+
+                        } //End if jquery cookie
+
+                    }
+
+                    //If a logged in user has already voted, he/she can update the vote
+
+                    else {
+
+                        jQuery('#yasr-rateit-visitor-votes-logged-rated').on('rated', function() {
+
+                            var el = jQuery(this);
+                            var value = el.rateit('value');
+                            var value = value.toFixed(1); //
+
+                            jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
+
+                            var data = {
+                                    action: 'yasr_update_visitor_rating',
+                                    rating: value,
+                                    post_id: postid,
+                                    size: size,
+                                    nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+                                };
+
+                            //Send value to the Server
+                            jQuery.post(ajaxurl, data, function(response) {
+                                //response
+                                jQuery('#yasr_visitor_votes').html(response); 
+                                jQuery('.rateit').rateit();
+                                //Create a cookie to disable double vote
+                                jQuery.cookie(cookiename, value, { expires : 360 }); 
+                            }) ;      
+
+                        });//End function update vote
+
+                    }
+
+                });
+
+            </script>
+
+            <?php
+
+            if (YASR_AUTO_INSERT_ENABLED == 1) {
+
+                if (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no') {
+                    return $shortcode_html; //Return everywehere
                 }
 
-            });
+                elseif (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'yes') {
+                    if ( !is_page() ) {
+                        return $shortcode_html; //Return only if it is not a page
+                    }
+                }
 
-        </script>
+            }
 
-     	    <?php
+            else {
 
-            return $shortcode_html;
+                return $shortcode_html;
+
+            }
+
 
         } //End if is singular
 
-    } //End if auto_insert_enabled
+    //} //End if auto_insert_enabled
 
 } //End function shortcode_visitor_votes_callback
-
 
 
 /****** Add shortcode for multiple set ******/

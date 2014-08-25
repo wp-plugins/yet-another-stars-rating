@@ -59,12 +59,6 @@
 	    		<?php 
 	    			if ($option['auto_insert_enabled']==0) {
 	    				echo " checked='checked' />";
-	    				echo ("
-	    					<script>
-	    						jQuery( document ).ready(function() {
-	    							jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
-	    						});
-							</script>") ;
 	    			}
 
 	    			else {
@@ -481,7 +475,7 @@ function yasr_edit_multi_form() {
 	}
 
 	else {
-		_e("No Multiple Set were found");
+		_e("No Multiple Set were found", "yasr");
 	}
 
 }//End function
