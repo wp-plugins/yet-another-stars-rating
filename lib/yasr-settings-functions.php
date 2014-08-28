@@ -19,6 +19,7 @@
 	    		$option['auto_insert_where']='top';
 	    		$option['auto_insert_exclude_pages']='yes';
 	    		$option['auto_insert_size']='large';
+	    		$option['auto_insert_custom_post_only']='no';
 	    	}
 
 	    	//This is to avoid undefined offset
@@ -73,26 +74,26 @@
 
 	    		<strong><?php _e('What?', 'yasr'); ?></strong>
 					<br />
-	    		<input type="radio" name="yasr_general_options[auto_insert_what]" value="overall_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='overall_rating') echo " checked=\"checked\" "; ?> >
+	    		<input type="radio" name="yasr_general_options[auto_insert_what]" value="overall_rating" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='overall_rating') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('Overall Rating / Author Rating', 'yasr') ?>
 		   			<br />
 
-		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="visitor_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
+		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="visitor_rating" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('Visitor Votes', 'yasr')?>
 		   			<br />
 
-		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="both" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='both') echo " checked=\"checked\" "; ?> >
+		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="both" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='both') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('Both', 'yasr')?>
 
 		    	<p>&nbsp;</p>
 
 		    	<strong><?php _e('Where?', 'yasr'); ?></strong>
 		    	<br />
-		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="top" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='top' ) echo " checked=\"checked\" ";  ?> >
+		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="top" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_where']==='top' ) echo " checked=\"checked\" ";  ?> >
 					<?php _e('Before the post', 'yasr')?>
 					<br />
 
-		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
+		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
 		    		<?php _e('After the post', 'yasr')?>
 		    		<br />
 
@@ -101,17 +102,17 @@
 		    	<strong><?php _e('Size', 'yasr'); ?></strong>
 		    	<br />
 		    	<div class="yasr-option-size">
-			    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="small" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='small' ) echo " checked=\"checked\" ";  ?> >
+			    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="small" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='small' ) echo " checked=\"checked\" ";  ?> >
 						<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-small.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Small', 'yasr')?></span>
 				</div>
 
 				<div class="yasr-option-size">
-		    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="medium" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='medium' ) echo " checked=\"checked\" ";  ?> >
+		    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="medium" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='medium' ) echo " checked=\"checked\" ";  ?> >
 					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-medium.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Medium', 'yasr')?></span>
 				</div>
 
 		    	<div class="yasr-option-size">
-				<input type="radio" name="yasr_general_options[auto_insert_size]" value="large" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_size']==='large' ) echo " checked=\"checked\" ";  ?> >
+				<input type="radio" name="yasr_general_options[auto_insert_size]" value="large" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='large' ) echo " checked=\"checked\" ";  ?> >
 					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-large.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Large', 'yasr')?></span>
 				</div>
 
@@ -119,14 +120,46 @@
 
 		    	<strong><?php _e('Exclude Pages?', 'yasr'); ?></strong>
 		    	<br />
-		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="yes" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_exclude_pages']==='yes' ) echo " checked=\"checked\" ";  ?> >
-					<?php _e('Yes', 'yasr')?>
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="yes" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_exclude_pages']==='yes' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Yes', 'yasr'); ?>
 
 				&nbsp;&nbsp;&nbsp;
 
-		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="no" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_exclude_pages']==='no') echo " checked=\"checked\" "; ?> >
-		    		<?php _e('No', 'yasr')?>
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="no" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_exclude_pages']==='no') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('No', 'yasr'); ?>
 		    		<br />
+
+		    	<p>&nbsp;</p>
+
+
+		    	<?php 
+
+		    	$custom_post_types = yasr_get_custom_post_type('bool');
+
+		    	if ($custom_post_types) { ?>
+		    		<strong><?php _e('Use only in custom post types?', 'yasr'); ?></strong>
+		    		<br />
+		    		<input type="radio" name="yasr_general_options[auto_insert_custom_post_only]" value="yes" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_custom_post_only']==='yes' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Yes', 'yasr'); ?>
+
+					&nbsp;&nbsp;&nbsp;
+
+		    		<input type="radio" name="yasr_general_options[auto_insert_custom_post_only]" value="no" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_custom_post_only']==='no') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('No', 'yasr'); ?>
+
+		    		<p>
+
+		    		<?php _e("You see this because you use custom post types.", "yasr"); ?>
+		    		<br/>
+		    		<?php _e("If you want to use auto insert only in custom post types, choose Yes", "yasr"); ?>
+
+		    		<p>&nbsp;</p>
+
+		    		<?php 
+		    	}
+
+		    	?>
+		    	
 
 		    	<hr />
 	    			  

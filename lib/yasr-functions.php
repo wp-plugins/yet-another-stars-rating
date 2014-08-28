@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_add_inline_style( 'yasrcss', YASR_CUSTOM_CSS_RULES );
         }
 
-		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
+		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 	}
 
@@ -154,11 +154,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             if (YASR_AUTO_INSERT_WHAT==='overall_rating') {
                 switch (YASR_AUTO_INSERT_WHERE) {
                     case 'top':
-                        return $overall_rating_code . $content;
+                        $content_and_stars = $overall_rating_code . $content;
                         break;
                 
                     case 'bottom':
-                        return $content . $overall_rating_code;
+                        $content_and_stars = $content . $overall_rating_code;
                         break;
                 } //End Switch
             } //end YASR_AUTO_INSERT_WHAT overall rating
@@ -166,11 +166,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             elseif (YASR_AUTO_INSERT_WHAT==='visitor_rating') {
                 switch (YASR_AUTO_INSERT_WHERE) {
                     case 'top':
-                        return $visitor_votes_code . $content;
+                        $content_and_stars = $visitor_votes_code . $content;
                         break;
                 
                     case 'bottom':
-                        return $content . $visitor_votes_code;
+                        $content_and_stars = $content . $visitor_votes_code;
                         break;
                 } //End Switch
             }
@@ -178,19 +178,52 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             elseif (YASR_AUTO_INSERT_WHAT==='both') {
                 switch (YASR_AUTO_INSERT_WHERE) {
                     case 'top':
-                        return $overall_rating_code . $visitor_votes_code . $content;
+                        $content_and_stars = $overall_rating_code . $visitor_votes_code . $content;
                         break;
                 
                     case 'bottom':
-                        return $content . $overall_rating_code . $visitor_votes_code;
+                        $content_and_stars = $content . $overall_rating_code . $visitor_votes_code;
                         break;
                 } //End Switch
             }
 
-            return $content;
+            //IF auto insert must work only in custom post type
+            if (YASR_AUTO_INSERT_CUSTOM_POST_ONLY === 'yes') {
+
+                $custom_post_types = yasr_get_custom_post_type();
+
+                //If is a post type return content and stars
+                if (is_singular($custom_post_types)) {
+                    return $content_and_stars;
+                }
+
+                //else return just content
+                else {
+                    return $content;
+                }
+
+            }
+
+            //If page are not excluded
+            if (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no') {
+                return $content_and_stars;
+            }
+
+            //else return only if it is not a page
+            elseif (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'yes') {
+                if ( !is_page() ) {
+                    return $content_and_stars;
+                }
+                //If is a page return the content without stars
+                else {
+                    return $content;
+                }
+            }
+
 
         } //End  if (YASR_AUTO_INSERT_ENABLED
 
+        //Return if auto insert is off
         else {
 
             return $content;
@@ -322,10 +355,12 @@ add_action('admin_init', 'yasr_shortcode_button_init');
     }
 
 
-/****** Return the custom post type if exists ******/
+/****** Return the custom post type if exists 
+Argument is to set what to return, if array or boolean value.
+Default: array******/
 
 add_action( 'admin_init', 'yasr_get_custom_post_type');
-    function yasr_get_custom_post_type() {
+    function yasr_get_custom_post_type($exit='array') {
 
         $args = array(
             'public'   => true,
@@ -338,7 +373,12 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
         $post_types = get_post_types( $args, $output, $operator ); 
 
         if ($post_types) {
-            return ($post_types);
+            if ($exit == 'array') {
+                return ($post_types);
+            }
+            else {
+                return TRUE;
+            }
         }
 
         else {

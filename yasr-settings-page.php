@@ -330,16 +330,16 @@ $n_multi_set = NULL;
 		   	if (active_tab == 'general_settings') {
 
 		   		if (auto_insert_enabled == 0) {
-		   			jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
+		   			jQuery('.yasr-auto-insert-options-class').prop('disabled', true);
 		   		}
 
 				//First Div
 				jQuery('#yasr_auto_insert_radio_on').on('click', function(){
-					jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', false);
+					jQuery('.yasr-auto-insert-options-class').prop('disabled', false);
 				});
 
 				jQuery('#yasr_auto_insert_radio_off').on('click', function(){
-					jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
+					jQuery('.yasr-auto-insert-options-class').prop('disabled', true);
 				});
 
 				jQuery('#yasr_text_before_star_on').on('click', function(){
@@ -428,15 +428,15 @@ $n_multi_set = NULL;
 			            	return false;
 						}   
 				 
-							var newTextBoxDiv = jQuery(document.createElement('tr'))
-				 
-							newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-				 
-							newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-				 
-				 			counter++;
+						var newTextBoxDiv = jQuery(document.createElement('tr'))
+			 
+						newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
+			 
+						newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
+			 
+			 			counter++;
 
-					 	});
+					});
 
 
 				} //End if ($n_multi_set == 1)

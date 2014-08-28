@@ -628,26 +628,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
             <?php
 
-            if (YASR_AUTO_INSERT_ENABLED == 1) {
-
-                if (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no') {
-                    return $shortcode_html; //Return everywehere
-                }
-
-                elseif (YASR_AUTO_INSERT_EXCLUDE_PAGES === 'yes') {
-                    if ( !is_page() ) {
-                        return $shortcode_html; //Return only if it is not a page
-                    }
-                }
-
-            }
-
-            else {
-
                 return $shortcode_html;
-
-            }
-
 
         } //End if is singular
 
