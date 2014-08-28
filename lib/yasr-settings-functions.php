@@ -1,11 +1,11 @@
 <?php
 
 
-/****** Add auto insert option ******/
+/****** Add yasr general option ******/
 
-	add_action( 'admin_init', 'yasr_auto_insert_options_init' ); //This is for auto insert options
+	add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
 
-		function yasr_auto_insert_options_init() {
+		function yasr_general_options_init() {
 	    	register_setting(
 	        	'yasr_general_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
 	        	'yasr_general_options' //The name of an option to sanitize and save.
@@ -13,30 +13,29 @@
 
 	    	$option = get_option( 'yasr_general_options' );
 
-	    	//To avoid undifined index, i put here the default value
-	    	if (!$option) {
-	    		$option = array();
-	    		$option['auto_insert_enabled'] = 0;
-	    		$option['auto_insert_what'] = 'overall_rating';
-	    		$option['auto_insert_where'] = 'top';
-	    		$option['snippet'] = 'overall_rating';
-	    		$option['allowed_user'] = 'allow_anonymous';
-
-	    		add_option("yasr_general_options", $option); //Write here the default value if there is not option
-	    	} 
-
 	    	//This is to avoid undefined offset
 	    	if ($option && $option['auto_insert_enabled']==0) {
 	    		$option['auto_insert_what']='overall_rating';
 	    		$option['auto_insert_where']='top';
+	    		$option['auto_insert_exclude_pages']='yes';
+	    		$option['auto_insert_size']='large';
+	    		$option['auto_insert_custom_post_only']='no';
 	    	}
 
-	    	add_settings_section( 'yasr_auto_insert_section_id', __('Auto insert Settings', 'yasr'), 'yasr_section_callback', 'yasr_settings_page' );
-	    		add_settings_field( 'yasr_use_auto_insert_id', __('Use auto insert?', 'yasr'), 'yasr_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
-	    		add_settings_field( 'yasr_what_auto_insert', __('What?', 'yasr'), 'yasr_what_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
-	       		add_settings_field( 'yasr_where_auto_insert', __('Where?', 'yasr'), 'yasr_where_auto_insert_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option);
-	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
-	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_settings_page', 'yasr_auto_insert_section_id', $option );
+	    	//This is to avoid undefined offset
+	    	if ($option && $option['text_before_stars']==0) {
+	    		$option['text_before_overall']='';
+	    		$option['text_before_visitor_rating']='';
+	    		$option['custom_text_user_voted']='';
+	    	}
+
+	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_general_settings_tab' );
+	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show "Overall Rating" in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
 		}
 
@@ -49,61 +48,236 @@
 
 	    	?>
 
-	    	<?php _e('Yes', 'yasr') ?>
 
-	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['auto_insert_enabled']==1) echo " checked=\"checked\" "; ?>  /> 
+	    		<strong><?php _e('Use Auto Insert?', 'yasr'); ?></strong>
+				<br />
+	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='1' id='yasr_auto_insert_radio_on' <?php if ($option['auto_insert_enabled']==1) echo " checked='checked' "; ?>  /> 
+	    		<?php _e('Yes', 'yasr') ?>
 				&nbsp;&nbsp;&nbsp;
 
-			<?php _e('No', 'yasr') ?>
+			
 	    		<input type='radio' name='yasr_general_options[auto_insert_enabled]' value='0' id='yasr_auto_insert_radio_off' 
-	    		<?php if ($option['auto_insert_enabled']==0) {
-	    				echo " checked=\"checked\" />";
-	    				echo ("<script>
-	    				jQuery( document ).ready(function() {
-	    					jQuery('.yasr_auto_insert_where_what_radio').prop('disabled', true);
-	    				});
-						</script>") ;
+	    		<?php 
+	    			if ($option['auto_insert_enabled']==0) {
+	    				echo " checked='checked' />";
 	    			}
+
+	    			else {
+	    				echo "/>";
+	    			}
+
+	    		_e('No', 'yasr'); 
+
 	    		?> 
+
+	    		<p>&nbsp;</p>
+
+	    		<strong><?php _e('What?', 'yasr'); ?></strong>
+					<br />
+	    		<input type="radio" name="yasr_general_options[auto_insert_what]" value="overall_rating" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='overall_rating') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('Overall Rating / Author Rating', 'yasr') ?>
+		   			<br />
+
+		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="visitor_rating" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('Visitor Votes', 'yasr')?>
+		   			<br />
+
+		    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="both" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_what']==='both') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('Both', 'yasr')?>
+
+		    	<p>&nbsp;</p>
+
+		    	<strong><?php _e('Where?', 'yasr'); ?></strong>
+		    	<br />
+		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="top" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_where']==='top' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Before the post', 'yasr')?>
+					<br />
+
+		    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('After the post', 'yasr')?>
+		    		<br />
+
+		    	<p>&nbsp;</p>
+
+		    	<strong><?php _e('Size', 'yasr'); ?></strong>
+		    	<br />
+		    	<div class="yasr-option-size">
+			    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="small" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='small' ) echo " checked=\"checked\" ";  ?> >
+						<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-small.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Small', 'yasr')?></span>
+				</div>
+
+				<div class="yasr-option-size">
+		    	<input type="radio" name="yasr_general_options[auto_insert_size]" value="medium" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='medium' ) echo " checked=\"checked\" ";  ?> >
+					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-medium.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Medium', 'yasr')?></span>
+				</div>
+
+		    	<div class="yasr-option-size">
+				<input type="radio" name="yasr_general_options[auto_insert_size]" value="large" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_size']==='large' ) echo " checked=\"checked\" ";  ?> >
+					<img src="<?php echo  YASR_IMG_DIR . "yasr-stars-large.png" ?>" class="yasr-img-option-size"><span class="yasr-text-options-size"><?php _e('Large', 'yasr')?></span>
+				</div>
+
+		    	<p>&nbsp;</p>
+
+		    	<strong><?php _e('Exclude Pages?', 'yasr'); ?></strong>
+		    	<br />
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="yes" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_exclude_pages']==='yes' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Yes', 'yasr'); ?>
+
+				&nbsp;&nbsp;&nbsp;
+
+		    	<input type="radio" name="yasr_general_options[auto_insert_exclude_pages]" value="no" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_exclude_pages']==='no') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('No', 'yasr'); ?>
+		    		<br />
+
+		    	<p>&nbsp;</p>
+
+
+		    	<?php 
+
+		    	$custom_post_types = yasr_get_custom_post_type('bool');
+
+		    	if ($custom_post_types) { ?>
+		    		<strong><?php _e('Use only in custom post types?', 'yasr'); ?></strong>
+		    		<br />
+		    		<input type="radio" name="yasr_general_options[auto_insert_custom_post_only]" value="yes" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_custom_post_only']==='yes' ) echo " checked=\"checked\" ";  ?> >
+					<?php _e('Yes', 'yasr'); ?>
+
+					&nbsp;&nbsp;&nbsp;
+
+		    		<input type="radio" name="yasr_general_options[auto_insert_custom_post_only]" value="no" class="yasr-auto-insert-options-class" <?php if ($option['auto_insert_custom_post_only']==='no') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('No', 'yasr'); ?>
+
+		    		<p>
+
+		    		<?php _e("You see this because you use custom post types.", "yasr"); ?>
+		    		<br/>
+		    		<?php _e("If you want to use auto insert only in custom post types, choose Yes", "yasr"); ?>
+
+		    		<p>&nbsp;</p>
+
+		    		<?php 
+		    	}
+
+		    	?>
+		    	
+
+		    	<hr />
 	    			  
 
 	    <?php
 		} //End yasr_auto_insert_callback
 
-		function yasr_what_auto_insert_callback($option) {	
-			?>
 
-	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="overall_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='overall_rating') echo " checked=\"checked\" "; ?> >
-	    		<?php _e('Overall Rating / Author Rating', 'yasr') ?>
-	   			<br />
+	    function yasr_show_overall_in_loop_callback($option) {
+	    	
+	    	?>
 
-	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="visitor_rating" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='visitor_rating') echo " checked=\"checked\" "; ?> >
-	    		<?php _e('Visitor Votes', 'yasr')?>
-	   			<br />
+	    	<input type='radio' name='yasr_general_options[show_overall_in_loop]' value='enabled' class='yasr-general-option-show-overall-in-loop' <?php if ($option['show_overall_in_loop']==='enabled') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Yes', 'yasr')?>
 
-	    	<input type="radio" name="yasr_general_options[auto_insert_what]" value="both" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_what']==='both') echo " checked=\"checked\" "; ?> >
-	    		<?php _e('Both', 'yasr')?>
+			&nbsp;&nbsp;&nbsp;
 
-	    <?php
-		} //end function yasr_what_auto_insert_callback
-
-		function yasr_where_auto_insert_callback($option) {
-			?>
-
-			<input type="radio" name="yasr_general_options[auto_insert_where]" value="top" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='top' ) echo " checked=\"checked\" ";  ?> >
-				<?php _e('Before the post', 'yasr')?>
+	    	<input type='radio' name='yasr_general_options[show_overall_in_loop]' value='disabled' class='yasr-general-option-show-overall-in-loop' <?php if ($option['show_overall_in_loop']==='disabled') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('No', 'yasr')?>
+				<br />
 				<br />
 
-	    	<input type="radio" name="yasr_general_options[auto_insert_where]" value="bottom" class="yasr_auto_insert_where_what_radio" <?php if ($option['auto_insert_where']==='bottom') echo " checked=\"checked\" "; ?> >
-	    		<?php _e('After the post', 'yasr')?>
-	    		<br />
+			<?php _e('If you enable this, "Overall Rating" will be showed not only in the single article or page, but also in pages like Home Page, category pages or archives.', 'yasr')?>
 
-	    		<p>&nbsp;</p>
+			<p>&nbsp;</p>
 
-	    		<hr />
+			<br />
+
+			<hr>
 
 	    	<?php
 
+	    }
+
+	    function yasr_custom_text_callback($option) {
+	    	?>
+
+	    	<input type='radio' name='yasr_general_options[text_before_stars]' value='1' id='yasr_text_before_star_on' <?php if ($option['text_before_stars']==1) echo " checked='checked' "; ?>  /> 
+	    		<?php _e('Yes', 'yasr') ?>
+				&nbsp;&nbsp;&nbsp;
+
+	    		<input type='radio' name='yasr_general_options[text_before_stars]' value='0' id='yasr_text_before_star_off' 
+	    		<?php if ($option['text_before_stars']==0) {
+	    				echo " checked='checked' />";
+	    				echo ("<script>
+	    				jQuery( document ).ready(function() {
+	    					jQuery('.yasr-general-options-text-before').prop('disabled', true);
+	    				});
+						</script>") ;
+	    			}
+
+	    		else {
+	    				echo "/>";
+	    			}
+
+	    		_e('No', 'yasr'); 
+
+	    	?>
+
+	    	<br /> <br />
+
+	    	<input type='text' name='yasr_general_options[text_before_overall]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_overall]"); ?>' maxlength="40"/> 
+				<?php _e('Custom text to display before Overall Rating', 'yasr')?>
+			
+			<br /> <br />
+
+			<input type='text' name='yasr_general_options[text_before_visitor_rating]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
+				<?php _e('Custom text to display before Visitor Rating', 'yasr')?>
+
+			<br /> <br />
+
+			<input type='text' name='yasr_general_options[custom_text_user_voted]' class='yasr-general-options-text-before' value='<?php echo ("$option[custom_text_user_voted]"); ?>' maxlength="60"/> 
+				<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
+			
+
+			<p>&nbsp;</p>
+
+			<hr>
+
+			<?php
+	    }
+
+
+	    function yasr_color_scheme_callback($option) {
+
+	    	?>
+
+	    	<input type='radio' name='yasr_general_options[scheme_color]' value='light' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='light') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Light', 'yasr')?>
+				
+			&nbsp;&nbsp;&nbsp;
+
+			<input type='radio' name='yasr_general_options[scheme_color]' value='dark' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='dark') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Dark', 'yasr')?>
+				<br />
+
+				<br />
+
+			<a href="#" id="yasr-color-scheme-preview-link"><?php _e("Preview", "yasr") ?></a>
+
+			<div id="yasr-color-scheme-preview" style="display:none">
+		   			<?php 
+
+		   				_e("Light theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr-multi-set.png>";
+
+		   				echo "<br /> <br />";
+
+		   				_e("Dark Theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "dark-multi-set.png>";
+		   			 ?>
+		   	</div>
+
+			<p>&nbsp;</p>
+
+			<hr>
+
+	    	<?php
 	    }
 
 
@@ -119,9 +293,9 @@
 				<?php _e('Allow everybody (logged in and anonymous)', 'yasr')?>
 				<br />
 
-				<p>&nbsp;</p>
+			<p>&nbsp;</p>
 
-				<hr>
+			<hr>
 
 		<?php
 
@@ -148,12 +322,12 @@
 		   			<?php 
 
 		   				_e("If you select \"Review Rating\", your site will be indexed from search engines like this: ", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr_review.png>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr_review.png>";
 
 		   				echo "<br /> <br />";
 
 		   				_e("If, instead, you choose \"Aggregate Rating\", your site will be indexed like this", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr_aggregate.jpg>";
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr_aggregate.jpg>";
 		   			 ?>
 		   		</div>
 
@@ -167,21 +341,21 @@
 function yasr_display_multi_set_form() {
 	?>
 		
-		<h4 class="yasr-multi-set-form-headers">Add New Multiple Set</h4>
-		<em><?php _e('Field Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
+		<h4 class="yasr-multi-set-form-headers"><?php _e("Add New Multiple Set", "yasr"); ?></h4>
+		<em><?php _e('Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
 		<p>
-		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_add_multi_set" method="post">
+		<form action="<?php echo admin_url('options-general.php?page=yasr_settings_page&tab=manage_multi') ?>" id="form_add_multi_set" method="post">
 			<strong><?php _e("Name", 'yasr')?></strong> 
 			<input type="text" name="multi-set-name" id="new-multi-set-name" class="input-text-multi-set">
 			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
 
 			<p></p>
-			<?php _e("You can insert up to nine element") ?>
+			<?php _e("You can insert up to nine element", "yasr") ?>
 			<br />
 
 			<?php for($i=1; $i<=9; $i++) { 
 
-				echo "<strong>" . __("Element ", 'yasr') . "#$i" . "</strong>";
+				echo "<strong>" . __("Element ", "yasr") . "#$i" . "</strong>";
 				?>
 				<input type="text" name="multi-set-name-element-<?php echo $i ?>" id="multi-set-name-element-<?php echo $i ?>" class="input-text-multi-set">
 				<br />
@@ -212,7 +386,7 @@ function yasr_edit_multi_form() {
 
 			<div class="yasr-manage-multiset">
 
-				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
+				<h4 class="yasr-multi-set-form-headers"><?php _e("Manage Multiple Set" , "yasr"); ?></h4>
 
 				<?php _e('Wich set do you want to edit or remove?', 'yasr')?>
 
@@ -244,52 +418,49 @@ function yasr_edit_multi_form() {
 		
 			<div class="yasr-manage-multiset-single">
 
-				<h4 class="yasr-multi-set-form-headers">Manage Multiple Set</h4>
+				<h4 class="yasr-multi-set-form-headers"><?php _e("Manage Multiple Set", "yasr"); ?></h4>
 
-				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
+				<form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page&tab=manage_multi') ?>" id="form_edit_multi_set" method="post">
 
-		        		<input type="hidden" name="yasr_edit_multi_set_form" value="<?php echo $set_type ?>" />
+	        		<input type="hidden" name="yasr_edit_multi_set_form" value="<?php echo $set_type ?>" />
 
-						<table id="yasr-table-form-edit-multi-set">
+					<table id="yasr-table-form-edit-multi-set">
+	                <tr>
+
+	                    <td id="yasr-table-form-edit-multi-set-header"> 
+	                         <?php _e('Field name', 'yasr') ?>
+	                    </td>
+
+	                     <td id="yasr-table-form-edit-multi-set-remove"> 
+	                        <?php _e('Remove', 'yasr') ?> 
+	                     </td>
+
+	                </tr>
+
+					<?php
+
+	       			$i=1;
+
+        			foreach ($set_name as $name) {
+
+		                echo "
 		                <tr>
-
-		                    <td id="yasr-table-form-edit-multi-set-header"> 
-		                         <?php _e('Field name', 'yasr') ?>
+	                    
+		                    <td width=\"80%\">
+		                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$i\"> 
+		                        <input type=\"hidden\" value=\"$name->id\" name=\"db-id-for-element-$i\"> 
 		                    </td>
 
-		                     <td id="yasr-table-form-edit-multi-set-remove"> 
-		                        <?php _e('Remove', 'yasr') ?> 
-		                     </td>
+		                    <td width=\"20%\" style=\"text-align:center\">
+		                        <input type=\"checkbox\" value=\"$name->id\" name=\"remove-element-$i\">
+		                    </td>
 
-		                </tr>
+	                	</tr>
+	                	";
+	                	
+	                    $i++;
 
-						<?php
-
-		       			$i=1;
-
-		       			//Put in an array the field_id used for this set, to avoid overwrite
-		        		$array_used_field_id = array();
-
-            			foreach ($set_name as $name) {
-
-            				$array_used_field_id[] .= $name->id;
-
-			                echo "
-			                <tr>
-		                    
-			                    <td width=\"80%\">
-			                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
-			                    </td>
-
-			                    <td width=\"20%\" style=\"text-align:center\">
-			                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
-			                    </td>
-
-		                	</tr>
-		                	";
-		                	
-		                $i++;
-		            	}
+	            	}
 
 
 		            $i = $i-1; //This is the number of the fields
@@ -303,7 +474,7 @@ function yasr_edit_multi_form() {
 		            <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
 		            <tr>
 
-		                <td width=\"80%\">Remove whole set?</td>
+		                <td width=\"80%\">" . __("Remove whole set?", "yasr") . "</td>
 
 		                <td width=\"20%\" style=\"text-align:center\">
 		                    <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
@@ -337,7 +508,7 @@ function yasr_edit_multi_form() {
 	}
 
 	else {
-		_e("No multiple set were found");
+		_e("No Multiple Set were found", "yasr");
 	}
 
 }//End function
@@ -363,11 +534,11 @@ function yasr_edit_multi_form() {
                             WHERE parent_set_id=$set_type 
                             ORDER BY field_id ASC");
 
-        $i=1;
+        
 
         ?>
 
-        <form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page') ?>" id="form_edit_multi_set" method="post">
+        <form action=" <?php echo admin_url('options-general.php?page=yasr_settings_page&tab=manage_multi') ?>" id="form_edit_multi_set" method="post">
         <input type="hidden" name="yasr_edit_multi_set_form" value="<?php echo $set_type ?>" />
 
 
@@ -386,28 +557,27 @@ function yasr_edit_multi_form() {
             
         <?php
 
-        	//Put in an array the field_id used for this set, to avoid overwrite
-
-        	$array_used_field_id = array();
+        	$i=1;
 
             foreach ($set_name as $name) {
-
-            	$array_used_field_id .= $name->id;
 
                 echo "
                 <tr>
                     
                     <td width=\"80%\">
-                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$name->id\">  
+                        Element #$i <input type=\"text\" value=\"$name->name\" name=\"edit-multi-set-element-$i\">  
+                        <input type=\"hidden\" value=\"$name->id\" name=\"db-id-for-element-$i\">
                     </td>
 
                     <td width=\"20%\" style=\"text-align:center\">
-                        <input type=\"checkbox\" name=\"remove-element-$name->id\">
+                        <input type=\"checkbox\" value=\"$name->id\" name=\"remove-element-$i\">
                     </td>
 
                 </tr>
                 ";
+
                 $i++;
+
             }
 
 
@@ -422,7 +592,7 @@ function yasr_edit_multi_form() {
             <table width=\"100%\" class=\"yasr-edit-form-remove-entire-set\">
             <tr>
 
-                <td width=\"80%\">Remove whole set?</td>
+                <td width=\"80%\">" . __("Remove whole set?", "yasr") . "</td>
 
                 <td width=\"20%\" style=\"text-align:center\">
                     <input type=\"checkbox\" name=\"yasr-remove-multi-set\" value=\"$set_type\">
@@ -488,8 +658,14 @@ function yasr_process_new_multi_set_form()
   			$multi_set_name_element_[2]=$_POST['multi-set-name-element-2'];
 
   			//If multi set name is shorter than 3 characher come back
-   			if (mb_strlen($multi_set_name) < 3 || mb_strlen($multi_set_name_element_[1]) <3 || mb_strlen($multi_set_name_element_[2]) <3 ) {
-   				$array_errors[] = "Content field must be longer then 3 chars";
+   			if (mb_strlen($multi_set_name) < 3 || mb_strlen($multi_set_name_element_[1]) <3 || mb_strlen($multi_set_name_element_[2]) < 3 ) {
+   				$array_errors[] = "Content field must be longer than 3 chars";
+   				$error=TRUE;
+   			} 
+
+
+   			if (mb_strlen($multi_set_name) > 23 || mb_strlen($multi_set_name_element_[1]) > 23 || mb_strlen($multi_set_name_element_[2]) > 23 ) {
+   				$array_errors[] = "Content field must be shorter than 23 chars";
    				$error=TRUE;
    			} 
 
@@ -516,6 +692,11 @@ function yasr_process_new_multi_set_form()
 
   						if (mb_strlen($multi_set_name_element_[$i]) < 3) {
   							$array_errors[] = "Field # $i must be at least 3 characters";
+   							$error=TRUE;
+  						}
+
+  						if (mb_strlen($multi_set_name_element_[$i]) > 23) {
+  							$array_errors[] = "Field # $i must be shorter than 23 characters";
    							$error=TRUE;
   						}
 
@@ -582,13 +763,13 @@ function yasr_process_new_multi_set_form()
    						}
 
    						else {
-   							_e("Something goes wrong trying insert set field name. Please report it", 'yasr');
+   							_e("Something goes wrong trying insert set field name. Please report it", "yasr");
    						}
 
    					} //End if $insert_multi_name_success
 
    					else {
-   						_e("Something goes wrong trying insert multi set name. Please report it", 'yasr');
+   						_e("Something goes wrong trying insert Multi Set name. Please report it", "yasr");
    					}
 
    			} //End if !$error
@@ -597,7 +778,7 @@ function yasr_process_new_multi_set_form()
   		
   		//Else multi set's name and first 2 elements are empty
    		else {
-   			$array_errors[] = "Multi set's name and first 2 elements can't be empty";
+   			$array_errors[] = "Multi Set's name and first 2 elements can't be empty";
    			$error=TRUE;
    		}
 
@@ -661,34 +842,39 @@ function yasr_process_edit_multi_set_form() {
 								array ('%d')
 							);
 
-  			if ($remove_set===FALSE) {
+  			if ($remove_set==FALSE) {
   				$error = TRUE; 
-				$array_errors[] = __("Something goes wrong trying to delete a multi-set . Please report it", 'yasr');
+				$array_errors[] .= __("Something goes wrong trying to delete a Multi Set . Please report it", 'yasr');
   			}
 
-  			if ($remove_set_values===FALSE) {
-  				$error = TRUE; 
-				$array_errors[] = __("Something goes wrong trying to delete data fields for a set. Please report it", 'yasr');
-			}
 
-			if ($remove_set_votes===FALSE) {
+  			//Comment this out, if try to delete an empty set print error
+  			/*if ($remove_set_values==FALSE) {
   				$error = TRUE; 
-				$array_errors[] = __("Something goes wrong trying to delete data values for a set. Please report it", 'yasr');
+				$array_errors[] .= __("Something goes wrong trying to delete data fields for a set. Please report it", 'yasr');
 			}
+			*/
+
+			//Comment this out, will echo error even if the value for that field it's just empty
+			/*if ($remove_set_votes==FALSE) {
+  				$error = TRUE; 
+				$array_errors[] .= __("Something goes wrong trying to delete data values for a set. Please report it", 'yasr');
+			}*/
 
   		}
-
 
   		for ($i = 0; $i <= 9; $i++) {
 
   			//Than, check if the user want to remove some field
   			if (isset($_POST["remove-element-$i"]) && !isset($_POST["yasr-remove-multi-set"]) ) {
 
+  				$field_to_remove = $_POST["remove-element-$i"];
+
   				$remove_field = $wpdb->delete (
   								YASR_MULTI_SET_FIELDS_TABLE,
 								array(
 									'parent_set_id' => $set_id,
-									'field_id' =>$i
+									'field_id' =>$field_to_remove
 								),
 								array ('%d', '%d')
 							);
@@ -697,20 +883,22 @@ function yasr_process_edit_multi_set_form() {
   								YASR_MULTI_SET_VALUES_TABLE,
 								array(
 									'set_type' => $set_id,
-									'field_id' =>$i
+									'field_id' =>$field_to_remove
 								),
 								array ('%d', '%d')
 							);
 
-  				if ($remove_field === FALSE) {
+  				if ($remove_field == FALSE) {
 					$error = TRUE; 
-					$array_errors[] = __("Something goes wrong trying to delete a multi-set element. Please report it", 'yasr');
+					$array_errors[] = __("Something goes wrong trying to delete a Multi Set's element. Please report it", 'yasr');
   				}
 
-  				if ($remove_values === FALSE) {
+
+  				//Comment this out, will echo error even if the value for that field it's just empty
+  				/*if ($remove_values == FALSE) {
 					$error = TRUE; 
 					$array_errors[] = __("Something goes wrong trying to delete data value for an element. Please report it", 'yasr');
-  				}
+  				}*/
 
  
   			}  //End if isset $_POST['remove-element-$i']
@@ -721,36 +909,55 @@ function yasr_process_edit_multi_set_form() {
 
   				$field_name = $_POST["edit-multi-set-element-$i"];
 
+  				$field_id = $_POST["db-id-for-element-$i"];
+
 	  			//if elements name is shorter than 3 chars
-	  			if (mb_strlen($field_name) <3 ) {
-	  						$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
-	   						$error=TRUE;
+	  			if (mb_strlen($field_name) <3) {
+					$array_errors[] = __("Field # $i must be at least 3 characters", "yasr");
+					$error=TRUE;
+	  			}
+
+	  			if(mb_strlen($field_name) > 23) {
+	  				$array_errors[] = __("Field # $i must be shorter than 23 characters", "yasr");
+					$error=TRUE;
 	  			}
 
   				else {
 
-  					$insert_field_name=$wpdb->update(
-							YASR_MULTI_SET_FIELDS_TABLE,
+  					//Check if field name is changed
+  					$field_name_in_db = $wpdb->get_results("SELECT field_name FROM " . YASR_MULTI_SET_FIELDS_TABLE . " WHERE field_id=$field_id AND parent_set_id=$set_id");
 
-								array(
-									'field_name' =>$field_name,
-								),
-
-								array(
-									'parent_set_id' =>$set_id,
-									'field_id' =>$i
-								),
-
-								array ('%s'),
-
-								array ('%d', '%s', '%d')
-								
-							);
-
-  					if ($insert_field_name === FALSE) {
-  						$error = TRUE; 
-						$array_errors[] = __("Something goes wrong trying to update a multi set element. Please report it", 'yasr');
+  					foreach ($field_name_in_db as $field_in_db) {
+  						$field_name_in_database = $field_in_db->field_name;
   					}
+
+  					//if field name in db is different from field name in form update it
+  					if ($field_name_in_database != $field_name) {
+
+	  					$insert_field_name=$wpdb->update(
+								YASR_MULTI_SET_FIELDS_TABLE,
+
+									array(
+										'field_name' =>$field_name,
+									),
+
+									array(
+										'parent_set_id' =>$set_id,
+										'field_id' =>$field_id
+									),
+
+									array ('%s'),
+
+									array ('%d', '%d')
+									
+								);
+
+	  					if ($insert_field_name == FALSE) {
+	  						$error = TRUE; 
+							$array_errors[] = __("Something goes wrong trying to update a Multi Set's element. Please report it", 'yasr');
+	  					}
+
+  				    } //End if ($field_name_in_database != $field_name) {
 
   				}
 
@@ -758,7 +965,7 @@ function yasr_process_edit_multi_set_form() {
   				
 
   			//If $i > number of stored elements, user is adding new elements, so we're going to insert the new ones
-  			if (isset($_POST["edit-multi-set-element-$i"]) && !isset($_POST["remove-element-$i"]) && $i > $number_of_stored_elements ) {
+  			if (isset($_POST["edit-multi-set-element-$i"]) && !isset($_POST["yasr-remove-multi-set"]) && !isset($_POST["remove-element-$i"]) && $i > $number_of_stored_elements ) {
 
   				$field_name = $_POST["edit-multi-set-element-$i"];
 
@@ -770,13 +977,24 @@ function yasr_process_edit_multi_set_form() {
    							$error=TRUE;
   				}
 
+  				if(mb_strlen($field_name) > 23) {
+	  				$array_errors[] = __("Field # $i must be shorter than 23 characters", "yasr");
+					$error=TRUE;
+	  			}
+
   				//if field is not empty
   				elseif ($field_name != '') {
 
   					$highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_FIELDS_TABLE . " ORDER BY id DESC LIMIT 1 ");
 
+  					$highest_field_id = $wpdb->get_results("SELECT field_id FROM " . YASR_MULTI_SET_FIELDS_TABLE . " ORDER BY field_id DESC LIMIT 1 ");
+
   					foreach ($highest_id as $id) {
                         	$field_table_new_id=$id->id + 1;
+                    }
+
+                    foreach ($highest_field_id as $id) {
+                    	$new_field_id = $id->field_id+1;
                     }
 
   					$insert_set_value=$wpdb->replace(
@@ -785,13 +1003,13 @@ function yasr_process_edit_multi_set_form() {
 									'id' => $field_table_new_id,
 									'parent_set_id' =>$set_id,
 									'field_name' =>$field_name,
-									'field_id' =>$i
+									'field_id' =>$new_field_id
 								),
 								array ('%d', '%d', '%s', '%d')
 							);
 							$field_table_new_id++; //Avoid overwrite
 
-  					if ($insert_set_value === FALSE) {
+  					if ($insert_set_value == FALSE) {
   						$error = TRUE; 
 						$array_errors[] = __("Something goes wrong trying to insert set field name in edit form. Please report it", 'yasr');
   					}
@@ -819,6 +1037,44 @@ function yasr_process_edit_multi_set_form() {
 } //End yasr_process_edit_multi_set_form() function
 
 
+add_action( 'admin_init', 'yasr_style_options_init' ); //This is for auto insert options
+
+		function yasr_style_options_init() {
+	    	register_setting(
+	        	'yasr_style_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
+	        	'yasr_style_options' //The name of an option to sanitize and save.
+	    	);	    	
+
+	    	$style_options = get_option( 'yasr_style_options' );
+
+	    	if (!$style_options) {
+
+	    		$style_options = array();
+	    		$style_options['textarea'] = NULL;
+
+	    	}
+
+	    	add_settings_section( 'yasr_style_options_section_id', __('Style Options', 'yasr'), 'yasr_style_section_callback', 'yasr_style_tab' );
+	    		add_settings_field( 'yasr_style_options_textarea', __('Custom CSS Styles', 'yasr'), 'yasr_style_options_textarea_callback', 'yasr_style_tab', 'yasr_style_options_section_id', $style_options );
+
+		}
+
+		function yasr_style_section_callback () {
+			_e("Please use text area below to write your own CSS styles to override the default ones.", "yasr");
+			echo "<strong>";
+			_e("Leave it blank if you don't know what you're doing", "yasr");
+			echo "</strong>";
+		}
+
+		function yasr_style_options_textarea_callback ($style_options) {
+
+			echo ("
+				<textarea rows=\"20\" cols=\"50\" name=\"yasr_style_options[textarea]\" id=\"yasr_style_options_textarea\">$style_options[textarea]</textarea> 
+				");
+
+		}
+
+
 /*************************BEGIN IMPORT FUNCTIONS*******************************/
 
 /****** Check for previous GD STAR INSTALLATION *******/
@@ -839,7 +1095,7 @@ function yasr_search_gd_star_rating () {
 		}
 
 		else {
-			__( 'No previous Gd Star Ratings installation was found', 'yasr' );
+			__( 'No previous Gd Star Rating installation was found', 'yasr' );
 		}
 	}
 
