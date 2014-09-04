@@ -49,17 +49,11 @@ function shortcode_overall_rating_callback ($atts) {
         }
 
 
-        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
-
-            $shortcode_html .= "</div>";
-        
-        }
-
         //IF show overall rating in loop is disabled use is_singular && is_main query
         if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
 
             //If pages are not excluted
-            if ( YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
 
                 if( is_singular() && is_main_query() ) {
 
@@ -70,7 +64,7 @@ function shortcode_overall_rating_callback ($atts) {
             }
 
             //If page are excluted
-            elseif ( YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_EXCLUDE_PAGES === 'yes' ) {
+            else {
 
                 if( is_singular() && is_main_query() && !is_page() )
 
@@ -80,18 +74,18 @@ function shortcode_overall_rating_callback ($atts) {
 
         } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
 
-        //If overall rating in loop is enabled don't use is_singular && is main_query
-        elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
+            //If overall rating in loop is enabled don't use is_singular && is main_query
+            elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
 
             //If pages are not excluted return always
-            if (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
 
                 return $shortcode_html;
 
             }
 
             //Else if page are excluted return only if is not a page
-            elseif ( YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_EXCLUDE_PAGES === 'yes' ) {
+            else {
 
                 if ( !is_page() ) {
 
@@ -114,8 +108,6 @@ function shortcode_visitor_votes_callback ($atts) {
 
     //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
     //If auto insert is on visitor rating this shortcode must return nothing
-
-    //if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'overall_rating' )) {
 
         $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
@@ -413,7 +405,6 @@ function shortcode_visitor_votes_callback ($atts) {
 
         } //End if is singular
 
-    //} //End if auto_insert_enabled
 
 } //End function shortcode_visitor_votes_callback
 

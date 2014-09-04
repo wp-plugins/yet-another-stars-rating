@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.5.1
+ * Version: 0.5.2
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.5.1');
+define('YASR_VERSION_NUM', '0.5.2');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -128,6 +128,10 @@ if ( YASR_AUTO_INSERT_ENABLED == 1 ) {
 
 	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
 
+}
+
+else {
+	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", "yes"); //Avoide undefined variable in yasr-shortcode-function line 56 and 81
 }
 
 define ("YASR_SHOW_OVERALL_IN_LOOP", $stored_options['show_overall_in_loop']);
