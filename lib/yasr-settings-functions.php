@@ -201,23 +201,9 @@
 	    		<?php _e('Yes', 'yasr') ?>
 				&nbsp;&nbsp;&nbsp;
 
-	    		<input type='radio' name='yasr_general_options[text_before_stars]' value='0' id='yasr_text_before_star_off' 
-	    		<?php if ($option['text_before_stars']==0) {
-	    				echo " checked='checked' />";
-	    				echo ("<script>
-	    				jQuery( document ).ready(function() {
-	    					jQuery('.yasr-general-options-text-before').prop('disabled', true);
-	    				});
-						</script>") ;
-	    			}
+	    		<input type='radio' name='yasr_general_options[text_before_stars]' value='0' id='yasr_text_before_star_off' <?php if ($option['text_before_stars']==0) echo " checked='checked' "; ?> />
 
-	    		else {
-	    				echo "/>";
-	    			}
-
-	    		_e('No', 'yasr'); 
-
-	    	?>
+	    		<?php _e('No', 'yasr'); ?>
 
 	    	<br /> <br />
 
