@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 0.5.2
+Stable tag: 0.5.3
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Chart Top 10 overall ratings
 
 == Changelog ==
+
+= 0.5.3 =
+* Fixed a non closing div. This can cause problem when used in old template 
 
 = 0.5.2 =
 * Bugfixes

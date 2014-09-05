@@ -48,6 +48,11 @@ function shortcode_overall_rating_callback ($atts) {
                         break;
         }
 
+        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
+
+            $shortcode_html .= "</div>";
+        
+        }
 
         //IF show overall rating in loop is disabled use is_singular && is_main query
         if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
@@ -332,7 +337,6 @@ function shortcode_visitor_votes_callback ($atts) {
                             jQuery.cookie(cookiename, value, { expires : 360 }); 
                         }) ;          
                     });
-                    //} //End if (!jQuery.cookie(cookiename))
 
 
                     //If user is not logged in
