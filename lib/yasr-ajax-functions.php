@@ -1086,6 +1086,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $number_of_votes = $votes->number_of_votes;
         }
 
+        //Avoid division by 0. This should never happen, just to be safe, check this post
+        //http://wordpress.org/support/topic/warning-division-by-zero-in-4?replies=2
+        if ($number_of_votes < 1) {
+            $number_of_votes = 1;
+        }
 
         foreach ($previous_vote as $vote) {
             $old_vote = $vote->vote;
