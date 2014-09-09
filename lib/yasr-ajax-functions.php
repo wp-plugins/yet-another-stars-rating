@@ -1086,6 +1086,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $number_of_votes = $votes->number_of_votes;
         }
 
+        //Avoid division by 0. This should never happen, just to be safe, check this post
+        //http://wordpress.org/support/topic/warning-division-by-zero-in-4?replies=2
+        if ($number_of_votes < 1) {
+            $number_of_votes = 1;
+        }
 
         foreach ($previous_vote as $vote) {
             $old_vote = $vote->vote;
@@ -1169,15 +1174,27 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
-            $average_rating= $_POST['votes'];
-            $number_of_votes = $_POST['votes_number'];
         }
         else {
             exit();
         }
 
+        global $wpdb;
 
-        //Check if user specifyed a custom text to display when a vistor har rated
+        //I don't use yasr_get_visitor_votes here because the get_the_id function doesn't work in ajax
+        $array_votes=$wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+
+        foreach ($array_votes as $vote) {
+            $number_of_votes = $vote->number_of_votes;
+            $sum_votes = $vote->sum_votes;
+        }
+
+        $average_rating = $sum_votes/$number_of_votes;
+
+        $average_rating = round ($average_rating, 1);
+
+
+        //Check if user specifyed a custom text to display when a vistor has rated
 
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
@@ -1229,6 +1246,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
                                                 FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
                                                 WHERE post_id = p.ID
+                                                AND number_of_votes >= 1
                                                 AND p.post_status = 'publish'
                                                 ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
 
@@ -1275,6 +1293,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
             } //End if $query_result_most_rated)
 
+            else {
+                _e("You've not enought data","yasr");
+                echo "<br />";
+            }
+
             
             if ($query_result_highest) {
 
@@ -1307,6 +1330,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 echo "</table>";
 
             } //end if $query_result
+
+            else {
+                _e("You've not enought data","yasr");
+                echo "<br />";
+            }
     
         die();
 

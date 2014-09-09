@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.5.0
+ * Version: 0.5.4
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.5.0');
+define('YASR_VERSION_NUM', '0.5.4');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -85,6 +85,7 @@ define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
 define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
+//remove end of september
 if ($version_installed && $version_installed < '0.4.1') {
 
 	$option = get_option( 'yasr_general_options' );
@@ -95,11 +96,23 @@ if ($version_installed && $version_installed < '0.4.1') {
 
 }
 
+//remove mid november
 if ($version_installed && $version_installed < '0.5.0') {
 
 	$option = get_option( 'yasr_general_options' );
 
     $option['auto_insert_custom_post_only'] = 'no';
+
+    update_option("yasr_general_options", $option);
+
+}
+
+//remove end november
+if ($version_installed && $version_installed < '0.5.4') {
+
+	$option = get_option( 'yasr_general_options' );
+
+    $option['metabox_overall_rating'] = 'stars';
 
     update_option("yasr_general_options", $option);
 
@@ -128,6 +141,10 @@ if ( YASR_AUTO_INSERT_ENABLED == 1 ) {
 
 	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
 
+}
+
+else {
+	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", "yes"); //Avoide undefined variable in yasr-shortcode-function line 56 and 81
 }
 
 define ("YASR_SHOW_OVERALL_IN_LOOP", $stored_options['show_overall_in_loop']);
@@ -159,5 +176,8 @@ else {
 	define ("YASR_CUSTOM_CSS_RULES", NULL);
 
 }
+
+define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
+
 
 ?>
