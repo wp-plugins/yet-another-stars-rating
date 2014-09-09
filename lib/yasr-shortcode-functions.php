@@ -215,6 +215,8 @@ function shortcode_visitor_votes_callback ($atts) {
                 //else if is not logged can vote
                 else {
 
+                    $vote_if_user_already_rated = 0;
+
                     if ($votes_number>0) {
                         $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
                         <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]</span></div>";
@@ -249,6 +251,8 @@ function shortcode_visitor_votes_callback ($atts) {
 
                     else {
 
+                        $vote_if_user_already_rated = 0;
+
                         if ($votes_number>0) {
                             $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
                             <span class=\"yasr-total-average-text-small\"> [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]</span>
@@ -268,6 +272,7 @@ function shortcode_visitor_votes_callback ($atts) {
               //Else mean user is not logged in
                 else {
 
+                    $vote_if_user_already_rated = 0;
 
                     if ($votes_number>0) {
                         $shortcode_html="<div id=\"yasr_visitor_votes\"><div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
@@ -297,7 +302,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
           ?>
 
-            <script>
+            <script type="text/javascript">
                 jQuery(document).ready(function() {
 
                     var tooltipvalues = ['bad', 'poor', 'ok', 'good', 'super'];
@@ -312,32 +317,11 @@ function shortcode_visitor_votes_callback ($atts) {
                     //json encode convert php type to javascript type
                     var logged_user = <?php echo json_encode(is_user_logged_in()); ?>
 
-                    //On click Insert visitor votes
-                    jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
-                        var el = jQuery(this);
-                        var value = el.rateit('value');
-                        var value = value.toFixed(1); //
+                    var vote_if_user_already_rated = "<?php echo $vote_if_user_already_rated ?>";
 
-                        jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
-
-                        var data = {
-                            action: 'yasr_send_visitor_rating',
-                            rating: value,
-                            post_id: postid,
-                            size: size,
-                            nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
-                        };
-
-                        //Send value to the Server
-                        jQuery.post(ajaxurl, data, function(response) {
-                            //response
-                            jQuery('#yasr_visitor_votes').html(response); 
-                            jQuery('.rateit').rateit();
-                            //Create a cookie to disable double vote
-                            jQuery.cookie(cookiename, value, { expires : 360 }); 
-                        }) ;          
-                    });
-
+                    if (vote_if_user_already_rated == "0" ) {
+                        vote_if_user_already_rated = false;
+                    }
 
                     //If user is not logged in
                     if (! logged_user) {
@@ -364,13 +348,60 @@ function shortcode_visitor_votes_callback ($atts) {
 
                         } //End if jquery cookie
 
-                    }
+                        else {
+                            yasr_default_rating_shortcode ();
+                        }
 
-                    //If a logged in user has already voted, he/she can update the vote
+                    } //End if (!loggeduser)
 
+                    //else, if is a logged in user
                     else {
 
-                        jQuery('#yasr-rateit-visitor-votes-logged-rated').on('rated', function() {
+                        //Do this code only if he has rated yet
+                        //Check if has cookie or vote in db
+                        if (jQuery.cookie(cookiename) || vote_if_user_already_rated != '') {
+
+                            jQuery('#yasr-rateit-visitor-votes-logged-rated').on('rated', function() {
+
+                                var el = jQuery(this);
+                                var value = el.rateit('value');
+                                var value = value.toFixed(1); //
+
+                                jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
+
+                                var data = {
+                                        action: 'yasr_update_visitor_rating',
+                                        rating: value,
+                                        post_id: postid,
+                                        size: size,
+                                        nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+                                    };
+
+                                //Send value to the Server
+                                jQuery.post(ajaxurl, data, function(response) {
+                                    //response
+                                    jQuery('#yasr_visitor_votes').html(response); 
+                                    jQuery('.rateit').rateit();
+                                    //Create a cookie to disable double vote
+                                    jQuery.cookie(cookiename, value, { expires : 360 }); 
+                                }) ;      
+
+                            });//End function update vote
+
+                        } //End if jquery cookie
+
+                        else if (!jQuery.cookie(cookiename) && vote_if_user_already_rated == '') {
+
+                            yasr_default_rating_shortcode ();
+
+                        }
+
+                    } //End else logged
+
+                    function yasr_default_rating_shortcode () {
+
+                        //On click Insert visitor votes
+                        jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
 
                             var el = jQuery(this);
                             var value = el.rateit('value');
@@ -379,12 +410,12 @@ function shortcode_visitor_votes_callback ($atts) {
                             jQuery('#yasr_visitor_votes').html( ' <?php echo "$loader_html" ?> ');
 
                             var data = {
-                                    action: 'yasr_update_visitor_rating',
-                                    rating: value,
-                                    post_id: postid,
-                                    size: size,
-                                    nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
-                                };
+                                action: 'yasr_send_visitor_rating',
+                                rating: value,
+                                post_id: postid,
+                                size: size,
+                                nonce_visitor: "<?php echo "$ajax_nonce_visitor"; ?>"
+                            };
 
                             //Send value to the Server
                             jQuery.post(ajaxurl, data, function(response) {
@@ -393,11 +424,9 @@ function shortcode_visitor_votes_callback ($atts) {
                                 jQuery('.rateit').rateit();
                                 //Create a cookie to disable double vote
                                 jQuery.cookie(cookiename, value, { expires : 360 }); 
-                            }) ;      
-
-                        });//End function update vote
-
-                    }
+                            }) ;          
+                        });
+                    } //End function default_rating_shortcode
 
                 });
 

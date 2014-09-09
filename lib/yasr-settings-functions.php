@@ -36,6 +36,7 @@
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want ro rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
 		}
 
@@ -164,7 +165,7 @@
 		    	<hr />
 	    			  
 
-	    <?php
+	    	<?php
 		} //End yasr_auto_insert_callback
 
 
@@ -207,17 +208,17 @@
 
 	    	<br /> <br />
 
-	    	<input type='text' name='yasr_general_options[text_before_overall]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_overall]"); ?>' maxlength="40"/> 
+	    	<input type='text' name='yasr_general_options[text_before_overall]' id="yasr-general-options-custom-text-before-overall" class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_overall]"); ?>' maxlength="40"/> 
 				<?php _e('Custom text to display before Overall Rating', 'yasr')?>
 			
 			<br /> <br />
 
-			<input type='text' name='yasr_general_options[text_before_visitor_rating]' class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
+			<input type='text' name='yasr_general_options[text_before_visitor_rating]' id="yasr-general-options-custom-text-before-visitor" class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
 				<?php _e('Custom text to display before Visitor Rating', 'yasr')?>
 
 			<br /> <br />
 
-			<input type='text' name='yasr_general_options[custom_text_user_voted]' class='yasr-general-options-text-before' value='<?php echo ("$option[custom_text_user_voted]"); ?>' maxlength="60"/> 
+			<input type='text' name='yasr_general_options[custom_text_user_voted]' id="yasr-general-options-custom-text-already-rated" class='yasr-general-options-text-before' value='<?php echo "$option[custom_text_user_voted]"; ?>' maxlength="60"/> 
 				<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
 			
 
@@ -283,7 +284,7 @@
 
 			<hr>
 
-		<?php
+			<?php
 
 		} //End function
 
@@ -317,9 +318,25 @@
 		   			 ?>
 		   		</div>
 
-	<?php
+			<?php
 
 		} //End function yasr_choose_snippet_callback
+
+		function yasr_choose_overall_rating_method_callback($option) {
+
+			?>
+
+			<input type="radio" name="yasr_general_options[metabox_overall_rating]" value="stars" class="yasr_choose_overall_rating_method" <?php if ($option['metabox_overall_rating']==='stars') echo " checked=\"checked\" "; ?> >
+		    		<?php _e('Stars', 'yasr') ?>
+		   			<br />
+
+	    	<input type="radio" name="yasr_general_options[metabox_overall_rating]" value="numbers" class="yasr_choose_overall_rating_method" <?php if ($option['metabox_overall_rating']==='numbers') echo " checked=\"checked\" "; ?> >
+	    		<?php _e('Numbers', 'yasr')?>
+	   			<br />
+
+		    <?php
+
+		}
 
 
 

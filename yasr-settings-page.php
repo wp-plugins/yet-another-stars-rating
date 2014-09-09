@@ -344,6 +344,9 @@ $n_multi_set = NULL;
 
 				jQuery('#yasr_text_before_star_on').on('click', function(){
 					jQuery('.yasr-general-options-text-before').prop('disabled', false);
+					jQuery('#yasr-general-options-custom-text-before-overall').val('Our Score');
+					jQuery('#yasr-general-options-custom-text-before-visitor').val('Our Reader Score');
+					jQuery('#yasr-general-options-custom-text-already-rated').val('You cannot vote again');
 				});
 
 				jQuery('#yasr_text_before_star_off').on('click', function(){
