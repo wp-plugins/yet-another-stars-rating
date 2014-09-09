@@ -94,45 +94,48 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         <?php _e("Rate this article / item", "yasr"); ?> 
                     </span>
 
+                    <div id="yasr-vote-with-numbers-select-container">
 
-                    <select name="yasr-vote-overall-numbers-int" id="yasr-vote-overall-numbers-int" class="yasr-vote-overall-numbers">
+                        <select name="yasr-vote-overall-numbers-int" id="yasr-vote-overall-numbers-int" class="yasr-vote-overall-numbers">
 
-                        <?php
+                            <?php
 
-                        for ($i=0; $i<=5; $i++) {
+                            for ($i=0; $i<=5; $i++) {
 
-                            if ($i == $int) {
-                                echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+                                if ($i == $int) {
+                                    echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+                                }
+
+                                else {
+                                    echo "<option value=\"$i\">$i</option>\n";
+                                }
                             }
 
-                            else {
-                                echo "<option value=\"$i\">$i</option>\n";
+                            ?>
+
+                        </select>
+
+                        <span id="yasr-comma-between-select">,</span>
+
+                        <select name="yasr-vote-overall-numbers-dec" id="yasr-vote-overall-numbers-dec" class="yasr-vote-overall-numbers">
+
+                            <?php
+
+                            for ($i=0; $i<=9; $i++) {
+                                if ($i == $dec) {
+                                    echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+                                }
+
+                                else {
+                                    echo "<option value=\"$i\">$i</option>\n";
+                                }
                             }
-                        }
 
-                        ?>
+                            ?>
 
-                    </select>
+                        </select>
 
-                    <span id="yasr-comma-between-select">,</span>
-
-                    <select name="yasr-vote-overall-numbers-dec" id="yasr-vote-overall-numbers-dec" class="yasr-vote-overall-numbers">
-
-                        <?php
-
-                        for ($i=0; $i<=9; $i++) {
-                            if ($i == $dec) {
-                                echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
-                            }
-
-                            else {
-                                echo "<option value=\"$i\">$i</option>\n";
-                            }
-                        }
-
-                        ?>
-
-                    </select>
+                    </div>
 
                     <p>
 

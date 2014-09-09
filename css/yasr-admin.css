@@ -179,6 +179,10 @@ div.bigstars .rateit-selected
     display: block;
 }
 
+#yasr-vote-with-numbers-select-container {
+    display: block;
+}
+
 #yasr-vote-with-numbers {
     text-align: center;
 }
