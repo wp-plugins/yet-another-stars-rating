@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
 "POT-Creation-Date: 2014-09-09 11:36+0100\n"
-"PO-Revision-Date: 2014-09-09 11:37+0100\n"
-"Last-Translator: Dario <thedudoworld@gmail.com>\n"
+"PO-Revision-Date: 2014-09-13 12:09+0100\n"
+"Last-Translator: Josef Seidl <info@blog-it-solutions.de>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -25,9 +25,8 @@ msgstr ""
 "zuzugreifen."
 
 #: ../yasr-settings-page.php:15
-#, fuzzy
 msgid "Settings"
-msgstr "Einstellungen gespeichert"
+msgstr "Einstellungen"
 
 #: ../yasr-settings-page.php:58
 msgid "General Settings"
@@ -187,9 +186,8 @@ msgstr ""
 "ein, wo die Bewertung angezeigt werden soll."
 
 #: ../yasr-metabox-overall-rating.php:156
-#, fuzzy
 msgid "Save Vote"
-msgstr "Speichern"
+msgstr "Bewertung speichern"
 
 #: ../lib/yasr-shortcode-functions.php:190
 #: ../lib/yasr-shortcode-functions.php:202
@@ -220,9 +218,8 @@ msgstr "Gesamt:"
 #: ../lib/yasr-shortcode-functions.php:264
 #: ../lib/yasr-shortcode-functions.php:279
 #: ../lib/yasr-shortcode-functions.php:285
-#, fuzzy
 msgid "Average: "
-msgstr "Durchschnitt"
+msgstr "Durchschnitt:"
 
 #: ../lib/yasr-shortcode-functions.php:191
 #: ../lib/yasr-shortcode-functions.php:248
@@ -293,7 +290,7 @@ msgstr "Welches Rich Snippet willst du nutzen?"
 
 #: ../lib/yasr-settings-functions.php:39
 msgid "How do you want ro rate \"Overall Rating\"?"
-msgstr ""
+msgstr "Wie soll die Gesamtbewertung angezeigt werden?"
 
 #: ../lib/yasr-settings-functions.php:53
 msgid "Use Auto Insert?"
@@ -368,15 +365,17 @@ msgstr "Seiten ausschließen?"
 
 #: ../lib/yasr-settings-functions.php:141
 msgid "Use only in custom post types?"
-msgstr ""
+msgstr "Nur in benutzerdefinierten Post-Typen nutzen?"
 
 #: ../lib/yasr-settings-functions.php:153
 msgid "You see this because you use custom post types."
-msgstr ""
+msgstr "Das hier wird angezeigt, weil du benutzerdefinierte Post-Typen nutzt."
 
 #: ../lib/yasr-settings-functions.php:155
 msgid "If you want to use auto insert only in custom post types, choose Yes"
 msgstr ""
+"Wenn du das automatische Einfügen der Bewertungen nur in benutzerdefinierten "
+"Post-Typen benutzen möchtest, wähle Ja."
 
 #: ../lib/yasr-settings-functions.php:186
 msgid ""
@@ -460,11 +459,11 @@ msgstr ""
 
 #: ../lib/yasr-settings-functions.php:330
 msgid "Stars"
-msgstr ""
+msgstr "Sterne"
 
 #: ../lib/yasr-settings-functions.php:334
 msgid "Numbers"
-msgstr ""
+msgstr "Zahlen"
 
 #: ../lib/yasr-settings-functions.php:347
 msgid "Add New Multiple Set"
@@ -671,23 +670,20 @@ msgid " on 5.0"
 msgstr " mit 5"
 
 #: ../lib/yasr-functions.php:302
-#, fuzzy
 msgid " average rating "
-msgstr "Durchschnittsbewertung"
+msgstr " Durchschnittsbewertung"
 
 #: ../lib/yasr-functions.php:303
 msgid " user ratings"
 msgstr " Besucherbewertungen"
 
 #: ../lib/yasr-ajax-functions.php:67
-#, fuzzy
 msgid "You've rated it "
-msgstr " ist bewertet mit "
+msgstr "Bewertung abgegeben"
 
 #: ../lib/yasr-ajax-functions.php:71
-#, fuzzy
 msgid "You've reset the vote"
-msgstr "Um eine Bewertung abzugeben musst du angemeldet sein"
+msgstr "Die Bewertung wurde zurückgesetzt"
 
 #: ../lib/yasr-ajax-functions.php:108
 msgid "Choose a vote for each element"
@@ -903,7 +899,7 @@ msgstr "Durchschnitt"
 
 #: ../lib/yasr-ajax-functions.php:1297 ../lib/yasr-ajax-functions.php:1335
 msgid "You've not enought data"
-msgstr ""
+msgstr "Es sind nicht genug Daten vorhanden"
 
 #~ msgid " rating "
 #~ msgstr " Bewertung"
