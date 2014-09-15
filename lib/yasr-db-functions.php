@@ -156,10 +156,22 @@ function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 }
 
 /****** Get visitor votes ******/
-function yasr_get_visitor_votes () {
+function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
 	global $wpdb;
 
-	$post_id=get_the_ID();
+	//if values it's not passed get the post id, most of cases and default one
+	if(!$post_id_referenced) {
+
+		$post_id=get_the_ID();
+
+	}
+
+	//referenced is necessary for ajax calls
+	else {
+
+		$post_id = $post_id_referenced;
+
+	}
 
 	$result = $wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
 
@@ -306,56 +318,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			</div>";
 
-	}
-
-		?>
-
-		<script type="text/javascript">
-
-		jQuery(document).ready(function() {
-
-			//Log
-			jQuery('.yasr-log-pagenum').on('click', function() {
-
-				jQuery('#yasr-loader-log-metabox').show();
-
-				var data = { 
-					action : 'yasr_change_log_page',
-					pagenum: jQuery(this).val(),
-
-				};
-
-				jQuery.post(ajaxurl, data, function(response) {
-					jQuery('#yasr-loader-log-metabox').hide();
-					jQuery('#yasr-log-container').html(response);
-				});
-
-			});
-
-			jQuery(document).ajaxComplete(function() {
-
-				jQuery('.yasr-log-page-num').on('click', function() {
-
-					jQuery('#yasr-loader-log-metabox').show();
-
-					var data = { 
-						action : 'yasr_change_log_page',
-						pagenum: jQuery(this).val(),
-					};
-
-					jQuery.post(ajaxurl, data, function(response) {
-						jQuery('#yasr-log-container').html(response); //This will hide the loader gif too
-					});
-
-				});
-
-			});
-
-		});
-
-		</script>
-
-		<?php
+		}
 
 	} //End callback function
 

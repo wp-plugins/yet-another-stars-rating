@@ -28,6 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
+        wp_enqueue_script( 'yasrfront', YASR_JS_DIR . 'yasr-front.min.js' , array('jquery', 'rateit'), '1.0.00', TRUE );
+
 	}
 
     function yasr_add_admin_scripts () {
@@ -37,6 +39,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
         wp_enqueue_script( 'jquery-ui-dialog' );
+
+        wp_enqueue_script( 'yasradmin', YASR_JS_DIR . 'yasr-admin.min.js' , array('jquery', 'rateit'), '1.0.00', TRUE );
+
 
     }
 

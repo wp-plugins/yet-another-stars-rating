@@ -162,7 +162,7 @@ $n_multi_set = NULL;
 				<div class="yasr-space-settings-div">
 				</div>
 
-<?php
+				<?php
 			} //$gd_star_rating_found && $gd_star_imported==1$gd_star_rating_found = yasr_search_gd_star_rating();
 
 		} //End if tab 'general_settings'
@@ -319,181 +319,16 @@ $n_multi_set = NULL;
 
 	    jQuery( document ).ready(function() {
 
-		   	var active_tab = "<?php echo "$active_tab"; ?>";
+	    	var activeTab = <?php echo (json_encode("$active_tab")); ?>;
 
-		   	var n_multi_set = <?php echo (json_encode("$n_multi_set")); ?> ;//Null in php is different from javascript NULL
+   			var nMultiSet = <?php echo (json_encode("$n_multi_set")); ?> ;//Null in php is different from javascript NULL
 
-		   	var auto_insert_enabled = "<?php echo YASR_AUTO_INSERT_ENABLED ?>";
+   			var autoInsertEnabled = <?php echo (json_encode(YASR_AUTO_INSERT_ENABLED)); ?>;
 
-		   	//-------------------General Settings Code---------------------
+   			var customText = <?php echo (json_encode(YASR_TEXT_BEFORE_STARS)); ?>
 
-		   	if (active_tab == 'general_settings') {
-
-		   		if (auto_insert_enabled == 0) {
-		   			jQuery('.yasr-auto-insert-options-class').prop('disabled', true);
-		   		}
-
-				//First Div
-				jQuery('#yasr_auto_insert_radio_on').on('click', function(){
-					jQuery('.yasr-auto-insert-options-class').prop('disabled', false);
-				});
-
-				jQuery('#yasr_auto_insert_radio_off').on('click', function(){
-					jQuery('.yasr-auto-insert-options-class').prop('disabled', true);
-				});
-
-				jQuery('#yasr_text_before_star_on').on('click', function(){
-					jQuery('.yasr-general-options-text-before').prop('disabled', false);
-					jQuery('#yasr-general-options-custom-text-before-overall').val('Our Score');
-					jQuery('#yasr-general-options-custom-text-before-visitor').val('Our Reader Score');
-					jQuery('#yasr-general-options-custom-text-already-rated').val('You cannot vote again');
-				});
-
-				jQuery('#yasr_text_before_star_off').on('click', function(){
-					jQuery('.yasr-general-options-text-before').prop('disabled', true);
-				});
-
-				jQuery('#yasr-color-scheme-preview-link').on('click', function () {
-					jQuery('#yasr-color-scheme-preview').toggle('slow');
-					return false; // prevent default click action from happening!
-				});
-
-				jQuery('#yasr-snippet-explained-link').on('click', function () {
-					jQuery('#yasr-snippet-explained').toggle('slow');
-					return false; // prevent default click action from happening!
-				});
-
-
-				//Second div code
-
-				//On click show proceed button
-				jQuery('#import-gdstar').on('click', function() { 
-					jQuery('#yasr-import-gdstar-div').toggle();
-				});
-
-				//On click begin step1
-				jQuery('#import-button').on('click', function() {
-
-					var data = { 
-						action : 'yasr_import_step1'
-					};
-
-					jQuery.post(ajaxurl, data, function(response) {
-						jQuery('#result-import').html(response);
-					});
-
-				}); //End step1
-
-				jQuery('#result-import').on('click', '.yasr-result-step-1', function() {
-					//Now we are going to prepare another ajax call to check if multiple set exists
-
-					var data = {
-						action: 'yasr_import_multi_set'
-					};
-						
-					jQuery.post(ajaxurl, data, function(response) {
-						jQuery('#result-import').append(response);
-					});
-
-				}); //End second ajax call */
-
-				//Reload page after importing is done
-				jQuery('#result-import').on('click', '.yasr-result-step-2', function() {
-					location.reload(true);
-				});
-
-			} //End if general settings
-
-
-			//--------------Multi Sets Page ------------------
-
-			if (active_tab == 'manage_multi') {
-
-				jQuery('#yasr-multi-set-doc-link').on('click', function() {
-					jQuery('#yasr-multi-set-doc-box').toggle("slow");
-				});
-
-				jQuery('#yasr-multi-set-doc-link-hide').on('click', function() {
-					jQuery('#yasr-multi-set-doc-box').toggle("slow");
-				});
-
-				if (n_multi_set == 1) { 
-
-					var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
-
-			    	counter++;
-
-					jQuery("#yasr-add-field-edit-multiset").on('click', function() {
-
-						if(counter>9){
-			           		jQuery('#yasr-element-limit').show();
-			           		jQuery('#yasr-add-field-edit-multiset').hide();
-			            	return false;
-						}   
-				 
-						var newTextBoxDiv = jQuery(document.createElement('tr'))
-			 
-						newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-			 
-						newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-			 
-			 			counter++;
-
-					});
-
-
-				} //End if ($n_multi_set == 1)
-
-				if (n_multi_set > 1) { 
-
-				    //If more then 1 set is used...
-					jQuery('#yasr-button-select-set-edit-form').on("click", function() {
-						    
-					    var data = {
-					    	action : 'yasr_get_multi_set',
-					    	set_id : jQuery('#yasr_select_edit_set').val()
-					    } 
-					    
-					    jQuery.post(ajaxurl, data, function(response) {
-					    	jQuery('#yasr-multi-set-response').show();
-		     				jQuery('#yasr-multi-set-response').html(response);
-		     			});
-
-		     			return false; // prevent default click action from happening!
-	            		preventDefault(); // same thing as above
-
-					});
-			 
-					jQuery(document).ajaxComplete(function(){
-
-						var counter = jQuery("#yasr-edit-form-number-elements").attr('value');
-
-				    	counter++;
-			 
-				    	jQuery("#yasr-add-field-edit-multiset").on('click', function() {
-				 
-							if(counter>9){
-				           		jQuery('#yasr-element-limit').show();
-				           		jQuery('#yasr-add-field-edit-multiset').hide();
-				            	return false;
-							}   
-				 
-							var newTextBoxDiv = jQuery(document.createElement('tr'))
-				 
-							newTextBoxDiv.html('<td colspan="2">Element #' + counter + ' <input type="text" name="edit-multi-set-element-' + counter + '" value="" ></td>');
-				 
-							newTextBoxDiv.appendTo("#yasr-table-form-edit-multi-set");
-				 
-				 			counter++;
-
-				    	});
-			 
-			  		});
-
-			  	} //End if ($n_multi_set > 1) 
-
-			} //end if active_tab=='manage_multi'
+		   	YasrSettingsPage(activeTab, nMultiSet, autoInsertEnabled, customText);
 
 	    }); //End jquery document ready
  		
-    </script>
+	</script>

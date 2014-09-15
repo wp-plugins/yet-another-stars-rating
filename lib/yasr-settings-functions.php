@@ -318,6 +318,10 @@
 		   			 ?>
 		   		</div>
 
+		   		<p>&nbsp;</p>
+
+		   		<hr>
+
 			<?php
 
 		} //End function yasr_choose_snippet_callback

@@ -25,7 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
     $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
 
-    $ajax_nonce_switch = wp_create_nonce( "yasr_nonce_switch_overall_rating" );
 
 ?>
 
@@ -174,109 +173,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 </div>
 
-<!--Switcher-->
 <script type="text/javascript">
 
     jQuery(document).ready(function() {
 
-        var defaultbox = "<?php echo YASR_METABOX_OVERALL_RATING ?>";
+        var defaultbox = <?php echo (json_encode(YASR_METABOX_OVERALL_RATING)); ?>;
 
-        yasr_display_metabox(defaultbox);
+        var nonceOverall = <?php echo (json_encode("$ajax_nonce_overall")); ?>;
 
-        function yasr_display_metabox(defaultbox) {
+        var postid = <?php json_encode(the_ID()); ?>;
 
-            if (defaultbox == 'stars' ) { 
-
-                yasr_print_event_send_overall_with_stars();             
-
-            } //end if if (defaultbox == 'stars' )
-
-            else if (defaultbox == 'numbers') {
-
-                yasr_print_event_send_overall_with_numbers();
-
-            } //End else if (defaultbox == 'numbers')
-
-        } //End function   yasr_display_metabox*/
-
-
-        //This is for the stars
-        function yasr_print_event_send_overall_with_stars() {
-
-            jQuery('#yasr_rateit_overall').on('rated', function() { 
-                jQuery('#loader-overall-rating').show();
-                var el = jQuery(this);
-                var postid = <?php the_ID(); ?>;
-                var value = el.rateit('value');
-                var value = value.toFixed(1); //
-
-                var data = {
-                    action: 'yasr_send_overall_rating',
-                    nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
-                    rating: value,
-                    post_id: postid
-                };
-
-                //Send value to the Server
-                jQuery.post(ajaxurl, data, function(response) {
-                    jQuery('#loader-overall-rating').hide();
-                    jQuery('#yasr_rateit_overall_value').text(response); 
-                }) ;
-
-            });
-
-            jQuery('#yasr_rateit_overall').on('reset', function() { 
-                jQuery('#loader-overall-rating').show();
-                var el = jQuery(this);
-                var postid = <?php the_ID(); ?>;
-                var value = '-1';
-
-                var data = {
-                    action: 'yasr_send_overall_rating',
-                    nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
-                    rating: value,
-                    post_id: postid
-                };
-
-                //Send value to the Server
-                jQuery.post(ajaxurl, data, function(response) {
-                    jQuery('#loader-overall-rating').hide();
-                    jQuery('#yasr_rateit_overall_value').text(response); 
-                }) ;
-
-            });
-
-        }
-
-        //This is for the numbers
-        function yasr_print_event_send_overall_with_numbers() {
-            
-            jQuery('#yasr-send-overall-numbers').on('click', function() {
-
-                var integer = jQuery('#yasr-vote-overall-numbers-int').val();
-
-                var decimal = jQuery('#yasr-vote-overall-numbers-dec').val();
-
-                var value = integer + "." + decimal;
-
-                var data = {
-                    action: 'yasr_send_overall_rating',
-                    nonce: "<?php echo "$ajax_nonce_overall"; ?>", 
-                    rating: value,
-                    post_id: <?php the_ID(); ?>
-                };
-
-                //Send value to the Server
-                jQuery.post(ajaxurl, data, function(response) {
-                    jQuery('#yasr-overall-numbers-saved-confirm').text(response);
-                }) ;
-
-                return false;
-                preventDefault(); // same thing as above
-
-            });
-
-        }
+        yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall);
 
     }); //End document ready
 

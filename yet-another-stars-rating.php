@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.5.4
+ * Version: 0.5.5
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.5.4');
+define('YASR_VERSION_NUM', '0.5.5');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -135,16 +135,27 @@ if ( YASR_AUTO_INSERT_ENABLED == 1 ) {
 	define ("YASR_AUTO_INSERT_SIZE", $stored_options['auto_insert_size']);
 	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", $stored_options['auto_insert_exclude_pages']);
 
-	if (!$stored_options['auto_insert_custom_post_only']) {
-		$stored_options['auto_insert_custom_post_only'] = 0;
+
+	$custom_post_types = yasr_get_custom_post_type('bool');
+
+	if ($custom_post_types) {
+		define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
 	}
 
-	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
+	else {
+		define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", FALSE);
+	}
 
 }
 
+//Avoid undefined index
 else {
-	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", "yes"); //Avoide undefined variable in yasr-shortcode-function line 56 and 81
+	define ("YASR_AUTO_INSERT_WHAT", NULL);
+	define ("YASR_AUTO_INSERT_WHERE", NULL);
+	define ("YASR_AUTO_INSERT_SIZE", NULL);
+	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", "yes");
+	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", NULL);
+
 }
 
 define ("YASR_SHOW_OVERALL_IN_LOOP", $stored_options['show_overall_in_loop']);
