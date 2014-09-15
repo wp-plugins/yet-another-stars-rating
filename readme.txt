@@ -2,8 +2,8 @@
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 0.5.0
+Tested up to: 4.0
+Stable tag: 0.5.5
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,25 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Chart Top 10 overall ratings
 
 == Changelog ==
+
+= 0.5.5 =
+* All the javascript have been moved from inline to external. It can be minimized so it's faster. DELETE ALL YOUR CACHES
+* Fixed a possible bug if user manually delete data in a table
+
+= 0.5.4 =
+* New feature: you can used numbers instead stars to insert the "overall rating" value. Just go in the setting and choose what you want to use
+* Fixed a division by 0 warning while using [yasr_most_or_highest_rated_posts] : this happened when there wan't enought data to shows 
+* Many bux fix in [yasr_visitor_rating] : further this now it is faster
+
+= 0.5.3 =
+* Fixed a non closing div. This can cause problem when used in old template 
+
+= 0.5.2 =
+* Bugfixes
+
+= 0.5.1 =
+* Added support for wordpress 4.0
+* Huge code cleanup in [yasr_visitor_votes]
 
 = 0.5.0 =
 * New feature: added auto insert for custom post types only (you will see this only if you use custom post types)

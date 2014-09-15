@@ -442,156 +442,14 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             </div>
 
-            <script>
+            <script type="text/javascript">
 
-                // When click on chart chart hide tab-main and show tab-charts
-                jQuery('#yasr-link-tab-charts').on("click", function(){
+                jQuery( document ).ready(function() {
 
-                    jQuery('#yasr-link-tab-main').removeClass('nav-tab-active');
-                    jQuery('#yasr-link-tab-charts').addClass('nav-tab-active');
+                    var nMultiSet = <?php echo (json_encode("$n_multi_set")); ?>
+                    
+                    yasrShortcodeCreator(nMultiSet);
 
-                    jQuery('#yasr-content-tab-main').hide();
-                    jQuery('#yasr-content-tab-charts').show();
-
-                });
-
-                // When click on main tab hide tab-main and show tab-charts
-                jQuery('#yasr-link-tab-main').on("click", function(){
-
-                    jQuery('#yasr-link-tab-charts').removeClass('nav-tab-active');
-                    jQuery('#yasr-link-tab-main').addClass('nav-tab-active');
-
-                    jQuery('#yasr-content-tab-charts').hide();
-                    jQuery('#yasr-content-tab-main').show();
-
-                });
-
-                // Add shortcode for overall rating                
-                jQuery('#yasr-overall').on("click", function(){
-                    jQuery('#yasr-overall-choose-size').toggle('slow');
-                });
-
-                    jQuery('#yasr-overall-insert-small').on("click", function(){
-                        var shortcode = '[yasr_overall_rating size="small"]';
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes jqueryui
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                    jQuery('#yasr-overall-insert-medium').on("click", function(){
-                        var shortcode = '[yasr_overall_rating size="medium"]';
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes jqueryui
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                    jQuery('#yasr-overall-insert-large').on("click", function(){
-                        var shortcode = '[yasr_overall_rating size="large"]';
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes jqueryui
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                //Add shortcode for visitors rating
-                jQuery('#yasr-visitor-votes').on("click", function(){
-                    jQuery('#yasr-visitor-choose-size').toggle('slow');
-                });
-
-                    jQuery('#yasr-visitor-insert-small').on("click", function(){
-                        var shortcode = '[yasr_visitor_votes size="small"]';   
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                    jQuery('#yasr-visitor-insert-medium').on("click", function(){
-                        var shortcode = '[yasr_visitor_votes size="medium"]';   
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                    jQuery('#yasr-visitor-insert-large').on("click", function(){
-                        var shortcode = '[yasr_visitor_votes size="large"]';   
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes Thickbox
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                <?php if ($n_multi_set>1) { ?>
-
-                    //Add shortcode for multiple set
-                    jQuery('.yasr_tinymce_select_set').on("click", function(){
-                        var setType = jQuery("input:radio[name=yasr_tinymce_pick_set]:checked" ).val();
-                        var shortcode = '[yasr_multiset setid=';
-                        shortcode += setType;
-                        shortcode += ']';
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes jqueryui
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                <?php } //End if
-
-                elseif ($n_multi_set==1) { ?>
-
-                //Add shortcode for single set (if only 1 are found)
-                    jQuery('#yasr-single-set').on("click", function(){
-                        var setType = jQuery('#yasr-single-set').val();
-                        var shortcode = '[yasr_multiset setid=';
-                        shortcode += setType;
-                        shortcode += ']';
-                        // inserts the shortcode into the active editor
-                        tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                        // closes jqueryui
-                        jQuery('#yasr-tinypopup-form').dialog('close');
-                    });
-
-                <?php 
-                }
-                //End elseif ?>
-
-                // Add shortcode for top 10 by overall ratings
-                jQuery('#yasr-top-10-overall-rating').on("click", function(){
-                    var shortcode = '[yasr_top_ten_highest_rated]';
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes jqueryui
-                    jQuery('#yasr-tinypopup-form').dialog('close');
-                });
-
-                // Add shortcode for 10 highest most rated
-                jQuery('#yasr-10-highest-most-rated').on("click", function(){
-                    var shortcode = '[yasr_most_or_highest_rated_posts]';
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes jqueryui
-                    jQuery('#yasr-tinypopup-form').dialog('close');
-                });
-
-                // Add shortcode for top 5 active reviewer
-                jQuery('#yasr-5-active-reviewers').on("click", function(){
-                    var shortcode = '[yasr_top_5_reviewers]';
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes jqueryui
-                    jQuery('#yasr-tinypopup-form').dialog('close');
-                });
-
-                // Add shortcode for top 10 active users
-                jQuery('#yasr-top-10-active-users').on("click", function(){
-                    var shortcode = '[yasr_top_ten_active_users]';
-                    // inserts the shortcode into the active editor
-                    tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
-                    // closes jqueryui
-                    jQuery('#yasr-tinypopup-form').dialog('close');
                 });
 
             </script>
@@ -998,7 +856,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($size == 'small') {
 
                 echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
                 <strong>" . __("Vote Saved" , "yasr") . "</strong>";
 
             }
@@ -1006,7 +864,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             elseif ($size == 'medium') {
 
                 echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
                 <strong>" . __("Vote Saved" , "yasr") . "</strong>";
 
             }
@@ -1014,7 +872,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
 
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$medium_rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
                 <strong>" . __("Vote Saved" , "yasr") . "</strong>";
 
             }
@@ -1026,7 +884,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($size == 'small') {
 
                 echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
 
             }
@@ -1034,14 +892,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($size == 'medium') {
 
                 echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
 
             }
 
             elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
                 echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . "$rating/5 ]</span>
+                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
                 <strong>". __("Vote Saved" , "yasr");
             }
         
@@ -1086,6 +944,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $number_of_votes = $votes->number_of_votes;
         }
 
+        //Avoid division by 0. This should never happen, just to be safe, check this post
+        //http://wordpress.org/support/topic/warning-division-by-zero-in-4?replies=2
+        if ($number_of_votes < 1) {
+            $number_of_votes = 1;
+        }
 
         foreach ($previous_vote as $vote) {
             $old_vote = $vote->vote;
@@ -1169,12 +1032,29 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
-            $average_rating= $_POST['votes'];
-            $number_of_votes = $_POST['votes_number'];
         }
         else {
             exit();
         }
+
+        global $wpdb;
+
+        //I've to pass post_id here cause get_the_id doesn't work if called with ajax
+        $array_votes=yasr_get_visitor_votes($post_id);
+
+        foreach ($array_votes as $vote) {
+            $number_of_votes = $vote->number_of_votes;
+            $sum_votes = $vote->sum_votes;
+        }
+
+        $average_rating = $sum_votes/$number_of_votes;
+
+        //This should never happen, only if a user manually erase data from tables
+        if ($number_of_votes == 0) {
+            $number_of_votes = 1;
+        }
+
+        $average_rating = round ($average_rating, 1);
 
 
         //Check if user specifyed a custom text to display when a vistor har rated
@@ -1229,6 +1109,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
                                                 FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
                                                 WHERE post_id = p.ID
+                                                AND number_of_votes >= 1
                                                 AND p.post_status = 'publish'
                                                 ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
 
@@ -1275,6 +1156,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
             } //End if $query_result_most_rated)
 
+            else {
+                _e("You've not enought data","yasr");
+                echo "<br />";
+            }
+
             
             if ($query_result_highest) {
 
@@ -1307,10 +1193,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 echo "</table>";
 
             } //end if $query_result
+
+            else {
+                _e("You've not enought data","yasr");
+                echo "<br />";
+            }
     
         die();
 
     } //End function
-
 
 ?>
