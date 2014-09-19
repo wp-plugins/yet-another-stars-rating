@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.5.0
+ * Version: 0.5.6
  * Author: Dario Curvino
  * Author URI: http://profiles.wordpress.org/dudo/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.5.0');
+define('YASR_VERSION_NUM', '0.5.6');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -85,6 +85,7 @@ define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
 define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
+//remove end of september
 if ($version_installed && $version_installed < '0.4.1') {
 
 	$option = get_option( 'yasr_general_options' );
@@ -95,11 +96,23 @@ if ($version_installed && $version_installed < '0.4.1') {
 
 }
 
+//remove mid november
 if ($version_installed && $version_installed < '0.5.0') {
 
 	$option = get_option( 'yasr_general_options' );
 
     $option['auto_insert_custom_post_only'] = 'no';
+
+    update_option("yasr_general_options", $option);
+
+}
+
+//remove end november
+if ($version_installed && $version_installed < '0.5.4') {
+
+	$option = get_option( 'yasr_general_options' );
+
+    $option['metabox_overall_rating'] = 'stars';
 
     update_option("yasr_general_options", $option);
 
@@ -122,11 +135,26 @@ if ( YASR_AUTO_INSERT_ENABLED == 1 ) {
 	define ("YASR_AUTO_INSERT_SIZE", $stored_options['auto_insert_size']);
 	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", $stored_options['auto_insert_exclude_pages']);
 
-	if (!$stored_options['auto_insert_custom_post_only']) {
-		$stored_options['auto_insert_custom_post_only'] = 0;
+
+	$custom_post_types = yasr_get_custom_post_type('bool');
+
+	if ($custom_post_types) {
+		define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
 	}
 
-	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", $stored_options['auto_insert_custom_post_only']);
+	else {
+		define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", FALSE);
+	}
+
+}
+
+//Avoid undefined index
+else {
+	define ("YASR_AUTO_INSERT_WHAT", NULL);
+	define ("YASR_AUTO_INSERT_WHERE", NULL);
+	define ("YASR_AUTO_INSERT_SIZE", NULL);
+	define ("YASR_AUTO_INSERT_EXCLUDE_PAGES", "yes");
+	define ("YASR_AUTO_INSERT_CUSTOM_POST_ONLY", NULL);
 
 }
 
@@ -159,5 +187,8 @@ else {
 	define ("YASR_CUSTOM_CSS_RULES", NULL);
 
 }
+
+define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
+
 
 ?>

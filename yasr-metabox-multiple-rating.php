@@ -1,10 +1,30 @@
 <?php 
 
+/*
+
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
 if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
 
 $multi_set=yasr_get_multi_set();
 
 $ajax_nonce_multi = wp_create_nonce( "yasr_nonce_insert_multi_rating" );
+
+$set_id=NULL;
 
 global $wpdb;
 
@@ -14,187 +34,65 @@ if ($n_multi_set>1) {
 
    _e("Choose wich set you want to use");
 
-?>
+    ?>
 
-      <br />
-      <select id ="select_set">
+    <br />
+    <select id ="select_set">
         <?php foreach ($multi_set as $name) { ?>
     		    <option value="<?php echo $name->set_id ?>"><?php echo $name->set_name ?></option>
     	  <?php } //End foreach ?>
-      </select>
+    </select>
 
-      <button href="#" class="button-delete" id="yasr-button-select-set"><?php _e("Select"); ?></button>
+    <button href="#" class="button-delete" id="yasr-button-select-set"><?php _e("Select"); ?></button>
 
-      <span id="yasr-loader-select-multi-set" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
-      </span>
+    <span id="yasr-loader-select-multi-set" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+    </span>
 
-      <script>
+    <?php 
 
-     // --------------IF multiple set are found -------------------
-
-
-    jQuery('#yasr-button-select-set').on("click", function() {
-      
-      var postid = <?php the_ID(); ?>;
-
-      var data_id = { 
-        action: 'yasr_send_id_nameset',
-        set_id: jQuery('#select_set').val(),
-        post_id: postid
-      }
-
-      jQuery("#yasr-loader-select-multi-set").show();
-
-      //Send value to the Server
-        jQuery.post(ajaxurl, data_id, function(response) {
-          jQuery("#yasr-loader-select-multi-set").hide();
-          jQuery('#yasr_rateit_multi_rating').html(response);
-          jQuery('.rateit').rateit();
-
-          jQuery('.multi').on('rated', function() { 
-              var el = jQuery(this);
-              var value = el.rateit('value');
-              var value = value.toFixed(1); 
-              var idField = el.attr('id');
-              var setType = jQuery('#select_set').val();
-
-              jQuery("#yasr-loader-multi-set-field-"+idField).show();
-
-              var data = {
-                action: 'yasr_send_id_field_with_vote',
-                nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
-                rating: value,
-                post_id: postid,
-                id_field: idField,
-                set_type: setType
-              };
-
-              //Send value to the Server
-              jQuery.post(ajaxurl, data, function() {
-                  jQuery("#yasr-loader-multi-set-field-"+idField).hide();
-              });
-          });
-
-
-          jQuery('.multi').on('reset', function() { 
-              var el = jQuery(this);
-              var value = '0';
-              var idField = el.attr('id');
-              var setType = jQuery('#select_set').val();
-
-              jQuery("#yasr-loader-multi-set-field-"+idField).show();
-
-              var data = {
-                action: 'yasr_send_id_field_with_vote',
-                nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
-                rating: value,
-                post_id: postid,
-                id_field: idField,
-                set_type: setType
-              };
-
-              //Send value to the Server
-              jQuery.post(ajaxurl, data, function() {
-                  jQuery("#yasr-loader-multi-set-field-"+idField).hide();
-              });
-          });
-        
-        });
-
-      return false; // prevent default click action from happening!
-      e.preventDefault(); // same thing as above
-
-    });
-
-    </script>
-
-
-    <?php
-
-} //End if 
+} //End if if ($n_multi_set>1)
 
 elseif ($n_multi_set==1) {
-    foreach ($multi_set as $find_id) { 
-        $set_id = $find_id->set_id;
-    }
 
-    ?>
+        foreach ($multi_set as $set) {
+            
+            $set_id = $set->set_id;
 
-    <script>
-    // --------------IF we're using just 1 set -------------------
-    jQuery( document ).ready(function() {
+        }
 
-      var postid = <?php the_ID(); ?>;
+}
 
-      var data_id = { 
-        action: 'yasr_send_id_nameset',
-        set_id: <?php echo $set_id ?>,
-        post_id: postid
-      }
-      
-      //Send value to the Server
-        jQuery.post(ajaxurl, data_id, function(response) {
-          jQuery('#yasr_rateit_multi_rating').html(response);
-          jQuery('.rateit').rateit();
 
-          jQuery('.multi').on('rated', function() { 
-              var el = jQuery(this);
-              var value = el.rateit('value');
-              var value = value.toFixed(1); 
-              var idField = el.attr('id');
+?>
 
-              jQuery("#yasr-loader-multi-set-field-"+idField).show();
+    <script type="text/javascript">
 
-              var data = {
-                action: 'yasr_send_id_field_with_vote',
-                nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
-                rating: value,
-                post_id: postid,
-                id_field: idField,
-                set_type: <?php echo $set_id ?>
-              };
+        jQuery(document).ready(function() {
 
-              //Send value to the Server
-              jQuery.post(ajaxurl, data, function() {
-                  jQuery("#yasr-loader-multi-set-field-"+idField).hide();
-              });
+            var nMultiSet = <?php echo (json_encode("$n_multi_set")); ?>
 
-          });
+            var postid = <?php echo (the_ID()); ?>
 
-          jQuery('.multi').on('reset', function() { 
-              var el = jQuery(this);
-              var value = '0';
-              var idField = el.attr('id');
-              var setType = <?php echo $set_id ?>
+            var nonceMulti = <?php echo (json_encode("$ajax_nonce_multi")); ?>
 
-              jQuery("#yasr-loader-multi-set-field-"+idField).show();
+            if (nMultiSet == 1) {
 
-              var data = {
-                action: 'yasr_send_id_field_with_vote',
-                nonce: "<?php echo "$ajax_nonce_multi"; ?>", 
-                rating: value,
-                post_id: postid,
-                id_field: idField,
-                set_type: setType
-              };
+                var setId = <?php echo (json_encode("$set_id")); ?>
 
-              //Send value to the Server
-              jQuery.post(ajaxurl, data, function() {
-                  jQuery("#yasr-loader-multi-set-field-"+idField).hide();
-              });
+            }
 
-          });
+            else {
 
-        });
-    });
+                var setID = false;
+
+            }
+
+            yasrDisplayMultiMetabox (nMultiSet, postid, nonceMulti, setId)
+
+
+        }); //End document ready
 
     </script>
-
-    <?php
-
-} //End elseif ($n_multi_set==1)
-
-    ?>
 
       <div>
           <p>

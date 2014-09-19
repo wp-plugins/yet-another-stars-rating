@@ -1,5 +1,23 @@
 <?php
 
+/*
+
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
 if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
 
 /****** Install yasr functions ******/
@@ -89,6 +107,7 @@ function yasr_install() {
 		$option['snippet'] = 'overall_rating';
 		$option['allowed_user'] = 'allow_anonymous';
 		$option['scheme_color'] = 'light';
+		$option['metabox_overall_rating'] = 'stars'; //This is not in settings page but in overall rating metabox
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
 
@@ -99,10 +118,22 @@ function yasr_install() {
 
 /****** Get overall rating from yasr_votes table
 used in yasr_add_filter_for_schema() and yasr_get_id_value_callback() ******/
-function yasr_get_overall_rating() {
+function yasr_get_overall_rating($post_id_referenced=FALSE) {
 	global $wpdb;
 
-	$post_id=get_the_ID();
+	//if values it's not passed get the post id, most of cases and default one
+	if(!$post_id_referenced) {
+
+		$post_id=get_the_ID();
+
+	}
+
+	//referenced is necessary for ajax calls
+	else {
+
+		$post_id = $post_id_referenced;
+
+	}
 
 	$result=$wpdb->get_results("SELECT overall_rating FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
 
@@ -143,10 +174,22 @@ function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 }
 
 /****** Get visitor votes ******/
-function yasr_get_visitor_votes () {
+function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
 	global $wpdb;
 
-	$post_id=get_the_ID();
+	//if values it's not passed get the post id, most of cases and default one
+	if(!$post_id_referenced) {
+
+		$post_id=get_the_ID();
+
+	}
+
+	//referenced is necessary for ajax calls
+	else {
+
+		$post_id = $post_id_referenced;
+
+	}
 
 	$result = $wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
 
@@ -293,52 +336,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			</div>";
 
-	}
-
-		?>
-
-		<script type="text/javascript">
-
-		//Log
-		jQuery('.yasr-log-pagenum').on('click', function() {
-
-			jQuery('#yasr-loader-log-metabox').show();
-
-			var data = { 
-				action : 'yasr_change_log_page',
-				pagenum: jQuery(this).val(),
-
-			};
-
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#yasr-loader-log-metabox').hide();
-				jQuery('#yasr-log-container').html(response);
-			});
-
-		});
-
-		jQuery(document).ajaxComplete(function() {
-
-			jQuery('.yasr-log-page-num').on('click', function() {
-
-				jQuery('#yasr-loader-log-metabox').show();
-
-				var data = { 
-					action : 'yasr_change_log_page',
-					pagenum: jQuery(this).val(),
-				};
-
-				jQuery.post(ajaxurl, data, function(response) {
-					jQuery('#yasr-log-container').html(response); //This will hide the loader gif too
-				});
-
-			});
-
-		});
-
-		</script>
-
-		<?php
+		}
 
 	} //End callback function
 

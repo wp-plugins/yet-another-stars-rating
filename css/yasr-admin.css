@@ -166,6 +166,39 @@ div.bigstars .rateit-selected
 
 /********** ADMIN RULES **********/
 
+/*** MEtabox overall rating ***/
+
+.yasr-switch-overall-rating-method {
+    font-size: x-small;
+    text-align: right;
+    display: block;
+    padding-bottom: 10px;
+}
+
+#yasr-rateit-vote-overall-text {
+    display: block;
+}
+
+#yasr-vote-with-numbers-select-container {
+    display: block;
+}
+
+#yasr-vote-with-numbers {
+    text-align: center;
+}
+
+#yasr-vote-overall-stars {
+    text-align: center;
+}
+
+#yasr-comma-between-select {
+    vertical-align: text-bottom;
+    line-height: 0.5em;
+}
+
+/*** End metabox overall rating ***/
+
+
 #multi_rating_table 
 {
 	vertical-align: text-top;
