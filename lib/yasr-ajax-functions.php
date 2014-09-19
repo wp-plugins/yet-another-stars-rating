@@ -1,5 +1,23 @@
 <?php 
 
+/*
+
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
 if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
 
 /*************************** Admin ajax functions ***********************/
@@ -1094,113 +1112,5 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         die(); // this is required to return a proper result
 
     } //End callback function
-
-
-
-/****** Order yasr_multi_chart ******/
-
-    add_action ( 'wp_ajax_yasr_multi_chart_most_highest', 'yasr_multi_chart_most_highest_callback' );
-    add_action ( 'wp_ajax_nopriv_yasr_multi_chart_most_highest', 'yasr_multi_chart_most_highest_callback' );
-
-    function yasr_multi_chart_most_highest_callback () {
-
-        global $wpdb;
-
-            $query_result_most_rated = $wpdb->get_results("SELECT post_id, number_of_votes, sum_votes
-                                                FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
-                                                WHERE post_id = p.ID
-                                                AND number_of_votes >= 1
-                                                AND p.post_status = 'publish'
-                                                ORDER BY number_of_votes DESC, sum_votes DESC LIMIT 10");
-
-            $query_result_highest = $wpdb->get_results("SELECT (sum_votes / number_of_votes) as result, post_id, number_of_votes
-                                                FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p 
-                                                WHERE post_id = p.ID
-                                                AND number_of_votes >= 2
-                                                AND p.post_status = 'publish'
-                                                ORDER BY result DESC, number_of_votes DESC LIMIT 10
-                                                ");
-
-            if ($query_result_most_rated) {
-
-                echo ( "<table class=\"yasr-most-rated-posts\">
-                            <tr>
-                                <th>Post / Page</th>
-                                <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
-                            </tr>"
-                    );
-
-                foreach ($query_result_most_rated as $result) {
-
-                    $rating = $result->sum_votes / $result->number_of_votes;
-
-                    $rating = round($rating, 1);
-
-                    $post_title = get_the_title($result->post_id);
-
-                    $link = get_permalink($result->post_id); //Get permalink from post it
-
-                    echo ( "<tr>
-                                <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                    <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                                    <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
-                                </td>
-                            </tr>"
-
-                         );
-
-
-                } //End foreach
-
-                echo ("</table>") ;
-
-            } //End if $query_result_most_rated)
-
-            else {
-                _e("You've not enought data","yasr");
-                echo "<br />";
-            }
-
-            
-            if ($query_result_highest) {
-
-                echo ( "<table class=\"yasr-highest-rated-posts\">
-                            <tr>
-                                <th>Post / Page</th>
-                                <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Highest Rated</a></th>
-                            </tr>"
-
-                      );
-
-                foreach ($query_result_highest as $result) {
-
-                    $rating = round($result->result, 1);
-
-                    $post_title = get_the_title($result->post_id);
-
-                    $link = get_permalink($result->post_id); //Get permalink from post it
-
-                    echo ("<tr>
-                                <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                                <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                                    <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
-                                </td>
-                           </tr>");
-
-
-                } //End foreach
-
-                echo "</table>";
-
-            } //end if $query_result
-
-            else {
-                _e("You've not enought data","yasr");
-                echo "<br />";
-            }
-    
-        die();
-
-    } //End function
 
 ?>

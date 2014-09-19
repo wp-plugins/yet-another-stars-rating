@@ -1,6 +1,24 @@
-/****** Yasr shortcode page ******/
+/*
 
-    function yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
+/****** Yasr shortcode functions file ******/
+
+	function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
 
         jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipValues[value-1]); });
 
@@ -118,7 +136,6 @@
 
     } //End function yasr visitor votes
 
-
     function yasrMostOrHighestRatedChart (ajaxurl) {
 
         //Link do nothing
@@ -167,4 +184,5 @@
 
     }
 
-/****** End Yasr shortcode page  ******/
+
+/****** Yasr shortcode functions file  ******/

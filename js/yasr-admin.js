@@ -1,3 +1,21 @@
+/*
+
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
 /****** Yasr Metabox overall rating ******/
 
     function yasrDisplayOverallMetabox(defaultbox, postid, nonce) {
@@ -253,7 +271,7 @@
 
 /****** Yasr Settings Page ******/
 
-	function YasrSettingsPage (activeTab, nMultiSet, autoInsertEnabled, nonceShortcodeOverall, customText) {
+	function YasrSettingsPage (activeTab, nMultiSet, autoInsertEnabled, nonceShortcodeOverall) {
 
 		//-------------------General Settings Code---------------------
 
@@ -272,7 +290,7 @@
 				jQuery('.yasr-auto-insert-options-class').prop('disabled', true);
 			});
 
-			if (customText == 0) {
+			if (jQuery('#yasr_text_before_star_off').is(':checked')) {
 				jQuery('.yasr-general-options-text-before').prop('disabled', true);
 			}
 			
@@ -429,73 +447,6 @@
 
 		} //end if active_tab=='manage_multi'
 
-
-		//******* Charts page **************
-		if (activeTab == 'charts_options') {
-
-			//Begin custom top10 highest rated
-			jQuery('#yasr-pro-customize-overall-off').prop('checked', true);
-			jQuery('.yasr-pro-customize-overall').prop('disabled', true);
-			jQuery('#yasr-pro-customize-overall-div').hide();
-
-			jQuery('#yasr-pro-customize-overall-on').on('click', function(){
-				jQuery('#yasr-pro-customize-overall-div').toggle('slow');
-				jQuery('.yasr-pro-customize-overall').prop('disabled', false);
-			});
-			
-			jQuery('#yasr-pro-customize-overall-off').on('click', function(){
-				jQuery('.yasr-pro-customize-overall').prop('disabled', true);
-				jQuery('#yasr-pro-customize-overall-div').hide();
-			});
-
-			jQuery('#yasr-pro-customize-charts-text-before-after-overall-no').on('click', function() {
-				jQuery('#yasr-pro-charts-options-text-before-after-overall-string').prop('disabled', true);
-			});
-
-			//when button is clicked do this actions
-			jQuery('#yasr-pro-customize-overall-button').on('click', function() {
-
-				var rows = jQuery('#yasr-pro-customize-charts-rows-number-overall').val();
-
-				var size = jQuery("input[type='radio'][name='yasr-pro-charts-options-size']:checked").val();
-
-				var text_position = jQuery("input[type='radio'][name='yasr-pro-charts-options-text-before-after-overall']:checked").val();
-
-				var text = jQuery('#yasr-pro-charts-options-text-before-after-overall-string').val();
-
-				if (text_position == 'no') {
-					var shortcode = '[yasr_pro_top_10_overall_rating_custom rows=' + rows + ' size=' + size + ']';
-				}
-
-				else {
-					var shortcode = '[yasr_pro_top_10_overall_rating_custom rows=' + rows + ' size=' + size + ' text_position=' + text_position + ' text=' + text + ']';
-				}
-
-				jQuery('#yasr-pro-shortcode-custom-overall').text(shortcode);
-				jQuery('#yasr-pro-shortcode-custom-overall-div').show();
-
-				jQuery('#yasr-pro-save-shortcode-overall-button').on('click', function() {
-
-					var data = {
-	 					action: 'yasr_pro_send_shortcode_overall',
-	 					shortcode: shortcode,
-	 					nonce: nonceShortcodeOverall
-		     		};
-
-					//Send value to the Server
-					jQuery.post(ajaxurl, data, function(response) {
-						jQuery('#yasr-pro-ajax-response-shortcode-overall').text(response); 
-					}) ;
-
-				});
-
-			});
-
-			
-
-			//End custom top10 highest rated
-
-		}
 
 	}
 

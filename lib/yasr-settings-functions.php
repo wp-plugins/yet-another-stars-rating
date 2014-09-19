@@ -1,5 +1,23 @@
 <?php
 
+/*
+
+Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
 
 /****** Add yasr general option ******/
 
@@ -196,6 +214,13 @@
 	    }
 
 	    function yasr_custom_text_callback($option) {
+
+	    	$text_before_overall = htmlspecialchars("$option[text_before_overall]");
+
+	    	$text_before_visitor_rating = htmlspecialchars("$option[text_before_visitor_rating]");
+
+	    	$custom_text_user_votes = htmlentities("$option[custom_text_user_voted]");
+	    	
 	    	?>
 
 	    	<input type='radio' name='yasr_general_options[text_before_stars]' value='1' id='yasr_text_before_star_on' <?php if ($option['text_before_stars']==1) echo " checked='checked' "; ?>  /> 
@@ -208,17 +233,17 @@
 
 	    	<br /> <br />
 
-	    	<input type='text' name='yasr_general_options[text_before_overall]' id="yasr-general-options-custom-text-before-overall" class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_overall]"); ?>' maxlength="40"/> 
+	    	<input type='text' name='yasr_general_options[text_before_overall]' id="yasr-general-options-custom-text-before-overall" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_before_overall); ?> maxlength="40"/> 
 				<?php _e('Custom text to display before Overall Rating', 'yasr')?>
 			
 			<br /> <br />
 
-			<input type='text' name='yasr_general_options[text_before_visitor_rating]' id="yasr-general-options-custom-text-before-visitor" class='yasr-general-options-text-before' value='<?php echo ("$option[text_before_visitor_rating]"); ?>' maxlength="40"/> 
+			<input type='text' name='yasr_general_options[text_before_visitor_rating]' id="yasr-general-options-custom-text-before-visitor" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_before_visitor_rating); ?> maxlength="40"/> 
 				<?php _e('Custom text to display before Visitor Rating', 'yasr')?>
 
 			<br /> <br />
 
-			<input type='text' name='yasr_general_options[custom_text_user_voted]' id="yasr-general-options-custom-text-already-rated" class='yasr-general-options-text-before' value='<?php echo "$option[custom_text_user_voted]"; ?>' maxlength="60"/> 
+			<input type='text' name='yasr_general_options[custom_text_user_voted]' id="yasr-general-options-custom-text-already-rated" class='yasr-general-options-text-before' <?php printf('value="%s"', $custom_text_user_votes); ?> maxlength="60"/> 
 				<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
 			
 
