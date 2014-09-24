@@ -145,25 +145,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
         });
 
-        var data = {
-                action : 'yasr_multi_chart_most_highest' //declared in yasr-ajax-functions
-            };
-
-
-        jQuery.post(ajaxurl, data, function(response) {
-
-            jQuery('.yasr-most-or-highest-rated-posts').html(response);
-            jQuery('.rateit').rateit();
-
             //By default, hide the highest rated chart
-            jQuery('.yasr-highest-rated-posts').hide();
+            jQuery('#yasr-highest-rated-posts').hide();
 
             //On click on highest, hide most and show highest
             jQuery('#yasr_multi_chart_highest').on("click", function () {
 
-                jQuery('.yasr-most-rated-posts').hide();
+                jQuery('#yasr-most-rated-posts').hide();
 
-                jQuery('.yasr-highest-rated-posts').show();
+                jQuery('#yasr-highest-rated-posts').show();
 
                 return false; // prevent default click action from happening!
 
@@ -172,15 +162,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
             //Vice versa
             jQuery('#yasr_multi_chart_most').on("click", function () {
 
-                jQuery('.yasr-highest-rated-posts').hide();
+                jQuery('#yasr-highest-rated-posts').hide();
 
-                jQuery('.yasr-most-rated-posts').show();
+                jQuery('#yasr-most-rated-posts').show();
 
                 return false; // prevent default click action from happening!
 
             });
-
-        });
 
     }
 

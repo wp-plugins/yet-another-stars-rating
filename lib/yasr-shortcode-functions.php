@@ -1,23 +1,5 @@
 <?php 
 
-/*
-
-Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
-
 if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
 
 /****** Add shortcode for overall rating ******/
@@ -65,6 +47,7 @@ function shortcode_overall_rating_callback ($atts) {
                         $shortcode_html .= "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
                         break;
         }
+
 
         if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
 
@@ -132,6 +115,8 @@ function shortcode_visitor_votes_callback ($atts) {
     //To avoid double visualization, I will insert this only if auto insert is off or if auto insert is set on overall rating.
     //If auto insert is on visitor rating this shortcode must return nothing
 
+    //if (YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'overall_rating' )) {
+
         $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
         if( is_singular() && is_main_query() ) {
@@ -190,7 +175,6 @@ function shortcode_visitor_votes_callback ($atts) {
                 $rateit_class = 'rateit bigstars';
                 $px_size = '32';
             }
-
 
             //if anonymous are allowed to vote
             if (YASR_ALLOWED_USER === 'allow_anonymous') {
@@ -287,7 +271,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
                 } //End if user is logged in
 
-              //Else mean user is not logged in
+                //Else mean user is not logged in
                 else {
 
                     $vote_if_user_already_rated = 0;
@@ -307,6 +291,7 @@ function shortcode_visitor_votes_callback ($atts) {
                 }
   
             }
+
 
             if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_VISITOR_RATING != '') {
         
@@ -347,6 +332,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
         } //End if is singular
 
+    //} //End if auto_insert_enabled
 
 } //End function shortcode_visitor_votes_callback
 
@@ -418,7 +404,7 @@ function yasr_top_ten_highest_rated_callback () {
 
     if ($query_result) {
 
-        $shortcode_html = "<table class=\"yasr-top-10-highest-rated\">";
+        $shortcode_html = "<table class=\"yasr-table-chart\">";
 
         foreach ($query_result as $result) {
 
@@ -477,7 +463,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
     if ($query_result_most_rated) {
 
-        $shortcode_html .= "<table class=\"yasr-most-rated-posts\">
+        $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-most-rated-posts\">
                     <tr>
                         <th>Post / Page</th>
                         <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
@@ -515,7 +501,7 @@ function yasr_most_or_highest_rated_posts_callback () {
     
     if ($query_result_highest) {
 
-        $shortcode_html .= "<table class=\"yasr-highest-rated-posts\">
+        $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-highest-rated-posts\">
                     <tr>
                         <th>Post / Page</th>
                         <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Highest Rated</a></th>
@@ -588,7 +574,7 @@ function yasr_top_5_reviewers_callback () {
     if ($query_result) {
 
         $shortcode_html = "
-        <table class=\"yasr-top-5-active-reviewer\">
+        <table class=\"yasr-table-chart\">
         <tr>
          <th>Author</th>
          <th>Reviews</th>
@@ -659,7 +645,7 @@ function yasr_top_ten_active_users_callback () {
     if ($query_result) {
 
         $shortcode_html = "
-        <table class=\"yasr-top-10-active-users\">
+       <table class=\"yasr-table-chart\">
         <tr>
          <th>UserName</th>
          <th>Number of votes</th>

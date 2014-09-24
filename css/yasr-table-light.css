@@ -24,110 +24,23 @@
     color: #555;
 }
 
-
-.yasr-top-10-highest-rated {
+/*** Charts ***/
+.yasr-table-chart {
     border-spacing: 1px;
     margin-top: 10px;
     margin-bottom: 24px;
     width: 100%;
 }
 
-.yasr-top-10-highest-rated td {
-    padding: 8px;
-}
-
-.yasr-top-10-highest-rated tr:nth-child(odd) {
-        background: #FFFFec;
-}
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-top-10-highest-rated tr:nth-child(even) {
-        background: #FFFFFF;
-}
-
-
-#loader-most-highest-chart {
-    background-color: #FFFFec;
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.yasr-most-or-highest-rated-posts {
-    border-spacing: 1px;
-    margin-top: 10px;
-    margin-bottom: 24px;
-    width: 100%;
-}
-
-.yasr-most-or-highest-rated-posts th {
-    padding: 12px;
-    color: #555;
-}
-
-.yasr-most-or-highest-rated-posts td {
-    padding: 8px;
-    width: 50%;
-    color: #555;
-}
-
-.yasr-most-or-highest-rated-posts tr:nth-child(odd) {
-        background: #FFFFec;
-}
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-most-or-highest-rated-posts tr:nth-child(even) {
-        background: #FFFFFF;
-}
-
-
-.yasr-top-5-active-reviewer {
-    border-spacing: 1px;
-    margin-top: 10px;
-    margin-bottom: 24px;
-    width: 100%;
-}
-
-.yasr-top-5-active-reviewer th {
-    padding: 12px;
-    color: #555;
-}
-
-.yasr-top-5-active-reviewer td {
+.yasr-table-chart td {
     padding: 8px;
     width: 50%;
 }
 
-.yasr-top-5-active-reviewer tr:nth-child(odd) {
+.yasr-table-chart tr:nth-child(odd) {
         background: #FFFFec;
 }
     /*  Define the background color for all the EVEN background rows  */
-.yasr-top-5-active-reviewer tr:nth-child(even) {
-        background: #FFFFFF;
-}
-
-
-
-
-.yasr-top-10-active-users {
-    border-spacing: 1px;
-    margin-top: 10px;
-    margin-bottom: 24px;
-    width: 100%;
-}
-
-.yasr-top-10-active-users th {
-    padding: 12px;
-    color: #555;
-}
-
-.yasr-top-10-active-users td {
-    padding: 8px;
-    width: 50%;
-}
-
-.yasr-top-10-active-users tr:nth-child(odd) {
-        background: #FFFFec;
-}
-    /*  Define the background color for all the EVEN background rows  */
-.yasr-top-10-active-users tr:nth-child(even) {
+.yasr-table-chart tr:nth-child(even) {
         background: #FFFFFF;
 }

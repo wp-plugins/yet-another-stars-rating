@@ -100,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 /****** Get Set name from post or page and output the set, 
         used in yasr-metabox-multiple-rating******/
 
-        add_action( 'wp_ajax_yasr_send_id_nameset', 'yasr_output_multiple_set_callback' );
+    add_action( 'wp_ajax_yasr_send_id_nameset', 'yasr_output_multiple_set_callback' );
 
         function yasr_output_multiple_set_callback() {
                 if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
@@ -235,7 +235,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /****** Get multiple value and insert into database, used in yasr-metabox-multiple-rating ******/
 
-        add_action( 'wp_ajax_yasr_send_id_field_with_vote', 'yasr_get_multiple_votes_callback' );
+    add_action( 'wp_ajax_yasr_send_id_field_with_vote', 'yasr_get_multiple_votes_callback' );
 
         function yasr_get_multiple_votes_callback() {
 
