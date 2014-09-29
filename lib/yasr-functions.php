@@ -321,13 +321,14 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 				$div_1 = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Product\">";
 				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
+                $author = __( ' written by ' , 'yasr' )  . "<span itemprop=\"author\">" . get_the_author() . "</span>";
 				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
 				$rating = __( ' average rating ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>/<span itemprop=\"bestRating\">5</span>";
 				$n_ratings = " - <span itemprop=\"ratingCount\"> " . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
 				$end_span_1 = "</span>";
 				$end_div_1 = "</div>";
 
-				$schema = $div_1 . $title . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
+				$schema = $div_1 . $title . $author . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
 
 			}
 
