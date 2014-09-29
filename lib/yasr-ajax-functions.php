@@ -431,27 +431,27 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     <table id="yasr-table-tiny-popup-charts" class="form-table">
                         <tr>
-                            <th><label for="yasr-10-overall"><?php _e("Top 10 Overall Ratings", "yasr"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="<?php _e("Insert Top 10 highest rated", "yasr") ?>" /><br />
-                            <small><?php _e("Insert Top 10 highest rated by post author", "yasr"); ?></small></td>
+                            <th><label for="yasr-10-overall"><?php _e("Ranking reviews", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-overall-rating" id="yasr-top-10-overall-rating" value="<?php _e("Insert Ranking reviews", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 ranking for [yasr_overall_rating] shortcode", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-10-highest-most-rated"><?php _e("Top 10 Visitor Ratings", "yasr"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="<?php _e("Insert Top 10 posts by visitors", "yasr") ?>" /><br />
-                            <small><?php _e("Insert Top 10 most or higher rated posts from visitors", "yasr"); ?></small></td>
+                            <th><label for="yasr-10-highest-most-rated"><?php _e("Users' ranking", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-10-highest-most-rated" id="yasr-10-highest-most-rated" value="<?php _e("Insert Users ranking", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 ranking for [yasr_visitor_votes] shortcode", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
                             <th><label for="yasr-5-active-reviewers"><?php _e("Most active reviewers", "yasr"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="<?php _e("Insert Top 5 most active reviewers", "yasr")?> " /><br />
+                            <td><input type="button" class="button-primary" name="yasr-5-active-reviewers" id="yasr-5-active-reviewers" value="<?php _e("Insert Most Active Reviewers", "yasr")?> " /><br />
                             <small><?php _e("Insert Top 5 active reviewers", "yasr"); ?></small></td>
                         </tr>
 
                         <tr>
-                            <th><label for="yasr-10-active-users"><?php _e("Most active users", "yasr"); ?></label></th>
-                            <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="<?php _e("Insert Top 10 most active users", "yasr") ?>" /><br />
-                            <small><?php _e("Insert Top 10 active users in Visitor Ratings", "yasr"); ?></small></td>
+                            <th><label for="yasr-10-active-users"><?php _e("Most Active Users", "yasr"); ?></label></th>
+                            <td><input type="button" class="button-primary" name="yasr-top-10-active-users" id="yasr-top-10-active-users" value="<?php _e("Insert Most Active Users", "yasr") ?>" /><br />
+                            <small><?php _e("Insert Top 10 voters [yasr_visitor_votes] shortcode", "yasr"); ?></small></td>
                         </tr>
 
                     </table>
@@ -803,6 +803,22 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         $row_exists_result=NULL; //Avoid Undefined variable notice
         $new_row_result=NULL; ////Avoid Undefined variable notice
 
+        if ($size == 'small') {
+            $rateit_class='rateit';
+            $px_size = '16';
+        }
+
+        elseif ($size == 'medium') {
+            $rateit_class = 'rateit medium';
+            $px_size = '24';
+        }
+
+        //default values
+        else {
+            $rateit_class = 'rateit bigstars';
+            $px_size = '32';
+        }
+
         global $wpdb;
 
         $row_exists = $wpdb->get_results ("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . "
@@ -867,59 +883,23 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 );
         }
 
+
         if($row_exists_result) {
+
             $total_rating = ($user_votes_sum / $number_of_votes);
-            $medium_rating=round ($total_rating, 1);
+            $medium_rating = round ($total_rating, 1);
 
-            if ($size == 'small') {
-
-                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
-                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
-
-            }
-
-            elseif ($size == 'medium') {
-
-                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
-                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
-
-            }
-
-            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
-
-                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
-                <strong>" . __("Vote Saved" , "yasr") . "</strong>";
-
-            }
+            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
+            <strong>" . __("Vote Saved" , "yasr") . "</strong>";
 
         }
 
         elseif ($new_row_result) {
 
-            if ($size == 'small') {
-
-                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
-                <strong>". __("Vote Saved" , "yasr");
-
-            }
-
-            if ($size == 'medium') {
-
-                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
-                <strong>". __("Vote Saved" , "yasr");
-
-            }
-
-            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
-                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
-                <strong>". __("Vote Saved" , "yasr");
-            }
+            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
+            <strong>". __("Vote Saved" , "yasr");
         
         }
 
@@ -1080,22 +1060,26 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
             if ($size == 'small') {
-                echo "<div class=\"rateit\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
-                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+                $rateit_class='rateit';
+                $px_size = '16';
             }
 
-            if ($size == 'medium') {
-                echo "<div class=\"rateit medium\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
-                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            elseif ($size == 'medium') {
+                $rateit_class = 'rateit medium';
+                $px_size = '24';
             }
 
-            elseif ($size == 'large' || $size =='' || ($size !='medium' && $size != 'small')) {
-                echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
-                <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            //default values
+            else {
+                $rateit_class = 'rateit bigstars';
+                $px_size = '32';
             }
+
+            
+            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
+            <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
+            
 
         }
 
