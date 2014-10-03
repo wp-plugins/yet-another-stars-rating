@@ -72,12 +72,28 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     array (
                         'post_id' => $post_id,
                         'overall_rating' => $rating,
-                        'reviewer_id' => $reviewer_id
+                        'reviewer_id' => $reviewer_id,
+                        'review_type' => 'Product' //default review type in a new post
                         ),
-                    array('%d', '%s', '%d')
+                    array('%d', '%s', '%d', '%s')
                 );
 
-        	}
+                $snippet_type = yasr_get_snippet_type();
+
+                //If there is not sinppet type, can happen when an user choose the snippet but doesn't use overall rating
+                if (!$snippet_type) {
+
+                    $wpdb->update(
+                        YASR_VOTES_TABLE,
+                        array (
+                            'review_type' => 'Product' //default review type in a new post
+                            ),
+                        array('%s')
+                    );
+
+                }
+
+        	} // End if(!$update_result)
             
             if ($update_result || $replace_result) {
 
@@ -94,6 +110,71 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 			die(); // this is required to return a proper result
 		}
+
+
+
+/****** Set the review type in yasr metabox overall rating ******/
+
+    add_action ( 'wp_ajax_yasr_insert_review_type', 'yasr_insert_review_type_callback' );
+
+        function yasr_insert_review_type_callback () {
+
+            if (isset($_POST['reviewtype']) && ($_POST['postid'])) {
+
+                $reviewtype = $_POST['reviewtype'];
+                $post_id = $_POST['postid'];
+                $nonce = $_POST['nonce'];
+
+            }
+
+            else {
+                exit();
+            }
+
+            if ( ! wp_verify_nonce( $nonce, 'yasr_nonce_review_type' ) ) {
+                die( 'Security check' ); 
+            }
+
+            global $wpdb;
+
+                //If update works means that there is already a row for this post
+                $review_type = $wpdb->update(
+                    YASR_VOTES_TABLE,
+                    array (
+                        'review_type' => $reviewtype
+                        ),
+                    array('post_id' => $post_id),
+                    array('%s'),
+                    array('%d')
+                );
+
+                //if fail there is no row so make new one
+                if(!$review_type) {
+
+                    $review_type = $wpdb->replace(
+                        YASR_VOTES_TABLE,
+                        array (
+                            'post_id' => $post_id,
+                            'overall_rating' => '-1',
+                            'review_type' => $reviewtype
+                            ),
+                        array('%s', '%s')
+                    );
+
+                }
+
+            if($review_type) {
+                _e("$reviewtype selected", "yasr");
+            }
+            else {
+                _e("There was an error while trying to insert the review type. Please report it", "yasr");
+            }
+
+            die();
+
+        }
+
+
 
 
 
@@ -511,8 +592,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <br />
                     <?php _e ("Step2: I will check if you used Multiple Sets and if so I will import them. THIS MAY TAKE A WHILE!", 'yasr'); ?>
                     <br />
-                        <button href=\"#\" class=\"button-primary\" id=\"import-button-step2\"> <?php _e('Proceed Step 2', 'yasr');?> </button>
-                        <span id="loader2" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+                        <button href="#" class="button-primary" id="import-button-step2"> <?php _e('Proceed Step 2', 'yasr');?> </button>
+                        <span id="yasr-loader-importer2" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "loader.gif" ?>">
                         </span>
                     <?php
                 }

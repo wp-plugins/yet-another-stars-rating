@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 0.5.8
+Stable tag: 0.5.9
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,11 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.5.9 =
+* New feature: When writing a post or a page it's now possible to select the category that you're reviewing. This is a good improvement for SEO.
+* Fixed loader when importing gd star rating data
+* Fixed loader in yasr-settings-page
 
 = 0.5.8 =
 * Changed description in yasr shortcode generator (transaltor please take a look to the .po file) and other languages fix.
