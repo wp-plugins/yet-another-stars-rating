@@ -43,6 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
     $ajax_nonce_overall = wp_create_nonce( "yasr_nonce_insert_overall_rating" );
 
+    $ajax_nonce_review_type = wp_create_nonce( "yasr_nonce_review_type" );
 
 ?>
 
@@ -75,19 +76,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <div>
 
                         <span id="yasr_rateit_overall_value"></span>
-                    
-                        <?php 
-
-                            //Show this message if auto insert is off or if auto insert is not set to show overall rating (so if it is set to visitor rating)
-                            if( YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating') ) {
-
-                                echo "<div>";
-                                  _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
-                                echo "</div>";
-
-                            }
-
-                      ?>
 
                     </div>
 
@@ -156,24 +144,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     <p>
 
-                    <div>
-                    
-                        <?php 
-
-                            //Show this message if auto insert is off or if auto insert is not set to show overall rating (so if it is set to visitor rating)
-                            if( YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating') ) {
-
-                                echo "<div>";
-                                  _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
-                                echo "</div>";
-
-                            }
-
-                      ?>
-
-                    </div>
-
-                    <button href="#" class="button-delete" id="yasr-send-overall-numbers"><?php _e('Save Vote', 'yasr'); ?></button>
+                    <button href="#" class="button-secondary" id="yasr-send-overall-numbers"><?php _e('Save Vote', 'yasr'); ?></button>
 
                     <p>
 
@@ -185,9 +156,66 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
     <?php 
 
-        }
+        } //End if YASR_METABOX_OVERALL_RATING == 'numbers'
 
     ?>
+
+
+    <div class="yasr-choose-reviews-types"><?php _e("This review is about a..."); ?>
+        <br />
+
+        <?php
+
+        $review_type = array("Product", "Place", "Other");
+        $review_type_choosen = yasr_get_snippet_type();
+
+        ?>
+
+        <select id="yasr-choose-reviews-types-list">
+
+            <?php 
+
+                foreach ($review_type as $type) {
+
+                    if ($type == $review_type_choosen) {
+                        echo "<option value=\"$type\" selected>$type</option>";
+                    }
+
+                    else {
+                        echo "<option value=\"$type\">$type</option>";
+                    }
+                }
+
+            ?>
+
+        </select>
+
+        <button href="#" class="button-secondary" id="yasr-send-review-type"><?php _e('Select', 'yasr'); ?></button>
+
+        <br />
+
+        <span id="yasr-ajax-response-review-type"></span>
+
+    </div>
+
+    <p>
+
+    <div>
+                    
+        <?php 
+
+            //Show this message if auto insert is off or if auto insert is not set to show overall rating (so if it is set to visitor rating)
+            if( YASR_AUTO_INSERT_ENABLED == 0 || (YASR_AUTO_INSERT_ENABLED == 1 && YASR_AUTO_INSERT_WHAT === 'visitor_rating') ) {
+
+                echo "<div>";
+                  _e ("Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating", "yasr");
+                echo "</div>";
+
+            }
+
+        ?>
+
+    </div>
 
 </div>
 
@@ -199,9 +227,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         var nonceOverall = <?php echo (json_encode("$ajax_nonce_overall")); ?>;
 
+        var nonceSnippet = <?php echo (json_encode("$ajax_nonce_review_type")); ?>;
+
         var postid = <?php json_encode(the_ID()); ?>;
 
-        yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall);
+        yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall, nonceSnippet);
 
     }); //End document ready
 

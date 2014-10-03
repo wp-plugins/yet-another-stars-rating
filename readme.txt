@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 0.5.7
+Stable tag: 0.5.9
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,10 +58,10 @@ It is the vote that allows your visitors to vote: just paste this shortcode **[y
 = What is "Multi Set"? =
 It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
 
-= What is "Top 10 overall ratings" ? =
+= What is "Ranking reviews" ? =
 It is the 10 highest rated item chart by reviewer. In order to insert it into a post or page, just paste this shortcode **[yasr_top_ten_highest_rated]**
 
-= What is "Top 10 by visitors" ? =
+= What is "Users' ranking" ? =
 This is 2 charts in 1. Infact, this chart shows both the most rated posts/pages or the highest rated posts/pages. 
 For an item to appear in this chart, it has to be rated twice at least.
 Paste this shortcode to make it appear where you want **[yasr_most_or_highest_rated_posts]**
@@ -78,11 +78,21 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
-3. Chart Top 10 by visitors showing most rated posts
-4. Chart Top 10 by visitors showing highest rated posts
-5. Chart Top 10 overall ratings
+3. User's ranking showing most rated posts
+4. User's ranking showing highest rated posts
+5. Ranking reviews
 
 == Changelog ==
+
+= 0.5.9 =
+* New feature: When writing a post or a page it's now possible to select the category that you're reviewing. This is a good improvement for SEO.
+* Fixed loader when importing gd star rating data
+* Fixed loader in yasr-settings-page
+
+= 0.5.8 =
+* Changed description in yasr shortcode generator (transaltor please take a look to the .po file) and other languages fix.
+* Added the author info in the aggregate rating snippet 
+* Minor bugfixes
 
 = 0.5.7 =
 * Bug fixes in [yasr_most_or_highest_rated_posts] chart

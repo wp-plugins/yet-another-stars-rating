@@ -133,7 +133,7 @@ $n_multi_set = NULL;
 		          				<br />
 		          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
 
-		          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+		          				<span id="yasr-loader-importer" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "loader.gif" ?>">
 		          				</span>
 		          				<br />
 
@@ -166,7 +166,7 @@ $n_multi_set = NULL;
 	          				<br />
 	          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
 
-	          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+	          				<span id="yasr-loader-importer" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "loader.gif" ?>">
 	          				</span>
 	          				
 	          				<br />
