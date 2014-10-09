@@ -3,8 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 0.5.9
-License: GPL2
+Stable tag: 0.6.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -83,6 +82,10 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.6.0 =
+* Bugfix: now it's not possible to vote 0
+* Code Cleanup in yasr-settings-page and added link to yasr site, www.yetanotherstarsrating.com
 
 = 0.5.9 =
 * New feature: When writing a post or a page it's now possible to select the category that you're reviewing. This is a good improvement for SEO.

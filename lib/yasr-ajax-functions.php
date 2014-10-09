@@ -432,7 +432,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <a href="#" id="yasr-link-tab-main" class="nav-tab nav-tab-active"><?php _e("Main", "yasr"); ?></a>
                     <a href="#" id="yasr-link-tab-charts" class="nav-tab"><?php _e("Charts" , "yasr"); ?></a>
 
-                    <a href="https://wordpress.org/plugins/yet-another-stars-rating/faq/" target="_blank" id="yasr-tinypopup-link-doc"><?php _e("Read the doc", "yasr"); ?></a>
+                    <a href="http://yetanotherstarsrating.com/f-a-q/" target="_blank" id="yasr-tinypopup-link-doc"><?php _e("Read the doc", "yasr"); ?></a>
 
                 </h2>
 
@@ -884,6 +884,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         $row_exists_result=NULL; //Avoid Undefined variable notice
         $new_row_result=NULL; ////Avoid Undefined variable notice
 
+        if ($rating < 1) {
+            _e("Error: you can't vote 0", "yasr");
+            die();
+        }
+
         if ($size == 'small') {
             $rateit_class='rateit';
             $px_size = '16';
@@ -1007,6 +1012,11 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
             }
+
+        if ($new_rating < 1) {
+            _e("Error: you can't vote 0", "yasr");
+            die();
+        }
 
         global $wpdb;
 
