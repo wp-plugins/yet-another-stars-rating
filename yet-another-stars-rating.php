@@ -3,9 +3,9 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.5.7
+ * Version: 0.6.0
  * Author: Dario Curvino
- * Author URI: http://profiles.wordpress.org/dudo/
+ * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
  */
 
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.5.7');
+define('YASR_VERSION_NUM', '0.6.0');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -85,16 +85,6 @@ define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
 define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
-//remove end of september
-if ($version_installed && $version_installed < '0.4.1') {
-
-	$option = get_option( 'yasr_general_options' );
-
-	$option['auto_insert_size'] = 'large';
-
-	update_option("yasr_general_options", $option);
-
-}
 
 //remove mid november
 if ($version_installed && $version_installed < '0.5.0') {
@@ -117,6 +107,15 @@ if ($version_installed && $version_installed < '0.5.4') {
     update_option("yasr_general_options", $option);
 
 }
+
+//remove end gen 2015
+if ($version_installed && $version_installed < '0.5.9') {
+
+	$wpdb->query("ALTER TABLE " . YASR_VOTES_TABLE . " ADD review_type VARCHAR( 10 )");
+
+}
+
+
 
 if ($version_installed != YASR_VERSION_NUM) {
 

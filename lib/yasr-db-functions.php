@@ -39,6 +39,7 @@ function yasr_install() {
  	 	overall_rating decimal(2,1) NOT NULL,
  	 	number_of_votes bigint(20) NOT NULL,
   		sum_votes decimal(11,1) NOT NULL,
+  		review_type VARCHAR(10),
  		PRIMARY KEY  (id),
  		UNIQUE KEY post_id (post_id)	
 	);";
@@ -144,6 +145,30 @@ function yasr_get_overall_rating($post_id_referenced=FALSE) {
 			return $overall_rating;
 		}
 	}
+}
+
+
+/****** Return the snippet choosen for a post or page ******/
+function yasr_get_snippet_type() {
+
+	global $wpdb;
+
+	$post_id=get_the_ID();
+
+	$result=$wpdb->get_results("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+
+	if($result) {
+		foreach ($result as $snippet) {
+			$snippet_type = $snippet->review_type;
+		}
+
+		return $snippet_type;
+	}
+
+	else {
+		return FALSE;
+	}
+
 }
 
 
@@ -432,5 +457,7 @@ function yasr_check_if_user_already_voted() {
 
 
 }
+
+
 
 ?>

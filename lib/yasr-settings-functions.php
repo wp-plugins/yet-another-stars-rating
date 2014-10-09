@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want ro rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want to rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
 		}
 

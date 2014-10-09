@@ -72,24 +72,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                     var value = el.rateit('value');
                     var value = value.toFixed(1); //
 
-                    jQuery('#yasr_visitor_votes').html(loaderHtml);
+                    if (value < 1) {
+                        jQuery('#yasr_visitor_votes').html('You can\'t vote 0');
+                    } 
 
-                    var data = {
-                            action: 'yasr_update_visitor_rating',
-                            rating: value,
-                            post_id: postid,
-                            size: size,
-                            nonce_visitor: nonceVisitor
-                        };
+                    else {
 
-                    //Send value to the Server
-                    jQuery.post(ajaxurl, data, function(response) {
-                        //response
-                        jQuery('#yasr_visitor_votes').html(response); 
-                        jQuery('.rateit').rateit();
-                        //Create a cookie to disable double vote
-                        jQuery.cookie(cookiename, value, { expires : 360 }); 
-                    }) ;      
+                        jQuery('#yasr_visitor_votes').html(loaderHtml);
+
+                        var data = {
+                                action: 'yasr_update_visitor_rating',
+                                rating: value,
+                                post_id: postid,
+                                size: size,
+                                nonce_visitor: nonceVisitor
+                            };
+
+                        //Send value to the Server
+                        jQuery.post(ajaxurl, data, function(response) {
+                            //response
+                            jQuery('#yasr_visitor_votes').html(response); 
+                            jQuery('.rateit').rateit();
+                            //Create a cookie to disable double vote
+                            jQuery.cookie(cookiename, value, { expires : 360 }); 
+                        }) ;      
+
+                    }
 
                 });//End function update vote
 
@@ -112,30 +120,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                 var value = el.rateit('value');
                 var value = value.toFixed(1); //
 
-                jQuery('#yasr_visitor_votes').html(loaderHtml);
+                if (value < 1) {
+                    jQuery('#yasr_visitor_votes').html('You can\'t vote 0');
+                } 
 
-                var data = {
-                    action: 'yasr_send_visitor_rating',
-                    rating: value,
-                    post_id: postid,
-                    size: size,
-                    nonce_visitor: nonceVisitor
-                };
+                else {
 
-                //Send value to the Server
-                jQuery.post(ajaxurl, data, function(response) {
-                    //response
-                    jQuery('#yasr_visitor_votes').html(response); 
-                    jQuery('.rateit').rateit();
-                    //Create a cookie to disable double vote
-                    jQuery.cookie(cookiename, value, { expires : 360 }); 
-                }) ;          
+                    jQuery('#yasr_visitor_votes').html(loaderHtml);
+
+                    var data = {
+                        action: 'yasr_send_visitor_rating',
+                        rating: value,
+                        post_id: postid,
+                        size: size,
+                        nonce_visitor: nonceVisitor
+                    };
+
+                    //Send value to the Server
+                    jQuery.post(ajaxurl, data, function(response) {
+                        //response
+                        jQuery('#yasr_visitor_votes').html(response); 
+                        jQuery('.rateit').rateit();
+                        //Create a cookie to disable double vote
+                        jQuery.cookie(cookiename, value, { expires : 360 }); 
+                    }) ;    
+
+                }      
+
             });
 
         } //End function default_rating_shortcode
 
     } //End function yasr visitor votes
 
+    
     function yasrMostOrHighestRatedChart (ajaxurl) {
 
         //Link do nothing

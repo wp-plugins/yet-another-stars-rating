@@ -168,11 +168,8 @@ div.bigstars .rateit-selected
 
 /*** MEtabox overall rating ***/
 
-.yasr-switch-overall-rating-method {
-    font-size: x-small;
-    text-align: right;
-    display: block;
-    padding-bottom: 10px;
+#yasr-overall-container {
+    text-align: center;
 }
 
 #yasr-rateit-vote-overall-text {
@@ -181,14 +178,6 @@ div.bigstars .rateit-selected
 
 #yasr-vote-with-numbers-select-container {
     display: block;
-}
-
-#yasr-vote-with-numbers {
-    text-align: center;
-}
-
-#yasr-vote-overall-stars {
-    text-align: center;
 }
 
 #yasr-comma-between-select {
