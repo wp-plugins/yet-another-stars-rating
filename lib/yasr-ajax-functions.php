@@ -83,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 //If there is not sinppet type, can happen when an user choose the snippet but doesn't use overall rating
                 if (!$snippet_type) {
 
-                    $wpdb->update(
+                    $wpdb->replace(
                         YASR_VOTES_TABLE,
                         array (
                             'review_type' => 'Product' //default review type in a new post

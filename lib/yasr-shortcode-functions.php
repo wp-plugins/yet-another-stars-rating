@@ -466,7 +466,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
         $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-most-rated-posts\">
                         <tr>
-                            <th>Post / Page</th>
+                            <th>" . __("Post / Page" , "yasr") ." </th>
                             <th>". __("Order By" , "yasr") .":&nbsp;&nbsp;<span id=\"yasr_multi_chart_link_to_nothing\">" . __("Most Rated" , "yasr") ."</span> | <a href=\"#\" id=\"yasr_multi_chart_highest\">" . __("Highest Rated" , "yasr") ."</a></th>
                         </tr>"
                         ;
@@ -504,7 +504,7 @@ function yasr_most_or_highest_rated_posts_callback () {
 
         $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-highest-rated-posts\">
                         <tr>
-                            <th>Post / Page</th>
+                            <th>" . __("Post / Page" , "yasr") ." </th>
                             <th>". __("Order By" , "yasr") .":&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">". __("Most Rated" , "yasr") ."</a> | <span id=\"yasr_multi_chart_link_to_nothing\">". __("Highest Rated" , "yasr") ."</span></th>
                         </tr>";
 

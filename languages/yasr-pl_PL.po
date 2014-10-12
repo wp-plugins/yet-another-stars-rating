@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
 "POT-Creation-Date: 2014-10-09 13:44+0100\n"
-"PO-Revision-Date: 2014-10-09 13:45+0100\n"
+"PO-Revision-Date: 2014-10-11 16:11+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: Hoek i Tutu Team <hoek@hoek.pl>\n"
 "Language: pl_PL\n"
@@ -14,6 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../lib\n"
 
 #: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:98
 #: ../lib/yasr-ajax-functions.php:47 ../lib/yasr-ajax-functions.php:196

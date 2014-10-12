@@ -155,18 +155,26 @@ function yasr_get_snippet_type() {
 
 	$post_id=get_the_ID();
 
-	$result=$wpdb->get_results("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
-
-	if($result) {
-		foreach ($result as $snippet) {
-			$snippet_type = $snippet->review_type;
-		}
-
-		return $snippet_type;
+	if (!$post_id) {
+		return FALSE;
 	}
 
 	else {
-		return FALSE;
+
+	$result=$wpdb->get_results("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+
+		if($result) {
+			foreach ($result as $snippet) {
+				$snippet_type = $snippet->review_type;
+			}
+
+			return $snippet_type;
+		}
+
+		else {
+			return FALSE;
+		}
+
 	}
 
 }

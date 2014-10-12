@@ -1,19 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yasr Translation\n"
-"POT-Creation-Date: 2014-10-09 13:43+0100\n"
-"PO-Revision-Date: 2014-10-09 13:44+0100\n"
+"POT-Creation-Date: 2014-10-11 15:26+0100\n"
+"PO-Revision-Date: 2014-10-11 16:10+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
-"Language: it\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ../lib\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../lib\n"
 
 #: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:98
 #: ../lib/yasr-ajax-functions.php:47 ../lib/yasr-ajax-functions.php:196
@@ -241,6 +242,11 @@ msgstr "Voto"
 #: ../lib/yasr-shortcode-functions.php:433
 msgid "You don't have any votes stored"
 msgstr "Non hai alcun voto salvato"
+
+#: ../lib/yasr-shortcode-functions.php:469
+#: ../lib/yasr-shortcode-functions.php:507
+msgid "Post / Page"
+msgstr "Post / Pagina"
 
 #: ../lib/yasr-shortcode-functions.php:470
 #: ../lib/yasr-shortcode-functions.php:508
@@ -639,19 +645,19 @@ msgstr "Lascialo vuoto se non stai cosa stai facendo"
 msgid "No previous Gd Star Rating installation was found"
 msgstr "Installazione precedente di Gd Star Rating non stata trovata"
 
-#: ../lib/yasr-db-functions.php:259 ../lib/yasr-ajax-functions.php:729
+#: ../lib/yasr-db-functions.php:267 ../lib/yasr-ajax-functions.php:729
 msgid "No Recenet votes yet"
 msgstr "Ancora nessun voto recente"
 
-#: ../lib/yasr-db-functions.php:274 ../lib/yasr-ajax-functions.php:742
+#: ../lib/yasr-db-functions.php:282 ../lib/yasr-ajax-functions.php:742
 msgid "anonymous"
 msgstr "anonimo"
 
-#: ../lib/yasr-db-functions.php:297 ../lib/yasr-ajax-functions.php:765
+#: ../lib/yasr-db-functions.php:305 ../lib/yasr-ajax-functions.php:765
 msgid "Ip address"
 msgstr "Indirizzo Ip"
 
-#: ../lib/yasr-db-functions.php:338 ../lib/yasr-ajax-functions.php:806
+#: ../lib/yasr-db-functions.php:346 ../lib/yasr-ajax-functions.php:806
 msgid "Pages"
 msgstr "Pagine"
 
@@ -688,8 +694,8 @@ msgid " rated "
 msgstr " votato "
 
 #: ../lib/yasr-functions.php:294
-msgid " on 5.0"
-msgstr " su 5.0 "
+msgid " of"
+msgstr "su"
 
 #: ../lib/yasr-functions.php:349
 msgid " written by "
@@ -919,6 +925,9 @@ msgstr "Voto Aggiornato"
 msgid "Average "
 msgstr "Media Voto "
 
+#~ msgid " on 5.0"
+#~ msgstr " su 5.0 "
+
 #~ msgid "Insert Reviews ranking"
 #~ msgstr "Inserisci Classifica Recensioni"
 
@@ -978,6 +987,3 @@ msgstr "Media Voto "
 #~ msgstr ""
 #~ "Qualcosa è andato storto cercando di aggiornare un elemento del Set "
 #~ "Multiplo. Per favore segnalalo"
-
-#~ msgid "Front Page"
-#~ msgstr "Pagina Principale"

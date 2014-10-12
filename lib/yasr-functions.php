@@ -291,7 +291,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     $div = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Review\">";
                     $author = "<span itemprop=\"author\" itemscope itemtype=\"http://schema.org/Person\">" . __(' reviewed by ', 'yasr') . "<span itemprop=\"name\">" . get_the_author() . "</span></span>";
                     $date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
-                    $rating = "<span itemprop=\"reviewRating\" itemscope itemtype=\"http://schema.org/Rating\"> ". __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $overall_rating . "</span> <span itemprop=\"bestRating\">" . __(' on 5.0' , 'yasr') . "</span></span>";
+                    $rating = "<span itemprop=\"reviewRating\" itemscope itemtype=\"http://schema.org/Rating\"> ". __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $overall_rating . "</span>" . __(' of', 'yasr') ." <span itemprop=\"bestRating\">5</span></span>";
                     $end_div= "</div>";
 
                     $schema = $div . $title . $author . $date . $rating . $end_div;
