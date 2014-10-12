@@ -96,17 +96,7 @@ $n_multi_set = NULL;
 		       	</form>
 		    </div>
 
-		    <div class="yasr-donatedivdx" style="display:none">
-	        	<h3><?php _e('Donations', 'yasr'); ?></h3>
-
-	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-	        	<br />
-	        	<?php _e('Thank you!', 'yasr'); ?>
-	        	<br />
-	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-	        	</a>
-        	</div>
+		    <?php yasr_donate_dx(); ?>
 
 			<div class="yasr-space-settings-div">
 			</div>
@@ -133,7 +123,7 @@ $n_multi_set = NULL;
 		          				<br />
 		          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
 
-		          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+		          				<span id="yasr-loader-importer" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "loader.gif" ?>">
 		          				</span>
 		          				<br />
 
@@ -166,7 +156,7 @@ $n_multi_set = NULL;
 	          				<br />
 	          				<button href="#" class="button-primary" id="import-button"> <?php _e('Proceed', 'yasr'); ?></button>
 
-	          				<span id="loader" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "/loader.gif" ?>">
+	          				<span id="yasr-loader-importer" style="display:none;" >&nbsp;<img src="<?php echo YASR_IMG_DIR . "loader.gif" ?>">
 	          				</span>
 	          				
 	          				<br />
@@ -290,19 +280,7 @@ $n_multi_set = NULL;
 		</div>
 
 
-		<div class="yasr-donatedivdx" style="display:none">
-	        <h3><?php _e('Donations', 'yasr'); ?></h3>
-
-	        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-	        	<br />
-	        	<?php _e('Thank you!', 'yasr'); ?>
-	        	<br />
-	        	
-	        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-	        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-	        	</a>
-
-        </div>
+		<?php yasr_donate_dx(); ?>
 
 		<div class="yasr-space-settings-div">
 		</div>
@@ -314,19 +292,7 @@ $n_multi_set = NULL;
 
 ?>
 
-	<div class="yasr-donatedivbottom" style="display:none">
-        	<h3><?php _e('Donations', 'yasr'); ?></h3>
-
-        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-        	<br />
-        	<?php _e('Thank you!', 'yasr'); ?>
-        	<br />
-        	
-        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-	        	<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-	        </a>
-
-        </div>
+	<?php yasr_donate_bottom (); ?>
 
 	<!--End div wrap-->
 	</div> 

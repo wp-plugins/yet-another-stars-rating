@@ -442,6 +442,7 @@ add_shortcode ('yasr_most_or_highest_rated_posts', 'yasr_most_or_highest_rated_p
 
 function yasr_most_or_highest_rated_posts_callback () {
 
+
     $shortcode_html = "";
 
     global $wpdb;
@@ -464,11 +465,11 @@ function yasr_most_or_highest_rated_posts_callback () {
     if ($query_result_most_rated) {
 
         $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-most-rated-posts\">
-                    <tr>
-                        <th>Post / Page</th>
-                        <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_highest\">Highest Rated</a></th>
-                    </tr>"
-                    ;
+                        <tr>
+                            <th>" . __("Post / Page" , "yasr") ." </th>
+                            <th>". __("Order By" , "yasr") .":&nbsp;&nbsp;<span id=\"yasr_multi_chart_link_to_nothing\">" . __("Most Rated" , "yasr") ."</span> | <a href=\"#\" id=\"yasr_multi_chart_highest\">" . __("Highest Rated" , "yasr") ."</a></th>
+                        </tr>"
+                        ;
 
         foreach ($query_result_most_rated as $result) {
 
@@ -502,10 +503,10 @@ function yasr_most_or_highest_rated_posts_callback () {
     if ($query_result_highest) {
 
         $shortcode_html .= "<table class=\"yasr-table-chart\" id=\"yasr-highest-rated-posts\">
-                    <tr>
-                        <th>Post / Page</th>
-                        <th>Order By:&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">Most Rated</a> | <a href=\"#\" id=\"yasr_multi_chart_link_to_nothing\">Highest Rated</a></th>
-                    </tr>";
+                        <tr>
+                            <th>" . __("Post / Page" , "yasr") ." </th>
+                            <th>". __("Order By" , "yasr") .":&nbsp;&nbsp; <a href=\"#\" id=\"yasr_multi_chart_most\">". __("Most Rated" , "yasr") ."</a> | <span id=\"yasr_multi_chart_link_to_nothing\">". __("Highest Rated" , "yasr") ."</span></th>
+                        </tr>";
 
         foreach ($query_result_highest as $result) {
 
