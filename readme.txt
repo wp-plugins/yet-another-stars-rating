@@ -84,6 +84,9 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 == Changelog ==
 
+= 0.6.2 =
+* Fixed bug for [yasr_overall_rating] in pages
+
 = 0.6.1 =
 * Bugfix: fixed mysql error if inserted the overall rating vote if post wasn't saved yet
 * Fixed schema info when overall rating is used

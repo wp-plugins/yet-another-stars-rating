@@ -59,7 +59,7 @@ function shortcode_overall_rating_callback ($atts) {
         if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
 
             //If pages are not excluted
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
 
                 if( is_singular() && is_main_query() ) {
 
@@ -84,7 +84,7 @@ function shortcode_overall_rating_callback ($atts) {
             elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
 
             //If pages are not excluted return always
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' ) {
+            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
 
                 return $shortcode_html;
 
