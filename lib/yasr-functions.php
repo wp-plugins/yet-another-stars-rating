@@ -259,46 +259,60 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /****** Add review schema data at the end of the post *******/
 
-	add_filter('the_content', 'yasr_add_overall_rating_schema');
+	add_filter('the_content', 'yasr_add_schema');
 
-	function yasr_add_overall_rating_schema($content) {
+	function yasr_add_schema($content) {
 
-		$schema=NULL; //To avoid undefined variable notice outside the loop
+        $schema=NULL; //To avoid undefined variable notice outside the loop
 
-		if (YASR_SNIPPET == 'overall_rating') {
+        $review_choosen = yasr_get_snippet_type();
 
-			$overall_rating=yasr_get_overall_rating();
+        if (YASR_SNIPPET == 'overall_rating') {
 
-			if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
+            $overall_rating=yasr_get_overall_rating();
 
-				if(is_singular() && is_main_query() ) {
-					global $post;
+            if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
 
-					$div = "<div class=\"yasr_schema\" itemprop=\"review\" itemscope itemtype=\"http://schema.org/Review\">";
-					$title = "<span itemprop=\"about\">". get_the_title() ."</span>";
-					$author = __(' reviewed by ', 'yasr') . "<span itemprop=\"author\">" . get_the_author() . "</span>";
-					$date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
-					$rating = __( ' rated ' , 'yasr' ) . "<span itemprop=\"reviewRating\">" . $overall_rating . "</span>" . __(' on 5.0' , 'yasr');
-					$end_div= "</div>";
+                if(is_singular() && is_main_query() ) {
+                    global $post;
 
-					$schema = $div . $title . $author . $date . $rating . $end_div;
-				}
+                    if ($review_choosen == 'Place') {
+                        $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/LocalBusiness\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
+                    }
 
-			} //END id if $overall_rating != '-1'
+                    if ($review_choosen == 'Other') {
+                         $title = "<span itemprop=\"itemReviewed\" itemscope itemType=\"http://schema.org/BlogPosting\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
+                    }
 
-			if( is_singular() && is_main_query() ) {
-				return $content . $schema;
-			}
+                    else {
+                        $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/Thing\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
+                    }
 
-			else {
-				return $content;
-			}
+                    $div = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Review\">";
+                    $author = "<span itemprop=\"author\" itemscope itemtype=\"http://schema.org/Person\">" . __(' reviewed by ', 'yasr') . "<span itemprop=\"name\">" . get_the_author() . "</span></span>";
+                    $date = __(' on ', 'yasr') . "<meta itemprop=\"datePublished\" content=\"" . get_the_date('c') . "\"> " .  get_the_date();
+                    $rating = "<span itemprop=\"reviewRating\" itemscope itemtype=\"http://schema.org/Rating\"> ". __( ' rated ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $overall_rating . "</span>" . __(' of', 'yasr') ." <span itemprop=\"bestRating\">5</span></span>";
+                    $end_div= "</div>";
 
-		}  //end if ($choosen_snippet['snippet'] == 'overall_rating')
+                    $schema = $div . $title . $author . $date . $rating . $end_div;
 
-		if (YASR_SNIPPET == 'visitor_rating') {
+                }
 
-			$visitor_votes = yasr_get_visitor_votes ();
+            } //END id if $overall_rating != '-1'
+
+            if( is_singular() && is_main_query() ) {
+                return $content . $schema;
+            }
+
+            else {
+                return $content;
+            }
+
+        }  //end if ($choosen_snippet['snippet'] == 'overall_rating')
+
+        if (YASR_SNIPPET == 'visitor_rating') {
+
+            $visitor_votes = yasr_get_visitor_votes ();
 
             if ($visitor_votes) {
 
@@ -313,35 +327,47 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $visitor_rating = NULL;
             }
 
-			if ($visitor_rating['sum'] != 0) {
+            if ($visitor_rating['sum'] != 0) {
 
-				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
+                $average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
 
-				$average_rating=round($average_rating, 1);
+                $average_rating=round($average_rating, 1);
 
-				$div_1 = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Product\">";
-				$title = "<span itemprop=\"name\">". get_the_title() ."</span>";
-				$span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
-				$rating = __( ' average rating ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>/<span itemprop=\"bestRating\">5</span>";
-				$n_ratings = " - <span itemprop=\"ratingCount\"> " . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
-				$end_span_1 = "</span>";
-				$end_div_1 = "</div>";
+                if ($review_choosen == 'Place') {
+                    $div_1 = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/LocalBusiness\">";
+                }
 
-				$schema = $div_1 . $title . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
+                if ($review_choosen == 'Other') {
+                    $div_1 = "<div class=\"yasr_schema\" itemscope itemType=\"http://schema.org/BlogPosting\">";
+                }
 
-			}
+                else {
+                    $div_1 = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Product\">";
+                }
 
-			if( is_singular() && is_main_query() ) {
-					return $content . $schema;
-			}
+                $title = "<span itemprop=\"name\">". get_the_title() ."</span>";
+                $author = __( ' written by ' , 'yasr' ) . get_the_author();
+                $span_1 = "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\">";
+                $rating = __( ' average rating ' , 'yasr' ) . "<span itemprop=\"ratingValue\">" . $average_rating . "</span>/<span itemprop=\"bestRating\">5</span>";
+                $n_ratings = " - <span itemprop=\"ratingCount\"> " . $visitor_rating['votes_number'] . "</span>" . __(' user ratings', 'yasr');
+                $end_span_1 = "</span>";
+                $end_div_1 = "</div>";
 
-			else {
-					return $content;
-			}
+                $schema = $div_1 . $title . $author . $span_1 . $rating . $n_ratings . $end_span_1 . $end_div_1;
 
-		}
+            }
 
-	} //End function
+            if( is_singular() && is_main_query() ) {
+                    return $content . $schema;
+            }
+
+            else {
+                    return $content;
+            }
+
+        }
+
+    } //End function
 
 
 /****** Create a new button in Tinymce for use shortag
@@ -409,5 +435,59 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
         }
 
     }
+
+/****** Donation box dx ******/
+
+function yasr_donate_dx () {
+
+    ?>
+
+    <div class="yasr-donatedivdx" style="display:none">
+        <h3><?php _e('Donations', 'yasr'); ?></h3>
+
+        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
+        <br />
+        <?php _e('Thank you!', 'yasr'); ?>
+        <br />
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+        </a>
+
+        <hr>
+    
+        <h3><a href="http://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
+
+    </div>
+
+    <?php 
+
+}
+
+
+function yasr_donate_bottom () {
+
+    ?>
+
+    <div class="yasr-donatedivbottom" style="display:none">
+        <h3><?php _e('Donations', 'yasr'); ?></h3>
+
+        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
+        <br />
+        <?php _e('Thank you!', 'yasr'); ?>
+        <br />
+        
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+        </a>
+
+        <hr>
+
+        <h3><a href="http://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
+
+    </div>
+
+    <?php
+
+}
 
 ?>

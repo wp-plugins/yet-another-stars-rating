@@ -18,19 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 /****** Yasr Metabox overall rating ******/
 
-    function yasrDisplayOverallMetabox(defaultbox, postid, nonce) {
+    function yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall, nonceSnippet) {
 
         if (defaultbox == 'stars' ) { 
 
-            yasrPrintEventSendOverallWithStars(postid, nonce);             
+            yasrPrintEventSendOverallWithStars(postid, nonceOverall);             
 
         } //end if if (defaultbox == 'stars' )
 
         else if (defaultbox == 'numbers') {
 
-           yasrPrintEventSendOverallWithNumbers(postid, nonce);
+           yasrPrintEventSendOverallWithNumbers(postid, nonceOverall);
 
         } //End else if (defaultbox == 'numbers')
+
+        yasrSnippetSelect(postid, nonceSnippet);
 
     } //End function   yasr_display_metabox*/
 
@@ -106,6 +108,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
             return false;
             preventDefault(); // same thing as above
+
+        });
+
+    }
+
+    function yasrSnippetSelect(postid, nonceSnippet) {
+
+    	jQuery('#yasr-send-review-type').on('click', function() {
+
+    		reviewtype = jQuery('#yasr-choose-reviews-types-list').val()
+
+        	var data = {
+        		action: 'yasr_insert_review_type',
+        		reviewtype: reviewtype,
+        		postid: postid,
+        		nonce: nonceSnippet
+        	}
+
+        	jQuery.post(ajaxurl, data, function(response) {
+                jQuery('#yasr-ajax-response-review-type').text(response);
+            }) ;
+
+        	return false;
+        	preventDefault(); // same thing as above
 
         });
 
@@ -328,11 +354,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			//On click begin step1
 			jQuery('#import-button').on('click', function() {
 
+				jQuery('#yasr-loader-importer').show();
+
 				var data = { 
 					action : 'yasr_import_step1'
 				};
 
 				jQuery.post(ajaxurl, data, function(response) {
+					jQuery('#yasr-loader-importer').hide();
 					jQuery('#result-import').html(response);
 				});
 
@@ -341,11 +370,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			jQuery('#result-import').on('click', '.yasr-result-step-1', function() {
 				//Now we are going to prepare another ajax call to check if multiple set exists
 
+				jQuery('#yasr-loader-importer2').show();
+
 				var data = {
 					action: 'yasr_import_multi_set'
 				};
 					
 				jQuery.post(ajaxurl, data, function(response) {
+					jQuery('#yasr-loader-importer2').hide();
 					jQuery('#result-import').append(response);
 				});
 
