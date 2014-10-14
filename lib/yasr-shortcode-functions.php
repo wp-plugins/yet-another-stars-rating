@@ -34,19 +34,24 @@ function shortcode_overall_rating_callback ($atts) {
 
         }
 
-        switch ($size) {
-            case 'small':
-                        $shortcode_html .= "<div class=\"rateit\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"16\" data-rateit-starheight=\"16\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
-                        break;
-
-            case 'medium':
-                        $shortcode_html .= "<div class=\"rateit medium\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
-                        break;
-
-            case 'large':
-                        $shortcode_html .= "<div class=\"rateit bigstars\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
-                        break;
+        if ($size === 'small') {
+            $rateit_class='rateit';
+            $px_size = '16';
         }
+
+        elseif ($size === 'medium') {
+            $rateit_class = 'rateit medium';
+            $px_size = '24';
+        }
+
+        //default values
+        else {
+            $rateit_class = 'rateit bigstars';
+            $px_size = '32';
+        }
+
+        $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
+
 
 
         if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
