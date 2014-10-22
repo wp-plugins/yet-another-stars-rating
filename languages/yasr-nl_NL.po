@@ -1,0 +1,1142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Yet Another Stars Rating v0.6.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-22 16:20+0100\n"
+"PO-Revision-Date: 2014-10-22 16:20+0100\n"
+"Last-Translator: Dario <thedudoworld@gmail.com>\n"
+"Language-Team: NL\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../lib\n"
+
+# @ yasr
+#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:98
+#: ../lib/yasr-ajax-functions.php:47 ../lib/yasr-ajax-functions.php:196
+#: ../lib/yasr-ajax-functions.php:335 ../lib/yasr-ajax-functions.php:717
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Je hebt niet voldoende rechten om deze pagina te laden."
+
+# @ yasr
+#: ../yasr-settings-page.php:33
+msgid "Settings"
+msgstr "Instellingen"
+
+# @ yasr
+#: ../yasr-settings-page.php:76
+msgid "General Settings"
+msgstr "Algemene Instellingen"
+
+# @ yasr
+#: ../yasr-settings-page.php:77
+msgid "Multi Sets"
+msgstr "Multi Sets"
+
+# @ yasr
+#: ../yasr-settings-page.php:78
+msgid "Styles"
+msgstr "Opmaak"
+
+#: ../yasr-settings-page.php:79
+msgid "Pro Features!"
+msgstr ""
+
+# @ default
+#: ../yasr-settings-page.php:96 ../yasr-settings-page.php:279
+msgid "Save"
+msgstr "Opslaan"
+
+# @ yasr
+#: ../yasr-settings-page.php:116
+msgid "Import Gd Star Rating"
+msgstr "Importeer Gd Star Rating"
+
+# @ yasr
+#: ../yasr-settings-page.php:117
+msgid "I've found a previous installation of Gd Star Rating."
+msgstr "Ik heb een eerdere installatie van Gd Star Rating gevonden."
+
+# @ yasr
+#: ../yasr-settings-page.php:117
+msgid "Do you want proceed to import data?"
+msgstr "Wil je beginnen met het importeren van gegevens?"
+
+# @ yasr
+#: ../yasr-settings-page.php:119
+msgid "Yes, Begin Import"
+msgstr "Ja, Begin met Importeren"
+
+# @ default
+#: ../yasr-settings-page.php:123
+msgid "Click on Proceed to import Gd Star Rating data."
+msgstr "Klik op Importeren om Gd Star Rating gegevens te importeren."
+
+# @ yasr
+#: ../yasr-settings-page.php:126 ../yasr-settings-page.php:159
+msgid "Proceed"
+msgstr "Importeren"
+
+# @ yasr
+#: ../yasr-settings-page.php:148
+msgid "Manage GD Star Data"
+msgstr "Beheer GD Star Gegevens"
+
+# @ default
+#: ../yasr-settings-page.php:149
+msgid "Gd Star Rating has been already imported."
+msgstr "Gd Star Rating is al geïmporteerd."
+
+# @ yasr
+#: ../yasr-settings-page.php:150
+msgid "If you wish you can import it again, but"
+msgstr "Als je dat wilt kun je het nogmaals importeren, maar"
+
+# @ yasr
+#: ../yasr-settings-page.php:150
+msgid "you will lose all data you've collect since the import!"
+msgstr ""
+"je zal alle gegevens verliezen die je verzameld hebt sinds de vorige keer "
+"importeren!"
+
+# @ default
+#: ../yasr-settings-page.php:152
+msgid "Ok, Import Again"
+msgstr "Ok, Nogmaals Importeren"
+
+# @ default
+#: ../yasr-settings-page.php:156
+msgid ""
+"Click on Proceed to import again Gd Star Rating data. This may take a while!"
+msgstr ""
+"Klik op Importeren om Gd Star Rating opnieuw te importeren. Dit kan even "
+"duren!"
+
+# @ yasr
+#: ../yasr-settings-page.php:197
+msgid "Manage Multi Set"
+msgstr "Beheren Multi Set"
+
+# @ yasr
+#: ../yasr-settings-page.php:201
+msgid "What is a Multi Set?"
+msgstr "Wat is een Multi Set?"
+
+# @ yasr
+#: ../yasr-settings-page.php:206
+msgid ""
+"Multi Set allows you to insert a rate for each aspect about the product / "
+"local business / whetever you're reviewing, example in the image below."
+msgstr ""
+"Multi Set maakt het mogelijk om een waardering te plaatsen voor ieder aspect "
+"van het product / lokaal bedrijf / wat het ook is dat je recenseert. Een "
+"voorbeeld is in de afbeelding hieronder."
+
+# @ yasr
+#: ../yasr-settings-page.php:210
+msgid ""
+"You can create up to 99 different Multi Set and each one can contain up to 9 "
+"different fields. Once you've saved it, you can insert the rates while "
+"typing your article in the box below the editor, as you can see in this "
+"image (click to see it larger)"
+msgstr ""
+"Je kunt tot 99 verschillende Multi Sets aanmaken en iedere set kan tot 9 "
+"verschillende velden bevatten. Wanneer je het eenmaal opgeslagen hebt, dan "
+"kun je stemmingen plaatsen terwijl je het bericht schrijft in de metabox "
+"onder de tekstverwerker, zoals je kunt zien in deze afbeelding (klik om "
+"groter te maken)"
+
+# @ yasr
+#: ../yasr-settings-page.php:214
+msgid ""
+"In order to insert your Multi Sets into a post or page, you can either past "
+"the short code that will appear at the bottom of the box or just click on "
+"the star in the graphic editor and select \"Insert Multi Set\"."
+msgstr ""
+"Om een Multi Set in te voegen in een bericht of pagina, kun je of de "
+"shortcode plaatsen die verschijnt onderin de metabox. Je kunt ook gewoon "
+"klikken op de ster in de tekstverwerker en \"Invoegen Multi Set\" selecteren."
+
+# @ yasr
+#: ../yasr-settings-page.php:220
+msgid "Close this message"
+msgstr "Sluit dit bericht"
+
+# @ yasr
+#: ../yasr-settings-page.php:249 ../lib/yasr-functions.php:446
+#: ../lib/yasr-functions.php:472
+msgid "Donations"
+msgstr "Donaties"
+
+# @ yasr
+#: ../yasr-settings-page.php:251 ../lib/yasr-functions.php:448
+#: ../lib/yasr-functions.php:474
+msgid ""
+"If you have found this plugin useful, please consider making a donation to "
+"help support future development. Your support will be much appreciated. "
+msgstr ""
+"Als je deze plugin handig vindt, overweeg dan een donatie te maken om "
+"verdere ontwikkeling te ondersteunen. Je steun wordt erg gewaardeerd."
+
+# @ yasr
+#: ../yasr-settings-page.php:253 ../lib/yasr-functions.php:450
+#: ../lib/yasr-functions.php:476
+msgid "Thank you!"
+msgstr "Bedankt."
+
+# @ default
+#: ../yasr-metabox-multiple-rating.php:35
+msgid "Choose wich set you want to use"
+msgstr "Kies welke set je wilt gebruiken"
+
+# @ default
+# @ yasr
+#: ../yasr-metabox-multiple-rating.php:46
+#: ../yasr-metabox-overall-rating.php:193
+#: ../lib/yasr-settings-functions.php:431
+msgid "Select"
+msgstr "Selecteren"
+
+# @ yasr
+#: ../yasr-metabox-overall-rating.php:65 ../yasr-metabox-overall-rating.php:99
+msgid "Rate this article / item"
+msgstr "Stem op dit artikel of item"
+
+# @ yasr
+#: ../yasr-metabox-overall-rating.php:71
+#: ../lib/yasr-shortcode-functions.php:152
+msgid "Loading, please wait"
+msgstr "Laden, even wachten svp."
+
+# @ yasr
+#: ../yasr-metabox-overall-rating.php:147
+msgid "Save Vote"
+msgstr "Stem opslaan"
+
+# @ default
+#: ../yasr-metabox-overall-rating.php:164
+msgid "This review is about a..."
+msgstr "Deze recensie is over..."
+
+# @ yasr
+#: ../yasr-metabox-overall-rating.php:211
+msgid ""
+"Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> "
+"where you want to display this rating"
+msgstr ""
+"Vergeet niet deze shortcode <strong>[yasr_overall_rating]</strong> in te "
+"voegen waar je deze stemming wilt tonen"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:197
+#: ../lib/yasr-shortcode-functions.php:209
+#: ../lib/yasr-shortcode-functions.php:214
+#: ../lib/yasr-shortcode-functions.php:229
+#: ../lib/yasr-shortcode-functions.php:234
+#: ../lib/yasr-shortcode-functions.php:254
+#: ../lib/yasr-shortcode-functions.php:265
+#: ../lib/yasr-shortcode-functions.php:271
+#: ../lib/yasr-shortcode-functions.php:286
+#: ../lib/yasr-shortcode-functions.php:292 ../lib/yasr-ajax-functions.php:979
+#: ../lib/yasr-ajax-functions.php:987 ../lib/yasr-ajax-functions.php:1086
+#: ../lib/yasr-ajax-functions.php:1094 ../lib/yasr-ajax-functions.php:1102
+#: ../lib/yasr-ajax-functions.php:1171 ../lib/yasr-ajax-functions.php:1180
+msgid "Total: "
+msgstr "Totaal: "
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:197
+#: ../lib/yasr-shortcode-functions.php:209
+#: ../lib/yasr-shortcode-functions.php:214
+#: ../lib/yasr-shortcode-functions.php:229
+#: ../lib/yasr-shortcode-functions.php:234
+#: ../lib/yasr-shortcode-functions.php:254
+#: ../lib/yasr-shortcode-functions.php:265
+#: ../lib/yasr-shortcode-functions.php:271
+#: ../lib/yasr-shortcode-functions.php:286
+#: ../lib/yasr-shortcode-functions.php:292
+msgid "Average: "
+msgstr "Gemiddelde: "
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:198
+#: ../lib/yasr-shortcode-functions.php:255
+msgid "You've already voted this article with"
+msgstr "Je hebt al op dit artikel gestemd met"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:287
+#: ../lib/yasr-shortcode-functions.php:293
+msgid "You must sign to vote"
+msgstr "Je moet inloggen om te stemmen"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:317
+msgid "'bad', 'poor', 'ok', 'good', 'super'"
+msgstr "'slecht', 'matig', 'OK', 'goed', 'fantastisch'"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:424
+msgid "Rating"
+msgstr "Stemming"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:438
+msgid "You don't have any votes stored"
+msgstr "Je hebt geen opgeslagen stemmen"
+
+#: ../lib/yasr-shortcode-functions.php:474
+#: ../lib/yasr-shortcode-functions.php:512
+msgid "Post / Page"
+msgstr "Bericht / Pagina"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
+msgid "Order By"
+msgstr "Sorteer Op"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
+msgid "Most Rated"
+msgstr "Meeste op Gestemd"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
+msgid "Highest Rated"
+msgstr "Hoogste Stemming"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:492
+#: ../lib/yasr-shortcode-functions.php:527
+msgid "Total:"
+msgstr "Totaal:"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:492
+#: ../lib/yasr-shortcode-functions.php:527
+msgid "Average"
+msgstr "Gemiddelde"
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:504
+#: ../lib/yasr-shortcode-functions.php:539
+msgid "You've not enought data"
+msgstr "Je hebt niet genoeg gegevens"
+
+# @ default
+#: ../lib/yasr-shortcode-functions.php:624
+msgid ""
+"Problem while retriving the top 5 most active reviewers. Did you published "
+"any review?"
+msgstr ""
+"Probleem tijdens het ophalen van de 5 meest actieve recensenten. Heb je wel "
+"een recensie gepubliceerd?"
+
+# @ default
+#: ../lib/yasr-shortcode-functions.php:692
+msgid ""
+"Problem while retriving the top 10 active users chart. Are you sure you have "
+"votes to show?"
+msgstr ""
+"Probleem tijdens het ophalen van de grafiek van de top 10 actieve "
+"gebruikers. Weet je zeker dat je wel stemmen hebt om te tonen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:50
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:51
+msgid "Auto insert options"
+msgstr "Auto invoegopties"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:52
+msgid "Show \"Overall Rating\" in Home Page?"
+msgstr "Toon \"Algemene Stemming\" op de Voorpagina?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:53
+msgid "Insert custom text to show before / after stars"
+msgstr "Invoegen aangepaste tekst om voor / na de sterren te tonen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:54
+msgid "Which color scheme do you want to use?"
+msgstr "Welk kleurenschema wil je gebruiken?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:55
+msgid "Allow only logged in user to vote?"
+msgstr "Alleen ingelogde gebruikers mogen stemmen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:56
+msgid "Which rich snippets do you want to use?"
+msgstr "Welke \"rich snippets\" wil je gebruiken?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:57
+msgid "How do you want to rate \"Overall Rating\"?"
+msgstr "Hoe wil je de \"Algemene Stemming\" waarderen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:71
+msgid "Use Auto Insert?"
+msgstr "Gebruik Auto Invoegen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:74
+#: ../lib/yasr-settings-functions.php:143
+#: ../lib/yasr-settings-functions.php:162
+#: ../lib/yasr-settings-functions.php:195
+#: ../lib/yasr-settings-functions.php:227
+msgid "Yes"
+msgstr "Ja"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:88
+#: ../lib/yasr-settings-functions.php:148
+#: ../lib/yasr-settings-functions.php:167
+#: ../lib/yasr-settings-functions.php:200
+#: ../lib/yasr-settings-functions.php:232
+msgid "No"
+msgstr "Nee"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:94
+msgid "What?"
+msgstr "Wat?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:97
+msgid "Overall Rating / Author Rating"
+msgstr "Algemene Stemming / Auteur Stemming"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:101 ../lib/yasr-ajax-functions.php:462
+msgid "Visitor Votes"
+msgstr "Bezoekersstemmen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:105
+msgid "Both"
+msgstr "Beide"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:109
+msgid "Where?"
+msgstr "Waar?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:112
+msgid "Before the post"
+msgstr "Voor het bericht"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:116
+msgid "After the post"
+msgstr "Na het bericht"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:121
+msgid "Size"
+msgstr "Afmeting"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:125 ../lib/yasr-ajax-functions.php:452
+#: ../lib/yasr-ajax-functions.php:470
+msgid "Small"
+msgstr "Klein"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:130 ../lib/yasr-ajax-functions.php:453
+#: ../lib/yasr-ajax-functions.php:471
+msgid "Medium"
+msgstr "Gemiddeld"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:135 ../lib/yasr-ajax-functions.php:454
+#: ../lib/yasr-ajax-functions.php:472
+msgid "Large"
+msgstr "Groot"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:140
+msgid "Exclude Pages?"
+msgstr "Negeer Pagina's"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:159
+msgid "Use only in custom post types?"
+msgstr "Alleen gebruiken in custom post types?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:171
+msgid "You see this because you use custom post types."
+msgstr "Je ziet dit omdat je custom post types gebruikt."
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:173
+msgid "If you want to use auto insert only in custom post types, choose Yes"
+msgstr ""
+"Als je auto invoegen alleen wilt gebruiken bij custom post types, kies Ja"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:204
+msgid ""
+"If you enable this, \"Overall Rating\" will be showed not only in the single "
+"article or page, but also in pages like Home Page, category pages or "
+"archives."
+msgstr ""
+"Als je dit aanzet, wordt \"Algemene Stemming\" getoond niet alleen op het "
+"afzonderlijke bericht of pagina, maar ook op pagina's als de Voorpagina, "
+"categoriepagina's of archiefpagina's."
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:237
+msgid "Custom text to display before Overall Rating"
+msgstr "Aangepaste tekst om te tonen voor Algemene Stemming"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:242
+msgid "Custom text to display before Visitor Rating"
+msgstr "Aangepaste tekst om te tonen voor Bezoekersstemming"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:247
+msgid "Custom text to display when a non logged user has already rated"
+msgstr ""
+"Aangepaste tekst om te tonen wanneer een niet-ingelogde gebruiker al gestemd "
+"heeft"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:263
+msgid "Light"
+msgstr "Licht"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:268
+msgid "Dark"
+msgstr "Donker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:273
+msgid "Preview"
+msgstr "Voorvertoning"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:278
+msgid "Light theme"
+msgstr "Licht Thema"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:283
+msgid "Dark Theme"
+msgstr "Donker Thema"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:301
+msgid "Allow only logged-in users"
+msgstr "Alleen ingelogde gebruikers toestaan"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:305
+msgid "Allow everybody (logged in and anonymous)"
+msgstr "Sta iedereen toe (ingelogd en anoniem)"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:322
+msgid "Review Rating"
+msgstr "Recensie Stemming"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:326
+msgid "Aggregate Rating"
+msgstr "Cumulatieve Stemming"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:331
+msgid "What is this?"
+msgstr "Wat is dit?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:336
+msgid ""
+"If you select \"Review Rating\", your site will be indexed from search "
+"engines like this: "
+msgstr ""
+"Als je kiest voor \"Recensie Stemming\", dan wordt je site geïndexeerd door "
+"zoekmachines als volgt: "
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:341
+msgid ""
+"If, instead, you choose \"Aggregate Rating\", your site will be indexed like "
+"this"
+msgstr ""
+"Als je in plaats daarvan kiest voor \"Cumulatieve Stemming\", dan wordt je "
+"site ook geïndexeerd als volgt:"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:359
+msgid "Stars"
+msgstr "Sterren"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:363
+msgid "Numbers"
+msgstr "Getallen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:376
+msgid "Add New Multiple Set"
+msgstr "Toevoegen Nieuwe Multi Set"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:377
+msgid ""
+"Name, Element#1 and Element#2 MUST be filled and must be long at least 3 "
+"characters"
+msgstr ""
+"Naam, Element#1 en Element#2 MOETEN ingevuld zijn en minimaal 3 karakters "
+"lang zijn"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:380
+msgid "Name"
+msgstr "Naam"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:385
+msgid "You can insert up to nine element"
+msgstr "Je kunt tot 9 elementen invoegen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:390
+msgid "Element "
+msgstr "Element"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:400
+msgid "Create New Set"
+msgstr "Aanmaken Nieuwe Set"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:421
+#: ../lib/yasr-settings-functions.php:453
+msgid "Manage Multiple Set"
+msgstr "Beheer Multi Set"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:423
+msgid "Wich set do you want to edit or remove?"
+msgstr "Welke set wil je bewerken of verwijderen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:463
+#: ../lib/yasr-settings-functions.php:581
+msgid "Field name"
+msgstr "Veldnaam"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:467
+#: ../lib/yasr-settings-functions.php:585
+msgid "Remove"
+msgstr "Verwijderen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:509
+#: ../lib/yasr-settings-functions.php:627
+msgid "Remove whole set?"
+msgstr "Verwijder hele set?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:522
+#: ../lib/yasr-settings-functions.php:640
+msgid ""
+"If you remove something you will remove all the votes for that set or field. "
+"This operation CAN'T BE undone."
+msgstr ""
+"Als je iets verwijdert dan verwijder je ook alle stemmen voor die set of dat "
+"veld. Deze handeling kan NIET ongedaan gemaakt worden."
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:529
+#: ../lib/yasr-settings-functions.php:647
+msgid "You can use up to 9 elements"
+msgstr "Je kunt tot 9 elementen gebruiken"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:531
+#: ../lib/yasr-settings-functions.php:649
+msgid "Add element"
+msgstr "Toevoegen element"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:533
+#: ../lib/yasr-settings-functions.php:651
+msgid "Save changes"
+msgstr "Opslaan"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:543
+msgid "No Multiple Set were found"
+msgstr "Geen Multi Set gevonden"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:793
+#: ../lib/yasr-settings-functions.php:1061
+msgid "Settings Saved"
+msgstr "Instellingen Opgeslagen"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:798
+msgid "Something goes wrong trying insert set field name. Please report it"
+msgstr ""
+"Er ging iets mis tijdens het invoegen van de veldnaam. Graag aangeven bij de "
+"maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:804
+msgid "Something goes wrong trying insert Multi Set name. Please report it"
+msgstr ""
+"Er ging iets mis tijdens het invoegen van de Multi Set naam. Graag aangeven "
+"bij de maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:879
+msgid "Something goes wrong trying to delete a Multi Set . Please report it"
+msgstr ""
+"Er ging iets mis tijdens het verwijderen van een Multi Set. Graag aangeven "
+"bij de maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:925
+msgid ""
+"Something goes wrong trying to delete a Multi Set's element. Please report it"
+msgstr ""
+"Er ging iets mis tijdens het verwijderen van een Multi Set element. Graag "
+"aangeven bij de maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:989
+msgid ""
+"Something goes wrong trying to update a Multi Set's element. Please report it"
+msgstr ""
+"Er ging iets mis tijdens het bijwerken van een Multi Set element. Graag "
+"aangeven bij de maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1046
+msgid ""
+"Something goes wrong trying to insert set field name in edit form. Please "
+"report it"
+msgstr ""
+"Er ging iets mis tijdens het invoegen van een set-veldnaam in het bewerk-"
+"formulier. Graag aangeven bij de maker"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1089
+msgid "Style Options"
+msgstr "Opmaak Opties"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1090
+msgid "Custom CSS Styles"
+msgstr "Aangepaste CSS Opmaak"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1095
+msgid ""
+"Please use text area below to write your own CSS styles to override the "
+"default ones."
+msgstr ""
+"Gebruik het tekstveld hieronder om je eigen CSS opmaak te schrijven om de "
+"standaard opmaak te overschrijven. "
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1097
+msgid "Leave it blank if you don't know what you're doing"
+msgstr "Laat het leeg als je niet weet wat dit is."
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1130
+msgid "No previous Gd Star Rating installation was found"
+msgstr "Geen eerdere Gd Star Rating installatie gevonden"
+
+# @ yasr
+#: ../lib/yasr-db-functions.php:267 ../lib/yasr-ajax-functions.php:729
+msgid "No Recenet votes yet"
+msgstr "Geen Recente stemmen nog"
+
+# @ default
+#: ../lib/yasr-db-functions.php:282 ../lib/yasr-ajax-functions.php:742
+msgid "anonymous"
+msgstr "anoniem"
+
+# @ yasr
+#: ../lib/yasr-db-functions.php:305 ../lib/yasr-ajax-functions.php:765
+msgid "Ip address"
+msgstr "Ipadres"
+
+# @ yasr
+#: ../lib/yasr-db-functions.php:346 ../lib/yasr-ajax-functions.php:806
+msgid "Pages"
+msgstr "Pagina's"
+
+# @ yasr
+#: ../lib/yasr-functions.php:86 ../lib/yasr-functions.php:87
+msgid "Yet Another Stars Rating: Settings"
+msgstr "Yet Another Stars Rating: Instellingen"
+
+# @ yasr
+#: ../lib/yasr-functions.php:130 ../lib/yasr-functions.php:137
+msgid "Overall Rating"
+msgstr "Algemene Stemming"
+
+# @ yasr
+#: ../lib/yasr-functions.php:131
+msgid "Yet Another Stars Rating: Multiple set"
+msgstr "Yet Another Stars Rating: Multi Sets"
+
+# @ default
+#: ../lib/yasr-functions.php:147
+msgid "You don't have enought privileges to insert Overall Rating"
+msgstr "Je hebt niet genoeg rechten om Algemene Stemming in te voegen"
+
+# @ default
+#: ../lib/yasr-functions.php:157
+msgid "You don't have enought privileges to insert Multi Set"
+msgstr "Je hebt niet genoeg rechten om Multi Set in te voegen"
+
+# @ yasr
+#: ../lib/yasr-functions.php:292
+msgid " reviewed by "
+msgstr "gerecenseerd door"
+
+# @ yasr
+#: ../lib/yasr-functions.php:293
+msgid " on "
+msgstr "op"
+
+# @ yasr
+#: ../lib/yasr-functions.php:294
+msgid " rated "
+msgstr "gestemd"
+
+#: ../lib/yasr-functions.php:294
+msgid " of"
+msgstr "van"
+
+# @ yasr
+#: ../lib/yasr-functions.php:349
+msgid " written by "
+msgstr "geschreven door "
+
+# @ yasr
+#: ../lib/yasr-functions.php:351
+msgid " average rating "
+msgstr " gemiddelde stemming"
+
+# @ yasr
+#: ../lib/yasr-functions.php:352
+msgid " user ratings"
+msgstr "gebruikersstemmen"
+
+# @ yasr
+#: ../lib/yasr-functions.php:458 ../lib/yasr-functions.php:485
+msgid "Follow YASR official site!"
+msgstr "Volg de YASR officiële site"
+
+#: ../lib/yasr-functions.php:504
+msgid "Looking for more features?"
+msgstr ""
+
+#: ../lib/yasr-functions.php:505
+msgid "Upgrade to yasr pro!"
+msgstr ""
+
+#: ../lib/yasr-functions.php:584
+msgid "Not avaible yet"
+msgstr ""
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:101
+msgid "You've rated it "
+msgstr "Je hebt gestemd"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:105
+msgid "You've reset the vote"
+msgstr "Je hebt de stem ingetrokken"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:170
+msgid ""
+"There was an error while trying to insert the review type. Please report it"
+msgstr ""
+"Er ging iets mis tijdens het invoegen van het recensie type. Graag aangeven "
+"bij de maker"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:207
+msgid "Choose a vote for each element"
+msgstr "Kies een stem voor ieder element"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:263 ../lib/yasr-ajax-functions.php:306
+msgid "Remember to insert this shortcode"
+msgstr "Vergeet niet deze shortcode in te voegen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:265 ../lib/yasr-ajax-functions.php:308
+msgid "where you want to display this multi set"
+msgstr "waar je deze multi set wilt tonen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:273
+msgid "Choose a vote for every element"
+msgstr "Kies een stem voor ieder element"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:432
+msgid "Main"
+msgstr "Hoofd"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:433
+msgid "Charts"
+msgstr "Grafieken"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:435
+msgid "Read the doc"
+msgstr "Lees de documentatie"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:444
+msgid "Overall Rating / Review"
+msgstr "Algemene Stemming / Recensie"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:446
+msgid "Insert Overall Rating"
+msgstr "Voeg Algemene Stemming in"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:447
+msgid "Insert Overall Rating / Review for this post"
+msgstr "Voeg Algemene Stemming / Recensie voor dit bericht in"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:450 ../lib/yasr-ajax-functions.php:468
+msgid "Choose Size"
+msgstr "Kies Grootte"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:464
+msgid "Insert Visitor Votes"
+msgstr "Invoegen Bezoekersstemmen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:465
+msgid "Insert the ability for your visitor to vote"
+msgstr "Maak het mogelijk voor je bezoekers om te stemmen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:482
+msgid "If you want to insert a Multi Set, pick one:"
+msgstr "Als je een Multi Set wilt invoegen, kies er één:"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:488
+msgid "Choose wich set you want to insert."
+msgstr "Kies welke set je wilt invoegen."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:496
+msgid "Insert Multiset:"
+msgstr "Invoegen Multi Set:"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:499
+msgid "Insert Multiple Set"
+msgstr "Invoegen Multi Set"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:500
+msgid "Insert multiple set in this post ?"
+msgstr "Invoegen Multi Set in dit bericht?"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:515
+msgid "Ranking reviews"
+msgstr "Ranglijst recensies"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:516
+msgid "Insert Ranking reviews"
+msgstr "Invoegen Ranglijst recensies"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:517
+msgid "Insert Top 10 ranking for [yasr_overall_rating] shortcode"
+msgstr "Invoegen Top 10 ranglijst voor [yasr_overall_rating] shortcode"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:521
+msgid "Users' ranking"
+msgstr "Gebruikersranglijst"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:522
+msgid "Insert Users ranking"
+msgstr "Invoegen Gebruikersranglijst"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:523
+msgid "Insert Top 10 ranking for [yasr_visitor_votes] shortcode"
+msgstr "Invoegen Top 10 ranglijst voor [yasr_visitor_votes] shortcode"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:527
+msgid "Most active reviewers"
+msgstr "Meest actieve recensenten"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:528
+msgid "Insert Most Active Reviewers"
+msgstr "Invoegen Meest Actieve Recensenten"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:529
+msgid "Insert Top 5 active reviewers"
+msgstr "Invoegen Top 5 actieve recensenten"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:533
+msgid "Most Active Users"
+msgstr "Meest Actieve Gebruikers"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:534
+msgid "Insert Most Active Users"
+msgstr "Invoegen Meest Actieve Gebruikers"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:535
+msgid "Insert Top 10 voters [yasr_visitor_votes] shortcode"
+msgstr "Invoegen Top 10 stemmers [yasr_visitor_votes] shortcode"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:587
+msgid "Reviews and Visitor Votes have been successfull imported."
+msgstr "Recensies en Bezoekersstemmen zijn succesvol geïmporteerd."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:593
+msgid ""
+"Step2: I will check if you used Multiple Sets and if so I will import them. "
+"THIS MAY TAKE A WHILE!"
+msgstr ""
+"Stap 2: Controleren op gebruik van MultiSets en eventueel importeren. DIT "
+"KAN EVEN DUREN! "
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:595
+msgid "Proceed Step 2"
+msgstr "Verder met stap 2"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:602
+msgid "Something goes wrong! Refresh the page and try again!"
+msgstr "Er ging iets mis. Vernieuw de pagina en probeer het nogmaals."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:631
+msgid "I've found Multiple Set! Importing..."
+msgstr "Meerdere Multi Sets gevonden. Aan het importeren..."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:640
+msgid "Multi Set's name has been successfull imported."
+msgstr "Naam van Multi Set is succesvol geïmporteerd."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:642
+msgid "Now I'm going to import Multi Set data"
+msgstr "Beginnen met het importeren van Multi Set gegevens"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:653
+msgid "All votes has been successfull imported."
+msgstr "Alle stemmen zijn succesvol geïmporteerd."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:655
+msgid "Done"
+msgstr "Klaar"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:660
+msgid "I've found Multiple Set's votes but I couldn't insert into db"
+msgstr ""
+"Er zijn stemmen van meerdere Multi Sets gevonden maar deze konden niet "
+"geïmporteerd worden in de database"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:668
+msgid "I've found Multi Set but with no data"
+msgstr "De Multi Set is gevonden maar deze bevat geen gegevens"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:677
+msgid "I've found Multi Sets names but I couldn't insert into db"
+msgstr ""
+"Multi Set namen zijn gevonden maar ze konden niet in de database "
+"geïmporteerd worden"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:685
+msgid "Multisets were not found. Imported is done!"
+msgstr "Geen Multi Sets gevonden. Importeren is klaar."
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:888 ../lib/yasr-ajax-functions.php:1017
+msgid "Error: you can't vote 0"
+msgstr "Error: je kunt niet 0 stemmen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:979 ../lib/yasr-ajax-functions.php:987
+msgid "Average rating"
+msgstr "Gemiddelde stemming"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:980 ../lib/yasr-ajax-functions.php:988
+msgid "Vote Saved"
+msgstr "Stem Opgeslagen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:1087 ../lib/yasr-ajax-functions.php:1095
+#: ../lib/yasr-ajax-functions.php:1103
+msgid "Vote Updated"
+msgstr "Stem Bijgewerkt"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:1171 ../lib/yasr-ajax-functions.php:1180
+msgid "Average "
+msgstr "Gemiddeld"
