@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.0
-Stable tag: 0.6.2
+Stable tag: 0.6.3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -29,9 +29,10 @@ Again, this can be placed automatically at the beginning or the end of each post
 = Multi Set =
 Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
 "Gameplay", "Story", etc.
+Only who write the post or page can inserta votes in Multi Set.
 
 = Importing data from gd star rating =
-If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "overall_rating", "visitor_votes" and all the multisets with
+If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "Overall Rating", "Visitor Votes" and all the multisets with
 their respective score. Once YASR is installed you just have to go to "Settings" -> "Yet Another Stars Rating: Settings" and start the import (last box at the bottom).
 This operation can take some time, don't stop it! Once it's done you just need to replace the gd-star-rating's shortcode with the YASR tags.
 If with gd-star-rating you're using a different number of stars from the default of 5, YASR will automatically convert all the scores in a range from 1 to 5.
@@ -57,6 +58,7 @@ It is the vote that allows your visitors to vote: just paste this shortcode **[y
 
 = What is "Multi Set"? =
 It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
+Only who write the post or page can insert votes in Multi Set.
 
 = What is "Ranking reviews" ? =
 It is the 10 highest rated item chart by reviewer. In order to insert it into a post or page, just paste this shortcode **[yasr_top_ten_highest_rated]**
@@ -83,6 +85,9 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.6.3 =
+* Added Pro info in settings page
 
 = 0.6.2 =
 * Fixed bug for [yasr_overall_rating] in pages
