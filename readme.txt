@@ -42,6 +42,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * Italian
 * German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ )
 * Polish (thanks to Hoek i Tutu Team)
+* Dutch (thanks to Marcel Pol, http://zenoweb.nl )
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
