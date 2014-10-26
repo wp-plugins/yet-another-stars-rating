@@ -87,6 +87,9 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 == Changelog ==
 
+= 0.6.4 =
+* Bug fixes (stars changing size) in [yasr_visitors_rating]
+
 = 0.6.3 =
 * Added Pro info in settings page
 

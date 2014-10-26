@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2014-10-11 15:19+0100\n"
-"PO-Revision-Date: 2014-10-11 16:09+0100\n"
+"POT-Creation-Date: 2014-10-22 11:43+0100\n"
+"PO-Revision-Date: 2014-10-22 11:43+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: En\n"
@@ -37,74 +37,78 @@ msgstr ""
 msgid "Styles"
 msgstr ""
 
-#: ../yasr-settings-page.php:94 ../yasr-settings-page.php:277
+#: ../yasr-settings-page.php:79
+msgid "Pro Features!"
+msgstr ""
+
+#: ../yasr-settings-page.php:96 ../yasr-settings-page.php:279
 msgid "Save"
 msgstr ""
 
-#: ../yasr-settings-page.php:114
+#: ../yasr-settings-page.php:116
 msgid "Import Gd Star Rating"
 msgstr ""
 
-#: ../yasr-settings-page.php:115
+#: ../yasr-settings-page.php:117
 msgid "I've found a previous installation of Gd Star Rating."
 msgstr ""
 
-#: ../yasr-settings-page.php:115
+#: ../yasr-settings-page.php:117
 msgid "Do you want proceed to import data?"
 msgstr ""
 
-#: ../yasr-settings-page.php:117
+#: ../yasr-settings-page.php:119
 msgid "Yes, Begin Import"
 msgstr ""
 
-#: ../yasr-settings-page.php:121
+#: ../yasr-settings-page.php:123
 msgid "Click on Proceed to import Gd Star Rating data."
 msgstr ""
 
-#: ../yasr-settings-page.php:124 ../yasr-settings-page.php:157
+#: ../yasr-settings-page.php:126 ../yasr-settings-page.php:159
 msgid "Proceed"
 msgstr ""
 
-#: ../yasr-settings-page.php:146
+#: ../yasr-settings-page.php:148
 msgid "Manage GD Star Data"
 msgstr ""
 
-#: ../yasr-settings-page.php:147
+#: ../yasr-settings-page.php:149
 msgid "Gd Star Rating has been already imported."
 msgstr ""
 
-#: ../yasr-settings-page.php:148
+#: ../yasr-settings-page.php:150
 msgid "If you wish you can import it again, but"
 msgstr ""
 
-#: ../yasr-settings-page.php:148
+#: ../yasr-settings-page.php:150
 msgid "you will lose all data you've collect since the import!"
 msgstr ""
 
-#: ../yasr-settings-page.php:150
+#: ../yasr-settings-page.php:152
 msgid "Ok, Import Again"
 msgstr ""
 
-#: ../yasr-settings-page.php:154
+#: ../yasr-settings-page.php:156
 msgid ""
 "Click on Proceed to import again Gd Star Rating data. This may take a while!"
 msgstr ""
 
-#: ../yasr-settings-page.php:195
+#: ../yasr-settings-page.php:197
 msgid "Manage Multi Set"
 msgstr ""
 
-#: ../yasr-settings-page.php:199
+#: ../yasr-settings-page.php:201
 msgid "What is a Multi Set?"
 msgstr ""
 
-#: ../yasr-settings-page.php:204
+#: ../yasr-settings-page.php:206
 msgid ""
 "Multi Set allows you to insert a rate for each aspect about the product / "
 "local business / whetever you're reviewing, example in the image below."
 msgstr ""
 
-#: ../yasr-settings-page.php:208
+#: ../yasr-settings-page.php:210
 msgid ""
 "You can create up to 99 different Multi Set and each one can contain up to 9 "
 "different fields. Once you've saved it, you can insert the rates while "
@@ -112,30 +116,30 @@ msgid ""
 "image (click to see it larger)"
 msgstr ""
 
-#: ../yasr-settings-page.php:212
+#: ../yasr-settings-page.php:214
 msgid ""
 "In order to insert your Multi Sets into a post or page, you can either past "
 "the short code that will appear at the bottom of the box or just click on "
 "the star in the graphic editor and select \"Insert Multi Set\"."
 msgstr ""
 
-#: ../yasr-settings-page.php:218
+#: ../yasr-settings-page.php:220
 msgid "Close this message"
 msgstr ""
 
-#: ../yasr-settings-page.php:247 ../lib/yasr-functions.php:446
+#: ../yasr-settings-page.php:249 ../lib/yasr-functions.php:446
 #: ../lib/yasr-functions.php:472
 msgid "Donations"
 msgstr ""
 
-#: ../yasr-settings-page.php:249 ../lib/yasr-functions.php:448
+#: ../yasr-settings-page.php:251 ../lib/yasr-functions.php:448
 #: ../lib/yasr-functions.php:474
 msgid ""
 "If you have found this plugin useful, please consider making a donation to "
 "help support future development. Your support will be much appreciated. "
 msgstr ""
 
-#: ../yasr-settings-page.php:251 ../lib/yasr-functions.php:450
+#: ../yasr-settings-page.php:253 ../lib/yasr-functions.php:450
 #: ../lib/yasr-functions.php:476
 msgid "Thank you!"
 msgstr ""
@@ -155,7 +159,7 @@ msgid "Rate this article / item"
 msgstr ""
 
 #: ../yasr-metabox-overall-rating.php:71
-#: ../lib/yasr-shortcode-functions.php:147
+#: ../lib/yasr-shortcode-functions.php:152
 msgid "Loading, please wait"
 msgstr ""
 
@@ -173,99 +177,99 @@ msgid ""
 "where you want to display this rating"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:192
-#: ../lib/yasr-shortcode-functions.php:204
+#: ../lib/yasr-shortcode-functions.php:197
 #: ../lib/yasr-shortcode-functions.php:209
-#: ../lib/yasr-shortcode-functions.php:224
+#: ../lib/yasr-shortcode-functions.php:214
 #: ../lib/yasr-shortcode-functions.php:229
-#: ../lib/yasr-shortcode-functions.php:249
-#: ../lib/yasr-shortcode-functions.php:260
-#: ../lib/yasr-shortcode-functions.php:266
-#: ../lib/yasr-shortcode-functions.php:281
-#: ../lib/yasr-shortcode-functions.php:287 ../lib/yasr-ajax-functions.php:979
+#: ../lib/yasr-shortcode-functions.php:234
+#: ../lib/yasr-shortcode-functions.php:254
+#: ../lib/yasr-shortcode-functions.php:265
+#: ../lib/yasr-shortcode-functions.php:271
+#: ../lib/yasr-shortcode-functions.php:286
+#: ../lib/yasr-shortcode-functions.php:292 ../lib/yasr-ajax-functions.php:979
 #: ../lib/yasr-ajax-functions.php:987 ../lib/yasr-ajax-functions.php:1086
 #: ../lib/yasr-ajax-functions.php:1094 ../lib/yasr-ajax-functions.php:1102
 #: ../lib/yasr-ajax-functions.php:1171 ../lib/yasr-ajax-functions.php:1180
 msgid "Total: "
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:192
-#: ../lib/yasr-shortcode-functions.php:204
+#: ../lib/yasr-shortcode-functions.php:197
 #: ../lib/yasr-shortcode-functions.php:209
-#: ../lib/yasr-shortcode-functions.php:224
+#: ../lib/yasr-shortcode-functions.php:214
 #: ../lib/yasr-shortcode-functions.php:229
-#: ../lib/yasr-shortcode-functions.php:249
-#: ../lib/yasr-shortcode-functions.php:260
-#: ../lib/yasr-shortcode-functions.php:266
-#: ../lib/yasr-shortcode-functions.php:281
-#: ../lib/yasr-shortcode-functions.php:287
+#: ../lib/yasr-shortcode-functions.php:234
+#: ../lib/yasr-shortcode-functions.php:254
+#: ../lib/yasr-shortcode-functions.php:265
+#: ../lib/yasr-shortcode-functions.php:271
+#: ../lib/yasr-shortcode-functions.php:286
+#: ../lib/yasr-shortcode-functions.php:292
 msgid "Average: "
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:193
-#: ../lib/yasr-shortcode-functions.php:250
+#: ../lib/yasr-shortcode-functions.php:198
+#: ../lib/yasr-shortcode-functions.php:255
 msgid "You've already voted this article with"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:282
-#: ../lib/yasr-shortcode-functions.php:288
+#: ../lib/yasr-shortcode-functions.php:287
+#: ../lib/yasr-shortcode-functions.php:293
 msgid "You must sign to vote"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:312
+#: ../lib/yasr-shortcode-functions.php:317
 msgid "'bad', 'poor', 'ok', 'good', 'super'"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:419
+#: ../lib/yasr-shortcode-functions.php:424
 msgid "Rating"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:433
+#: ../lib/yasr-shortcode-functions.php:438
 msgid "You don't have any votes stored"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:469
-#: ../lib/yasr-shortcode-functions.php:507
+#: ../lib/yasr-shortcode-functions.php:474
+#: ../lib/yasr-shortcode-functions.php:512
 msgid "Post / Page"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:470
-#: ../lib/yasr-shortcode-functions.php:508
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
 msgid "Order By"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:470
-#: ../lib/yasr-shortcode-functions.php:508
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
 msgid "Most Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:470
-#: ../lib/yasr-shortcode-functions.php:508
+#: ../lib/yasr-shortcode-functions.php:475
+#: ../lib/yasr-shortcode-functions.php:513
 msgid "Highest Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:487
-#: ../lib/yasr-shortcode-functions.php:522
+#: ../lib/yasr-shortcode-functions.php:492
+#: ../lib/yasr-shortcode-functions.php:527
 msgid "Total:"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:487
-#: ../lib/yasr-shortcode-functions.php:522
+#: ../lib/yasr-shortcode-functions.php:492
+#: ../lib/yasr-shortcode-functions.php:527
 msgid "Average"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:499
-#: ../lib/yasr-shortcode-functions.php:534
+#: ../lib/yasr-shortcode-functions.php:504
+#: ../lib/yasr-shortcode-functions.php:539
 msgid "You've not enought data"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:619
+#: ../lib/yasr-shortcode-functions.php:624
 msgid ""
 "Problem while retriving the top 5 most active reviewers. Did you published "
 "any review?"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:687
+#: ../lib/yasr-shortcode-functions.php:692
 msgid ""
 "Problem while retriving the top 10 active users chart. Are you sure you have "
 "votes to show?"
@@ -662,6 +666,18 @@ msgstr ""
 
 #: ../lib/yasr-functions.php:458 ../lib/yasr-functions.php:485
 msgid "Follow YASR official site!"
+msgstr ""
+
+#: ../lib/yasr-functions.php:504
+msgid "Looking for more features?"
+msgstr ""
+
+#: ../lib/yasr-functions.php:505
+msgid "Upgrade to yasr pro!"
+msgstr ""
+
+#: ../lib/yasr-functions.php:584
+msgid "Not avaible yet"
 msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:101

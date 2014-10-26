@@ -1126,6 +1126,22 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             exit();
         }
 
+        if ($size === 'small') {
+            $rateit_class='rateit';
+            $px_size = '16';
+        }
+
+        elseif ($size === 'medium') {
+            $rateit_class = 'rateit medium';
+            $px_size = '24';
+        }
+
+        //default values
+        else {
+            $rateit_class = 'rateit bigstars';
+            $px_size = '32';
+        }
+
         global $wpdb;
 
         //I've to pass post_id here cause get_the_id doesn't work if called with ajax
@@ -1136,12 +1152,12 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $sum_votes = $vote->sum_votes;
         }
 
-        $average_rating = $sum_votes/$number_of_votes;
-
         //This should never happen, only if a user manually erase data from tables
         if ($number_of_votes == 0) {
             $number_of_votes = 1;
         }
+
+        $average_rating = $sum_votes/$number_of_votes;
 
         $average_rating = round ($average_rating, 1);
 
@@ -1150,33 +1166,15 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
-            if ($size == 'small') {
-                $rateit_class='rateit';
-                $px_size = '16';
-            }
-
-            elseif ($size == 'medium') {
-                $rateit_class = 'rateit medium';
-                $px_size = '24';
-            }
-
-            //default values
-            else {
-                $rateit_class = 'rateit bigstars';
-                $px_size = '32';
-            }
-
-            
             echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
             <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
             <strong>" . YASR_CUSTOM_TEXT_USER_VOTED . " </strong>";
-            
 
         }
 
         else {
 
-            echo "<div class=\"rateit bigstars\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"32\" data-rateit-starheight=\"32\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
             <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
             <strong>" . __("You've already voted this article with $rating", "yasr") . "</strong>";
 
