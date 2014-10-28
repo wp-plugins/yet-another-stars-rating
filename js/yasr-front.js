@@ -1,22 +1,4 @@
-/*
-
-Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
-
-/****** Yasr shortcode functions file ******/
+/****** Yasr shortcode page ******/
 
 	function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
 
@@ -66,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
             //Check if has cookie or vote in db
             if (jQuery.cookie(cookiename) || voteIfUserAlredyRated != '') {
 
-                jQuery('#yasr-rateit-visitor-votes-logged-rated').on('rated', function() {
+                jQuery('#yasr_rateit_visitor_votes').on('rated', function() {
 
                     var el = jQuery(this);
                     var value = el.rateit('value');
@@ -152,16 +134,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
         } //End function default_rating_shortcode
 
     } //End function yasr visitor votes
-
+   
     
     function yasrMostOrHighestRatedChart (ajaxurl) {
 
         //Link do nothing
-        jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
+        /*jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
 
             return false; // prevent default click action from happening!
 
-        });
+        });*/
 
             //By default, hide the highest rated chart
             jQuery('#yasr-highest-rated-posts').hide();
@@ -175,20 +157,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
                 return false; // prevent default click action from happening!
 
-            });
+        });
 
-            //Vice versa
-            jQuery('#yasr_multi_chart_most').on("click", function () {
+        //Vice versa
+        jQuery('#yasr_multi_chart_most').on("click", function () {
 
-                jQuery('#yasr-highest-rated-posts').hide();
+            jQuery('#yasr-highest-rated-posts').hide();
 
-                jQuery('#yasr-most-rated-posts').show();
+            jQuery('#yasr-most-rated-posts').show();
 
-                return false; // prevent default click action from happening!
+            return false; // prevent default click action from happening!
 
-            });
+        });
 
     }
 
 
-/****** Yasr shortcode functions file  ******/
+/****** End Yasr shortcode page  ******/
+
+
+/****** Tooltip function ******/
+
+    //used in ajax page
+    function yasrDrawProgressBars (valueProgressbar) {
+
+        var i = null;
+
+        var j = 0; //This is for the array
+
+        for (i=5; i>0; i--) {
+
+            jQuery( "#yasr-progress-bar-" + i).progressbar({
+                value: valueProgressbar[j]
+            });
+
+            j=j+1;
+
+        }
+
+        
+    }
+
+    //used in shortcode page and ajax page
+    function yasrDrawTipsProgress(postid, ajaxurl) {
+
+        var varTipsContent = null;
+
+        jQuery('.yasr-total-average-text').tooltip({
+
+            position: { my: 'center bottom' , at: 'center top-10' },
+            tooltipClass: "yasr-visitors-stats-tooltip",
+            content: function(tipsContent) {
+
+                if (!varTipsContent) {
+
+                    var data = {
+                        action: 'yasr_stats_visitors_votes',
+                        post_id: postid
+                    }
+
+                    jQuery.post(ajaxurl, data, function(response) {
+                        varTipsContent = response;
+                        tipsContent(response);
+                    });
+
+                } 
+
+                else {
+                    return varTipsContent;
+                }
+
+            }
+
+        });
+
+    }
+
+
+
+/****** End tooltipfunction ******/
