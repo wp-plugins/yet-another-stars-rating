@@ -21,6 +21,7 @@
     background: url('../img/star.png');
     height: 16px;
     outline: none;
+    vertical-align: -5px;
 }
 
 .rateit .rateit-range * {
@@ -198,21 +199,73 @@ div.bigstars .rateit-selected
 #yasr_visitor_votes {
     font-size: small;
     display: inline-block;
-    vertical-align: top;
 }
 
 .yasr-total-average-text {
-    display: block;
+    display: inline-block;
 }
 
 .yasr-total-average-text-medium {
     display: block;
 }
 
-.yasr-visitor-shortcode-small-already-voted-text{
+.yasr-small-block-bold {
     display: block;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .yasr-highest-rated-text{
     display: block;
 }
+
+/***  Progress bar***/
+
+.yasr-progress-bars-container {
+    width: 100%;
+}
+
+.yasr-progress-bar-row-container {
+    padding-top: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: block;
+}
+
+.yasr-progress-bar-name {
+    width: 15%;
+    text-align: left;
+    margin-right: 5px;
+}
+
+.yasr-progress-bar {
+    display: inline-block;
+    width: 60%;
+    height: 15px;
+    margin-right: 5px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    margin-bottom: -2px;
+}
+
+/*I must use this to remove radius on top left.*/
+
+.yasr-progress-bar > .ui-progressbar-value {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    background: #FFD700;
+}
+
+
+/*** End progress bar ***/
+
+
+/*** Tooltip ***/
+
+.yasr-visitors-stats-tooltip {
+    width: 250px;
+}
+
+/*** Tooltip ***/

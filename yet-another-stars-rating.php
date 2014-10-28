@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.6.4
+ * Version: 0.6.5
  * Author: Dario Curvino
  * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.6.4');
+define('YASR_VERSION_NUM', '0.6.5');
 
 //Plugin absolute path
 define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
@@ -115,6 +115,51 @@ if ($version_installed && $version_installed < '0.5.9') {
 
 }
 
+//REmove in Jenuary
+if ($version_installed && $version_installed < '0.6.5') {
+
+	$stored_options = get_option( 'yasr_general_options' );
+
+	$stored_options['visitors_stats'] = 'yes';
+
+	//delete all the 0 vote in yasr log
+	$delte_zero_votes_log = $wpdb->delete(
+									YASR_LOG_TABLE,
+									array ('vote' => '0.0'),
+									array ('%s')
+									);
+
+	$gdsr_imported = get_option('yasr-gdstar-imported');
+
+	$gdsr_logs_imported = get_option('yasr-gdstar-logs-imported');
+
+	if($gdsr_imported==1 && !$gdsr_logs_imported) {
+
+		$gdstar_table=$wpdb->prefix . 'gdsr_votes_log';
+
+		if ($wpdb->get_var("SHOW TABLES LIKE '$gdstar_table'") == $gdstar_table) {
+			
+			//Import logs from GD star
+            $logs = yasr_import_gdstar_logs();
+
+            //Insert logs if exists
+            $insert_logs = yasr_insert_gdstar_logs($logs);
+
+            if ($insert_logs) {
+                update_option('yasr-gdstar-logs-imported', '1');
+            }
+
+		}
+
+		else {
+			$stored_options['visitors_stats'] = 'disabled';
+		}
+	}
+
+	
+	update_option("yasr_general_options", $stored_options);
+
+}
 
 
 if ($version_installed != YASR_VERSION_NUM) {
@@ -168,9 +213,11 @@ if ( YASR_TEXT_BEFORE_STARS == 1 ) {
 
 }
 
-define ("YASR_SNIPPET", $stored_options['snippet']);
-define ("YASR_ALLOWED_USER", $stored_options['allowed_user']);
+define ("YASR_VISITORS_STATS", $stored_options['visitors_stats']);
 define ("YASR_SCHEME_COLOR", $stored_options['scheme_color']);
+define ("YASR_ALLOWED_USER", $stored_options['allowed_user']);
+define ("YASR_SNIPPET", $stored_options['snippet']);
+define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
 
 //Get stored style options 
 $custom_style = get_option ('yasr_style_options');
@@ -186,8 +233,5 @@ else {
 	define ("YASR_CUSTOM_CSS_RULES", NULL);
 
 }
-
-define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
-
 
 ?>

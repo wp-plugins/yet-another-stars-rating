@@ -28,8 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_add_scripts () {
 
-		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
+        //if visitors stats are enabled
+        if (YASR_VISITORS_STATS === 'yes') {
+            wp_enqueue_style( 'jquery-ui','http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css', FALSE, NULL, 'all' );
+        }
 
+		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
 
         //If choosen is light or not dark (force to be default)
         if (YASR_SCHEME_COLOR === 'light' || YASR_SCHEME_COLOR != 'dark' ) {
@@ -46,6 +50,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE );
 		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
+
+        //if visitors stats are enabled
+        if (YASR_VISITORS_STATS === 'yes') {
+            wp_enqueue_script( 'jquery-ui-progressbar' ); //script
+            wp_enqueue_script( 'jquery-ui-tooltip' ); //script
+        }
+
         wp_enqueue_script( 'yasrfront', YASR_JS_DIR . 'yasr-front.js' , array('jquery', 'rateit'), '1.0.00', TRUE );
 
 	}
@@ -53,10 +64,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     function yasr_add_admin_scripts () {
 
         wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr-admin.css', FALSE, NULL, 'all' );
-        wp_enqueue_style( 'wp-jquery-ui-dialog' );
+        wp_enqueue_style( 'wp-jquery-ui-dialog' ); //style
 
         wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
-        wp_enqueue_script( 'jquery-ui-dialog' );
+        wp_enqueue_script( 'jquery-ui-dialog' ); //script
 
         wp_enqueue_script( 'yasradmin', YASR_JS_DIR . 'yasr-admin.js' , array('jquery', 'rateit'), '1.0.00', TRUE );
 
@@ -263,18 +274,18 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_add_schema($content) {
 
-        $schema=NULL; //To avoid undefined variable notice outside the loop
+		$schema=NULL; //To avoid undefined variable notice outside the loop
 
         $review_choosen = yasr_get_snippet_type();
 
-        if (YASR_SNIPPET == 'overall_rating') {
+		if (YASR_SNIPPET == 'overall_rating') {
 
-            $overall_rating=yasr_get_overall_rating();
+			$overall_rating=yasr_get_overall_rating();
 
-            if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
+			if($overall_rating && $overall_rating != '-1' && $overall_rating != '0.0') {
 
-                if(is_singular() && is_main_query() ) {
-                    global $post;
+				if(is_singular() && is_main_query() ) {
+					global $post;
 
                     if ($review_choosen == 'Place') {
                         $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/LocalBusiness\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
@@ -296,23 +307,23 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     $schema = $div . $title . $author . $date . $rating . $end_div;
 
-                }
+				}
 
-            } //END id if $overall_rating != '-1'
+			} //END id if $overall_rating != '-1'
 
-            if( is_singular() && is_main_query() ) {
-                return $content . $schema;
-            }
+			if( is_singular() && is_main_query() ) {
+				return $content . $schema;
+			}
 
-            else {
-                return $content;
-            }
+			else {
+				return $content;
+			}
 
-        }  //end if ($choosen_snippet['snippet'] == 'overall_rating')
+		}  //end if ($choosen_snippet['snippet'] == 'overall_rating')
 
-        if (YASR_SNIPPET == 'visitor_rating') {
+		if (YASR_SNIPPET == 'visitor_rating') {
 
-            $visitor_votes = yasr_get_visitor_votes ();
+			$visitor_votes = yasr_get_visitor_votes ();
 
             if ($visitor_votes) {
 
@@ -327,11 +338,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $visitor_rating = NULL;
             }
 
-            if ($visitor_rating['sum'] != 0) {
+			if ($visitor_rating['sum'] != 0) {
 
-                $average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
+				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
 
-                $average_rating=round($average_rating, 1);
+				$average_rating=round($average_rating, 1);
 
                 if ($review_choosen == 'Place') {
                     $div_1 = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/LocalBusiness\">";

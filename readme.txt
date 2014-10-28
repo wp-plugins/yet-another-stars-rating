@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.0
-Stable tag: 0.6.3
+Stable tag: 0.6.5
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -87,8 +87,11 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 == Changelog ==
 
-= 0.6.4 =
-* Bug fixes (stars changing size) in [yasr_visitors_rating]
+= 0.6.5 =
+* New feature! If you use Visitors Rating stars set, you can now see statistics by hovering the mouse on the text [Total: X Average:Y]
+* Bug fixes (stars changing size) in [yasr_visitor_rating]
+* Fixed typos
+* Huge cleanups
 
 = 0.6.3 =
 * Added Pro info in settings page

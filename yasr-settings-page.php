@@ -24,7 +24,7 @@ if ( !current_user_can( 'manage_options' ) ) {
 	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ));
 }
 
-$n_multi_set = NULL;
+$n_multi_set = NULL; //Evoid undefined variable when printed outside multiset tab
 
 ?>
 
@@ -172,36 +172,34 @@ $n_multi_set = NULL;
 				<div class="yasr-space-settings-div">
 				</div>
 
-				<?php
+			<?php
 			} //$gd_star_rating_found && $gd_star_imported==1$gd_star_rating_found = yasr_search_gd_star_rating();
 
 		} //End if tab 'general_settings'
 
 		?>
 
+	<?php 
 
-		<?php 
+	if ($active_tab == 'manage_multi') {
 
-		if ($active_tab == 'manage_multi') {
+		$multi_set=yasr_get_multi_set();
 
-			$multi_set=yasr_get_multi_set();
+		global $wpdb;
 
-			global $wpdb;
+		$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
 
-			$n_multi_set = $wpdb->num_rows; //wpdb->num_rows always store the last of the last query
+		?>
 
-			?>
+		<div class="yasr-settingsdiv">
+				
+			<h3> <?php _e("Manage Multi Set", "yasr"); ?></h3>
 
-			<div class="yasr-settingsdiv">
-					
-				<h3> <?php _e("Manage Multi Set", "yasr"); ?></h3>
+			<p>
 
-				<p>
+				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi Set?", "yasr") ?></a>
 
-					<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi Set?", "yasr") ?></a>
-
-				</p>
-
+			</p>
 				<div id="yasr-multi-set-doc-box" style="display:none">
 					<?php _e("Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below.", "yasr");
 
@@ -228,7 +226,6 @@ $n_multi_set = NULL;
 						<?php yasr_display_multi_set_form(); ?>
 
 					</div> <!--yasr-new-multi-set-->
-
 
 				</div> <!--End yasr-multi-set-left-->
 

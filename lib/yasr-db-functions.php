@@ -264,7 +264,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 		$log_result = $wpdb->get_results ("SELECT * FROM ". YASR_LOG_TABLE . " ORDER BY date DESC LIMIT 0, $limit ");
 
 		if (!$log_result) {
-            _e("No Recenet votes yet", "yasr");
+            _e("No recenet votes yet", "yasr");
         }
 
         else {
@@ -369,7 +369,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			</div>";
 
-		}
+		} //End else
 
 	} //End callback function
 
@@ -465,7 +465,5 @@ function yasr_check_if_user_already_voted() {
 
 
 }
-
-
 
 ?>
