@@ -40,7 +40,7 @@ If with gd-star-rating you're using a different number of stars from the default
 = Supported Languages =
 * English
 * Italian
-* German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ )
+* German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ until version 0.0.5, than mp3-post )
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to Marcel Pol, http://zenoweb.nl )
 
