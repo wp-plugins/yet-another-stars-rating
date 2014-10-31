@@ -1306,7 +1306,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($i != 0) {
             
                 echo "<div class=\"yasr-progress-bar-row-container\">
-                <span class=\"yasr-progress-bar-name\">$i stars</span><span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-$i\" ></span><span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
+                <span class=\"yasr-progress-bar-name\">$i " . __("stars", "yasr") . "</span><span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-$i\" ></span><span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
                 </div>"; 
                 
                 $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar

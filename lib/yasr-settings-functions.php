@@ -176,6 +176,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 		    		<?php 
 		    	}
 
+		    	else {
+
+		    		?>
+
+		    		<input type="hidden" name="yasr_general_options[auto_insert_custom_post_only]" value="no" ?>
+
+		    		<?php
+
+		    	}
+
 		    	?>
 
 		    	<hr />

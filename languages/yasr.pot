@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2014-10-28 18:43+0100\n"
-"PO-Revision-Date: 2014-10-28 18:43+0100\n"
+"POT-Creation-Date: 2014-10-31 10:20+0100\n"
+"PO-Revision-Date: 2014-10-31 10:20+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: En\n"
@@ -150,7 +150,7 @@ msgstr ""
 
 #: ../yasr-metabox-multiple-rating.php:46
 #: ../yasr-metabox-overall-rating.php:193
-#: ../lib/yasr-settings-functions.php:468
+#: ../lib/yasr-settings-functions.php:478
 msgid "Select"
 msgstr ""
 
@@ -320,18 +320,18 @@ msgstr ""
 #: ../lib/yasr-settings-functions.php:74
 #: ../lib/yasr-settings-functions.php:143
 #: ../lib/yasr-settings-functions.php:161
-#: ../lib/yasr-settings-functions.php:193
-#: ../lib/yasr-settings-functions.php:225
-#: ../lib/yasr-settings-functions.php:276
+#: ../lib/yasr-settings-functions.php:203
+#: ../lib/yasr-settings-functions.php:235
+#: ../lib/yasr-settings-functions.php:286
 msgid "Yes"
 msgstr ""
 
 #: ../lib/yasr-settings-functions.php:88
 #: ../lib/yasr-settings-functions.php:148
 #: ../lib/yasr-settings-functions.php:166
-#: ../lib/yasr-settings-functions.php:198
-#: ../lib/yasr-settings-functions.php:230
-#: ../lib/yasr-settings-functions.php:281
+#: ../lib/yasr-settings-functions.php:208
+#: ../lib/yasr-settings-functions.php:240
+#: ../lib/yasr-settings-functions.php:291
 msgid "No"
 msgstr ""
 
@@ -398,219 +398,219 @@ msgstr ""
 msgid "If you want to use auto insert only in custom post types, choose Yes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:202
+#: ../lib/yasr-settings-functions.php:212
 msgid ""
 "If you enable this, \"Overall Rating\" will be showed not only in the single "
 "article or page, but also in pages like Home Page, category pages or "
 "archives."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:235
+#: ../lib/yasr-settings-functions.php:245
 msgid "Custom text to display before Overall Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:240
+#: ../lib/yasr-settings-functions.php:250
 msgid "Custom text to display before Visitor Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:245
+#: ../lib/yasr-settings-functions.php:255
 msgid "Custom text to display when a non logged user has already rated"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:259
+#: ../lib/yasr-settings-functions.php:269
 msgid ""
 "Seems like you've imported gd star rating in the past, but then deleted the "
 "logs table. For now, you can't enable statistics"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:301
+#: ../lib/yasr-settings-functions.php:311
 msgid "Light"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:306
+#: ../lib/yasr-settings-functions.php:316
 msgid "Dark"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:311
+#: ../lib/yasr-settings-functions.php:321
 msgid "Preview"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:316
+#: ../lib/yasr-settings-functions.php:326
 msgid "Light theme"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:321
+#: ../lib/yasr-settings-functions.php:331
 msgid "Dark Theme"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:339
+#: ../lib/yasr-settings-functions.php:349
 msgid "Allow only logged-in users"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:343
+#: ../lib/yasr-settings-functions.php:353
 msgid "Allow everybody (logged in and anonymous)"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:360
+#: ../lib/yasr-settings-functions.php:370
 msgid "Review Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:364
+#: ../lib/yasr-settings-functions.php:374
 msgid "Aggregate Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:369
+#: ../lib/yasr-settings-functions.php:379
 msgid "What is this?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:374
+#: ../lib/yasr-settings-functions.php:384
 msgid ""
 "If you select \"Review Rating\", your site will be indexed from search "
 "engines like this: "
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:379
+#: ../lib/yasr-settings-functions.php:389
 msgid ""
 "If, instead, you choose \"Aggregate Rating\", your site will be indexed like "
 "this"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:397
+#: ../lib/yasr-settings-functions.php:407
 msgid "Stars"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:401
+#: ../lib/yasr-settings-functions.php:411
 msgid "Numbers"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:413
+#: ../lib/yasr-settings-functions.php:423
 msgid "Add New Multiple Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:414
+#: ../lib/yasr-settings-functions.php:424
 msgid ""
 "Name, Element#1 and Element#2 MUST be filled and must be long at least 3 "
 "characters"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:417
+#: ../lib/yasr-settings-functions.php:427
 msgid "Name"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:422
+#: ../lib/yasr-settings-functions.php:432
 msgid "You can insert up to nine elements"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:427
+#: ../lib/yasr-settings-functions.php:437
 msgid "Element "
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:437
+#: ../lib/yasr-settings-functions.php:447
 msgid "Create New Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:458
-#: ../lib/yasr-settings-functions.php:490
+#: ../lib/yasr-settings-functions.php:468
+#: ../lib/yasr-settings-functions.php:500
 msgid "Manage Multiple Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:460
+#: ../lib/yasr-settings-functions.php:470
 msgid "Wich set do you want to edit or remove?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:500
-#: ../lib/yasr-settings-functions.php:618
+#: ../lib/yasr-settings-functions.php:510
+#: ../lib/yasr-settings-functions.php:628
 msgid "Field name"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:504
-#: ../lib/yasr-settings-functions.php:622
+#: ../lib/yasr-settings-functions.php:514
+#: ../lib/yasr-settings-functions.php:632
 msgid "Remove"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:546
-#: ../lib/yasr-settings-functions.php:664
+#: ../lib/yasr-settings-functions.php:556
+#: ../lib/yasr-settings-functions.php:674
 msgid "Remove whole set?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:559
-#: ../lib/yasr-settings-functions.php:677
+#: ../lib/yasr-settings-functions.php:569
+#: ../lib/yasr-settings-functions.php:687
 msgid ""
 "If you remove something you will remove all the votes for that set or field. "
 "This operation CAN'T BE undone."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:566
-#: ../lib/yasr-settings-functions.php:684
+#: ../lib/yasr-settings-functions.php:576
+#: ../lib/yasr-settings-functions.php:694
 msgid "You can use up to 9 elements"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:568
-#: ../lib/yasr-settings-functions.php:686
+#: ../lib/yasr-settings-functions.php:578
+#: ../lib/yasr-settings-functions.php:696
 msgid "Add element"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:570
-#: ../lib/yasr-settings-functions.php:688
+#: ../lib/yasr-settings-functions.php:580
+#: ../lib/yasr-settings-functions.php:698
 msgid "Save changes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:580
+#: ../lib/yasr-settings-functions.php:590
 msgid "No Multiple Set were found"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:830
-#: ../lib/yasr-settings-functions.php:1098
+#: ../lib/yasr-settings-functions.php:840
+#: ../lib/yasr-settings-functions.php:1108
 msgid "Settings Saved"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:835
+#: ../lib/yasr-settings-functions.php:845
 msgid "Something goes wrong trying insert set field name. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:841
+#: ../lib/yasr-settings-functions.php:851
 msgid "Something goes wrong trying insert Multi Set name. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:916
+#: ../lib/yasr-settings-functions.php:926
 msgid "Something goes wrong trying to delete a Multi Set . Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:962
+#: ../lib/yasr-settings-functions.php:972
 msgid ""
 "Something goes wrong trying to delete a Multi Set's element. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1026
+#: ../lib/yasr-settings-functions.php:1036
 msgid ""
 "Something goes wrong trying to update a Multi Set's element. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1083
+#: ../lib/yasr-settings-functions.php:1093
 msgid ""
 "Something goes wrong trying to insert set field name in edit form. Please "
 "report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1126
+#: ../lib/yasr-settings-functions.php:1136
 msgid "Style Options"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1127
+#: ../lib/yasr-settings-functions.php:1137
 msgid "Custom CSS Styles"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1132
+#: ../lib/yasr-settings-functions.php:1142
 msgid ""
 "Please use text area below to write your own CSS styles to override the "
 "default ones."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1134
+#: ../lib/yasr-settings-functions.php:1144
 msgid "Leave it blank if you don't know what you're doing"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1167
+#: ../lib/yasr-settings-functions.php:1177
 msgid "No previous Gd Star Rating installation was found"
 msgstr ""
 
@@ -903,4 +903,8 @@ msgstr ""
 
 #: ../lib/yasr-ajax-functions.php:1182 ../lib/yasr-ajax-functions.php:1190
 msgid "Average "
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:1309
+msgid "stars"
 msgstr ""
