@@ -40,9 +40,11 @@ If with gd-star-rating you're using a different number of stars from the default
 = Supported Languages =
 * English
 * Italian
-* German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ until version 0.0.5, than mp3-post )
+* German (thanks to [Josef Seidl,](http://www.blog-it-solutions.de/) until version 0.6.5, than mp3-post )
 * Polish (thanks to Hoek i Tutu Team)
-* Dutch (thanks to Marcel Pol, http://zenoweb.nl )
+* Dutch (thanks to  [Marcel Pol](http://zenoweb.nl )
+
+Help to translate, read [here!](http://yetanotherstarsrating.com/translation/)
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
