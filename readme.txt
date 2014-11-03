@@ -46,6 +46,9 @@ If with gd-star-rating you're using a different number of stars from the default
 
 Help to translate, read [here!](http://yetanotherstarsrating.com/translation/)
 
+= Related Link =
+News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
+
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
 2. Activate the plugin through the 'Plugins' menu in WordPress
