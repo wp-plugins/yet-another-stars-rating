@@ -44,8 +44,6 @@ If with gd-star-rating you're using a different number of stars from the default
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl )
 
-Help to translate, read [here!](http://yetanotherstarsrating.com/translation/)
-
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 
