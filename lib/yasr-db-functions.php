@@ -109,6 +109,7 @@ function yasr_install() {
 		$option['allowed_user'] = 'allow_anonymous';
 		$option['scheme_color'] = 'light';
 		$option['metabox_overall_rating'] = 'stars'; //This is not in settings page but in overall rating metabox
+		$option['visitors_stats'] = 'yes';
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
 

@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.6.6
+ * Version: 0.6.7
  * Author: Dario Curvino
  * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,38 +28,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.6.6');
+define('YASR_VERSION_NUM', '0.6.7');
 
-//Plugin absolute path
-define( "YASR_ABSOLUTE_PATH", dirname(__FILE__) );
+//Plugin relative path
+define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
 
 //Plugin RELATIVE PATH without slashes (just the directory's name)
-define( "YASR_RELATIVE_PATH", dirname( plugin_basename(__FILE__) ) );
+define( "YASR_RELATIVE_PATH_PLUGIN_DIR", dirname( plugin_basename(__FILE__) ) );
 
 //Plugin language directory: here I've to use relative path
 //because load_plugin_textdomain wants relative and not absolute path
-define( "YASR_LANG_DIR", YASR_RELATIVE_PATH . '/languages/' );
+define( "YASR_LANG_DIR", YASR_RELATIVE_PATH_PLUGIN_DIR . '/languages/' );
 
-//Js directory
-define ("YASR_JS_DIR",  plugins_url( YASR_RELATIVE_PATH . '/js/' ));
+//Js directory absolute
+define ("YASR_JS_DIR",  plugins_url( YASR_RELATIVE_PATH_PLUGIN_DIR . '/js/' ));
 
-//CSS directory
-define ("YASR_CSS_DIR", plugins_url( YASR_RELATIVE_PATH . '/css/' ));
+//CSS directory absolute
+define ("YASR_CSS_DIR", plugins_url( YASR_RELATIVE_PATH_PLUGIN_DIR . '/css/' ));
 
-//IMG directory
-define ("YASR_IMG_DIR", plugins_url( YASR_RELATIVE_PATH . '/img/'));
+//IMG directory absolute
+define ("YASR_IMG_DIR", plugins_url( YASR_RELATIVE_PATH_PLUGIN_DIR . '/img/'));
 
-/* Include function file */
+// Include function file 
+require (YASR_RELATIVE_PATH . '/lib/yasr-functions.php');
 
-require (YASR_ABSOLUTE_PATH . '/lib/yasr-functions.php');
+require (YASR_RELATIVE_PATH . '/lib/yasr-settings-functions.php');
 
-require (YASR_ABSOLUTE_PATH . '/lib/yasr-settings-functions.php');
+require (YASR_RELATIVE_PATH . '/lib/yasr-db-functions.php');
 
-require (YASR_ABSOLUTE_PATH . '/lib/yasr-db-functions.php');
+require (YASR_RELATIVE_PATH . '/lib/yasr-ajax-functions.php');
 
-require (YASR_ABSOLUTE_PATH . '/lib/yasr-ajax-functions.php');
-
-require (YASR_ABSOLUTE_PATH . '/lib/yasr-shortcode-functions.php');
+require (YASR_RELATIVE_PATH . '/lib/yasr-shortcode-functions.php');
 
 $version_installed = get_option('yasr-version') ;
 

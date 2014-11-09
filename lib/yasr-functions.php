@@ -109,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         	wp_die( __( 'You do not have sufficient permissions to access this page.', 'yasr' ) );
     	}
 
-	include(YASR_ABSOLUTE_PATH  . '/yasr-settings-page.php');
+	include(YASR_RELATIVE_PATH  . '/yasr-settings-page.php');
 
 	} //End yasr_settings_page_content
 
@@ -152,7 +152,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_metabox_overall_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
-			include (YASR_ABSOLUTE_PATH . '/yasr-metabox-overall-rating.php');
+			include (YASR_RELATIVE_PATH . '/yasr-metabox-overall-rating.php');
 		}
 		else {
             _e("You don't have enought privileges to insert Overall Rating");
@@ -162,7 +162,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_metabox_multiple_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
-			include (YASR_ABSOLUTE_PATH . '/yasr-metabox-multiple-rating.php');
+			include (YASR_RELATIVE_PATH . '/yasr-metabox-multiple-rating.php');
 		}
         else {
             _e("You don't have enought privileges to insert Multi Set");
@@ -496,110 +496,6 @@ function yasr_donate_bottom () {
         <h3><a href="http://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
 
     </div>
-
-    <?php
-
-}
-
-
-function yasr_go_pro () {
-
-    ?>
-
-        <div class="yasr-settingsdiv">
-
-            <div id="yasr-info-pro-version">
-
-                <?php 
-
-                _e("Looking for more features?", "yasr");
-                echo " <a href=\"http://yetanotherstarsrating.com/pro-version/\">" . __("Upgrade to yasr pro!", "yasr") . "</a>"; 
-                
-                echo "<br>";
-
-                ?>
-
-            </div>
-
-            <table id="comparetable" class="softgreen">
-                <tr>
-                    <td class="blank"> </td>
-                    <th>Free</th>
-                    <th>Pro</th>
-                </tr>
-                
-                <tr>
-                    <td class="rowTitle">Unlimited ratings and votes</td>        
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                                           
-                <tr>
-                    <td class="rowTitle">Works with shortcodes</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-
-                <tr>
-                    <td class="rowTitle">Multi Set Support</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Logs for visitors' votes</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Localization (.po and .mo files included)</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Rich Snippet Support</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Rankings for reviews, votes and users</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Rankings Customization</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Stars Customization</td>    
-                    <td>Size Only</td>
-                    <td>Users can upload their own images. <img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Visitors can vote on Multi Set</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle">Users can review in comments</td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
-                </tr>
-                               
-            </table>
-
-            <?php 
-
-                echo "<img src=" . YASR_IMG_DIR . "/addExclamation.png alt=icon /> =" ;
-
-                _e("Not avaible yet", "yasr");
-
-                echo "<p>";
-
-            ?>
-        
-        </div>
-
 
     <?php
 

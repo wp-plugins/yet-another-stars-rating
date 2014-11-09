@@ -1154,6 +1154,111 @@ add_action( 'admin_init', 'yasr_style_options_init' ); //This is for auto insert
 		}
 
 
+function yasr_go_pro () {
+
+    ?>
+
+        <div class="yasr-settingsdiv">
+
+            <div id="yasr-info-pro-version">
+
+                <?php 
+
+                _e("Looking for more features?", "yasr");
+                echo " <a href=\"http://yetanotherstarsrating.com/pro-version/\">" . __("Upgrade to yasr pro!", "yasr") . "</a>"; 
+                
+                echo "<br>";
+
+                ?>
+
+            </div>
+
+            <table id="comparetable" class="softgreen">
+                <tr>
+                    <td class="blank"> </td>
+                    <th>Free</th>
+                    <th>Pro</th>
+                </tr>
+                
+                <tr>
+                    <td class="rowTitle">Unlimited ratings and votes</td>        
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                                           
+                <tr>
+                    <td class="rowTitle">Works with shortcodes</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+
+                <tr>
+                    <td class="rowTitle">Multi Set Support</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Logs for visitors' votes</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Localization (.po and .mo files included)</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rich Snippet Support</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rankings for reviews, votes and users</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rankings Customization</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Stars Customization</td>    
+                    <td>Size Only</td>
+                    <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /> Users can choose different ready to use sets or can upload their own images.</td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Visitors can vote on Multi Set</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Users can review in comments</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                </tr>
+                               
+            </table>
+
+            <?php 
+
+                echo "<img src=" . YASR_IMG_DIR . "/addExclamation.png alt=icon /> =" ;
+
+                _e("Not avaible yet", "yasr");
+
+                echo "<p>";
+
+            ?>
+        
+        </div>
+
+
+    <?php
+
+}
+
+
+
 /*************************BEGIN IMPORT FUNCTIONS*******************************/
 
 /****** Check for previous GD STAR INSTALLATION *******/
