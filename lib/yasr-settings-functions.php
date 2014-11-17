@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-
 /****** Add yasr general option ******/
 
 	add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
@@ -51,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show "Overall Rating" in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_visitors_stats', __('Do you want show stats for visitors votes?', 'yasr'), 'yasr_visitors_stats_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
@@ -150,7 +150,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 		    	<p>&nbsp;</p>
 
-
 		    	<?php 
 
 		    	$custom_post_types = yasr_get_custom_post_type('bool');
@@ -177,8 +176,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 		    		<?php 
 		    	}
 
+		    	else {
+
+		    		?>
+
+		    		<input type="hidden" name="yasr_general_options[auto_insert_custom_post_only]" value="no" ?>
+
+		    		<?php
+
+		    	}
+
 		    	?>
-		    	
 
 		    	<hr />
 	    			  
@@ -254,6 +262,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			<?php
 	    }
 
+	    function yasr_visitors_stats_callback($option) {
+
+	    	if ($option['visitors_stats'] === 'disabled') {
+
+	    		_e("Seems like you've imported gd star rating in the past, but then deleted the logs table. For now, you can't enable statistics", "yasr");
+
+	    		?>
+
+	    		<p>&nbsp;</p>
+
+				<hr>
+
+		    	<?php
+
+	    	}
+
+	    	else {
+
+		    	?>
+
+		    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
+					<?php _e('Yes', 'yasr')?>
+					
+				&nbsp;&nbsp;&nbsp;
+
+				<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
+					<?php _e('No', 'yasr')?>
+					<br />
+
+					<br />
+
+				<p>&nbsp;</p>
+
+				<hr>
+
+		    	<?php
+
+		    }
+
+	    }
 
 	    function yasr_color_scheme_callback($option) {
 
@@ -368,7 +416,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 		}
 
 
-
 /****** Create a form for settings page to create new multi set ******/
 function yasr_display_multi_set_form() {
 	?>
@@ -382,7 +429,7 @@ function yasr_display_multi_set_form() {
 			<input type="hidden" name="action" value="yasr_new_multi_set_form" />
 
 			<p></p>
-			<?php _e("You can insert up to nine element", "yasr") ?>
+			<?php _e("You can insert up to nine elements", "yasr") ?>
 			<br />
 
 			<?php for($i=1; $i<=9; $i++) { 
@@ -1107,6 +1154,111 @@ add_action( 'admin_init', 'yasr_style_options_init' ); //This is for auto insert
 		}
 
 
+function yasr_go_pro () {
+
+    ?>
+
+        <div class="yasr-settingsdiv">
+
+            <div id="yasr-info-pro-version">
+
+                <?php 
+
+                _e("Looking for more features?", "yasr");
+                echo " <a href=\"http://yetanotherstarsrating.com/pro-version/\">" . __("Upgrade to yasr pro!", "yasr") . "</a>"; 
+                
+                echo "<br>";
+
+                ?>
+
+            </div>
+
+            <table id="comparetable" class="softgreen">
+                <tr>
+                    <td class="blank"> </td>
+                    <th>Free</th>
+                    <th>Pro</th>
+                </tr>
+                
+                <tr>
+                    <td class="rowTitle">Unlimited ratings and votes</td>        
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                                           
+                <tr>
+                    <td class="rowTitle">Works with shortcodes</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+
+                <tr>
+                    <td class="rowTitle">Multi Set Support</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Logs for visitors' votes</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Localization (.po and .mo files included)</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rich Snippet Support</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rankings for reviews, votes and users</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Rankings Customization</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Stars Customization</td>    
+                    <td>Size Only</td>
+                    <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /> Users can choose different ready to use sets or can upload their own images.</td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Visitors can vote on Multi Set</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                </tr>
+                <tr>
+                    <td class="rowTitle">Users can review in comments</td>    
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                </tr>
+                               
+            </table>
+
+            <?php 
+
+                echo "<img src=" . YASR_IMG_DIR . "/addExclamation.png alt=icon /> =" ;
+
+                _e("Not avaible yet", "yasr");
+
+                echo "<p>";
+
+            ?>
+        
+        </div>
+
+
+    <?php
+
+}
+
+
+
 /*************************BEGIN IMPORT FUNCTIONS*******************************/
 
 /****** Check for previous GD STAR INSTALLATION *******/
@@ -1233,7 +1385,7 @@ function yasr_import_gdstar_multi_value(){
 							 WHERE v.id = d.id
 							 AND 0 <> (
 							 SELECT SUM( user_votes )
-							 FROM wp_gdsr_multis_values AS tabin
+							 FROM $table_gdsr_multis_values AS tabin
 							 WHERE tabin.id = v.id )
 							 AND p.ID = d.post_id
 							 AND d.multi_id = m.multi_id
@@ -1261,6 +1413,22 @@ function yasr_import_gdstar_multi_value(){
 	return ($multi_set_data);
 }
 
+/****** Import gd star logs ******/
+function yasr_import_gdstar_logs() {
+
+	global $wpdb;
+
+	$table_gdsr_logs=$wpdb->prefix . 'gdsr_votes_log';
+
+	$gdsr_log_data = $wpdb->get_results (" SELECT id AS post_id, user_id, vote, voted AS date, ip
+										   FROM $table_gdsr_logs
+										   WHERE vote_type = 'article' 
+										   ORDER BY date DESC ");
+
+	return $gdsr_log_data;
+
+}
+
 /****** Insert Gd Star Rating review in overall rating ******/
 function yasr_insert_gdstar_data($votes){
 	global $wpdb;
@@ -1280,6 +1448,31 @@ function yasr_insert_gdstar_data($votes){
 	}
 	return $result;
 }
+
+/****** Insert logs ******/
+function yasr_insert_gdstar_logs($logs) {
+	global $wpdb;
+
+	foreach ($logs as $column) {
+		$result = $wpdb->replace(
+			YASR_LOG_TABLE,
+			array(
+					'post_id' => $column->post_id,
+					'multi_set_id' => '-1',
+					'user_id' => $column->user_id,
+					'vote' => $column->vote,
+					'date' => $column->date,
+					'ip' => $column->ip
+				),
+			array( '%d', '%s', '%d', '%s', '%s', '%s' )
+		);
+	}
+
+	if ($result) {
+		return TRUE;
+	}
+}
+
 
 /****** Insert gd star rating multi set name 
 

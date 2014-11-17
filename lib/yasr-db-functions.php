@@ -109,6 +109,7 @@ function yasr_install() {
 		$option['allowed_user'] = 'allow_anonymous';
 		$option['scheme_color'] = 'light';
 		$option['metabox_overall_rating'] = 'stars'; //This is not in settings page but in overall rating metabox
+		$option['visitors_stats'] = 'yes';
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
 
@@ -264,7 +265,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 		$log_result = $wpdb->get_results ("SELECT * FROM ". YASR_LOG_TABLE . " ORDER BY date DESC LIMIT 0, $limit ");
 
 		if (!$log_result) {
-            _e("No Recenet votes yet", "yasr");
+            _e("No recenet votes yet", "yasr");
         }
 
         else {
@@ -369,7 +370,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 
 			</div>";
 
-		}
+		} //End else
 
 	} //End callback function
 
@@ -465,7 +466,5 @@ function yasr_check_if_user_already_voted() {
 
 
 }
-
-
 
 ?>

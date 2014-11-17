@@ -187,7 +187,6 @@ div.bigstars .rateit-selected
 
 /*** End metabox overall rating ***/
 
-
 #multi_rating_table 
 {
 	vertical-align: text-top;
@@ -520,3 +519,21 @@ div.bigstars .rateit-selected
     padding-top: 7px;
     text-align: center;
 }
+
+#yasr-info-pro-version {
+    text-align: center;
+    font-size: x-large;
+    margin-top: 15px;
+}
+
+/* START COMPARISON TABLE STYLES */
+#comparetable {width: 70%; table-layout: fixed; text-align: center; margin: 4em 0; border-collapse: collapse; }
+#comparetable tr {background: transparent!important;}
+#comparetable td,
+#comparetable th {padding: 15px; text-align: center;}
+#comparetable td.rowTitle {text-align: left;}
+.blank {background: none!important; border: none!important;}
+ .softgreen th {background-color: #84db7b; font-size: 20px; color: #253a22; text-align: center; font-weight: 600; border: 1px solid #85aa81;}
+ .softgreen td {background-color: #f0f1f1; border: 1px solid #bed5bb;} 
+ .softgreen td.rowTitle {font-weight: 600;}
+/* END COMPARISON TABLE STYLES */
