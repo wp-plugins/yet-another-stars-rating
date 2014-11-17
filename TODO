@@ -1,0 +1,2 @@
+-Use dashicons
+-Use get_option or json instead of regex to import gd star rating data
