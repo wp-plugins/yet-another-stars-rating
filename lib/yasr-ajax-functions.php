@@ -428,7 +428,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     <a href="#" id="yasr-link-tab-main" class="nav-tab nav-tab-active"><?php _e("Main", "yasr"); ?></a>
                     <a href="#" id="yasr-link-tab-charts" class="nav-tab"><?php _e("Charts" , "yasr"); ?></a>
 
-                    <a href="http://yetanotherstarsrating.com/f-a-q/" target="_blank" id="yasr-tinypopup-link-doc"><?php _e("Read the doc", "yasr"); ?></a>
+                    <a href="https://yetanotherstarsrating.com/f-a-q/" target="_blank" id="yasr-tinypopup-link-doc"><?php _e("Read the doc", "yasr"); ?></a>
 
                 </h2>
 
@@ -904,6 +904,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             die();
         }
 
+        elseif ($rating > 5 ) {
+            $rating = 5;
+        }
+
         if ($size == 'small') {
             $rateit_class='rateit';
             $px_size = '16';
@@ -1031,6 +1035,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if ($new_rating < 1) {
             _e("Error: you can't vote 0", "yasr");
             die();
+        }
+
+        elseif ($new_rating > 5 ) {
+            $rating = 5;
         }
 
         if ($size == 'small') {

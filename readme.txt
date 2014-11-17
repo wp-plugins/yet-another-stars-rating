@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.0
-Stable tag: 0.6.7
+Stable tag: 0.6.8
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -43,6 +43,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * German (thanks to [Josef Seidl,](http://www.blog-it-solutions.de/) until version 0.6.5, than mp3-post )
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl )
+* French (Thanks to Sébastien Gracia)
 
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
@@ -89,6 +90,11 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.6.8 =
+* In the front end, Javascript is loaded at the top of the page, cause out there still exists theme that doesn't use wp_footer function
+* Smaller bugfixes
+* French translation
 
 = 0.6.7 =
 * Small bugfix

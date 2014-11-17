@@ -48,8 +48,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_add_inline_style( 'yasrcss', YASR_CUSTOM_CSS_RULES );
         }
 
-		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE );
-		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
+        //From 0.6.8 and yasr pro 0.1.0 last parameter it's come back to FALSE, cause this work only if wp_footer is used.
+        //We're in 2014 and out there still exists themes that doesn't use it.
+		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', FALSE ); 
+		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', FALSE );
 
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
@@ -57,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_enqueue_script( 'jquery-ui-tooltip' ); //script
         }
 
-        wp_enqueue_script( 'yasrfront', YASR_JS_DIR . 'yasr-front.js' , array('jquery', 'rateit'), '1.0.00', TRUE );
+        wp_enqueue_script( 'yasrfront', YASR_JS_DIR . 'yasr-front.js' , array('jquery', 'rateit'), '1.0.00', FALSE );
 
 	}
 
@@ -66,6 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr-admin.css', FALSE, NULL, 'all' );
         wp_enqueue_style( 'wp-jquery-ui-dialog' ); //style
 
+        //Admin area use wp-footer so there is no need to use it here
         wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.20', TRUE );
         wp_enqueue_script( 'jquery-ui-dialog' ); //script
 

@@ -348,7 +348,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
                     //If stats are enabled call the function 
                     if (visitorStatsEnabled == 'yes') {
-                        yasrDrawTipsProgress (postid, ajaxurl); 
+                        yasrDrawTipsProgress (postid, ajaxurl, loaderHtml); 
                     }
 
                 });

@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.6.7
+ * Version: 0.6.8
  * Author: Dario Curvino
  * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.6.7');
+define('YASR_VERSION_NUM', '0.6.8');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -83,29 +83,6 @@ define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
 define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
 define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
-
-
-//remove mid november
-if ($version_installed && $version_installed < '0.5.0') {
-
-	$option = get_option( 'yasr_general_options' );
-
-    $option['auto_insert_custom_post_only'] = 'no';
-
-    update_option("yasr_general_options", $option);
-
-}
-
-//remove end november
-if ($version_installed && $version_installed < '0.5.4') {
-
-	$option = get_option( 'yasr_general_options' );
-
-    $option['metabox_overall_rating'] = 'stars';
-
-    update_option("yasr_general_options", $option);
-
-}
 
 //remove end gen 2015
 if ($version_installed && $version_installed < '0.5.9') {
