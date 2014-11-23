@@ -304,12 +304,10 @@ function shortcode_visitor_votes_callback ($atts) {
             var size = <?php echo (json_encode($size)) ?>;
             var loggedUser = <?php echo (json_encode(is_user_logged_in())); ?>;
             var voteIfUserAlredyRated = <?php echo (json_encode($vote_if_user_already_rated)) ?>;
-            var votes = <?php echo (json_encode($medium_rating)) ?>;
-            var votesNumber = <?php echo (json_encode($votes_number)) ?>;
             var loaderHtml = <?php echo (json_encode("$loader_html")); ?>;
             var nonceVisitor = <?php echo (json_encode("$ajax_nonce_visitor")); ?>;
                 
-            yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor);
+            yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
 
             var visitorStatsEnabled = <?php echo (json_encode(YASR_VISITORS_STATS)); ?>;
 

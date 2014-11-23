@@ -1,6 +1,6 @@
 /****** Yasr shortcode page ******/
 
-    function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
+    function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor) {
 
         jQuery('#yasr_rateit_visitor_votes_' + postid).bind('over', function (event, value) { jQuery(this).attr('title', tooltipValues[value-1]); });
 
@@ -22,8 +22,6 @@
                     action: 'yasr_readonly_visitor_shortcode',
                     size: size,
                     rating: cookievote,
-                    votes: votes,
-                    votes_number: votesNumber,
                     post_id: postid
                 }
 
