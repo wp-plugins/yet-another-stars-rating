@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.6.8
+ * Version: 0.6.9
  * Author: Dario Curvino
  * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.6.8');
+define('YASR_VERSION_NUM', '0.6.9');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -83,6 +83,17 @@ define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
 define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
 
 define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
+
+//Remove mid feb 2015
+if ($version_installed && $version_installed < '0.6.9' ) {
+
+	$stored_options = get_option ( 'yasr_general_options' );
+
+	$stored_options['show_visitor_votes_in_loop'] = 'disabled';
+
+	update_option("yasr_general_options", $stored_options);
+
+}
 
 //remove end gen 2015
 if ($version_installed && $version_installed < '0.5.9') {
@@ -180,6 +191,7 @@ else {
 }
 
 define ("YASR_SHOW_OVERALL_IN_LOOP", $stored_options['show_overall_in_loop']);
+define ("YASR_SHOW_VISITOR_VOTES_IN_LOOP", $stored_options['show_visitor_votes_in_loop']);
 define ("YASR_TEXT_BEFORE_STARS", $stored_options['text_before_stars']);
 
 if ( YASR_TEXT_BEFORE_STARS == 1 ) {

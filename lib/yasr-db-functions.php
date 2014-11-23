@@ -104,6 +104,7 @@ function yasr_install() {
 		$option['auto_insert_exclude_pages'] = 'yes'; 
 		$option['auto_insert_custom_post_only'] = 'no';
 		$option['show_overall_in_loop'] = 'disabled';
+		$option['show_visitor_votes_in_loop'] = 'disabled';
 		$option['text_before_stars'] = 0;
 		$option['snippet'] = 'overall_rating';
 		$option['allowed_user'] = 'allow_anonymous';

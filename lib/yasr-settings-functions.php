@@ -48,7 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_general_settings_tab' );
 	    		add_settings_field( 'yasr_use_auto_insert_id', __('Auto insert options', 'yasr'), 'yasr_auto_insert_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show "Overall Rating" in Home Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_show_overall_in_loop', __('Show "Overall Rating" in Archive Page?', 'yasr'), 'yasr_show_overall_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
+	       		add_settings_field( 'yasr_show_visitor_votes_in_loop', __('Show "Visitor Votes" in Archive Page?', 'yasr'), 'yasr_show_visitor_votes_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_visitors_stats', __('Do you want show stats for visitors votes?', 'yasr'), 'yasr_visitors_stats_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
@@ -210,6 +211,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 				<br />
 
 			<?php _e('If you enable this, "Overall Rating" will be showed not only in the single article or page, but also in pages like Home Page, category pages or archives.', 'yasr')?>
+
+			<p>&nbsp;</p>
+
+			<br />
+
+			<hr>
+
+	    	<?php
+
+	    }
+
+	    function yasr_show_visitor_votes_in_loop_callback ($option) {
+
+			?>
+
+	    	<input type='radio' name='yasr_general_options[show_visitor_votes_in_loop]' value='enabled' class='yasr-general-option-show-visitor-votes-in-loop' <?php if ($option['show_visitor_votes_in_loop']==='enabled') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Yes', 'yasr')?>
+
+			&nbsp;&nbsp;&nbsp;
+
+	    	<input type='radio' name='yasr_general_options[show_visitor_votes_in_loop]' value='disabled' class='yasr-general-option-show-visitor-votes-in-loop' <?php if ($option['show_visitor_votes_in_loop']==='disabled') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('No', 'yasr')?>
+				<br />
+				<br />
+
+			<?php _e('If you enable this, "Visitor Votes" will be showed not only in the single article or page, but also in pages like Home Page, category pages or archives.', 'yasr')?>
 
 			<p>&nbsp;</p>
 

@@ -1,8 +1,8 @@
 /****** Yasr shortcode page ******/
 
-	function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
+    function yasrVisitorsVotes (tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, votes, votesNumber, loaderHtml, nonceVisitor) {
 
-        jQuery("#yasr_rateit_visitor_votes").bind('over', function (event, value) { jQuery(this).attr('title', tooltipValues[value-1]); });
+        jQuery('#yasr_rateit_visitor_votes_' + postid).bind('over', function (event, value) { jQuery(this).attr('title', tooltipValues[value-1]); });
 
         var cookiename = "yasr_visitor_vote_" + postid;
 
@@ -28,7 +28,7 @@
                 }
 
                 jQuery.post(ajaxurl, data, function(response) {
-                    jQuery('#yasr_visitor_votes').html(response);
+                    jQuery('#yasr_visitor_votes_' + postid).html(response);
                     jQuery('.rateit').rateit();
                 });
 
@@ -36,7 +36,7 @@
 
             //If not logged and not cookie allowed to voted
             else {
-                yasrDefaultRatingShortcode ();
+                yasrDefaultRatingShortcode (postid);
             }
 
         } //End if (!loggeduser)
@@ -48,19 +48,19 @@
             //Check if has cookie or vote in db
             if (jQuery.cookie(cookiename) || voteIfUserAlredyRated != '') {
 
-                jQuery('#yasr_rateit_visitor_votes').on('rated', function() {
+                jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() {
 
                     var el = jQuery(this);
                     var value = el.rateit('value');
                     var value = value.toFixed(1); //
 
                     if (value < 1) {
-                        jQuery('#yasr_visitor_votes').html('You can\'t vote 0');
+                        jQuery('#yasr_visitor_votes_' + postid).html('You can\'t vote 0');
                     } 
 
                     else {
 
-                        jQuery('#yasr_visitor_votes').html(loaderHtml);
+                        jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
 
                         var data = {
                                 action: 'yasr_update_visitor_rating',
@@ -73,7 +73,7 @@
                         //Send value to the Server
                         jQuery.post(ajaxurl, data, function(response) {
                             //response
-                            jQuery('#yasr_visitor_votes').html(response); 
+                            jQuery('#yasr_visitor_votes_' + postid).html(response); 
                             jQuery('.rateit').rateit();
                             //Create a cookie to disable double vote
                             jQuery.cookie(cookiename, value, { expires : 360 }); 
@@ -87,28 +87,28 @@
 
             else if (!jQuery.cookie(cookiename) && voteIfUserAlredyRated == '') {
 
-                yasrDefaultRatingShortcode ();
+                yasrDefaultRatingShortcode (postid);
 
             }
 
         } //End else logged
 
-        function yasrDefaultRatingShortcode () {
+        function yasrDefaultRatingShortcode (postid) {
 
             //On click Insert visitor votes
-            jQuery('#yasr_rateit_visitor_votes').on('rated', function() { 
+            jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() { 
 
                 var el = jQuery(this);
                 var value = el.rateit('value');
                 var value = value.toFixed(1); //
 
                 if (value < 1) {
-                    jQuery('#yasr_visitor_votes').html('You can\'t vote 0');
+                    jQuery('#yasr_visitor_votes_' + postid).html('You can\'t vote 0');
                 } 
 
                 else {
 
-                    jQuery('#yasr_visitor_votes').html(loaderHtml);
+                    jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
 
                     var data = {
                         action: 'yasr_send_visitor_rating',
@@ -121,7 +121,7 @@
                     //Send value to the Server
                     jQuery.post(ajaxurl, data, function(response) {
                         //response
-                        jQuery('#yasr_visitor_votes').html(response); 
+                        jQuery('#yasr_visitor_votes_' + postid).html(response); 
                         jQuery('.rateit').rateit();
                         //Create a cookie to disable double vote
                         jQuery.cookie(cookiename, value, { expires : 360 }); 
@@ -203,7 +203,7 @@
 
         var varTipsContent = null;
 
-        jQuery('.yasr-total-average-text').tooltip({
+        jQuery('#yasr-total-average-text_' + postid).tooltip({
 
             position: { my: 'center bottom' , at: 'center top-10' },
             tooltipClass: "yasr-visitors-stats-tooltip",

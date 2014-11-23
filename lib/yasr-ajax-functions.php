@@ -1141,6 +1141,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
+            $average_rating = $_POST['votes'];
+            $votes_number = $_POST['votes_number'];
         }
         else {
             exit();
@@ -1165,7 +1167,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         global $wpdb;
 
         //I've to pass post_id here cause get_the_id doesn't work if called with ajax
-        $array_votes=yasr_get_visitor_votes($post_id);
+        /*$array_votes=yasr_get_visitor_votes($post_id);
 
         foreach ($array_votes as $vote) {
             $number_of_votes = $vote->number_of_votes;
@@ -1177,9 +1179,9 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $number_of_votes = 1;
         }
 
-        $average_rating = $sum_votes/$number_of_votes;
+        $average_rating = $vote/$votes_number;
 
-        $average_rating = round ($average_rating, 1);
+        $average_rating = round ($average_rating, 1);*/
 
 
         //Check if user specifyed a custom text to display when a vistor har rated
@@ -1187,7 +1189,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
             echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
+            <span class=\"yasr-total-average-text\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
             <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . YASR_CUSTOM_TEXT_USER_VOTED . " </span>";
 
         }
@@ -1195,7 +1197,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         else {
 
             echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
+            <span class=\"yasr-total-average-text\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
             <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article with", "yasr") . " $rating </span>";
 
         }
