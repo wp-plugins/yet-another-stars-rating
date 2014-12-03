@@ -291,36 +291,49 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
+    //if (!is_feed()) {
 
-  ?>
+        //$var_tooltip_values = json_encode ("bad, poor, ok, good, super");
+        $var_post_id = (json_encode($post_id));
+        $var_ajax_url = (json_encode(admin_url('admin-ajax.php')));
+        $var_size = (json_encode($size));
+        $var_logged_user = (json_encode(is_user_logged_in()));
+        $var_vote_if_user_already_rated = (json_encode($vote_if_user_already_rated));
+        $var_loader_html = (json_encode("$loader_html"));
+        $var_nonce_visitor = (json_encode("$ajax_nonce_visitor"));
 
-    <script type="text/javascript">
+        $var_visitor_stats_enabled = (json_encode(YASR_VISITORS_STATS));
 
-        jQuery(document).ready(function() {
+        $javascript = "
 
-            var tooltipValues = [<?php json_encode (_e("'bad', 'poor', 'ok', 'good', 'super'", "yasr")); ?>];
-            var postid = <?php echo (json_encode($post_id)) ?>;
-            var ajaxurl = <?php echo (json_encode(admin_url('admin-ajax.php'))); ?>;
-            var size = <?php echo (json_encode($size)) ?>;
-            var loggedUser = <?php echo (json_encode(is_user_logged_in())); ?>;
-            var voteIfUserAlredyRated = <?php echo (json_encode($vote_if_user_already_rated)) ?>;
-            var loaderHtml = <?php echo (json_encode("$loader_html")); ?>;
-            var nonceVisitor = <?php echo (json_encode("$ajax_nonce_visitor")); ?>;
-                
-            yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
+        <script type=\"text/javascript\">
 
-            var visitorStatsEnabled = <?php echo (json_encode(YASR_VISITORS_STATS)); ?>;
+            jQuery(document).ready(function() {
 
-            //If stats are enabled call the function 
-            if (visitorStatsEnabled == 'yes') {
-                yasrDrawTipsProgress (postid, ajaxurl); 
-            }
+                var tooltipValues = ['bad', 'poor', 'ok', 'good', 'super'];
+                var postid = $var_post_id;
+                var ajaxurl = $var_ajax_url;
+                var size = $var_size;
+                var loggedUser = $var_logged_user;
+                var voteIfUserAlredyRated = $var_vote_if_user_already_rated;
+                var loaderHtml = $var_loader_html;
+                var nonceVisitor = $var_nonce_visitor;
+                    
+                yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
 
-        });
+                var visitorStatsEnabled = $var_visitor_stats_enabled;
 
-    </script>
+                //If stats are enabled call the function 
+                if (visitorStatsEnabled == 'yes') {
+                    yasrDrawTipsProgress (postid, ajaxurl); 
+                }
 
-    <?php
+            });
+
+        </script>
+
+        ";
+
 
         //IF show visitor votes in loop is disabled use is_singular && is_main query
         if ( YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'disabled' ) {
@@ -330,7 +343,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
                 if( is_singular() && is_main_query() ) {
 
-                    return $shortcode_html;
+                    return $shortcode_html . $javascript;
 
                 }
 
@@ -341,7 +354,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
                 if( is_singular() && is_main_query() && !is_page() )
 
-                    return $shortcode_html;
+                    return $shortcode_html . $javascript;;
 
             }
 
@@ -353,7 +366,7 @@ function shortcode_visitor_votes_callback ($atts) {
             //If pages are not excluted return always
             if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
 
-                return $shortcode_html;
+                return $shortcode_html . $javascript;;
 
             }
 
@@ -362,13 +375,15 @@ function shortcode_visitor_votes_callback ($atts) {
 
                 if ( !is_page() ) {
 
-                    return $shortcode_html;
+                    return $shortcode_html . $javascript;;
 
                 }
 
             }
 
         }
+
+   // } //End (!is_feed)
 
 } //End function shortcode_visitor_votes_callback
 

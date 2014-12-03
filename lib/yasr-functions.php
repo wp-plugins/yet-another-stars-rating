@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
-            wp_enqueue_style( 'jquery-ui','http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css', FALSE, NULL, 'all' );
+            wp_enqueue_style( 'jquery-ui','//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css', FALSE, NULL, 'all' );
         }
 
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
