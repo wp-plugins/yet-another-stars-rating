@@ -195,7 +195,7 @@ function shortcode_visitor_votes_callback ($atts) {
         $px_size = '32';
     }
 
-    $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\">";
+    $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes\">";
 
         //if anonymous are allowed to vote
         if (YASR_ALLOWED_USER === 'allow_anonymous') {

@@ -91,6 +91,10 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 == Changelog ==
 
+= 0.7.2 =
+* Another bugfix on yasr_visitor_votes shortcode.
+* Minor changes
+
 = 0.7.1 =
 * Important change into yasr_visitor_votes shortcode
 

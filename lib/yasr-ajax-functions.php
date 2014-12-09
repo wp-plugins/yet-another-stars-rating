@@ -1210,7 +1210,12 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 var postid = <?php echo (json_encode($post_id)); ?>;
                 var ajaxurl = <?php echo (json_encode(admin_url('admin-ajax.php'))); ?>;
 
-                yasrDrawTipsProgress (postid, ajaxurl);
+                var visitorStatsEnabled = <?php echo (json_encode(YASR_VISITORS_STATS)); ?>;
+
+                //If stats are enabled call the function 
+                if (visitorStatsEnabled == 'yes') {
+                    yasrDrawTipsProgress (postid, ajaxurl); 
+                }
 
             });
 
