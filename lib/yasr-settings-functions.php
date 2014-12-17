@@ -1208,59 +1208,59 @@ function yasr_go_pro () {
                 </tr>
                 
                 <tr>
-                    <td class="rowTitle">Unlimited ratings and votes</td>        
+                    <td class="rowTitle"><?php _e("Unlimited ratings and votes" , "yasr"); ?></td>        
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                                            
                 <tr>
-                    <td class="rowTitle">Works with shortcodes</td>    
+                    <td class="rowTitle"><?php _e("Works with shortcodes" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
 
                 <tr>
-                    <td class="rowTitle">Multi Set Support</td>    
+                    <td class="rowTitle"><?php _e("Multi Set Support" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Logs for visitors' votes</td>    
+                    <td class="rowTitle"><?php _e("Logs and stats for visitors votes" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Localization (.po and .mo files included)</td>    
+                    <td class="rowTitle"><?php _e("Localization (.po and .mo files included)" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Rich Snippet Support</td>    
+                    <td class="rowTitle"><?php _e("Rich Snippet Support" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Rankings for reviews, votes and users</td>    
+                    <td class="rowTitle"><?php _e("Rankings for reviews, votes and users" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Rankings Customization</td>    
+                    <td class="rowTitle"><?php _e("Rankings Customization" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Stars Customization</td>    
-                    <td>Size Only</td>
-                    <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /> Users can choose different ready to use sets or can upload their own images.</td>
+                    <td class="rowTitle"><?php _e("Stars Customization" , "yasr"); ?></td>    
+                    <td><?php _e("Size Only" , "yasr"); ?></td>
+                    <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /><?php _e("Users can choose different ready to use sets or can upload their own images." , "yasr"); ?></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Visitors can vote on Multi Set</td>    
+                    <td class="rowTitle"><?php _e("Visitors can vote on Multi Set" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle">Users can review in comments</td>    
+                    <td class="rowTitle"><?php _e("Users can review in comments" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
                 </tr>

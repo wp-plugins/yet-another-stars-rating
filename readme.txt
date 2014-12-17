@@ -3,7 +3,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Contributors: Dudo 
-Tested up to: 4.0.1
+Tested up to: 4.1
 Stable tag: 0.7.2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl )
 * French (Thanks to Sébastien Gracia)
+* Norwegian (Thanks to [Line](www.spilleautomatercasinobonuser.com)
 
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2014-11-28 14:16+0100\n"
-"PO-Revision-Date: 2014-11-28 14:16+0100\n"
+"POT-Creation-Date: 2014-12-13 11:29+0100\n"
+"PO-Revision-Date: 2014-12-13 11:29+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: En\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../lib\n"
 
-#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:112
+#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:110
 #: ../lib/yasr-ajax-functions.php:47 ../lib/yasr-ajax-functions.php:192
 #: ../lib/yasr-ajax-functions.php:331 ../lib/yasr-ajax-functions.php:732
 msgid "You do not have sufficient permissions to access this page."
@@ -127,20 +127,20 @@ msgstr ""
 msgid "Close this message"
 msgstr ""
 
-#: ../yasr-settings-page.php:246 ../lib/yasr-functions.php:460
-#: ../lib/yasr-functions.php:486
+#: ../yasr-settings-page.php:246 ../lib/yasr-functions.php:458
+#: ../lib/yasr-functions.php:484
 msgid "Donations"
 msgstr ""
 
-#: ../yasr-settings-page.php:248 ../lib/yasr-functions.php:462
-#: ../lib/yasr-functions.php:488
+#: ../yasr-settings-page.php:248 ../lib/yasr-functions.php:460
+#: ../lib/yasr-functions.php:486
 msgid ""
 "If you have found this plugin useful, please consider making a donation to "
 "help support future development. Your support will be much appreciated. "
 msgstr ""
 
-#: ../yasr-settings-page.php:250 ../lib/yasr-functions.php:464
-#: ../lib/yasr-functions.php:490
+#: ../yasr-settings-page.php:250 ../lib/yasr-functions.php:462
+#: ../lib/yasr-functions.php:488
 msgid "Thank you!"
 msgstr ""
 
@@ -206,63 +206,59 @@ msgstr ""
 msgid "You must sign to vote"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:301
-msgid "'bad', 'poor', 'ok', 'good', 'super'"
-msgstr ""
-
-#: ../lib/yasr-shortcode-functions.php:455
+#: ../lib/yasr-shortcode-functions.php:470
 msgid "Rating"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:469
+#: ../lib/yasr-shortcode-functions.php:484
 msgid "You don't have any votes stored"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:505
-#: ../lib/yasr-shortcode-functions.php:543
+#: ../lib/yasr-shortcode-functions.php:520
+#: ../lib/yasr-shortcode-functions.php:558
 msgid "Post / Page"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:506
-#: ../lib/yasr-shortcode-functions.php:544
+#: ../lib/yasr-shortcode-functions.php:521
+#: ../lib/yasr-shortcode-functions.php:559
 msgid "Order By"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:506
-#: ../lib/yasr-shortcode-functions.php:544
+#: ../lib/yasr-shortcode-functions.php:521
+#: ../lib/yasr-shortcode-functions.php:559
 msgid "Most Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:506
-#: ../lib/yasr-shortcode-functions.php:544
+#: ../lib/yasr-shortcode-functions.php:521
+#: ../lib/yasr-shortcode-functions.php:559
 msgid "Highest Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:523
-#: ../lib/yasr-shortcode-functions.php:558
+#: ../lib/yasr-shortcode-functions.php:538
+#: ../lib/yasr-shortcode-functions.php:573
 msgid "Total:"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:523
-#: ../lib/yasr-shortcode-functions.php:558
+#: ../lib/yasr-shortcode-functions.php:538
+#: ../lib/yasr-shortcode-functions.php:573
 msgid "Average"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:535
+#: ../lib/yasr-shortcode-functions.php:550
 msgid "You've not enough data"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:570
+#: ../lib/yasr-shortcode-functions.php:585
 msgid "You've not enought data"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:655
+#: ../lib/yasr-shortcode-functions.php:670
 msgid ""
 "Problem while retrieving the top 5 most active reviewers. Did you publish "
 "any review?"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:723
+#: ../lib/yasr-shortcode-functions.php:738
 msgid ""
 "Problem while retrieving the top 10 active users chart. Are you sure you "
 "have votes to show?"
@@ -622,6 +618,59 @@ msgstr ""
 msgid "Upgrade to yasr pro!"
 msgstr ""
 
+#: ../lib/yasr-settings-functions.php:1211
+msgid "Unlimited ratings and votes"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1217
+msgid "Works with shortcodes"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1223
+msgid "Multi Set Support"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1228
+msgid "Logs and stats for visitors votes"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1233
+msgid "Localization (.po and .mo files included)"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1238
+msgid "Rich Snippet Support"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1243
+msgid "Rankings for reviews, votes and users"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1248
+msgid "Rankings Customization"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1253
+msgid "Stars Customization"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1254
+msgid "Size Only"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1255
+msgid ""
+"Users can choose different ready to use sets or can upload their own images."
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1258
+msgid "Visitors can vote on Multi Set"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1263
+msgid "Users can review in comments"
+msgstr ""
+
 #: ../lib/yasr-settings-functions.php:1274
 msgid "Not avaible yet"
 msgstr ""
@@ -646,55 +695,55 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: ../lib/yasr-functions.php:100 ../lib/yasr-functions.php:101
+#: ../lib/yasr-functions.php:98 ../lib/yasr-functions.php:99
 msgid "Yet Another Stars Rating: Settings"
 msgstr ""
 
-#: ../lib/yasr-functions.php:144 ../lib/yasr-functions.php:151
+#: ../lib/yasr-functions.php:142 ../lib/yasr-functions.php:149
 msgid "Overall Rating"
 msgstr ""
 
-#: ../lib/yasr-functions.php:145
+#: ../lib/yasr-functions.php:143
 msgid "Yet Another Stars Rating: Multiple set"
 msgstr ""
 
-#: ../lib/yasr-functions.php:161
+#: ../lib/yasr-functions.php:159
 msgid "You don't have enought privileges to insert Overall Rating"
 msgstr ""
 
-#: ../lib/yasr-functions.php:171
+#: ../lib/yasr-functions.php:169
 msgid "You don't have enought privileges to insert Multi Set"
 msgstr ""
 
-#: ../lib/yasr-functions.php:306
+#: ../lib/yasr-functions.php:304
 msgid " reviewed by "
 msgstr ""
 
-#: ../lib/yasr-functions.php:307
+#: ../lib/yasr-functions.php:305
 msgid " on "
 msgstr ""
 
-#: ../lib/yasr-functions.php:308
+#: ../lib/yasr-functions.php:306
 msgid " rated "
 msgstr ""
 
-#: ../lib/yasr-functions.php:308
+#: ../lib/yasr-functions.php:306
 msgid " of"
 msgstr ""
 
-#: ../lib/yasr-functions.php:363
+#: ../lib/yasr-functions.php:361
 msgid " written by "
 msgstr ""
 
-#: ../lib/yasr-functions.php:365
+#: ../lib/yasr-functions.php:363
 msgid " average rating "
 msgstr ""
 
-#: ../lib/yasr-functions.php:366
+#: ../lib/yasr-functions.php:364
 msgid " user ratings"
 msgstr ""
 
-#: ../lib/yasr-functions.php:472 ../lib/yasr-functions.php:499
+#: ../lib/yasr-functions.php:470 ../lib/yasr-functions.php:497
 msgid "Follow YASR official site!"
 msgstr ""
 
@@ -909,6 +958,6 @@ msgstr ""
 msgid "Average "
 msgstr ""
 
-#: ../lib/yasr-ajax-functions.php:1317
+#: ../lib/yasr-ajax-functions.php:1322
 msgid "stars"
 msgstr ""
