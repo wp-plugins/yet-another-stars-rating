@@ -44,7 +44,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl ) )
 * French (Thanks to Sébastien Gracia)
-* Norwegian (Thanks to [Line](www.spilleautomatercasinobonuser.com) )
+* Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
 
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
