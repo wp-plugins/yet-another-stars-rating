@@ -42,9 +42,9 @@ If with gd-star-rating you're using a different number of stars from the default
 * Italian
 * German (thanks to [Josef Seidl,](http://www.blog-it-solutions.de/) until version 0.6.5, than mp3-post )
 * Polish (thanks to Hoek i Tutu Team)
-* Dutch (thanks to  [Marcel Pol](http://zenoweb.nl )
+* Dutch (thanks to  [Marcel Pol](http://zenoweb.nl ) )
 * French (Thanks to Sébastien Gracia)
-* Norwegian (Thanks to [Line](www.spilleautomatercasinobonuser.com)
+* Norwegian (Thanks to [Line](www.spilleautomatercasinobonuser.com) )
 
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
