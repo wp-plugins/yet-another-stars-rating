@@ -106,10 +106,6 @@
 
                 else {
 
-                    if (value > 5) {
-                        value = 5;
-                    }
-
                     jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
 
                     var data = {
