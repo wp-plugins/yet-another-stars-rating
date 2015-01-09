@@ -3,8 +3,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Contributors: Dudo 
-Tested up to: 4.0
-Stable tag: 0.6.2
+Tested up to: 4.1
+Stable tag: 0.7.3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -29,9 +29,10 @@ Again, this can be placed automatically at the beginning or the end of each post
 = Multi Set =
 Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
 "Gameplay", "Story", etc.
+Only who write the post or page can inserta votes in Multi Set.
 
 = Importing data from gd star rating =
-If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "overall_rating", "visitor_votes" and all the multisets with
+If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "Overall Rating", "Visitor Votes" and all the multisets with
 their respective score. Once YASR is installed you just have to go to "Settings" -> "Yet Another Stars Rating: Settings" and start the import (last box at the bottom).
 This operation can take some time, don't stop it! Once it's done you just need to replace the gd-star-rating's shortcode with the YASR tags.
 If with gd-star-rating you're using a different number of stars from the default of 5, YASR will automatically convert all the scores in a range from 1 to 5.
@@ -39,8 +40,14 @@ If with gd-star-rating you're using a different number of stars from the default
 = Supported Languages =
 * English
 * Italian
-* German (thanks to Josef Seidl, http://www.blog-it-solutions.de/ )
+* German (thanks to [Josef Seidl,](http://www.blog-it-solutions.de/) until version 0.6.5, than mp3-post )
 * Polish (thanks to Hoek i Tutu Team)
+* Dutch (thanks to  [Marcel Pol](http://zenoweb.nl ) )
+* French (Thanks to Sébastien Gracia)
+* Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
+
+= Related Link =
+News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
@@ -57,6 +64,7 @@ It is the vote that allows your visitors to vote: just paste this shortcode **[y
 
 = What is "Multi Set"? =
 It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
+Only who write the post or page can insert votes in Multi Set.
 
 = What is "Ranking reviews" ? =
 It is the 10 highest rated item chart by reviewer. In order to insert it into a post or page, just paste this shortcode **[yasr_top_ten_highest_rated]**
@@ -83,6 +91,46 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.7.3 =
+* Added support for plugins that adds class or attribute on images
+* Code cleanup
+
+= 0.7.2 =
+* Another bugfix on yasr_visitor_votes shortcode.
+* Minor changes
+
+= 0.7.1 =
+* Important change into yasr_visitor_votes shortcode
+
+= 0.7.0 =
+* Fixed bug for yasr_visitor_votes shortcode
+
+= 0.6.9 =
+* Yasr Visitor Votes shortag is finally avaible in archive pages!
+* Code cleanup on yasr visitor votes shortag
+* Javascript loaded again at the bottom in the frontend. Theme that doesn't use wp_footer will no be supported anymore
+
+= 0.6.8 =
+* In the front end, Javascript is loaded at the top of the page, cause out there still exists theme that doesn't use wp_footer function
+* Smaller bugfixes
+* French translation
+
+= 0.6.7 =
+* Small bugfix
+
+= 0.6.6 =
+* Bugfix: Auto insert in custom post type have been fixed
+* "stars" inside the stats tooltip is now translatable
+
+= 0.6.5 =
+* New feature! If you use Visitors Rating stars set, you can now see statistics by hovering the mouse on the text [Total: X Average:Y]
+* Bug fixes (stars changing size) in [yasr_visitor_rating]
+* Fixed typos
+* Huge cleanups
+
+= 0.6.3 =
+* Added Pro info in settings page
 
 = 0.6.2 =
 * Fixed bug for [yasr_overall_rating] in pages
