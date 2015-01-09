@@ -49,6 +49,11 @@ If with gd-star-rating you're using a different number of stars from the default
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 
+= Press =
+[WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
+[BRIANLI.COM](http://brianli.com/yet-another-stars-rating-wordpress-plugin-review/)
+[WPEXPLORER](http://www.wpexplorer.com/google-rich-snippets-wordpress/)
+
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
 2. Activate the plugin through the 'Plugins' menu in WordPress
