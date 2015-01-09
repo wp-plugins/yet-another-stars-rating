@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.7.2
+ * Version: 0.7.3
  * Author: Dario Curvino
  * Author URI: http://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.7.2');
+define('YASR_VERSION_NUM', '0.7.3');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -49,122 +49,8 @@ define ("YASR_CSS_DIR", plugins_url( YASR_RELATIVE_PATH_PLUGIN_DIR . '/css/' ));
 //IMG directory absolute
 define ("YASR_IMG_DIR", plugins_url( YASR_RELATIVE_PATH_PLUGIN_DIR . '/img/'));
 
-// Include function file 
-require (YASR_RELATIVE_PATH . '/lib/yasr-functions.php');
 
-require (YASR_RELATIVE_PATH . '/lib/yasr-settings-functions.php');
-
-require (YASR_RELATIVE_PATH . '/lib/yasr-db-functions.php');
-
-require (YASR_RELATIVE_PATH . '/lib/yasr-ajax-functions.php');
-
-require (YASR_RELATIVE_PATH . '/lib/yasr-shortcode-functions.php');
-
-$version_installed = get_option('yasr-version') ;
-
-//If this is a fresh new installation
-
-if (!$version_installed ) {
-
-	yasr_install();
-
-}
-
-global $wpdb;
-
-define ("YASR_VOTES_TABLE", $wpdb->prefix . 'yasr_votes');
-
-define ("YASR_MULTI_SET_NAME_TABLE", $wpdb->prefix . 'yasr_multi_set');
-
-define ("YASR_MULTI_SET_FIELDS_TABLE", $wpdb->prefix . 'yasr_multi_set_fields');
-
-define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
-
-define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
-
-define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
-
-//Remove mid feb 2015
-if ($version_installed && $version_installed < '0.6.9' ) {
-
-	$stored_options = get_option ( 'yasr_general_options' );
-
-	$stored_options['show_visitor_votes_in_loop'] = 'disabled';
-
-	update_option("yasr_general_options", $stored_options);
-
-}
-
-//remove end gen 2015
-if ($version_installed && $version_installed < '0.5.9') {
-
-	$wpdb->query("ALTER TABLE " . YASR_VOTES_TABLE . " ADD review_type VARCHAR( 10 )");
-
-}
-
-//REmove in Jenuary
-if ($version_installed && $version_installed < '0.6.5') {
-
-	$stored_options = get_option( 'yasr_general_options' );
-
-	$stored_options['visitors_stats'] = 'yes';
-
-	//delete all the 0 vote in yasr log
-	$delte_zero_votes_log = $wpdb->delete(
-									YASR_LOG_TABLE,
-									array ('vote' => '0.0'),
-									array ('%s')
-									);
-
-	$gdsr_imported = get_option('yasr-gdstar-imported');
-
-	$gdsr_logs_imported = get_option('yasr-gdstar-logs-imported');
-
-	if($gdsr_imported==1 && !$gdsr_logs_imported) {
-
-		$gdstar_table=$wpdb->prefix . 'gdsr_votes_log';
-
-		if ($wpdb->get_var("SHOW TABLES LIKE '$gdstar_table'") == $gdstar_table) {
-			
-			//Import logs from GD star
-            $logs = yasr_import_gdstar_logs();
-
-            //Insert logs if exists
-            $insert_logs = yasr_insert_gdstar_logs($logs);
-
-            if ($insert_logs) {
-                update_option('yasr-gdstar-logs-imported', '1');
-            }
-
-		}
-
-		else {
-			$stored_options['visitors_stats'] = 'disabled';
-		}
-	}
-
-	
-	update_option("yasr_general_options", $stored_options);
-
-}
-
-//Remove along 0.6.5 (end of jen)
-if ($version_installed && $version_installed < '0.6.6') {
-
-	$option = get_option( 'yasr_general_options' );
-
-	$option['auto_insert_custom_post_only'] = 'no';
-
-	update_option("yasr_general_options", $option);
-
-}
-
-
-if ($version_installed != YASR_VERSION_NUM) {
-
-    update_option('yasr-version', YASR_VERSION_NUM);
-
-}
+/****** Getting options ******/
 
 $stored_options = get_option( 'yasr_general_options' );
 
@@ -222,5 +108,74 @@ else {
 	define ("YASR_CUSTOM_CSS_RULES", NULL);
 
 }
+
+/****** End Getting options ******/
+
+
+
+// Include function file 
+require (YASR_RELATIVE_PATH . '/lib/yasr-functions.php');
+
+require (YASR_RELATIVE_PATH . '/lib/yasr-settings-functions.php');
+
+require (YASR_RELATIVE_PATH . '/lib/yasr-db-functions.php');
+
+require (YASR_RELATIVE_PATH . '/lib/yasr-ajax-functions.php');
+
+require (YASR_RELATIVE_PATH . '/lib/yasr-shortcode-functions.php');
+
+$version_installed = get_option('yasr-version') ;
+
+//If this is a fresh new installation
+
+if (!$version_installed ) {
+
+	yasr_install();
+
+}
+
+global $wpdb;
+
+define ("YASR_VOTES_TABLE", $wpdb->prefix . 'yasr_votes');
+
+define ("YASR_MULTI_SET_NAME_TABLE", $wpdb->prefix . 'yasr_multi_set');
+
+define ("YASR_MULTI_SET_FIELDS_TABLE", $wpdb->prefix . 'yasr_multi_set_fields');
+
+define ("YASR_MULTI_SET_VALUES_TABLE", $wpdb->prefix . 'yasr_multi_values');
+
+define ("YASR_LOG_TABLE", $wpdb->prefix . 'yasr_log');
+
+define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
+
+
+/****** backward compatibility functions ******/
+
+//Remove mid feb 2015
+if ($version_installed && $version_installed < '0.6.9' ) {
+
+	$stored_options = get_option ( 'yasr_general_options' );
+
+	$stored_options['show_visitor_votes_in_loop'] = 'disabled';
+
+	update_option("yasr_general_options", $stored_options);
+
+}
+
+//remove end gen 2015
+if ($version_installed && $version_installed < '0.5.9') {
+
+	$wpdb->query("ALTER TABLE " . YASR_VOTES_TABLE . " ADD review_type VARCHAR( 10 )");
+
+}
+
+if ($version_installed != YASR_VERSION_NUM) {
+
+    update_option('yasr-version', YASR_VERSION_NUM);
+
+}
+
+
+/****** End backward compatibility functions ******/
 
 ?>

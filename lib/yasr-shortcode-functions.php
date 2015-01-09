@@ -163,7 +163,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
     $image = YASR_IMG_DIR . "/loader.gif";
 
-    $loader_html = "<div id=\"loader-visitor-rating\" >&nbsp; " . __("Loading, please wait","yasr") . " <img src= \" $image \"></div>";
+    $loader_html = '<div id="loader-visitor-rating" >&nbsp; ' . __("Loading, please wait","yasr") . ' <img src=' .  "$image" .' title="yasr-loader" alt="yasr-loader"></div>';
 
     $medium_rating=round($medium_rating, 1);
 
