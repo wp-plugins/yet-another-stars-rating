@@ -291,6 +291,9 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
+    //if (!is_feed()) {
+
+        //$var_tooltip_values = json_encode ("bad, poor, ok, good, super");
         $var_post_id = (json_encode($post_id));
         $var_ajax_url = (json_encode(admin_url('admin-ajax.php')));
         $var_size = (json_encode($size));
@@ -379,6 +382,8 @@ function shortcode_visitor_votes_callback ($atts) {
             }
 
         }
+
+   // } //End (!is_feed)
 
 } //End function shortcode_visitor_votes_callback
 
