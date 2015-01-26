@@ -2,14 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
 "POT-Creation-Date: 2014-12-13 11:15+0100\n"
-"PO-Revision-Date: 2014-12-13 11:15+0100\n"
-"Last-Translator: Dario <thedudoworld@gmail.com>\n"
+"PO-Revision-Date: 2015-01-26 10:48+0100\n"
+"Last-Translator: Spilleautomater|Casinobonuser "
+"<admin@spilleautomatercasinobonuser.com>\n"
 "Language-Team: \n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -260,7 +261,7 @@ msgstr "Total:"
 #: ../lib/yasr-shortcode-functions.php:538
 #: ../lib/yasr-shortcode-functions.php:573
 msgid "Average"
-msgstr "Gjennomsnittlig"
+msgstr "Gjennomsnittlig "
 
 #: ../lib/yasr-shortcode-functions.php:550
 msgid "You've not enough data"
@@ -676,49 +677,47 @@ msgstr "Oppgrader til YASR pro!"
 
 #: ../lib/yasr-settings-functions.php:1211
 msgid "Unlimited ratings and votes"
-msgstr ""
+msgstr "Ubegrenset antall brukervurderinger og stemmer"
 
 #: ../lib/yasr-settings-functions.php:1217
 msgid "Works with shortcodes"
-msgstr ""
+msgstr "Fungerer med kortkoder"
 
 #: ../lib/yasr-settings-functions.php:1223
-#, fuzzy
 msgid "Multi Set Support"
-msgstr "Multisett"
+msgstr "Støtte for multisett"
 
 #: ../lib/yasr-settings-functions.php:1228
-#, fuzzy
 msgid "Logs and stats for visitors votes"
-msgstr "Vil du vise statistikker for besøkendes vurderinger?"
+msgstr "Logger og statistikker for besøkendes stemmer"
 
 #: ../lib/yasr-settings-functions.php:1233
 msgid "Localization (.po and .mo files included)"
-msgstr ""
+msgstr "Lokalisering (.po- og .mo-filer inkludert)"
 
 #: ../lib/yasr-settings-functions.php:1238
 msgid "Rich Snippet Support"
-msgstr ""
+msgstr "Støtte for rikt tekstutdrag"
 
 #: ../lib/yasr-settings-functions.php:1243
 msgid "Rankings for reviews, votes and users"
-msgstr ""
+msgstr "Rangeringer for omtaler, stemmer og brukere"
 
 #: ../lib/yasr-settings-functions.php:1248
 msgid "Rankings Customization"
-msgstr ""
+msgstr "Egendefinert rangering"
 
 #: ../lib/yasr-settings-functions.php:1253
 msgid "Stars Customization"
-msgstr ""
+msgstr "Egendefinerte stjerner"
 
 #: ../lib/yasr-settings-functions.php:1258
 msgid "Visitors can vote on Multi Set"
-msgstr ""
+msgstr "Besøkende kan stemme på multisett"
 
 #: ../lib/yasr-settings-functions.php:1263
 msgid "Users can review in comments"
-msgstr ""
+msgstr "Brukere kan gi sin vurdering i kommentarfeltet"
 
 #: ../lib/yasr-settings-functions.php:1274
 msgid "Not avaible yet"
@@ -774,7 +773,7 @@ msgstr " "
 
 #: ../lib/yasr-functions.php:306
 msgid " rated "
-msgstr ", og fikk  "
+msgstr ", og fikk karakteren   "
 
 #: ../lib/yasr-functions.php:306
 msgid " of"
@@ -786,7 +785,7 @@ msgstr " skrevet av"
 
 #: ../lib/yasr-functions.php:363
 msgid " average rating "
-msgstr " gjennomsnittlig vurdering"
+msgstr "  vurdering"
 
 #: ../lib/yasr-functions.php:364
 msgid " user ratings"
@@ -1001,7 +1000,7 @@ msgstr "Feil. Du kan ikke gi karakteren 0."
 
 #: ../lib/yasr-ajax-functions.php:998 ../lib/yasr-ajax-functions.php:1006
 msgid "Average rating"
-msgstr "Gjennomsnittlig vurdering"
+msgstr "Gjennomsnittlig vurdering:"
 
 #: ../lib/yasr-ajax-functions.php:999 ../lib/yasr-ajax-functions.php:1007
 msgid "Vote Saved"
@@ -1013,7 +1012,7 @@ msgstr "Vurdering oppdatert"
 
 #: ../lib/yasr-ajax-functions.php:1190 ../lib/yasr-ajax-functions.php:1198
 msgid "Average "
-msgstr "Gjennomsnitt"
+msgstr "Gjennomsnitt:"
 
 #: ../lib/yasr-ajax-functions.php:1322
 msgid "stars"
