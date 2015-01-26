@@ -99,7 +99,7 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 
 = 0.7.5 =
 * Code cleanup and bugfix in yasr_visitor_votes shortcode
-* Updated Norwegian translation (Thanks to Line Anderssen)
+* Updated Norwegian translation (Thanks to [Line](http://www.spilleautomatercasinobonuser.com))
 
 = 0.7.4 =
 * Security fix. Please update!
