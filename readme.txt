@@ -25,6 +25,7 @@ be able to insert the overall rating. You can either place the overall rating au
 = Visitor Votes = 
 You can give your users the ability to vote, pasting the shortcode [yasr_visitor_votes] where you want the stars to appear.
 Again, this can be placed automatically at the beginning or the end of each post; the option is in "Settings" -> "Yet Another Stars Rating: Settings".
+This may not works if you use a caching plugin.
 
 = Multi Set =
 Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
@@ -65,7 +66,7 @@ News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 It is the vote given by who writes the review: readers are able to see this vote in read-only mode. Reviewer can vote using the box on the top rigth when writing a new article or post (he or she must have at least the "Author" role). Remember to insert this shortcode **[yasr_overall_rating]** to make it appear where you like. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc).
 
 = What is "Visitor Rating"? =
-It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This works only in single posts or pages.
+It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This may not works if you use a caching plugin.
 
 = What is "Multi Set"? =
 It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
