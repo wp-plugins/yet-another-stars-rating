@@ -80,48 +80,18 @@ function shortcode_overall_rating_callback ($atts) {
         //IF show overall rating in loop is disabled use is_singular && is_main query
         if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
 
-            //If pages are not excluted
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
-
-                if( is_singular() && is_main_query() ) {
-
-                    return $shortcode_html;
-
-                }
-
-            }
-
-            //If page are excluted
-            else {
-
-                if( is_singular() && is_main_query() && !is_page() )
-
-                    return $shortcode_html;
-
-            }
-
-        } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
-
-            //If overall rating in loop is enabled don't use is_singular && is main_query
-        elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
-
-            //If pages are not excluted return always
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
+            if( is_singular() && is_main_query() ) {
 
                 return $shortcode_html;
 
             }
 
-            //Else if page are excluted return only if is not a page
-            else {
+        } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
 
-                if ( !is_page() ) {
+        //If overall rating in loop is enabled don't use is_singular && is main_query
+        elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
 
-                    return $shortcode_html;
-
-                }
-
-            }
+            return $shortcode_html;
 
         }
 
@@ -291,6 +261,9 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
+    //if (!is_feed()) {
+
+        //$var_tooltip_values = json_encode ("bad, poor, ok, good, super");
         $var_post_id = (json_encode($post_id));
         $var_ajax_url = (json_encode(admin_url('admin-ajax.php')));
         $var_size = (json_encode($size));
@@ -335,50 +308,22 @@ function shortcode_visitor_votes_callback ($atts) {
         //IF show visitor votes in loop is disabled use is_singular && is_main query
         if ( YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'disabled' ) {
 
-            //If pages are not excluted
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
+            if( is_singular() && is_main_query() ) {
 
-                if( is_singular() && is_main_query() ) {
-
-                    return $shortcode_html . $javascript;
-
-                }
-
-            }
-
-            //If page are excluted
-            else {
-
-                if( is_singular() && is_main_query() && !is_page() )
-
-                    return $shortcode_html . $javascript;;
+                return $shortcode_html . $javascript;
 
             }
 
         } // End if YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'disabled') {
 
-            //If overall rating in loop is enabled don't use is_singular && is main_query
+        //If overall rating in loop is enabled don't use is_singular && is main_query
         elseif ( YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'enabled' ) {
 
-            //If pages are not excluted return always
-            if ( YASR_AUTO_INSERT_EXCLUDE_PAGES === 'no' || !YASR_AUTO_INSERT_EXCLUDE_PAGES ) {
-
-                return $shortcode_html . $javascript;;
-
-            }
-
-            //Else if page are excluted return only if is not a page
-            else {
-
-                if ( !is_page() ) {
-
-                    return $shortcode_html . $javascript;;
-
-                }
-
-            }
+            return $shortcode_html . $javascript;
 
         }
+
+   // } //End (!is_feed)
 
 } //End function shortcode_visitor_votes_callback
 

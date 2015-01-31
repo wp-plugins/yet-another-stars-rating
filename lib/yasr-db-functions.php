@@ -138,7 +138,13 @@ function yasr_get_overall_rating($post_id_referenced=FALSE) {
 
 	}
 
-	$result=$wpdb->get_results("SELECT overall_rating FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	if ($post_id == '') {
+
+		exit();
+
+	}
+
+	$result=$wpdb->get_results($wpdb->prepare("SELECT overall_rating FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 	if ($result) {
 		foreach ($result as $rating) {
@@ -163,7 +169,7 @@ function yasr_get_snippet_type() {
 
 	else {
 
-	$result=$wpdb->get_results("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	$result=$wpdb->get_results($wpdb->prepare("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 		if($result) {
 			foreach ($result as $snippet) {
@@ -226,7 +232,13 @@ function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
 
 	}
 
-	$result = $wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	if ($post_id == '' ) {
+
+		exit();
+
+	}
+
+	$result = $wpdb->get_results($wpdb->prepare("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 	return $result;
 }
@@ -445,7 +457,13 @@ function yasr_check_if_user_already_voted() {
 
     $post_id = get_the_ID();
 
-    $result = $wpdb->get_results("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE post_id=$post_id AND user_id=$user_id ORDER BY id DESC LIMIT 1 ");
+    if (!$post_id || !$user_id) {
+
+    	exit();
+
+    }
+
+    $result = $wpdb->get_results($wpdb->prepare("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE post_id=%d AND user_id=%d ORDER BY id DESC LIMIT 1 ", $post_id, $user_id));
 
     if ($result) {
 

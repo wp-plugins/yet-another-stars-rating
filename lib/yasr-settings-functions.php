@@ -626,7 +626,7 @@ function yasr_edit_multi_form() {
     add_action( 'wp_ajax_yasr_get_multi_set', 'yasr_get_multi_set_callback' );
 
     function yasr_get_multi_set_callback() {
-        if (isset($_POST['set_id'])) {
+        if (isset($_POST['set_id']) && $_POST['set_id'] != '' ) {
             $set_type = $_POST['set_id'];
         }
         else {
@@ -635,10 +635,10 @@ function yasr_edit_multi_form() {
 
         global $wpdb;
 
-        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+        $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                             FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                            WHERE parent_set_id=$set_type 
-                            ORDER BY field_id ASC");
+                            WHERE parent_set_id=%d 
+                            ORDER BY field_id ASC", $set_type));
 
         
 
@@ -739,7 +739,7 @@ function yasr_edit_multi_form() {
 function yasr_process_new_multi_set_form()
 {
 
-	if ( isset( $_POST['multi-set-name']) ) {
+	if ( isset( $_POST['multi-set-name'])) {
 
 		global $wpdb;
 		
@@ -1262,7 +1262,7 @@ function yasr_go_pro () {
                 <tr>
                     <td class="rowTitle"><?php _e("Users can review in comments" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                                
             </table>
@@ -1473,7 +1473,10 @@ function yasr_insert_gdstar_data($votes){
 			array( '%d', '%d', '%s', '%d', '%d')
 		);
 	}
-	return $result;
+
+	if ($result) {
+		return TRUE;
+	};
 }
 
 /****** Insert logs ******/
@@ -1498,8 +1501,8 @@ function yasr_insert_gdstar_logs($logs) {
 	if ($result) {
 		return TRUE;
 	}
-}
 
+}
 
 /****** Insert gd star rating multi set name 
 
