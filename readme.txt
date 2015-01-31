@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.1
-Stable tag: 0.7.5
+Stable tag: 0.7.6
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -55,6 +55,20 @@ News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 * [BRIANLI.COM](http://brianli.com/yet-another-stars-rating-wordpress-plugin-review/)
 * [WPEXPLORER](http://www.wpexplorer.com/google-rich-snippets-wordpress/)
 
+
+Do you want more feature? [GO PRO!](https://yetanotherstarsrating.com/pro-version/)
+
+> #### Pro Only features:
+> * You can display as many rows as you like in all rankings.
+> * Customizable star size is in rankings that use it.
+> * You can change the text shown near the stars and choose to let it appear before or after them.
+> * You can choose to show the Username or the display name in the charts that use it.
+> * Category / post type filter in rankings.
+> * Users can choose different ready to use sets or upload their own images.
+> * Visitors can add their own reviews in comments.
+
+
+
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -97,6 +111,10 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.7.6 =
+* Updated pro info.
+* .po file update
 
 = 0.7.5 =
 * Code cleanup and bugfix in yasr_visitor_votes shortcode
