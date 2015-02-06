@@ -554,11 +554,11 @@ function yasr_top_5_reviewers_callback () {
 
     global $wpdb;
 
-    $query_result = $wpdb->get_results("SELECT COUNT( reviewer_id ) as total_count, reviewer_id as reviewer
-                                        FROM " . YASR_VOTES_TABLE . ", $wpdb->posts AS p
+    $query_result = $wpdb->get_results("SELECT COUNT( post_author ) as total_count, post_author as reviewer
+                                        FROM $wpdb->posts AS p, " . YASR_VOTES_TABLE . " 
                                         WHERE  post_id = p.ID
                                         AND p.post_status = 'publish'
-                                        GROUP BY reviewer_id
+                                        GROUP BY post_author
                                         ORDER BY (total_count) DESC
                                         LIMIT 5");
 

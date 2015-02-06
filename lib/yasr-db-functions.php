@@ -35,7 +35,6 @@ function yasr_install() {
 	$sql_yasr_votes_table = "CREATE TABLE IF NOT EXISTS $yasr_votes_table (
   		id bigint(20) NOT NULL AUTO_INCREMENT,
   		post_id bigint(20) NOT NULL,
- 	 	reviewer_id bigint(20) NOT NULL,
  	 	overall_rating decimal(2,1) NOT NULL,
  	 	number_of_votes bigint(20) NOT NULL,
   		sum_votes decimal(11,1) NOT NULL,
@@ -138,7 +137,7 @@ function yasr_get_overall_rating($post_id_referenced=FALSE) {
 
 	}
 
-	if ($post_id == '') {
+	if (!$post_id) {
 
 		exit();
 
@@ -202,14 +201,14 @@ function yasr_get_multi_set() {
 function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 	global $wpdb;
 
-	$result=$wpdb->get_results("SELECT f.field_name AS name, f.field_id AS id, v.votes AS vote 
+	$result=$wpdb->get_results($wpdb->prepare("SELECT f.field_name AS name, f.field_id AS id, v.votes AS vote 
                         FROM " . YASR_MULTI_SET_FIELDS_TABLE . " AS f, " . YASR_MULTI_SET_VALUES_TABLE . " AS v 
                         WHERE f.parent_set_id=$set_type
                         AND f.field_id = v.field_id
-                        AND v.post_id = $post_id
-                        AND v.set_type = $set_type
+                        AND v.post_id = %d
+                        AND v.set_type = %d
                         AND f.parent_set_id=v.set_type
-                        ORDER BY f.field_id ASC");
+                        ORDER BY f.field_id ASC", $post_id, $set_type));
 
 	return $result;
 }
@@ -232,7 +231,7 @@ function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
 
 	}
 
-	if ($post_id == '' ) {
+	if (!$post_id) {
 
 		exit();
 

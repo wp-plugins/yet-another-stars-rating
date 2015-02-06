@@ -31,11 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         function yasr_insert_overall_rating_callback() {
 
             if (isset($_POST['rating']) && ($_POST['post_id']) && $_POST['post_id'] != '') {
-                global $current_user;
-			    get_currentuserinfo();
 			    $rating = $_POST['rating'];
 			    $post_id = $_POST['post_id'];
-			    $reviewer_id = $current_user->ID;
                 $nonce = $_POST['nonce'];
             }
 
@@ -58,10 +55,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         			YASR_VOTES_TABLE,
         			array (
         				'overall_rating' => $rating,
-        				'reviewer_id' => $reviewer_id
         				),
                     array('post_id' => $post_id),
-        			array('%s', '%d')
+        			array('%s')
         		);
 
             //If update result fails this is a new post or post has no visitor ratings
@@ -72,7 +68,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     array (
                         'post_id' => $post_id,
                         'overall_rating' => $rating,
-                        'reviewer_id' => $reviewer_id,
                         'review_type' => 'Product' //default review type in a new post
                         ),
                     array('%d', '%s', '%d', '%s')
