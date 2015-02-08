@@ -51,6 +51,7 @@ Check [here](http://translate.yetanotherstarsrating.com/) to see if your transla
 
 = Related Link =
 News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
+[Demo site](http://yetanotherstarsrating.com/)
 
 = Press =
 * [WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
@@ -104,6 +105,8 @@ When a visitor (logged in or not) rates a post/page, his rating is stored in the
 
 = Wait, wait! Do I need to keep in mind all this shortcode? =
 Of course not: you can easily add it on the visual editor just by clicking on the yellow star and then choose what to insert.
+
+[Demo site](http://yetanotherstarsrating.com/)
 
 == Screenshots ==
 1. Example of yasr in a videogame review
