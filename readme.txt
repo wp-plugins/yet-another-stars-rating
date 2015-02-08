@@ -50,8 +50,8 @@ If with gd-star-rating you're using a different number of stars from the default
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
 = Related Link =
-News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
-[Demo site](http://yetanotherstarsrating.com/)
+* News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
+* [Demo site](http://yetanotherstarsrating.com/)
 
 = Press =
 * [WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
