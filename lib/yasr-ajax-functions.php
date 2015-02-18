@@ -30,12 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         function yasr_insert_overall_rating_callback() {
 
-            if (isset($_POST['rating']) && ($_POST['post_id'])) {
-                global $current_user;
-			    get_currentuserinfo();
+            if (isset($_POST['rating']) && ($_POST['post_id']) && $_POST['post_id'] != '') {
 			    $rating = $_POST['rating'];
 			    $post_id = $_POST['post_id'];
-			    $reviewer_id = $current_user->ID;
                 $nonce = $_POST['nonce'];
             }
 
@@ -58,10 +55,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         			YASR_VOTES_TABLE,
         			array (
         				'overall_rating' => $rating,
-        				'reviewer_id' => $reviewer_id
         				),
                     array('post_id' => $post_id),
-        			array('%s', '%d')
+        			array('%s')
         		);
 
             //If update result fails this is a new post or post has no visitor ratings
@@ -72,7 +68,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     array (
                         'post_id' => $post_id,
                         'overall_rating' => $rating,
-                        'reviewer_id' => $reviewer_id,
                         'review_type' => 'Product' //default review type in a new post
                         ),
                     array('%d', '%s', '%d', '%s')
@@ -180,7 +175,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     add_action( 'wp_ajax_yasr_send_id_nameset', 'yasr_output_multiple_set_callback' );
 
         function yasr_output_multiple_set_callback() {
-                if(isset($_POST['set_id']) && isset($_POST['post_id'])) {
+                if(isset($_POST['set_id']) && isset($_POST['post_id']) && $_POST['post_id'] != '' && $_POST['set_id'] != '' ) {
                     $set_type = $_POST['set_id'];
                     $post_id = $_POST['post_id'];
                 }
@@ -208,10 +203,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     <table class=\"yasr_table_multi_set_admin\">";
                     //Get Set fields name
-                    $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+                    $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                         FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                        WHERE parent_set_id=$set_type 
-                        ORDER BY field_id ASC");
+                        WHERE parent_set_id=%d 
+                        ORDER BY field_id ASC",
+                        $set_type));
 
                     foreach ($set_name as $name) {
 
@@ -322,6 +318,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $id_field = $_POST['id_field'];
                 $set_type = $_POST['set_type'];
                 $nonce = $_POST['nonce'];
+
+                if ($post_id == '' || $set_type == '' || $id_field == '') {
+                    exit();
+                }
+
             }
             else {
                 exit();
@@ -338,11 +339,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 global $wpdb;
 
                 //Check if vote already exist
-                $vote_already_exist=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " 
-                        WHERE post_id = $post_id
-                        AND set_type = $set_type
-                        AND field_id = $id_field
-                        ");
+                $vote_already_exist=$wpdb->get_results($wpdb->prepare("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " 
+                        WHERE post_id = %d
+                        AND set_type = %d
+                        AND field_id = %d
+                        ", 
+                        $post_id, $set_type, $id_field));
 
                 //If vote already exist, overwrite it
                 if ($vote_already_exist) {
@@ -396,7 +398,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         }
 
                 } //End else
+
                 die();
+                
         } //End callback function
 
 
@@ -572,9 +576,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         function yasr_import_step1_callback () {
 
             //Since version 0.05 for pro and 0.6.5 for lite
-            $gd_star_logs_imported = get_option('yasr-gdstar-logs-imported');
+            $gdsr_logs_imported = get_option('yasr-gdstar-logs-imported');
 
-            if (!$gd_star_logs_imported) {
+            if (!$gdsr_logs_imported) {
 
                 //Import logs from GD star
                 $logs = yasr_import_gdstar_logs();
@@ -593,7 +597,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             //Insert GD star review in yasr votes table
             $check_query_success = yasr_insert_gdstar_data($reviews);
-            
+
             ?>
 
             <div class="yasr-result-step-1">
@@ -882,12 +886,20 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
     add_action( 'wp_ajax_nopriv_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
 
     function yasr_insert_visitor_votes_callback () {
-        if(isset($_POST['rating']) && isset($_POST['post_id'])) {
+        if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['size']) && isset($_POST['nonce_visitor'])) {
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
             $nonce_visitor = $_POST['nonce_visitor'];
+
+            if($post_id == '') {
+
+                exit();
+
+            }
+
         }
+
         else {
             exit();
         }
@@ -926,8 +938,9 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         global $wpdb;
 
-        $row_exists = $wpdb->get_results ("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . "
-                                        WHERE post_id=$post_id");
+        $row_exists = $wpdb->get_results($wpdb->prepare("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . "
+                                        WHERE post_id=%d",
+                                        $post_id));
 
         //If post already has vote, find where it is and sum it
         if ($row_exists) {
@@ -1018,12 +1031,20 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
     add_action( 'wp_ajax_nopriv_yasr_update_visitor_rating', 'yasr_update_visitor_rating_callback' );
 
     function yasr_update_visitor_rating_callback () {
-        if(isset($_POST['rating']) && isset($_POST['post_id'])) {
+        if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['size']) && isset($_POST['nonce_visitor']) )  {
             $new_rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
             $nonce_visitor = $_POST['nonce_visitor'];
+
+            if($post_id == '') {
+
+                exit();
+
+            }
+
         }
+        
         else {
             exit();
         }
@@ -1060,12 +1081,12 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         global $wpdb;
 
-        $all_post_votes = $wpdb->get_results ("SELECT sum_votes, number_of_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+        $all_post_votes = $wpdb->get_results($wpdb->prepare("SELECT sum_votes, number_of_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
         global $current_user;
         get_currentuserinfo();
 
-        $previous_vote = $wpdb->get_results ("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE user_id=$current_user->ID AND post_id=$post_id");
+        $previous_vote = $wpdb->get_results($wpdb->prepare("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE user_id=%d AND post_id=%d", $current_user->ID, $post_id));
 
 
         foreach ($all_post_votes as $votes) {
@@ -1098,7 +1119,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 array (
                     'post_id' => $post_id
                     ),
-                array('%s' ),
+                array( '%s' ),
                 array( '%d' ) 
             );
 
@@ -1113,7 +1134,9 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             array (
                 'post_id' => $post_id,
                 'user_id' => $current_user->ID
-                )
+                ),
+            array( '%s' ),
+            array( '%d', '%d' )
             );
 
 
@@ -1141,6 +1164,13 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
             $size = $_POST['size'];
+
+            if($post_id == '') {
+
+                exit();
+
+            }
+
         }
         else {
             exit();
@@ -1236,7 +1266,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
     function yasr_stats_visitors_votes_callback () {
 
-        if(isset($_POST['post_id'])) {
+        if(isset($_POST['post_id']) && $_POST['post_id'] != '' ) {
             $post_id = $_POST['post_id'];
         }
 
@@ -1248,12 +1278,13 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         global $wpdb;
 
-        $stats = $wpdb->get_results ("SELECT ROUND( vote, 0 ) as vote, COUNT( vote ) AS n_of_votes
+        $stats = $wpdb->get_results( $wpdb->prepare ("SELECT ROUND( vote, 0 ) as vote, COUNT( vote ) AS n_of_votes
                             FROM ". YASR_LOG_TABLE . " 
-                            WHERE post_id=$post_id
+                            WHERE post_id=%d
                             GROUP BY vote
                             ORDER BY vote DESC
                             ",
+                            $post_id ),
                             ARRAY_A);
 
         $total_votes=0; //Avoid undefined variable if stats exists. Necessary is $stats not exists
@@ -1315,7 +1346,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         $i=5;
 
         foreach ($stats as $logged_votes) {
-            
+
             if ($i != 0) {
             
                 echo "<div class=\"yasr-progress-bar-row-container\">
@@ -1331,7 +1362,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 $i--;
                 
             }
-            
+
         } //End foreach
 
         ?>

@@ -35,7 +35,6 @@ function yasr_install() {
 	$sql_yasr_votes_table = "CREATE TABLE IF NOT EXISTS $yasr_votes_table (
   		id bigint(20) NOT NULL AUTO_INCREMENT,
   		post_id bigint(20) NOT NULL,
- 	 	reviewer_id bigint(20) NOT NULL,
  	 	overall_rating decimal(2,1) NOT NULL,
  	 	number_of_votes bigint(20) NOT NULL,
   		sum_votes decimal(11,1) NOT NULL,
@@ -138,7 +137,13 @@ function yasr_get_overall_rating($post_id_referenced=FALSE) {
 
 	}
 
-	$result=$wpdb->get_results("SELECT overall_rating FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	if (!$post_id) {
+
+		exit();
+
+	}
+
+	$result=$wpdb->get_results($wpdb->prepare("SELECT overall_rating FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 	if ($result) {
 		foreach ($result as $rating) {
@@ -163,7 +168,7 @@ function yasr_get_snippet_type() {
 
 	else {
 
-	$result=$wpdb->get_results("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	$result=$wpdb->get_results($wpdb->prepare("SELECT review_type FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 		if($result) {
 			foreach ($result as $snippet) {
@@ -196,14 +201,14 @@ function yasr_get_multi_set() {
 function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 	global $wpdb;
 
-	$result=$wpdb->get_results("SELECT f.field_name AS name, f.field_id AS id, v.votes AS vote 
+	$result=$wpdb->get_results($wpdb->prepare("SELECT f.field_name AS name, f.field_id AS id, v.votes AS vote 
                         FROM " . YASR_MULTI_SET_FIELDS_TABLE . " AS f, " . YASR_MULTI_SET_VALUES_TABLE . " AS v 
                         WHERE f.parent_set_id=$set_type
                         AND f.field_id = v.field_id
-                        AND v.post_id = $post_id
-                        AND v.set_type = $set_type
+                        AND v.post_id = %d
+                        AND v.set_type = %d
                         AND f.parent_set_id=v.set_type
-                        ORDER BY f.field_id ASC");
+                        ORDER BY f.field_id ASC", $post_id, $set_type));
 
 	return $result;
 }
@@ -226,7 +231,13 @@ function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
 
 	}
 
-	$result = $wpdb->get_results("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=$post_id");
+	if (!$post_id) {
+
+		exit();
+
+	}
+
+	$result = $wpdb->get_results($wpdb->prepare("SELECT number_of_votes, sum_votes FROM " . YASR_VOTES_TABLE . " WHERE post_id=%d", $post_id));
 
 	return $result;
 }
@@ -445,7 +456,13 @@ function yasr_check_if_user_already_voted() {
 
     $post_id = get_the_ID();
 
-    $result = $wpdb->get_results("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE post_id=$post_id AND user_id=$user_id ORDER BY id DESC LIMIT 1 ");
+    if (!$post_id || !$user_id) {
+
+    	exit();
+
+    }
+
+    $result = $wpdb->get_results($wpdb->prepare("SELECT vote FROM " . YASR_LOG_TABLE . " WHERE post_id=%d AND user_id=%d ORDER BY id DESC LIMIT 1 ", $post_id, $user_id));
 
     if ($result) {
 

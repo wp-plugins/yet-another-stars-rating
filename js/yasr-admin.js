@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 /****** Yasr Metabox overall rating ******/
 
-    function yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall, nonceSnippet) {
+    function yasrDisplayTopRightMetabox(defaultbox, postid, nonceOverall, nonceSnippet) {
 
         if (defaultbox == 'stars' ) { 
 
