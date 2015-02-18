@@ -139,7 +139,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
 		if ($multi_set) {
 			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'Overall Rating', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
+				add_meta_box( 'yasr_metabox_overall_rating', __( 'YASR', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
 				add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
 			}
 		}
@@ -153,7 +153,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_metabox_overall_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
-			include (YASR_RELATIVE_PATH . '/yasr-metabox-overall-rating.php');
+			include (YASR_RELATIVE_PATH . '/yasr-metabox-top-right.php');
 		}
 		else {
             _e("You don't have enought privileges to insert Overall Rating");
