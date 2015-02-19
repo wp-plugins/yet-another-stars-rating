@@ -228,7 +228,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
                 else {
 
-                    $vote_if_user_already_rated = 0;
+                    $vote_if_user_already_rated = FALSE;
 
                     $shortcode_html.="<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div>
                     <span class=\"yasr-total-average-text\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]</span>";

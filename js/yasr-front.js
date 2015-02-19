@@ -6,6 +6,7 @@
 
         var cookiename = "yasr_visitor_vote_" + postid;
 
+        //Should be useless from version 0.7.9, just to be safe
         if (voteIfUserAlredyRated == "0" ) {
             voteIfUserAlredyRated = false;
         }
@@ -44,7 +45,7 @@
 
             //Do this code only if he has rated yet
             //Check only for value in db, not cookie, see here https://wordpress.org/support/topic/vote-updates-and-different-users-votes-problem
-            if (voteIfUserAlredyRated == true) {
+            if (voteIfUserAlredyRated) {
 
                 jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() {
 
