@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
-            wp_enqueue_style( 'jquery-ui','//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css', FALSE, NULL, 'all' );
+            wp_enqueue_style( 'jquery-ui','//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', FALSE, NULL, 'all' );
         }
 
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
@@ -139,7 +139,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
 		if ($multi_set) {
 			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'Overall Rating', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
+				add_meta_box( 'yasr_metabox_overall_rating', __( 'YASR', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
 				add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
 			}
 		}
@@ -153,7 +153,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_metabox_overall_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
-			include (YASR_RELATIVE_PATH . '/yasr-metabox-overall-rating.php');
+			include (YASR_RELATIVE_PATH . '/yasr-metabox-top-right.php');
 		}
 		else {
             _e("You don't have enought privileges to insert Overall Rating");
@@ -174,11 +174,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /****** Auto insert overall rating and visitor rating  ******/
 
-    add_filter('the_content', 'yasr_auto_insert_shortcode_callback');
+    if (YASR_AUTO_INSERT_ENABLED == 1) {
 
-    function yasr_auto_insert_shortcode_callback($content) {
+        add_filter('the_content', 'yasr_auto_insert_shortcode_callback');
 
-        if (YASR_AUTO_INSERT_ENABLED == 1) {
+        function yasr_auto_insert_shortcode_callback($content) {
 
             $auto_insert_shortcode=NULL; //To avoid undefined variable notice outside the loop (if (is_singular) )
 
@@ -255,18 +255,9 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 }
             }
 
+        } //End function yasr_auto_insert_shortcode_callback
 
-        } //End  if (YASR_AUTO_INSERT_ENABLED
-
-        //Return if auto insert is off
-        else {
-
-            return $content;
-
-        }
-
-
-    } //End function yasr_auto_insert_shortcode_callback
+    } //End  if (YASR_AUTO_INSERT_ENABLED
 
 
 /****** Add review schema data at the end of the post *******/
@@ -447,59 +438,5 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
         }
 
     }
-
-/****** Donation box dx ******/
-
-function yasr_donate_dx () {
-
-    ?>
-
-    <div class="yasr-donatedivdx" style="display:none">
-        <h3><?php _e('Donations', 'yasr'); ?></h3>
-
-        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-        <br />
-        <?php _e('Thank you!', 'yasr'); ?>
-        <br />
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-        </a>
-
-        <hr>
-    
-        <h3><a href="http://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
-
-    </div>
-
-    <?php 
-
-}
-
-
-function yasr_donate_bottom () {
-
-    ?>
-
-    <div class="yasr-donatedivbottom" style="display:none">
-        <h3><?php _e('Donations', 'yasr'); ?></h3>
-
-        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-        <br />
-        <?php _e('Thank you!', 'yasr'); ?>
-        <br />
-        
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-        </a>
-
-        <hr>
-
-        <h3><a href="http://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
-
-    </div>
-
-    <?php
-
-}
 
 ?>
