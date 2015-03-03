@@ -1145,7 +1145,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
 
         echo "<div class=\"$rateit_class\" id=\"yasr-rateit-user-votes-updated\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <span class=\"yasr-total-average-text\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
+        <span class=\"yasr-total-average-text\"><span class=\"dashicons dashicons-chart-bar\" id=\"yasr-total-average-$post_id\"></span>[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
         <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("Vote updated", "yasr") . "</span>";
 
         die(); // this is required to return a proper result
@@ -1212,24 +1212,27 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         $average_rating = round ($average_rating, 1);
 
 
-        //Check if user specifyed a custom text to display when a vistor har rated
+        //Check if user specifyed a custom text to display when a vistor has rated
+
+        $shortcode = "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                        <span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>
+                        <span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+                            [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]
+                        </span>";
 
         if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
 
-            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
-            <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . YASR_CUSTOM_TEXT_USER_VOTED . " </span>";
+        $shortcode .= "<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . YASR_CUSTOM_TEXT_USER_VOTED . " </span>";
 
         }
 
         else {
 
-            echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]</span>
-            <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article with", "yasr") . " $rating </span>";
+        $shortcode .= "<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article", "yasr") . " $rating </span>";
 
         }
 
+        echo $shortcode;
 
         ?>
 
@@ -1287,7 +1290,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                             $post_id ),
                             ARRAY_A);
 
-        $total_votes=0; //Avoid undefined variable if stats exists. Necessary is $stats not exists
+        $total_votes=0; //Avoid undefined variable if stats exists. Necessary if $stats not exists
         
         //if query return 0 wirte an empty array $existing_votes 
         if (!$stats) {
@@ -1350,8 +1353,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             if ($i != 0) {
             
                 echo "<div class=\"yasr-progress-bar-row-container\">
-                <span class=\"yasr-progress-bar-name\">$i " . __("stars", "yasr") . "</span><span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-$i\" ></span><span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
-                </div>"; 
+                        <span class=\"yasr-progress-bar-name\">$i " . __("stars", "yasr") . "</span>
+                        <span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-$i\" ></span>
+                        <span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
+                    </div>"; 
                 
                 $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar
 
@@ -1365,22 +1370,21 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         } //End foreach
 
-        ?>
-
-            <script>
-                jQuery( document ).ready(function() {
-
-                    //var i = <?php echo (json_encode($i)); ?>;
-                    var arrayValueProgressbar = <?php echo (json_encode($array_values_progressbar)); ?>;
-
-                    yasrDrawProgressBars (arrayValueProgressbar);
-
-                });
-            </script>
-
-            <?php
-
         echo "</div>";
+
+        ?>
+        
+        <script type="text/javascript">
+            jQuery( document ).ready(function() {
+
+                var arrayValueProgressbar = <?php echo (json_encode($array_values_progressbar)) ?>;
+
+                yasrDrawProgressBars (arrayValueProgressbar);
+
+            });
+        </script>
+
+        <?php
 
         die();
 

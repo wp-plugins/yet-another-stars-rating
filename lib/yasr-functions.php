@@ -33,6 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             wp_enqueue_style( 'jquery-ui','//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', FALSE, NULL, 'all' );
         }
 
+        wp_enqueue_style( 'dashicons' ); //dashicons
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
 
         //If choosen is light or not dark (force to be default)
@@ -266,6 +267,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 	function yasr_add_schema($content) {
 
+        //Add buddypress compatibility
+        if (function_exists('bp_is_active')) {
+
+            //Return content only if is page. This will disable schema for all page. 
+            //Dunno why, but if I try to return $content after if (YASR_SNIPPET == 'overall_rating')
+            //or (YASR_SNIPPET == 'visitor_rating') $content will have only wp content, losing the buddypress one
+            if (is_page()) {
+
+                return $content;
+
+            }
+
+        }
+
 		$schema=NULL; //To avoid undefined variable notice outside the loop
 
         $review_choosen = yasr_get_snippet_type();
@@ -302,14 +317,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 				}
 
 			} //END id if $overall_rating != '-1'
-
-			if( is_singular() && is_main_query() ) {
-				return $content . $schema;
-			}
-
-			else {
-				return $content;
-			}
 
 		}  //end if ($choosen_snippet['snippet'] == 'overall_rating')
 
@@ -360,15 +367,16 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             }
 
-            if( is_singular() && is_main_query() ) {
-                    return $content . $schema;
-            }
-
-            else {
-                    return $content;
-            }
-
         }
+
+        if ( is_singular() && is_main_query() && !is_404() ) {
+            return $content . $schema;
+        }
+
+        else {
+            return $content;
+        } 
+
 
     } //End function
 

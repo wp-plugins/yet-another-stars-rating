@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2015-02-16 14:52+0100\n"
-"PO-Revision-Date: 2015-02-16 14:52+0100\n"
+"POT-Creation-Date: 2015-03-03 12:36+0100\n"
+"PO-Revision-Date: 2015-03-03 12:36+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -16,7 +16,37 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../lib\n"
 
-#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:110
+#: ../yasr-metabox-top-right.php:65 ../yasr-metabox-top-right.php:99
+msgid "Rate this article / item"
+msgstr "به این مقاله یا به این محصول رای دهید"
+
+#: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:136
+msgid "Loading, please wait"
+msgstr "در حال بارگذاری, خواهشا صبر کنید"
+
+#: ../yasr-metabox-top-right.php:147
+msgid "Save Vote"
+msgstr "ذخیره رای"
+
+#: ../yasr-metabox-top-right.php:164
+msgid "This review is about a..."
+msgstr "این مقاله درباره چیست؟"
+
+#: ../yasr-metabox-top-right.php:193 ../yasr-metabox-multiple-rating.php:46
+#: ../lib/yasr-settings-functions.php:505
+msgid "Select"
+msgstr "انتخاب"
+
+#: ../yasr-metabox-top-right.php:211
+msgid ""
+"Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> "
+"where you want to display this rating"
+msgstr ""
+"بادتون باشه اگه در تنظیمات عمومی \"گذاشتن خودکار\" را روی بله تیک نزدید "
+"ازاین <strong>[yasr_overall_rating]</strong> شورت کات استفاده کنید و درون "
+"پست قرار دهید"
+
+#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:111
 #: ../lib/yasr-ajax-functions.php:44 ../lib/yasr-ajax-functions.php:187
 #: ../lib/yasr-ajax-functions.php:332 ../lib/yasr-ajax-functions.php:736
 msgid "You do not have sufficient permissions to access this page."
@@ -160,114 +190,72 @@ msgstr "از حمایت شما متشکریم!"
 msgid "Choose wich set you want to use"
 msgstr "یکی از گزینه های ساخته شده را انتخاب کنید"
 
-#: ../yasr-metabox-multiple-rating.php:46
-#: ../yasr-metabox-overall-rating.php:193
-#: ../lib/yasr-settings-functions.php:505
-msgid "Select"
-msgstr "انتخاب"
-
-#: ../yasr-metabox-overall-rating.php:65 ../yasr-metabox-overall-rating.php:99
-msgid "Rate this article / item"
-msgstr "به این مقاله یا به این محصول رای دهید"
-
-#: ../yasr-metabox-overall-rating.php:71
-#: ../lib/yasr-shortcode-functions.php:136
-msgid "Loading, please wait"
-msgstr "در حال بارگذاری, خواهشا صبر کنید"
-
-#: ../yasr-metabox-overall-rating.php:147
-msgid "Save Vote"
-msgstr "ذخیره رای"
-
-#: ../yasr-metabox-overall-rating.php:164
-msgid "This review is about a..."
-msgstr "این مقاله درباره چیست؟"
-
-#: ../yasr-metabox-overall-rating.php:211
-msgid ""
-"Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> "
-"where you want to display this rating"
-msgstr ""
-"بادتون باشه اگه در تنظیمات عمومی \"گذاشتن خودکار\" را روی بله تیک نزدید "
-"ازاین <strong>[yasr_overall_rating]</strong> شورت کات استفاده کنید و درون "
-"پست قرار دهید"
-
-#: ../lib/yasr-shortcode-functions.php:183
-#: ../lib/yasr-shortcode-functions.php:194
-#: ../lib/yasr-shortcode-functions.php:205
-#: ../lib/yasr-shortcode-functions.php:224
-#: ../lib/yasr-shortcode-functions.php:234
-#: ../lib/yasr-shortcode-functions.php:244 ../lib/yasr-ajax-functions.php:1011
-#: ../lib/yasr-ajax-functions.php:1019 ../lib/yasr-ajax-functions.php:1148
-#: ../lib/yasr-ajax-functions.php:1220 ../lib/yasr-ajax-functions.php:1228
-msgid "Total: "
-msgstr "تعداد: "
-
-#: ../lib/yasr-shortcode-functions.php:183
-#: ../lib/yasr-shortcode-functions.php:194
-#: ../lib/yasr-shortcode-functions.php:205
-#: ../lib/yasr-shortcode-functions.php:224
-#: ../lib/yasr-shortcode-functions.php:234
-#: ../lib/yasr-shortcode-functions.php:244
-msgid "Average: "
-msgstr "میانگین: "
-
-#: ../lib/yasr-shortcode-functions.php:184
-#: ../lib/yasr-shortcode-functions.php:225 ../lib/yasr-ajax-functions.php:1229
+#: ../lib/yasr-shortcode-functions.php:185
+#: ../lib/yasr-shortcode-functions.php:207
 msgid "You've already voted this article with"
 msgstr "شما به این مقاله قبلا رای داده اید با امتیاز"
 
-#: ../lib/yasr-shortcode-functions.php:245
+#: ../lib/yasr-shortcode-functions.php:218
 msgid "You must sign to vote"
 msgstr "شما برای رای دادن باید وارد شوید"
 
-#: ../lib/yasr-shortcode-functions.php:410
+#: ../lib/yasr-shortcode-functions.php:227 ../lib/yasr-ajax-functions.php:1011
+#: ../lib/yasr-ajax-functions.php:1019 ../lib/yasr-ajax-functions.php:1148
+#: ../lib/yasr-ajax-functions.php:1220
+msgid "Total: "
+msgstr "تعداد: "
+
+#: ../lib/yasr-shortcode-functions.php:227
+msgid "Average: "
+msgstr "میانگین: "
+
+#: ../lib/yasr-shortcode-functions.php:392
 msgid "Rating"
 msgstr "امتیاز ها"
 
-#: ../lib/yasr-shortcode-functions.php:424
+#: ../lib/yasr-shortcode-functions.php:406
 msgid "You don't have any votes stored"
 msgstr "شما رای ذخیره شده ای ندارید"
 
-#: ../lib/yasr-shortcode-functions.php:460
-#: ../lib/yasr-shortcode-functions.php:498
+#: ../lib/yasr-shortcode-functions.php:442
+#: ../lib/yasr-shortcode-functions.php:480
 msgid "Post / Page"
 msgstr "پست / صفحه"
 
-#: ../lib/yasr-shortcode-functions.php:461
-#: ../lib/yasr-shortcode-functions.php:499
+#: ../lib/yasr-shortcode-functions.php:443
+#: ../lib/yasr-shortcode-functions.php:481
 msgid "Order By"
 msgstr "سفارشی سازی بر اساس"
 
-#: ../lib/yasr-shortcode-functions.php:461
-#: ../lib/yasr-shortcode-functions.php:499
+#: ../lib/yasr-shortcode-functions.php:443
+#: ../lib/yasr-shortcode-functions.php:481
 msgid "Most Rated"
 msgstr "بیشترین امتیاز"
 
-#: ../lib/yasr-shortcode-functions.php:461
-#: ../lib/yasr-shortcode-functions.php:499
+#: ../lib/yasr-shortcode-functions.php:443
+#: ../lib/yasr-shortcode-functions.php:481
 msgid "Highest Rated"
 msgstr "بالاترین امتیاز"
 
-#: ../lib/yasr-shortcode-functions.php:478
-#: ../lib/yasr-shortcode-functions.php:513
+#: ../lib/yasr-shortcode-functions.php:460
+#: ../lib/yasr-shortcode-functions.php:495
 msgid "Total:"
 msgstr "تعداد:"
 
-#: ../lib/yasr-shortcode-functions.php:478
-#: ../lib/yasr-shortcode-functions.php:513
+#: ../lib/yasr-shortcode-functions.php:460
+#: ../lib/yasr-shortcode-functions.php:495
 msgid "Average"
 msgstr "میانگین"
 
-#: ../lib/yasr-shortcode-functions.php:490
+#: ../lib/yasr-shortcode-functions.php:472
 msgid "You've not enough data"
 msgstr "داده ای به اندازه کافی پیدا نشد!"
 
-#: ../lib/yasr-shortcode-functions.php:525
+#: ../lib/yasr-shortcode-functions.php:507
 msgid "You've not enought data"
 msgstr "داده ای به اندازه کافی پیدا نشد!"
 
-#: ../lib/yasr-shortcode-functions.php:610
+#: ../lib/yasr-shortcode-functions.php:592
 msgid ""
 "Problem while retrieving the top 5 most active reviewers. Did you publish "
 "any review?"
@@ -275,7 +263,7 @@ msgstr ""
 "مشکلی در اجرای 5 نقد برسی برتر رخ داده است. آیا تا بحال نقد و برسی انجام "
 "داده و در پست انتشار داده اید؟"
 
-#: ../lib/yasr-shortcode-functions.php:678
+#: ../lib/yasr-shortcode-functions.php:660
 msgid ""
 "Problem while retrieving the top 10 active users chart. Are you sure you "
 "have votes to show?"
@@ -741,51 +729,55 @@ msgstr "آی پی آدرس"
 msgid "Pages"
 msgstr "صفحات"
 
-#: ../lib/yasr-functions.php:98 ../lib/yasr-functions.php:99
+#: ../lib/yasr-functions.php:99 ../lib/yasr-functions.php:100
 msgid "Yet Another Stars Rating: Settings"
 msgstr "تنظیمات: Yet Another Stars Rating"
 
-#: ../lib/yasr-functions.php:142 ../lib/yasr-functions.php:149
-msgid "Overall Rating"
-msgstr "رای کلی ( رای نویسنده )"
-
 #: ../lib/yasr-functions.php:143
+msgid "YASR"
+msgstr ""
+
+#: ../lib/yasr-functions.php:144
 msgid "Yet Another Stars Rating: Multiple set"
 msgstr "افزودن نقد برسی های چند گانه به پست"
 
-#: ../lib/yasr-functions.php:159
+#: ../lib/yasr-functions.php:150
+msgid "Overall Rating"
+msgstr "رای کلی ( رای نویسنده )"
+
+#: ../lib/yasr-functions.php:160
 msgid "You don't have enought privileges to insert Overall Rating"
 msgstr "شما امتیاز کافی ندارید تا رای کلی را قرار دهید"
 
-#: ../lib/yasr-functions.php:169
+#: ../lib/yasr-functions.php:170
 msgid "You don't have enought privileges to insert Multi Set"
 msgstr "شما امتیاز کافی ندارید تا نقد و برسی چند گانه قرار دهید"
 
-#: ../lib/yasr-functions.php:295
+#: ../lib/yasr-functions.php:310
 msgid " reviewed by "
 msgstr " نقد و برسی شده توسط "
 
-#: ../lib/yasr-functions.php:296
+#: ../lib/yasr-functions.php:311
 msgid " on "
 msgstr " در تاریخ "
 
-#: ../lib/yasr-functions.php:297
+#: ../lib/yasr-functions.php:312
 msgid " rated "
 msgstr " امتیاز "
 
-#: ../lib/yasr-functions.php:297
+#: ../lib/yasr-functions.php:312
 msgid " of"
 msgstr " از"
 
-#: ../lib/yasr-functions.php:352
+#: ../lib/yasr-functions.php:359
 msgid " written by "
 msgstr " نوشته شده توسط "
 
-#: ../lib/yasr-functions.php:354
+#: ../lib/yasr-functions.php:361
 msgid " average rating "
 msgstr " میانگین امتیاز ها "
 
-#: ../lib/yasr-functions.php:355
+#: ../lib/yasr-functions.php:362
 msgid " user ratings"
 msgstr " کاربر امتیاز داده اند"
 
@@ -1002,10 +994,15 @@ msgstr "رای شما ثبت شد"
 msgid "Vote updated"
 msgstr "رای شما تغیر یافت"
 
-#: ../lib/yasr-ajax-functions.php:1220 ../lib/yasr-ajax-functions.php:1228
+#: ../lib/yasr-ajax-functions.php:1220
 msgid "Average "
 msgstr "میانگین"
 
-#: ../lib/yasr-ajax-functions.php:1353
+#: ../lib/yasr-ajax-functions.php:1231
+#, fuzzy
+msgid "You've already voted this article"
+msgstr "شما به این مقاله قبلا رای داده اید با امتیاز"
+
+#: ../lib/yasr-ajax-functions.php:1356
 msgid "stars"
 msgstr "ستاره"

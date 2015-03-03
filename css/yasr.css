@@ -205,6 +205,10 @@ div.bigstars .rateit-selected
     display: inline-block;
 }
 
+.yasr-dashicons-visitor-stats {
+    vertical-align: bottom;
+}
+
 .yasr-total-average-text-medium {
     display: block;
 }

@@ -113,6 +113,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
     }
 
+    //Choose snippet
     function yasrSnippetSelect(postid, nonceSnippet) {
 
     	jQuery('#yasr-send-review-type').on('click', function() {
@@ -645,6 +646,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 /****** Yasr db functions ******/
 
+    //Vote log
 	jQuery(document).ready(function() {
 
 		//Log

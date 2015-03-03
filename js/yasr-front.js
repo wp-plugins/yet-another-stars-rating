@@ -193,7 +193,6 @@
             j=j+1;
 
         }
-
         
     }
 
@@ -202,7 +201,7 @@
 
         var varTipsContent = null;
 
-        jQuery('#yasr-total-average-text_' + postid).tooltip({
+        jQuery('#yasr-total-average-dashicon-' + postid).tooltip({
 
             position: { my: 'center bottom' , at: 'center top-10' },
             tooltipClass: "yasr-visitors-stats-tooltip",
@@ -226,8 +225,16 @@
                     return varTipsContent;
                 }
 
+            },
+            disabled: true,
+            close: function( event, ui ) { 
+                jQuery(this).tooltip('disable'); 
             }
 
+        });
+
+        jQuery('#yasr-total-average-dashicon-' + postid).on("click", function(){
+            jQuery(this).tooltip('enable').tooltip('open');
         });
 
     }
