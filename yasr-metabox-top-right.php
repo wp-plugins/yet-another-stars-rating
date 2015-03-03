@@ -231,7 +231,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         var postid = <?php json_encode(the_ID()); ?>;
 
-        yasrDisplayOverallMetabox(defaultbox, postid, nonceOverall, nonceSnippet);
+        yasrDisplayTopRightMetabox(defaultbox, postid, nonceOverall, nonceSnippet);
 
     }); //End document ready
 
