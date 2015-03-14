@@ -52,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	       		add_settings_field( 'yasr_show_visitor_votes_in_loop', __('Show "Visitor Votes" in Archive Page?', 'yasr'), 'yasr_show_visitor_votes_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_visitors_stats', __('Do you want show stats for visitors votes?', 'yasr'), 'yasr_visitors_stats_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want to rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
@@ -291,42 +291,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    function yasr_visitors_stats_callback($option) {
 
-	    	if ($option['visitors_stats'] === 'disabled') {
+	    	?>
 
-	    		_e("Seems like you've imported gd star rating in the past, but then deleted the logs table. For now, you can't enable statistics", "yasr");
+	    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Yes', 'yasr')?>
+				
+			&nbsp;&nbsp;&nbsp;
 
-	    		?>
+			<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('No', 'yasr')?>
+				<br />
 
-	    		<p>&nbsp;</p>
+				<br />
 
-				<hr>
+			<p>&nbsp;</p>
 
-		    	<?php
+			<hr>
 
-	    	}
-
-	    	else {
-
-		    	?>
-
-		    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
-					<?php _e('Yes', 'yasr')?>
-					
-				&nbsp;&nbsp;&nbsp;
-
-				<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
-					<?php _e('No', 'yasr')?>
-					<br />
-
-					<br />
-
-				<p>&nbsp;</p>
-
-				<hr>
-
-		    	<?php
-
-		    }
+	    	<?php
 
 	    }
 
@@ -626,7 +608,7 @@ function yasr_edit_multi_form() {
     add_action( 'wp_ajax_yasr_get_multi_set', 'yasr_get_multi_set_callback' );
 
     function yasr_get_multi_set_callback() {
-        if (isset($_POST['set_id'])) {
+        if (isset($_POST['set_id']) && $_POST['set_id'] != '' ) {
             $set_type = $_POST['set_id'];
         }
         else {
@@ -635,10 +617,10 @@ function yasr_edit_multi_form() {
 
         global $wpdb;
 
-        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+        $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                             FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                            WHERE parent_set_id=$set_type 
-                            ORDER BY field_id ASC");
+                            WHERE parent_set_id=%d 
+                            ORDER BY field_id ASC", $set_type));
 
         
 
@@ -739,7 +721,7 @@ function yasr_edit_multi_form() {
 function yasr_process_new_multi_set_form()
 {
 
-	if ( isset( $_POST['multi-set-name']) ) {
+	if ( isset( $_POST['multi-set-name'])) {
 
 		global $wpdb;
 		
@@ -1145,40 +1127,40 @@ function yasr_process_edit_multi_set_form() {
 
 add_action( 'admin_init', 'yasr_style_options_init' ); //This is for auto insert options
 
-		function yasr_style_options_init() {
-	    	register_setting(
-	        	'yasr_style_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
-	        	'yasr_style_options' //The name of an option to sanitize and save.
-	    	);	    	
+	function yasr_style_options_init() {
+    	register_setting(
+        	'yasr_style_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
+        	'yasr_style_options' //The name of an option to sanitize and save.
+    	);	    	
 
-	    	$style_options = get_option( 'yasr_style_options' );
+    	$style_options = get_option( 'yasr_style_options' );
 
-	    	if (!$style_options) {
+    	if (!$style_options) {
 
-	    		$style_options = array();
-	    		$style_options['textarea'] = NULL;
+    		$style_options = array();
+    		$style_options['textarea'] = NULL;
 
-	    	}
+    	}
 
-	    	add_settings_section( 'yasr_style_options_section_id', __('Style Options', 'yasr'), 'yasr_style_section_callback', 'yasr_style_tab' );
-	    		add_settings_field( 'yasr_style_options_textarea', __('Custom CSS Styles', 'yasr'), 'yasr_style_options_textarea_callback', 'yasr_style_tab', 'yasr_style_options_section_id', $style_options );
+    	add_settings_section( 'yasr_style_options_section_id', __('Style Options', 'yasr'), 'yasr_style_section_callback', 'yasr_style_tab' );
+    		add_settings_field( 'yasr_style_options_textarea', __('Custom CSS Styles', 'yasr'), 'yasr_style_options_textarea_callback', 'yasr_style_tab', 'yasr_style_options_section_id', $style_options );
 
-		}
+	}
 
-		function yasr_style_section_callback () {
-			_e("Please use text area below to write your own CSS styles to override the default ones.", "yasr");
-			echo "<strong>";
-			_e("Leave it blank if you don't know what you're doing", "yasr");
-			echo "</strong>";
-		}
+	function yasr_style_section_callback () {
+		_e("Please use text area below to write your own CSS styles to override the default ones.", "yasr");
+		echo "<strong>";
+		_e("Leave it blank if you don't know what you're doing", "yasr");
+		echo "</strong>";
+	}
 
-		function yasr_style_options_textarea_callback ($style_options) {
+	function yasr_style_options_textarea_callback ($style_options) {
 
-			echo ("
-				<textarea rows=\"20\" cols=\"50\" name=\"yasr_style_options[textarea]\" id=\"yasr_style_options_textarea\">$style_options[textarea]</textarea> 
-				");
+		echo ("
+			<textarea rows=\"20\" cols=\"50\" name=\"yasr_style_options[textarea]\" id=\"yasr_style_options_textarea\">$style_options[textarea]</textarea> 
+			");
 
-		}
+	}
 
 
 function yasr_go_pro () {
@@ -1192,7 +1174,7 @@ function yasr_go_pro () {
                 <?php 
 
                 _e("Looking for more features?", "yasr");
-                echo " <a href=\"http://yetanotherstarsrating.com/pro-version/\">" . __("Upgrade to yasr pro!", "yasr") . "</a>"; 
+                echo " <a href=\"https://yetanotherstarsrating.com/pro-version/\">" . __("Upgrade to yasr pro!", "yasr") . "</a>"; 
                 
                 echo "<br>";
 
@@ -1262,7 +1244,7 @@ function yasr_go_pro () {
                 <tr>
                     <td class="rowTitle"><?php _e("Users can review in comments" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
+                    <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>
                 </tr>
                                
             </table>
@@ -1279,6 +1261,60 @@ function yasr_go_pro () {
         
         </div>
 
+
+    <?php
+
+}
+
+/****** Donation box dx ******/
+
+function yasr_donate_dx () {
+
+    ?>
+
+    <div class="yasr-donatedivdx" style="display:none">
+        <h3><?php _e('Donations', 'yasr'); ?></h3>
+
+        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
+        <br />
+        <?php _e('Thank you!', 'yasr'); ?>
+        <br />
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+        </a>
+
+        <hr>
+    
+        <h3><a href="https://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
+
+    </div>
+
+    <?php 
+
+}
+
+
+function yasr_donate_bottom () {
+
+    ?>
+
+    <div class="yasr-donatedivbottom" style="display:none">
+        <h3><?php _e('Donations', 'yasr'); ?></h3>
+
+        <?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
+        <br />
+        <?php _e('Thank you!', 'yasr'); ?>
+        <br />
+        
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
+            <?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
+        </a>
+
+        <hr>
+
+        <h3><a href="https://yetanotherstarsrating.com"><?php _e('Follow YASR official site!', 'yasr') ?></a></h3>
+
+    </div>
 
     <?php
 
@@ -1347,7 +1383,7 @@ function yasr_import_gdstar_data(){
 	$data=$wpdb->get_results(" SELECT gd.post_id, (gd.user_voters + gd.visitor_voters) AS voters, 
 							(gd.user_votes + gd.visitor_votes) AS sum_votes, 
 							gd.review,
-						  	p.ID, p.post_author
+						  	p.ID
 						  	FROM $gdsr_data_article AS gd, $wpdb->posts AS p
 						  	WHERE gd.post_id = p.id" );
 
@@ -1464,7 +1500,6 @@ function yasr_insert_gdstar_data($votes){
 		$result=$wpdb->replace(
 			YASR_VOTES_TABLE, 
 			array ( 
-					'reviewer_id' => $column->post_author,
 					'post_id' => $column->post_id, 
 				    'overall_rating' => $column->review,
 				    'number_of_votes' => $column->voters,
@@ -1473,7 +1508,10 @@ function yasr_insert_gdstar_data($votes){
 			array( '%d', '%d', '%s', '%d', '%d')
 		);
 	}
-	return $result;
+
+	if ($result) {
+		return TRUE;
+	};
 }
 
 /****** Insert logs ******/
@@ -1498,8 +1536,8 @@ function yasr_insert_gdstar_logs($logs) {
 	if ($result) {
 		return TRUE;
 	}
-}
 
+}
 
 /****** Insert gd star rating multi set name 
 
@@ -1579,7 +1617,7 @@ function yasr_insert_gdstar_multi_value($multi_datas) {
 }
 
 
-/****************************END IMPORT FUNCTIONS******************************/
+/************************************************END IMPORT FUNCTIONS****************************************************/
 
 
 ?>

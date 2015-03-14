@@ -3,9 +3,9 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.7.3
+ * Version: 0.8.1
  * Author: Dario Curvino
- * Author URI: http://yetanotherstarsrating.com/
+ * Author URI: https://yetanotherstarsrating.com/
  * License: GPL2
  */
 
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.7.3');
+define('YASR_VERSION_NUM', '0.8.1');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -151,23 +151,17 @@ define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
 /****** backward compatibility functions ******/
 
-//Remove mid feb 2015
-if ($version_installed && $version_installed < '0.6.9' ) {
 
-	$stored_options = get_option ( 'yasr_general_options' );
+//remove end may 2015
+if ($version_installed && $version_installed < '0.7.7') {
 
-	$stored_options['show_visitor_votes_in_loop'] = 'disabled';
-
-	update_option("yasr_general_options", $stored_options);
+	$wpdb->query("ALTER TABLE " . YASR_VOTES_TABLE . " DROP reviewer_id");
 
 }
 
-//remove end gen 2015
-if ($version_installed && $version_installed < '0.5.9') {
 
-	$wpdb->query("ALTER TABLE " . YASR_VOTES_TABLE . " ADD review_type VARCHAR( 10 )");
+/****** End backward compatibility functions ******/
 
-}
 
 if ($version_installed != YASR_VERSION_NUM) {
 
@@ -175,7 +169,5 @@ if ($version_installed != YASR_VERSION_NUM) {
 
 }
 
-
-/****** End backward compatibility functions ******/
 
 ?>

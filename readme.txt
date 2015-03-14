@@ -3,8 +3,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Contributors: Dudo 
-Tested up to: 4.1
-Stable tag: 0.7.3
+Tested up to: 4.1.1
+Stable tag: 0.8.1
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -25,6 +25,7 @@ be able to insert the overall rating. You can either place the overall rating au
 = Visitor Votes = 
 You can give your users the ability to vote, pasting the shortcode [yasr_visitor_votes] where you want the stars to appear.
 Again, this can be placed automatically at the beginning or the end of each post; the option is in "Settings" -> "Yet Another Stars Rating: Settings".
+This may not works if you use a caching plugin.
 
 = Multi Set =
 Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
@@ -45,14 +46,32 @@ If with gd-star-rating you're using a different number of stars from the default
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl ) )
 * French (Thanks to Sébastien Gracia)
 * Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
+* Persian (Thanks to Babak Mehri )
+
+Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
 = Related Link =
-News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
+* News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
+* [Demo site](http://yetanotherstarsrating.com/)
 
 = Press =
 * [WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
 * [BRIANLI.COM](http://brianli.com/yet-another-stars-rating-wordpress-plugin-review/)
 * [WPEXPLORER](http://www.wpexplorer.com/google-rich-snippets-wordpress/)
+
+
+Do you want more feature? [GO PRO!](https://yetanotherstarsrating.com/pro-version/)
+
+> #### Pro Only features:
+> * You can display as many rows as you like in all rankings.
+> * Customizable star size is in rankings that use it.
+> * You can change the text shown near the stars and choose to let it appear before or after them.
+> * You can choose to show the Username or the display name in the charts that use it.
+> * Category / post type filter in rankings.
+> * Users can choose different ready to use sets or upload their own images.
+> * Visitors can add their own reviews in comments.
+
+
 
 == Installation ==
 1. Install Yet Another Stars Rating either via the WordPress.org plugin directory, or by uploading the files to your server
@@ -65,7 +84,7 @@ News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
 It is the vote given by who writes the review: readers are able to see this vote in read-only mode. Reviewer can vote using the box on the top rigth when writing a new article or post (he or she must have at least the "Author" role). Remember to insert this shortcode **[yasr_overall_rating]** to make it appear where you like. You can choose to make it appear just in a single post/page or in archive pages too (e.g. default Index, category pages, etc).
 
 = What is "Visitor Rating"? =
-It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This works only in single posts or pages.
+It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This may not works if you use a caching plugin.
 
 = What is "Multi Set"? =
 It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
@@ -88,6 +107,8 @@ When a visitor (logged in or not) rates a post/page, his rating is stored in the
 = Wait, wait! Do I need to keep in mind all this shortcode? =
 Of course not: you can easily add it on the visual editor just by clicking on the yellow star and then choose what to insert.
 
+[Demo site](http://yetanotherstarsrating.com/)
+
 == Screenshots ==
 1. Example of yasr in a videogame review
 2. Another example of a restaurant review
@@ -96,6 +117,43 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.8.1 =
+* Fixed: Undefined variable in yasr_visitor_votes shortcode
+* Fixed: Fixed cursor style when is over the dashicon
+* Tweaked: Stars' description is now translatable
+* Twaeked: Dashicon doens't load if visitor stats are disabled
+* Tweaked: Italian translation
+
+= 0.8.0 =
+* Stats for visitor votes works now on click and not on hover
+* Buddypress compatibility
+* Huge code cleanup on yasr_visitor_votes shortcode
+
+= 0.7.9 =
+* Fixed bug inserted on 0.2.2 when a logged in user try to update his own vote
+* Minor changes on yasr_visitor_votes shortcode
+
+= 0.7.8 =
+* Fixed bug that occur when a post was rated from 2 users that use same browser
+* Switched cdn, from google to jquery
+* Persian Translation
+
+= 0.7.7 =
+* Removed an useless row in yasr_votes table.
+* Minor change on [yasr_top_5_reviewers] shortcode
+* Code cleanup
+
+= 0.7.6 =
+* Updated pro info.
+* .po file update
+
+= 0.7.5 =
+* Code cleanup and bugfix in yasr_visitor_votes shortcode
+* Updated Norwegian translation (Thanks to [Line](http://www.spilleautomatercasinobonuser.com))
+
+= 0.7.4 =
+* Security fix. Please update!
 
 = 0.7.3 =
 * Added support for plugins that adds class or attribute on images
