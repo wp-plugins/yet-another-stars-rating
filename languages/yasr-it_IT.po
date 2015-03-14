@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yasr Translation\n"
 "POT-Creation-Date: 2015-03-13 16:34+0100\n"
-"PO-Revision-Date: 2015-03-13 16:34+0100\n"
+"PO-Revision-Date: 2015-03-14 17:57+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -215,7 +215,7 @@ msgstr "Media Voto: "
 
 #: ../lib/yasr-shortcode-functions.php:263
 msgid "bad, poor, ok, good, super"
-msgstr "'pessimo', 'scarso', 'ok', 'buono', 'super'"
+msgstr "pessimo, scarso, ok, buono, super"
 
 #: ../lib/yasr-shortcode-functions.php:411
 msgid "Rating"
