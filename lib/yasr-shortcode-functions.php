@@ -165,6 +165,8 @@ function shortcode_visitor_votes_callback ($atts) {
         $px_size = '32';
     }
 
+    $vote_if_user_already_rated = FALSE;
+
     $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes\">";
     $span_after_rate_it = "";
 
@@ -221,9 +223,23 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
-    $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$readonly\"></div>
-            <span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>
-            <span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+    if (YASR_VISITORS_STATS === 'yes') {
+
+        $span_dashicon = "<span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>";
+
+    }
+
+    else {
+
+        $span_dashicon = "";
+
+    }
+
+    $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$readonly\"></div>";
+
+    $shortcode_html .= $span_dashicon;
+
+    $shortcode_html .= "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
                 [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]
             </span>";
 
@@ -244,16 +260,18 @@ function shortcode_visitor_votes_callback ($atts) {
 
     //if (!is_feed()) {
 
-        //$var_tooltip_values = json_encode ("bad, poor, ok, good, super");
-        $var_post_id = (json_encode($post_id));
-        $var_ajax_url = (json_encode(admin_url('admin-ajax.php')));
-        $var_size = (json_encode($size));
-        $var_logged_user = (json_encode(is_user_logged_in()));
-        $var_vote_if_user_already_rated = (json_encode($vote_if_user_already_rated));
-        $var_loader_html = (json_encode("$loader_html"));
-        $var_nonce_visitor = (json_encode("$ajax_nonce_visitor"));
+        $var_tooltip_values = __("bad, poor, ok, good, super", "yasr");
+        $var_tooltip_values= json_encode($var_tooltip_values);
 
-        $var_visitor_stats_enabled = (json_encode(YASR_VISITORS_STATS));
+        $var_post_id = json_encode($post_id);
+        $var_ajax_url = json_encode(admin_url('admin-ajax.php'));
+        $var_size = json_encode($size);
+        $var_logged_user = json_encode(is_user_logged_in());
+        $var_vote_if_user_already_rated = json_encode($vote_if_user_already_rated);
+        $var_loader_html = json_encode("$loader_html");
+        $var_nonce_visitor = json_encode("$ajax_nonce_visitor");
+
+        $var_visitor_stats_enabled = json_encode(YASR_VISITORS_STATS);
 
         $javascript = "
 
@@ -261,7 +279,8 @@ function shortcode_visitor_votes_callback ($atts) {
 
             jQuery(document).ready(function() {
 
-                var tooltipValues = ['bad', 'poor', 'ok', 'good', 'super'];
+                var stringTooltipValues = $var_tooltip_values;
+                var arrayTooltipValues = stringTooltipValues.split(', ')
                 var postid = $var_post_id;
                 var ajaxurl = $var_ajax_url;
                 var size = $var_size;
@@ -270,7 +289,7 @@ function shortcode_visitor_votes_callback ($atts) {
                 var loaderHtml = $var_loader_html;
                 var nonceVisitor = $var_nonce_visitor;
                     
-                yasrVisitorsVotes(tooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
+                yasrVisitorsVotes(arrayTooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
 
                 var visitorStatsEnabled = $var_visitor_stats_enabled;
 

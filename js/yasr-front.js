@@ -178,7 +178,7 @@
 /****** Tooltip function ******/
 
     //used in ajax page
-    function yasrDrawProgressBars (valueProgressbar) {
+    function yasrDrawProgressBars (valueProgressbar, postId) {
 
         var i = null;
 
@@ -186,7 +186,7 @@
 
         for (i=5; i>0; i--) {
 
-            jQuery( "#yasr-progress-bar-" + i).progressbar({
+            jQuery( "#yasr-progress-bar-postid-"+postId+"-progress-bar-" + i).progressbar({
                 value: valueProgressbar[j]
             });
 
@@ -242,3 +242,93 @@
 
 
 /****** End tooltipfunction ******/
+
+
+/****** draw progress bar for yasr_pro_comment_reviews_summary ******/
+
+    function yasrDrawProgressBarsReviewsSummery (valueProgressbar, postId) {
+
+            var i = null;
+
+            var j = 0; //This is for the array
+
+            for (i=5; i>0; i--) {
+
+                jQuery( "#yasr-pro-reviews-summary-postid-"+postId+"-progress-bar-" + i).progressbar({
+                    value: valueProgressbar[j]
+                });
+
+                j=j+1;
+
+            }
+            
+        }
+
+/****** End progressbar function *******/
+
+
+/****** Yasr pro shortcode page ******/
+
+    function yasrProMostOrHighestRatedChart (view) {
+
+        if (view != 'highest') {
+
+            //By default, hide the highest rated chart
+            jQuery('#yasr-pro-highest-rated-posts').hide();
+
+            //On click on highest, hide most and show highest
+            jQuery('#yasr-pro-multi-chart-highest').on("click", function () {
+
+                jQuery('#yasr-pro-most-rated-posts').hide();
+
+                jQuery('#yasr-pro-highest-rated-posts').show();
+
+                return false; // prevent default click action from happening!
+
+            });
+
+            //Vice versa
+            jQuery('#yasr-pro-multi-chart-most').on("click", function () {
+
+                jQuery('#yasr-pro-highest-rated-posts').hide();
+
+                jQuery('#yasr-pro-most-rated-posts').show();
+
+                return false; // prevent default click action from happening!
+
+            });
+
+        }
+
+        else {
+
+            //By default, hide the most rated chart
+            jQuery('#yasr-pro-most-rated-posts').hide();
+
+            //On click on most, hide highest and show most
+            jQuery('#yasr-pro-multi-chart-most').on("click", function () {
+
+                jQuery('#yasr-pro-highest-rated-posts').hide();
+
+                jQuery('#yasr-pro-most-rated-posts').show();
+
+                return false; // prevent default click action from happening!
+
+            });
+
+            //Vice versa
+            jQuery('#yasr-pro-multi-chart-highest').on("click", function () {
+
+                jQuery('#yasr-pro-most-rated-posts').hide();
+
+                jQuery('#yasr-pro-highest-rated-posts').show();
+
+                return false; // prevent default click action from happening!
+
+            });
+
+        }
+
+    }
+
+/****** End Yasr pro shortcode page ******/

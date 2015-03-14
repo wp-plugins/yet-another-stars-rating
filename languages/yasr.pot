@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
-"POT-Creation-Date: 2015-03-03 12:36+0100\n"
-"PO-Revision-Date: 2015-03-03 12:36+0100\n"
+"POT-Creation-Date: 2015-03-13 16:34+0100\n"
+"PO-Revision-Date: 2015-03-13 16:34+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: En\n"
@@ -32,7 +32,7 @@ msgid "This review is about a..."
 msgstr ""
 
 #: ../yasr-metabox-top-right.php:193 ../yasr-metabox-multiple-rating.php:46
-#: ../lib/yasr-settings-functions.php:505
+#: ../lib/yasr-settings-functions.php:487
 msgid "Select"
 msgstr ""
 
@@ -154,20 +154,20 @@ msgstr ""
 msgid "Close this message"
 msgstr ""
 
-#: ../yasr-settings-page.php:246 ../lib/yasr-settings-functions.php:1294
-#: ../lib/yasr-settings-functions.php:1320
+#: ../yasr-settings-page.php:246 ../lib/yasr-settings-functions.php:1276
+#: ../lib/yasr-settings-functions.php:1302
 msgid "Donations"
 msgstr ""
 
-#: ../yasr-settings-page.php:248 ../lib/yasr-settings-functions.php:1296
-#: ../lib/yasr-settings-functions.php:1322
+#: ../yasr-settings-page.php:248 ../lib/yasr-settings-functions.php:1278
+#: ../lib/yasr-settings-functions.php:1304
 msgid ""
 "If you have found this plugin useful, please consider making a donation to "
 "help support future development. Your support will be much appreciated. "
 msgstr ""
 
-#: ../yasr-settings-page.php:250 ../lib/yasr-settings-functions.php:1298
-#: ../lib/yasr-settings-functions.php:1324
+#: ../yasr-settings-page.php:250 ../lib/yasr-settings-functions.php:1280
+#: ../lib/yasr-settings-functions.php:1306
 msgid "Thank you!"
 msgstr ""
 
@@ -184,69 +184,73 @@ msgstr ""
 msgid "You must sign to vote"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:227 ../lib/yasr-ajax-functions.php:1011
+#: ../lib/yasr-shortcode-functions.php:243 ../lib/yasr-ajax-functions.php:1011
 #: ../lib/yasr-ajax-functions.php:1019 ../lib/yasr-ajax-functions.php:1148
 #: ../lib/yasr-ajax-functions.php:1220
 msgid "Total: "
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:227
+#: ../lib/yasr-shortcode-functions.php:243
 msgid "Average: "
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:392
+#: ../lib/yasr-shortcode-functions.php:263
+msgid "bad, poor, ok, good, super"
+msgstr ""
+
+#: ../lib/yasr-shortcode-functions.php:411
 msgid "Rating"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:406
+#: ../lib/yasr-shortcode-functions.php:425
 msgid "You don't have any votes stored"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:442
-#: ../lib/yasr-shortcode-functions.php:480
+#: ../lib/yasr-shortcode-functions.php:461
+#: ../lib/yasr-shortcode-functions.php:499
 msgid "Post / Page"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:462
+#: ../lib/yasr-shortcode-functions.php:500
 msgid "Order By"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:462
+#: ../lib/yasr-shortcode-functions.php:500
 msgid "Most Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:462
+#: ../lib/yasr-shortcode-functions.php:500
 msgid "Highest Rated"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:460
-#: ../lib/yasr-shortcode-functions.php:495
+#: ../lib/yasr-shortcode-functions.php:479
+#: ../lib/yasr-shortcode-functions.php:514
 msgid "Total:"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:460
-#: ../lib/yasr-shortcode-functions.php:495
+#: ../lib/yasr-shortcode-functions.php:479
+#: ../lib/yasr-shortcode-functions.php:514
 msgid "Average"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:472
+#: ../lib/yasr-shortcode-functions.php:491
 msgid "You've not enough data"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:507
+#: ../lib/yasr-shortcode-functions.php:526
 msgid "You've not enought data"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:592
+#: ../lib/yasr-shortcode-functions.php:611
 msgid ""
 "Problem while retrieving the top 5 most active reviewers. Did you publish "
 "any review?"
 msgstr ""
 
-#: ../lib/yasr-shortcode-functions.php:660
+#: ../lib/yasr-shortcode-functions.php:679
 msgid ""
 "Problem while retrieving the top 10 active users chart. Are you sure you "
 "have votes to show?"
@@ -302,7 +306,7 @@ msgstr ""
 #: ../lib/yasr-settings-functions.php:204
 #: ../lib/yasr-settings-functions.php:230
 #: ../lib/yasr-settings-functions.php:262
-#: ../lib/yasr-settings-functions.php:313
+#: ../lib/yasr-settings-functions.php:297
 msgid "Yes"
 msgstr ""
 
@@ -312,7 +316,7 @@ msgstr ""
 #: ../lib/yasr-settings-functions.php:209
 #: ../lib/yasr-settings-functions.php:235
 #: ../lib/yasr-settings-functions.php:267
-#: ../lib/yasr-settings-functions.php:318
+#: ../lib/yasr-settings-functions.php:302
 msgid "No"
 msgstr ""
 
@@ -405,270 +409,264 @@ msgstr ""
 msgid "Custom text to display when a non logged user has already rated"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:296
-msgid ""
-"Seems like you've imported gd star rating in the past, but then deleted the "
-"logs table. For now, you can't enable statistics"
-msgstr ""
-
-#: ../lib/yasr-settings-functions.php:338
+#: ../lib/yasr-settings-functions.php:320
 msgid "Light"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:343
+#: ../lib/yasr-settings-functions.php:325
 msgid "Dark"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:348
+#: ../lib/yasr-settings-functions.php:330
 msgid "Preview"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:353
+#: ../lib/yasr-settings-functions.php:335
 msgid "Light theme"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:358
+#: ../lib/yasr-settings-functions.php:340
 msgid "Dark Theme"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:376
+#: ../lib/yasr-settings-functions.php:358
 msgid "Allow only logged-in users"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:380
+#: ../lib/yasr-settings-functions.php:362
 msgid "Allow everybody (logged in and anonymous)"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:397
+#: ../lib/yasr-settings-functions.php:379
 msgid "Review Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:401
+#: ../lib/yasr-settings-functions.php:383
 msgid "Aggregate Rating"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:406
+#: ../lib/yasr-settings-functions.php:388
 msgid "What is this?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:411
+#: ../lib/yasr-settings-functions.php:393
 msgid ""
 "If you select \"Review Rating\", your site will be indexed from search "
 "engines like this: "
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:416
+#: ../lib/yasr-settings-functions.php:398
 msgid ""
 "If, instead, you choose \"Aggregate Rating\", your site will be indexed like "
 "this"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:434
+#: ../lib/yasr-settings-functions.php:416
 msgid "Stars"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:438
+#: ../lib/yasr-settings-functions.php:420
 msgid "Numbers"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:450
+#: ../lib/yasr-settings-functions.php:432
 msgid "Add New Multiple Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:451
+#: ../lib/yasr-settings-functions.php:433
 msgid ""
 "Name, Element#1 and Element#2 MUST be filled and must be long at least 3 "
 "characters"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:454
+#: ../lib/yasr-settings-functions.php:436
 msgid "Name"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:459
+#: ../lib/yasr-settings-functions.php:441
 msgid "You can insert up to nine elements"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:464
+#: ../lib/yasr-settings-functions.php:446
 msgid "Element "
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:474
+#: ../lib/yasr-settings-functions.php:456
 msgid "Create New Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:495
-#: ../lib/yasr-settings-functions.php:527
+#: ../lib/yasr-settings-functions.php:477
+#: ../lib/yasr-settings-functions.php:509
 msgid "Manage Multiple Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:497
+#: ../lib/yasr-settings-functions.php:479
 msgid "Wich set do you want to edit or remove?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:537
-#: ../lib/yasr-settings-functions.php:655
+#: ../lib/yasr-settings-functions.php:519
+#: ../lib/yasr-settings-functions.php:637
 msgid "Field name"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:541
-#: ../lib/yasr-settings-functions.php:659
+#: ../lib/yasr-settings-functions.php:523
+#: ../lib/yasr-settings-functions.php:641
 msgid "Remove"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:583
-#: ../lib/yasr-settings-functions.php:701
+#: ../lib/yasr-settings-functions.php:565
+#: ../lib/yasr-settings-functions.php:683
 msgid "Remove whole set?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:596
-#: ../lib/yasr-settings-functions.php:714
+#: ../lib/yasr-settings-functions.php:578
+#: ../lib/yasr-settings-functions.php:696
 msgid ""
 "If you remove something you will remove all the votes for that set or field. "
 "This operation CAN'T BE undone."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:603
-#: ../lib/yasr-settings-functions.php:721
+#: ../lib/yasr-settings-functions.php:585
+#: ../lib/yasr-settings-functions.php:703
 msgid "You can use up to 9 elements"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:605
-#: ../lib/yasr-settings-functions.php:723
+#: ../lib/yasr-settings-functions.php:587
+#: ../lib/yasr-settings-functions.php:705
 msgid "Add element"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:607
-#: ../lib/yasr-settings-functions.php:725
+#: ../lib/yasr-settings-functions.php:589
+#: ../lib/yasr-settings-functions.php:707
 msgid "Save changes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:617
+#: ../lib/yasr-settings-functions.php:599
 msgid "No Multiple Set were found"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:867
-#: ../lib/yasr-settings-functions.php:1135
+#: ../lib/yasr-settings-functions.php:849
+#: ../lib/yasr-settings-functions.php:1117
 msgid "Settings Saved"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:872
+#: ../lib/yasr-settings-functions.php:854
 msgid "Something goes wrong trying insert set field name. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:878
+#: ../lib/yasr-settings-functions.php:860
 msgid "Something goes wrong trying insert Multi Set name. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:953
+#: ../lib/yasr-settings-functions.php:935
 msgid "Something goes wrong trying to delete a Multi Set . Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:999
+#: ../lib/yasr-settings-functions.php:981
 msgid ""
 "Something goes wrong trying to delete a Multi Set's element. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1063
+#: ../lib/yasr-settings-functions.php:1045
 msgid ""
 "Something goes wrong trying to update a Multi Set's element. Please report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1120
+#: ../lib/yasr-settings-functions.php:1102
 msgid ""
 "Something goes wrong trying to insert set field name in edit form. Please "
 "report it"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1163
+#: ../lib/yasr-settings-functions.php:1145
 msgid "Style Options"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1164
+#: ../lib/yasr-settings-functions.php:1146
 msgid "Custom CSS Styles"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1169
+#: ../lib/yasr-settings-functions.php:1151
 msgid ""
 "Please use text area below to write your own CSS styles to override the "
 "default ones."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1171
+#: ../lib/yasr-settings-functions.php:1153
 msgid "Leave it blank if you don't know what you're doing"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1194
+#: ../lib/yasr-settings-functions.php:1176
 msgid "Looking for more features?"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1195
+#: ../lib/yasr-settings-functions.php:1177
 msgid "Upgrade to yasr pro!"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1211
+#: ../lib/yasr-settings-functions.php:1193
 msgid "Unlimited ratings and votes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1217
+#: ../lib/yasr-settings-functions.php:1199
 msgid "Works with shortcodes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1223
+#: ../lib/yasr-settings-functions.php:1205
 msgid "Multi Set Support"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1228
+#: ../lib/yasr-settings-functions.php:1210
 msgid "Logs and stats for visitors votes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1233
+#: ../lib/yasr-settings-functions.php:1215
 msgid "Localization (.po and .mo files included)"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1238
+#: ../lib/yasr-settings-functions.php:1220
 msgid "Rich Snippet Support"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1243
+#: ../lib/yasr-settings-functions.php:1225
 msgid "Rankings for reviews, votes and users"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1248
+#: ../lib/yasr-settings-functions.php:1230
 msgid "Rankings Customization"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1253
+#: ../lib/yasr-settings-functions.php:1235
 msgid "Stars Customization"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1254
+#: ../lib/yasr-settings-functions.php:1236
 msgid "Size Only"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1255
+#: ../lib/yasr-settings-functions.php:1237
 msgid ""
 "Users can choose different ready to use sets or can upload their own images."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1258
+#: ../lib/yasr-settings-functions.php:1240
 msgid "Visitors can vote on Multi Set"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1263
+#: ../lib/yasr-settings-functions.php:1245
 msgid "Users can review in comments"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1274
+#: ../lib/yasr-settings-functions.php:1256
 msgid "Not avaible yet"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1306
-#: ../lib/yasr-settings-functions.php:1333
+#: ../lib/yasr-settings-functions.php:1288
+#: ../lib/yasr-settings-functions.php:1315
 msgid "Follow YASR official site!"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1363
+#: ../lib/yasr-settings-functions.php:1345
 msgid "No previous Gd Star Rating installation was found"
 msgstr ""
 
@@ -955,6 +953,10 @@ msgstr ""
 msgid "You've already voted this article"
 msgstr ""
 
-#: ../lib/yasr-ajax-functions.php:1356
+#: ../lib/yasr-ajax-functions.php:1351
 msgid "stars"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:1356
+msgid "star"
 msgstr ""

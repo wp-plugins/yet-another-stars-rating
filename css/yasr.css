@@ -207,6 +207,9 @@ div.bigstars .rateit-selected
 
 .yasr-dashicons-visitor-stats {
     vertical-align: bottom;
+    text-decoration: none;
+    cursor: pointer; 
+    cursor: hand;
 }
 
 .yasr-total-average-text-medium {
@@ -223,7 +226,8 @@ div.bigstars .rateit-selected
     display: block;
 }
 
-/***  Progress bar***/
+/***  Progress bar, this class are used in 
+yasr_pro_comment_reviews_stats shortcode too***/
 
 .yasr-progress-bars-container {
     width: 100%;
@@ -237,14 +241,14 @@ div.bigstars .rateit-selected
 }
 
 .yasr-progress-bar-name {
-    width: 15%;
+    width: 60px;
     text-align: left;
-    margin-right: 5px;
+    display: inline-block;
 }
 
 .yasr-progress-bar {
     display: inline-block;
-    width: 60%;
+    width: 150px;
     height: 15px;
     margin-right: 5px;
     border-bottom-right-radius: 0px;
@@ -262,6 +266,11 @@ div.bigstars .rateit-selected
     background: #FFD700;
 }
 
+.yasr-progress-bar-votes-count {
+    display: inline-block;
+    width: 40px;
+}
+
 
 /*** End progress bar ***/
 
@@ -269,7 +278,7 @@ div.bigstars .rateit-selected
 /*** Tooltip ***/
 
 .yasr-visitors-stats-tooltip {
-    width: 250px;
+    width: 300px;
 }
 
 /*** Tooltip ***/

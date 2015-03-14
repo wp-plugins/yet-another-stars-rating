@@ -52,8 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	       		add_settings_field( 'yasr_show_visitor_votes_in_loop', __('Show "Visitor Votes" in Archive Page?', 'yasr'), 'yasr_show_visitor_votes_in_loop_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_visitors_stats', __('Do you want show stats for visitors votes?', 'yasr'), 'yasr_visitors_stats_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
-	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want to rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
@@ -291,42 +291,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    function yasr_visitors_stats_callback($option) {
 
-	    	if ($option['visitors_stats'] === 'disabled') {
+	    	?>
 
-	    		_e("Seems like you've imported gd star rating in the past, but then deleted the logs table. For now, you can't enable statistics", "yasr");
+	    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Yes', 'yasr')?>
+				
+			&nbsp;&nbsp;&nbsp;
 
-	    		?>
+			<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('No', 'yasr')?>
+				<br />
 
-	    		<p>&nbsp;</p>
+				<br />
 
-				<hr>
+			<p>&nbsp;</p>
 
-		    	<?php
+			<hr>
 
-	    	}
-
-	    	else {
-
-		    	?>
-
-		    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
-					<?php _e('Yes', 'yasr')?>
-					
-				&nbsp;&nbsp;&nbsp;
-
-				<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
-					<?php _e('No', 'yasr')?>
-					<br />
-
-					<br />
-
-				<p>&nbsp;</p>
-
-				<hr>
-
-		    	<?php
-
-		    }
+	    	<?php
 
 	    }
 

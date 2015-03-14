@@ -303,7 +303,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     }
 
                     else {
-                        $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/Thing\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
+                        $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/Product\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
                     }
 
                     $div = "<div class=\"yasr_schema\" itemscope itemtype=\"http://schema.org/Review\">";

@@ -886,6 +886,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
     add_action( 'wp_ajax_nopriv_yasr_send_visitor_rating', 'yasr_insert_visitor_votes_callback' );
 
     function yasr_insert_visitor_votes_callback () {
+
         if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['size']) && isset($_POST['nonce_visitor'])) {
             $rating = $_POST['rating'];
             $post_id = $_POST['post_id'];
@@ -1144,9 +1145,13 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         $medium_rating=round ($total_rating, 1);
 
 
-        echo "<div class=\"$rateit_class\" id=\"yasr-rateit-user-votes-updated\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-        <span class=\"yasr-total-average-text\"><span class=\"dashicons dashicons-chart-bar\" id=\"yasr-total-average-$post_id\"></span>[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>
-        <span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("Vote updated", "yasr") . "</span>";
+        echo "<div class=\"$rateit_class\" id=\"yasr-rateit-user-votes-updated\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+
+        if (YASR_VISITORS_STATS === 'yes') {
+            echo "<span class=\"yasr-total-average-text\"><span class=\"dashicons dashicons-chart-bar\" id=\"yasr-total-average-$post_id\"></span>[" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average $medium_rating/5" , "yasr") . "]</span>";
+        }
+        
+        echo "<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("Vote updated", "yasr") . "</span>";
 
         die(); // this is required to return a proper result
 
@@ -1214,9 +1219,13 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         //Check if user specifyed a custom text to display when a vistor has rated
 
-        $shortcode = "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                        <span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>
-                        <span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+        $shortcode = "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+        
+        if (YASR_VISITORS_STATS === 'yes') {                
+            $shortcode .= "<span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>";
+        }
+
+        $shortcode.="<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
                             [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]
                         </span>";
 
@@ -1348,25 +1357,28 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
         $i=5;
 
+        $stars_text = __("stars", "yasr");
+
         foreach ($stats as $logged_votes) {
 
-            if ($i != 0) {
-            
-                echo "<div class=\"yasr-progress-bar-row-container\">
-                        <span class=\"yasr-progress-bar-name\">$i " . __("stars", "yasr") . "</span>
-                        <span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-$i\" ></span>
-                        <span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
-                    </div>"; 
-                
-                $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar
-
-                $value_progressbar = round ($value_progressbar, 2); //use only 2 decimal
-
-                $array_values_progressbar[] = $value_progressbar; 
-
-                $i--;
-                
+            if ($i==1) {
+                $stars_text = __("star", "yasr");
             }
+            
+            echo "<div class=\"yasr-progress-bar-row-container\">
+                    <span class=\"yasr-progress-bar-name\">$i $stars_text</span>
+                    <span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-postid-$post_id-progress-bar-$i\" ></span>
+                    <span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
+                </div>"; 
+            
+            $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar
+
+            $value_progressbar = round ($value_progressbar, 2); //use only 2 decimal
+
+            $array_values_progressbar[] = $value_progressbar; 
+
+            $i--;
+                
 
         } //End foreach
 
@@ -1377,9 +1389,10 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         <script type="text/javascript">
             jQuery( document ).ready(function() {
 
+                var postId = <?php echo json_encode($post_id)?>;
                 var arrayValueProgressbar = <?php echo (json_encode($array_values_progressbar)) ?>;
 
-                yasrDrawProgressBars (arrayValueProgressbar);
+                yasrDrawProgressBars (arrayValueProgressbar, postId);
 
             });
         </script>
