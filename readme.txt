@@ -47,6 +47,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * French (Thanks to Sébastien Gracia)
 * Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
 * Persian (Thanks to Babak Mehri )
+* Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
