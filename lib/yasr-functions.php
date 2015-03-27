@@ -392,7 +392,7 @@ add_action('admin_init', 'yasr_shortcode_button_init');
         if ( ! current_user_can('publish_posts') && ! current_user_can('publish_posts') && get_user_option('rich_editing') == 'true')
            return;
 
-        //Add a callback to regiser our tinymce plugin   
+        //Add a callback to register our tinymce plugin   
         add_filter("mce_external_plugins", "yasr_register_tinymce_plugin"); 
 
         // Add a callback to add our button to the TinyMCE toolbar
@@ -446,5 +446,14 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
         }
 
     }
+
+
+function yasr_wp_super_cache_support($post_id) {
+    
+    if(function_exists('wp_cache_post_change')) {
+        wp_cache_post_change($post_id);
+    }
+
+}
 
 ?>

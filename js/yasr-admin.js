@@ -334,11 +334,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 				jQuery('.yasr-general-options-text-before').prop('disabled', true);
 			});
 
-			jQuery('#yasr-color-scheme-preview-link').on('click', function () {
-				jQuery('#yasr-color-scheme-preview').toggle('slow');
-				return false; // prevent default click action from happening!
-			});
-
 			jQuery('#yasr-snippet-explained-link').on('click', function () {
 				jQuery('#yasr-snippet-explained').toggle('slow');
 				return false; // prevent default click action from happening!
@@ -477,6 +472,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 		  		});
 
 		  	} //End if ($n_multi_set > 1) 
+
+            jQuery('#yasr-color-scheme-preview-link').on('click', function () {
+                jQuery('#yasr-color-scheme-preview').toggle('slow');
+                return false; // prevent default click action from happening!
+            });
 
 		} //end if active_tab=='manage_multi'
 
