@@ -107,11 +107,17 @@ function yasr_install() {
 		$option['text_before_stars'] = 0;
 		$option['snippet'] = 'overall_rating';
 		$option['allowed_user'] = 'allow_anonymous';
-		$option['scheme_color'] = 'light';
 		$option['metabox_overall_rating'] = 'stars'; //This is not in settings page but in overall rating metabox
 		$option['visitors_stats'] = 'yes';
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
+
+		//Multi set options
+		$multiset_options = array();
+		$multiset_option['scheme_color'] = 'light';
+
+		update_option("yasr_multiset_options", $multiset_option);
+
 
 	}
 
@@ -301,6 +307,8 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 				$title_post = get_the_title( $column->post_id );
 				$link = get_permalink( $column->post_id );
 
+				$yasr_log_vote_text = sprintf(__('Vote %d from %s on', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
+
 				echo "
 					
 					<div class=\"yasr-log-div-child\">
@@ -310,7 +318,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 						</div>
 
 						<div id=\"yasr-log-child-head\">
-							 <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+							 <span id=\"yasr-log-vote\">$yasr_log_vote_text</span><span id=\"yasr-log-post\"><a href=\"$link\"> $title_post</a></span>
 						</div>
 
 						<div id=\"yasr-log-ip-date\">

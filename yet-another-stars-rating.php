@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.8.1
+ * Version: 0.8.2
  * Author: Dario Curvino
  * Author URI: https://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.8.1');
+define('YASR_VERSION_NUM', '0.8.2');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -89,10 +89,19 @@ if ( YASR_TEXT_BEFORE_STARS == 1 ) {
 }
 
 define ("YASR_VISITORS_STATS", $stored_options['visitors_stats']);
-define ("YASR_SCHEME_COLOR", $stored_options['scheme_color']);
 define ("YASR_ALLOWED_USER", $stored_options['allowed_user']);
 define ("YASR_SNIPPET", $stored_options['snippet']);
 define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
+
+
+//Get multi-set options
+$multiset_options = get_option('yasr_multiset_options');
+
+if($multiset_options && $multiset_options['scheme_color'] != '') {
+
+	define("YASR_SCHEME_COLOR", $multiset_options['scheme_color']);
+
+}
 
 //Get stored style options 
 $custom_style = get_option ('yasr_style_options');
@@ -150,6 +159,17 @@ define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
 
 /****** backward compatibility functions ******/
+
+
+//remove end jun 2015
+if ($version_installed && $version_installed < '0.8.2') {
+
+	$multiset_option['scheme_color'] = $stored_options['scheme_color'];
+
+	update_option("yasr_multiset_options", $multiset_option);
+
+}
+
 
 
 //remove end may 2015

@@ -280,7 +280,7 @@ function shortcode_visitor_votes_callback ($atts) {
             jQuery(document).ready(function() {
 
                 var stringTooltipValues = $var_tooltip_values;
-                var arrayTooltipValues = stringTooltipValues.split(', ')
+                var arrayTooltipValues = stringTooltipValues.split(', ');
                 var postid = $var_post_id;
                 var ajaxurl = $var_ajax_url;
                 var size = $var_size;
@@ -326,6 +326,97 @@ function shortcode_visitor_votes_callback ($atts) {
    // } //End (!is_feed)
 
 } //End function shortcode_visitor_votes_callback
+
+
+/****** Show visitor votes average, READ ONLY ******/
+add_shortcode ('yasr_visitor_votes_readonly', 'yasr_visitor_votes_readonly_callback');
+
+function yasr_visitor_votes_readonly_callback ($atts) {
+
+    $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
+
+    $post_id = get_the_ID();
+
+    $votes=yasr_get_visitor_votes();
+
+    $medium_rating=0;   //Avoid undefined variable
+
+    if (!$votes) {
+        $votes=0;         //Avoid undefined variable if there is not overall rating
+        $votes_number=0;  //Avoid undefined variable
+    }
+
+    else {
+        foreach ($votes as $user_votes) {
+            $votes_number = $user_votes->number_of_votes;
+            if ($votes_number != 0 ) {
+                $medium_rating = ($user_votes->sum_votes/$votes_number);
+            }
+            else {
+                $medium_rating = 0;
+            }
+        }
+    }
+
+    $medium_rating=round($medium_rating, 1);
+
+    if (!$atts) {
+        $size = 'large';
+    }
+
+    else {
+        extract( shortcode_atts (
+            array(
+                'size' => 'string',
+            ), $atts )
+        );
+    }
+
+    if ($size === 'small') {
+        $rateit_class='rateit';
+        $px_size = '16';
+    }
+
+    elseif ($size === 'medium') {
+        $rateit_class = 'rateit medium';
+        $px_size = '24';
+    }
+
+    //default values
+    else {
+        $rateit_class = 'rateit bigstars';
+        $px_size = '32';
+    }
+
+    $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes\">";
+    $span_after_rate_it = "";
+
+    $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+
+    $shortcode_html .= "</div>";
+
+
+        //IF show visitor votes in loop is disabled use is_singular && is_main query
+        if ( YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'disabled' ) {
+
+            if( is_singular() && is_main_query() ) {
+
+                return $shortcode_html;
+
+            }
+
+        } // End if YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'disabled') {
+
+        //If overall rating in loop is enabled don't use is_singular && is main_query
+        elseif ( YASR_SHOW_VISITOR_VOTES_IN_LOOP === 'enabled' ) {
+
+            return $shortcode_html;
+
+        }
+
+   // } //End (!is_feed)
+
+} //End function shortcode_visitor_votes_only_stars_callback
 
 
 
@@ -681,5 +772,4 @@ function yasr_top_ten_active_users_callback () {
 
 
 } //End function
-
 ?>

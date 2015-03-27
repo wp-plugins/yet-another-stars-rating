@@ -767,6 +767,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 $title_post = get_the_title( $column->post_id ); //Get post title from post id
                 $link = get_permalink( $column->post_id ); //Get post link from post id
 
+                $yasr_log_vote_text = sprintf(__('Vote %d from %s on', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
+
                 echo "
                     
                     <div class=\"yasr-log-div-child\">
@@ -776,7 +778,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                         </div>
 
                         <div id=\"yasr-log-child-head\">
-                             <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+                             <span id=\"yasr-log-vote\">$yasr_log_vote_text<span id=\"yasr-log-post\"><a href=\"$link\"> $title_post</a></span>
                         </div>
 
                         <div id=\"yasr-log-ip-date\">
@@ -904,6 +906,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         else {
             exit();
         }
+
+        yasr_wp_super_cache_support($post_id);
 
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
@@ -1049,6 +1053,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         else {
             exit();
         }
+
+        yasr_wp_super_cache_support($post_id);
 
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 

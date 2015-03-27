@@ -426,6 +426,14 @@ div.bigstars .rateit-selected
         background: #FFFFFF;
     }
 
+
+.yasr-multi-set-choose-theme {
+    clear: both;
+    padding: 10px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
+
 /*** End rules for multi set admin page ***/
 
 

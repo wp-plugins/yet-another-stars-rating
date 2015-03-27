@@ -200,47 +200,65 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi Set?", "yasr") ?></a>
 
 			</p>
-				<div id="yasr-multi-set-doc-box" style="display:none">
-					<?php _e("Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below.", "yasr");
 
-					echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
+			<div id="yasr-multi-set-doc-box" style="display:none">
+				<?php _e("Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below.", "yasr");
 
-					_e("You can create up to 99 different Multi Set and each one can contain up to 9 different fields. Once you've saved it, you can insert the rates while typing your article in the box below the editor, as you can see in this image (click to see it larger)", "yasr");
+				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
 
-					echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
+				_e("You can create up to 99 different Multi Set and each one can contain up to 9 different fields. Once you've saved it, you can insert the rates while typing your article in the box below the editor, as you can see in this image (click to see it larger)", "yasr");
 
-					_e("In order to insert your Multi Sets into a post or page, you can either past the short code that will appear at the bottom of the box or just click on the star in the graphic editor and select \"Insert Multi Set\".", "yasr");
+				echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
 
-					?>
+				_e("In order to insert your Multi Sets into a post or page, you can either past the short code that will appear at the bottom of the box or just click on the star in the graphic editor and select \"Insert Multi Set\".", "yasr");
 
-					<br /> <br />
+				?>
 
-					<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
+				<br /> <br />
+
+				<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
+
+			</div>
+
+			<div class="yasr-multi-set-left">
+
+				<div class="yasr-new-multi-set" >
+
+					<?php yasr_display_multi_set_form(); ?>
+
+				</div> <!--yasr-new-multi-set-->
+
+			</div> <!--End yasr-multi-set-left-->
+
+			<div class="yasr-multi-set-right">
+
+				<?php yasr_edit_multi_form(); ?>
+
+				<div id="yasr-multi-set-response" style="display:none">
 
 				</div>
 
-				<div class="yasr-multi-set-left">
+			</div> <!--End yasr-multi-set-right-->
 
-					<div class="yasr-new-multi-set" >
+			<div class="yasr-space-settings-div">
+			</div>
 
-						<?php yasr_display_multi_set_form(); ?>
 
-					</div> <!--yasr-new-multi-set-->
+			<div class="yasr-multi-set-choose-theme">
 
-				</div> <!--End yasr-multi-set-left-->
-
-				<div class="yasr-multi-set-right">
-
-					<?php yasr_edit_multi_form(); ?>
-
-					<div id="yasr-multi-set-response" style="display:none">
-
-					</div>
-
-				</div> <!--End yasr-multi-set-right-->
-
+				<!--This allow to choose color for multiset-->
+				<form action="options.php" method="post" id="yasr_multiset_form">
+			            <?php
+				            settings_fields( 'yasr_multiset_options_group' );
+				            do_settings_sections('yasr_multiset_tab' );
+			            	submit_button( __('Save') );
+			           	?>
+			    </form>
 
 			</div>
+
+				
+		</div>
 
 			<div class="yasr-donatedivdx" style="display:none">
 		        <h3><?php _e('Donations', 'yasr'); ?></h3>
