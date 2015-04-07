@@ -48,6 +48,8 @@ If with gd-star-rating you're using a different number of stars from the default
 * Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
 * Persian (Thanks to Babak Mehri )
 * Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
+* Russian (Thanks to Ron)
+* Spanish (Thanks to Carlos)
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
