@@ -49,7 +49,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * Persian (Thanks to Babak Mehri )
 * Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
 * Russian (Thanks to Ron)
-* Spanish (Thanks to Carlos)
+* Spanish (Thanks to [Carlos](http://dto2y3d.com) )
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
