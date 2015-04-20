@@ -161,12 +161,14 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     ?>
 
 
+    <hr>
+
     <div class="yasr-choose-reviews-types"><?php _e("This review is about a..."); ?>
         <br />
 
         <?php
 
-        $i18n_array_review = __('Product, Places, Other', 'yasr');
+        $i18n_array_review = __('Product, Place, Other', 'yasr');
 
         $array_review_type = explode(',', $i18n_array_review);
 

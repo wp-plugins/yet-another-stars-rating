@@ -1267,11 +1267,6 @@ function yasr_go_pro () {
                     <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /><?php _e("Users can choose different ready to use sets or can upload their own images." , "yasr"); ?></td>
                 </tr>
                 <tr>
-                    <td class="rowTitle"><?php _e("Visitors can vote on Multi Set" , "yasr"); ?></td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
-                </tr>
-                <tr>
                     <td class="rowTitle"><?php _e("Users can review in comments" , "yasr"); ?></td>    
                     <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
                     <td><img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /></td>

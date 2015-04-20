@@ -240,6 +240,7 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 
 			</div> <!--End yasr-multi-set-right-->
 
+
 			<div class="yasr-space-settings-div">
 			</div>
 
@@ -257,7 +258,7 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 
 			</div>
 
-				
+
 		</div>
 
 			<div class="yasr-donatedivdx" style="display:none">

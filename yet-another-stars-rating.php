@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.8.2
+ * Version: 0.8.3
  * Author: Dario Curvino
  * Author URI: https://yetanotherstarsrating.com/
  * License: GPL2
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.8.2');
+define('YASR_VERSION_NUM', '0.8.3');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -160,6 +160,13 @@ define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
 /****** backward compatibility functions ******/
 
+//remove end july 2015
+if ($version_installed && $version_installed < '0.8.3') {
+
+	$wpdb->query("ALTER TABLE " . YASR_MULTI_SET_VALUES_TABLE . " ADD number_of_votes BIGINT( 20 ) NOT NULL ,
+					ADD sum_votes DECIMAL( 11, 1 ) NOT NULL ;");
+
+}
 
 //remove end jun 2015
 if ($version_installed && $version_installed < '0.8.2') {
