@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-/****** Add yasr general option ******/
+/****** Add yasr general options ******/
 
 	add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
 
@@ -53,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	       		add_settings_field( 'yasr_custom_text', __('Insert custom text to show before / after stars', 'yasr'), 'yasr_custom_text_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_visitors_stats', __('Do you want show stats for visitors votes?', 'yasr'), 'yasr_visitors_stats_callback', 'yasr_general_settings_tab',  'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_allow_only_logged_in_id', __('Allow only logged in user to vote?', 'yasr'), 'yasr_allow_only_logged_in_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
-	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option);
 	       		add_settings_field( 'yasr_choose_snippet_id', __('Which rich snippets do you want to use?', 'yasr'), 'yasr_choose_snippet_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 	       		add_settings_field( 'yasr_choose_overall_rating_method', __('How do you want to rate "Overall Rating"?', 'yasr'), 'yasr_choose_overall_rating_method_callback', 'yasr_general_settings_tab', 'yasr_general_options_section_id', $option );
 
@@ -293,62 +292,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    	?>
 
-	    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
-				<?php _e('Yes', 'yasr')?>
-				
-			&nbsp;&nbsp;&nbsp;
+		    	<input type='radio' name='yasr_general_options[visitors_stats]' value='yes' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='yes') echo " checked=\"checked\" "; ?>  /> 
+					<?php _e('Yes', 'yasr')?>
+					
+				&nbsp;&nbsp;&nbsp;
 
-			<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
-				<?php _e('No', 'yasr')?>
-				<br />
+				<input type='radio' name='yasr_general_options[visitors_stats]' value='no' class='yasr-general-options-scheme-color' <?php if ($option['visitors_stats']==='no') echo " checked=\"checked\" "; ?>  /> 
+					<?php _e('No', 'yasr')?>
+					<br />
 
-				<br />
+					<br />
 
-			<p>&nbsp;</p>
+				<p>&nbsp;</p>
 
-			<hr>
+				<hr>
 
-	    	<?php
+		    	<?php
 
 	    }
-
-	    function yasr_color_scheme_callback($option) {
-
-	    	?>
-
-	    	<input type='radio' name='yasr_general_options[scheme_color]' value='light' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='light') echo " checked=\"checked\" "; ?>  /> 
-				<?php _e('Light', 'yasr')?>
-				
-			&nbsp;&nbsp;&nbsp;
-
-			<input type='radio' name='yasr_general_options[scheme_color]' value='dark' class='yasr-general-options-scheme-color' <?php if ($option['scheme_color']==='dark') echo " checked=\"checked\" "; ?>  /> 
-				<?php _e('Dark', 'yasr')?>
-				<br />
-
-				<br />
-
-			<a href="#" id="yasr-color-scheme-preview-link"><?php _e("Preview", "yasr") ?></a>
-
-			<div id="yasr-color-scheme-preview" style="display:none">
-		   			<?php 
-
-		   				_e("Light theme", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr-multi-set.png>";
-
-		   				echo "<br /> <br />";
-
-		   				_e("Dark Theme", "yasr");
-		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "dark-multi-set.png>";
-		   			 ?>
-		   	</div>
-
-			<p>&nbsp;</p>
-
-			<hr>
-
-	    	<?php
-	    }
-
 
 	    function yasr_allow_only_logged_in_callback($option) {
 
@@ -425,9 +386,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 		}
 
 
+/****** End Yasr General Settings ******/
+
+
+
+/****** Add yasr multiset options and settings******/
+
+		add_action( 'admin_init', 'yasr_multiset_options_init' ); //This is for general options
+
+		function yasr_multiset_options_init() {
+	    	register_setting(
+	        	'yasr_multiset_options_group', // A settings group name. Must exist prior to the register_setting call. This must match the group name in settings_fields()
+	        	'yasr_multiset_options' //The name of an option to sanitize and save.
+	    	);	    	
+
+	    	$option_multiset = get_option( 'yasr_multiset_options' );
+
+	    	add_settings_section( 'yasr_multiset_options_section_id', '', 'yasr_multiset_section_callback', 'yasr_multiset_tab' );
+	       		add_settings_field( 'yasr_color_scheme', __('Which color scheme do you want to use?', 'yasr') , 'yasr_color_scheme_callback', 'yasr_multiset_tab', 'yasr_multiset_options_section_id', $option_multiset);
+	     
+		}
+
+		function yasr_multiset_section_callback () {
+
+			//Silence
+
+		}
+
+		function yasr_color_scheme_callback($option_multiset) {
+
+			if (!$option_multiset['scheme_color']) {
+
+				$option_multiset['scheme_color'] = 'light';
+
+			}
+
+	    	?>
+
+	    	<input type='radio' name='yasr_multiset_options[scheme_color]' value='light' class='yasr-general-options-scheme-color' <?php if ($option_multiset['scheme_color']==='light') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Light', 'yasr')?>
+				
+			&nbsp;&nbsp;&nbsp;
+
+			<input type='radio' name='yasr_multiset_options[scheme_color]' value='dark' class='yasr-general-options-scheme-color' <?php if ($option_multiset['scheme_color']==='dark') echo " checked=\"checked\" "; ?>  /> 
+				<?php _e('Dark', 'yasr')?>
+				<br />
+
+				<br />
+
+			<a href="#" id="yasr-color-scheme-preview-link"><?php _e("Preview", "yasr") ?></a>
+
+			<div id="yasr-color-scheme-preview" style="display:none">
+		   			<?php 
+
+		   				_e("Light theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "yasr-multi-set.png>";
+
+		   				echo "<br /> <br />";
+
+		   				_e("Dark theme", "yasr");
+		   				echo "<br /><br /><img src=" . YASR_IMG_DIR . "dark-multi-set.png>";
+		   			 ?>
+		   	</div>
+
+			<p>
+
+	    	<?php
+	    }
+
+
 /****** Create a form for settings page to create new multi set ******/
 function yasr_display_multi_set_form() {
-	?>
+		?>
 		
 		<h4 class="yasr-multi-set-form-headers"><?php _e("Add New Multiple Set", "yasr"); ?></h4>
 		<em><?php _e('Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters', 'yasr') ?></em>
@@ -1235,11 +1265,6 @@ function yasr_go_pro () {
                     <td class="rowTitle"><?php _e("Stars Customization" , "yasr"); ?></td>    
                     <td><?php _e("Size Only" , "yasr"); ?></td>
                     <td> <img src=<?php echo YASR_IMG_DIR . '/addCheck.png' ?> alt='icon' /> <br /><?php _e("Users can choose different ready to use sets or can upload their own images." , "yasr"); ?></td>
-                </tr>
-                <tr>
-                    <td class="rowTitle"><?php _e("Visitors can vote on Multi Set" , "yasr"); ?></td>    
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addRedX2.png' ?> alt='icon' /></td>
-                    <td><img src=<?php echo YASR_IMG_DIR . '/addExclamation.png' ?> alt='icon' /></td>
                 </tr>
                 <tr>
                     <td class="rowTitle"><?php _e("Users can review in comments" , "yasr"); ?></td>    

@@ -132,7 +132,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
             }) ;
 
         	return false;
-        	preventDefault(); // same thing as above
+        	preventDefault(); 
 
         });
 
@@ -334,11 +334,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 				jQuery('.yasr-general-options-text-before').prop('disabled', true);
 			});
 
-			jQuery('#yasr-color-scheme-preview-link').on('click', function () {
-				jQuery('#yasr-color-scheme-preview').toggle('slow');
-				return false; // prevent default click action from happening!
-			});
-
 			jQuery('#yasr-snippet-explained-link').on('click', function () {
 				jQuery('#yasr-snippet-explained').toggle('slow');
 				return false; // prevent default click action from happening!
@@ -478,6 +473,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 		  	} //End if ($n_multi_set > 1) 
 
+            jQuery('#yasr-color-scheme-preview-link').on('click', function () {
+                jQuery('#yasr-color-scheme-preview').toggle('slow');
+                return false; // prevent default click action from happening!
+            });
+
 		} //end if active_tab=='manage_multi'
 
 
@@ -575,9 +575,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			if (nMultiSet > 1) { 
 
 			    //Add shortcode for multiple set
-			    jQuery('.yasr_tinymce_select_set').on("click", function(){
+			    jQuery('#yasr-insert-multiset-select').on("click", function(){
 			        var setType = jQuery("input:radio[name=yasr_tinymce_pick_set]:checked" ).val();
-			        var shortcode = '[yasr_multiset setid=';
+                    var visitorSet = jQuery("#yasr-allow-vote-multiset").is(':checked');
+
+                    if (!visitorSet) {
+			            
+                        var shortcode = '[yasr_visitor_multiset setid=';
+
+                    }
+
+                    else {
+
+                        var shortcode = '[yasr_multiset setid=';
+
+                    }
+
 			        shortcode += setType;
 			        shortcode += ']';
 			        // inserts the shortcode into the active editor
@@ -593,7 +606,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			//Add shortcode for single set (if only 1 are found)
 			    jQuery('#yasr-single-set').on("click", function(){
 			        var setType = jQuery('#yasr-single-set').val();
-			        var shortcode = '[yasr_multiset setid=';
+
+                    var visitorSet = jQuery("#yasr-allow-vote-multiset").is(':checked');
+
+                    if (!visitorSet) {
+                        
+                        var shortcode = '[yasr_visitor_multiset setid=';
+
+                    }
+
+                    else {
+
+                        var shortcode = '[yasr_multiset setid=';
+
+                    }
+
 			        shortcode += setType;
 			        shortcode += ']';
 			        // inserts the shortcode into the active editor

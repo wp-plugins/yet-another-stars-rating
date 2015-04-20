@@ -135,26 +135,69 @@
     } //End function yasr visitor votes
    
     
+    function yasrVisitorsMultiSet (postId, setType, ajaxurl, nonce) {
+
+        var ratingObject = "";
+
+        var ratingArray = new Array();
+
+        jQuery('.yasr-visitor-multi-'+postId).on('rated', function() { 
+            var el = jQuery(this);
+            var value = el.rateit('value');
+            var value = value.toFixed(1); 
+            var idField = el.attr('id');
+
+            ratingObject = {
+
+                field: idField,
+                rating: value
+
+            };
+
+            ratingArray.push(ratingObject);
+
+        });
+
+        jQuery('#yasr-send-visitor-multiset-'+postId).on('click', function() {
+
+            var cookiename = "yasr_multi_visitor_vote_" + postId;
+
+            jQuery('#yasr-loader-multiset-visitor-'+postId).show();
+
+            var data = {
+
+                action: 'yasr_visitor_multiset_field_vote',
+                nonce: nonce, 
+                post_id: postId,
+                rating: ratingArray,
+                set_type: setType
+
+            }
+
+            //Send value to the Server
+            jQuery.post(ajaxurl, data, function(response) {
+                jQuery('#yasr-loader-multiset-visitor-'+postId).text(response);
+                //jQuery.cookie(cookiename, true, { expires : 360 });
+            });
+
+        });
+
+    } //End function 
+
+
     function yasrMostOrHighestRatedChart (ajaxurl) {
 
-        //Link do nothing
-        /*jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
+        //By default, hide the highest rated chart
+        jQuery('#yasr-highest-rated-posts').hide();
+
+        //On click on highest, hide most and show highest
+        jQuery('#yasr_multi_chart_highest').on("click", function () {
+
+            jQuery('#yasr-most-rated-posts').hide();
+
+            jQuery('#yasr-highest-rated-posts').show();
 
             return false; // prevent default click action from happening!
-
-        });*/
-
-            //By default, hide the highest rated chart
-            jQuery('#yasr-highest-rated-posts').hide();
-
-            //On click on highest, hide most and show highest
-            jQuery('#yasr_multi_chart_highest').on("click", function () {
-
-                jQuery('#yasr-most-rated-posts').hide();
-
-                jQuery('#yasr-highest-rated-posts').show();
-
-                return false; // prevent default click action from happening!
 
         });
 

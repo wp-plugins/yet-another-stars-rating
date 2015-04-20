@@ -226,6 +226,10 @@ div.bigstars .rateit-selected
     display: block;
 }
 
+.yasr-loader-multiset-visitor {
+    display: none;
+}
+
 /***  Progress bar, this class are used in 
 yasr_pro_comment_reviews_stats shortcode too***/
 

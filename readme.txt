@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.1.1
-Stable tag: 0.8.1
+Stable tag: 0.8.3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -47,12 +47,15 @@ If with gd-star-rating you're using a different number of stars from the default
 * French (Thanks to Sébastien Gracia)
 * Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
 * Persian (Thanks to Babak Mehri )
+* Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
+* Russian (Thanks to Ron)
+* Spanish (Thanks to [Carlos](http://dto2y3d.com) )
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
 = Related Link =
 * News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
-* [Demo site](http://yetanotherstarsrating.com/)
+* [Demo site](http://demo.yetanotherstarsrating.com/)
 
 = Press =
 * [WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
@@ -107,7 +110,7 @@ When a visitor (logged in or not) rates a post/page, his rating is stored in the
 = Wait, wait! Do I need to keep in mind all this shortcode? =
 Of course not: you can easily add it on the visual editor just by clicking on the yellow star and then choose what to insert.
 
-[Demo site](http://yetanotherstarsrating.com/)
+[Demo site](http://demo.yetanotherstarsrating.com/)
 
 == Screenshots ==
 1. Example of yasr in a videogame review
@@ -117,6 +120,19 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.8.3 =
+* NEW FEATURE: added shortcode yasr_visitor_multiset. Now everyone can vonte in a Multi Set!
+* FIXED: fixed schema type selection
+* Minor changes
+
+= 0.8.2 =
+* NEW FEATURE: added shortcode yasr_visitor_votes_readonly
+* NEW FEATURE: added support for wp super cache
+* TWIKED: color settings for multi sets was moved from general settings to multi sets tab
+* TWIKED: log widget is now fully translatable
+* TWIKED: added brasilian language 
+* TWIKED: minor fixes for translation
 
 = 0.8.1 =
 * Fixed: Undefined variable in yasr_visitor_votes shortcode
