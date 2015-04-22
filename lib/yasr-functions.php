@@ -51,7 +51,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE ); 
-		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
@@ -140,7 +139,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
 		if ($multi_set) {
 			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'YASR', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
+				add_meta_box( 'yasr_metabox_overall_rating', 'YASR', 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
 				add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
 			}
 		}

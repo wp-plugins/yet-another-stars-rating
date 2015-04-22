@@ -326,6 +326,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 					jQuery('.yasr-general-options-text-before').prop('disabled', false);
 					jQuery('#yasr-general-options-custom-text-before-overall').val('Our Score');
 					jQuery('#yasr-general-options-custom-text-before-visitor').val('Our Reader Score');
+                    jQuery('#yasr-general-options-custom-text-after-visitor').val('[Total: %total_count%  Average: %average%]');
 					jQuery('#yasr-general-options-custom-text-already-rated').val('You have already voted this article with');
 
 			});
@@ -333,6 +334,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			jQuery('#yasr_text_before_star_off').on('click', function(){
 				jQuery('.yasr-general-options-text-before').prop('disabled', true);
 			});
+
+            jQuery('#yasr-doc-custom-text-link').on('click', function() {
+                jQuery('#yasr-doc-custom-text-div').toggle('slow');
+                return false;
+            });
 
 			jQuery('#yasr-snippet-explained-link').on('click', function () {
 				jQuery('#yasr-snippet-explained').toggle('slow');

@@ -32,18 +32,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    	//This is to avoid undefined offset
 	    	if ($option && $option['auto_insert_enabled']==0) {
-	    		$option['auto_insert_what']='overall_rating';
-	    		$option['auto_insert_where']='top';
-	    		$option['auto_insert_exclude_pages']='yes';
-	    		$option['auto_insert_size']='large';
-	    		$option['auto_insert_custom_post_only']='no';
+	    		$option['auto_insert_what'] = 'overall_rating';
+	    		$option['auto_insert_where'] = 'top';
+	    		$option['auto_insert_exclude_pages'] = 'yes';
+	    		$option['auto_insert_size'] = 'large';
+	    		$option['auto_insert_custom_post_only'] = 'no';
 	    	}
 
 	    	//This is to avoid undefined offset
 	    	if ($option && $option['text_before_stars']==0) {
-	    		$option['text_before_overall']='';
-	    		$option['text_before_visitor_rating']='';
-	    		$option['custom_text_user_voted']='';
+	    		$option['text_before_overall'] = '';
+	    		$option['text_before_visitor_rating'] = '';
+	    		$option['text_after_visitor_rating'] = '';
+	    		$option['custom_text_user_voted'] = '';
 	    	}
 
 	    	add_settings_section( 'yasr_general_options_section_id', __('General settings', 'yasr'), 'yasr_section_callback', 'yasr_general_settings_tab' );
@@ -253,6 +254,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	    	$text_before_visitor_rating = htmlspecialchars("$option[text_before_visitor_rating]");
 
+	    	$text_after_visitor_rating = htmlspecialchars("$option[text_after_visitor_rating]");
+
 	    	$custom_text_user_votes = htmlentities("$option[custom_text_user_voted]");
 	    	
 	    	?>
@@ -266,20 +269,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 	    		<?php _e('No', 'yasr'); ?>
 
 	    	<br /> <br />
-
+	    	
 	    	<input type='text' name='yasr_general_options[text_before_overall]' id="yasr-general-options-custom-text-before-overall" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_before_overall); ?> maxlength="40"/> 
-				<?php _e('Custom text to display before Overall Rating', 'yasr')?>
+			<?php _e('Custom text to display before Overall Rating', 'yasr')?>
+
+			<br /> <br /> <br />
+
+			<input type='text' name='yasr_general_options[text_before_visitor_rating]' id="yasr-general-options-custom-text-before-visitor" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_before_visitor_rating); ?> maxlength="80"/> 
+			<?php _e('Custom text to display BEFORE Visitor Rating', 'yasr')?> 
+
+			<br /> <br />
+
 			
-			<br /> <br />
+			<input type='text' name='yasr_general_options[text_after_visitor_rating]' id="yasr-general-options-custom-text-after-visitor" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_after_visitor_rating); ?> maxlength="80"/> 
+			<?php _e('Custom text to display AFTER Visitor Rating', 'yasr')?>
 
-			<input type='text' name='yasr_general_options[text_before_visitor_rating]' id="yasr-general-options-custom-text-before-visitor" class='yasr-general-options-text-before' <?php printf('value="%s"', $text_before_visitor_rating); ?> maxlength="40"/> 
-				<?php _e('Custom text to display before Visitor Rating', 'yasr')?>
-
-			<br /> <br />
+			<br /> <br /> <br />
 
 			<input type='text' name='yasr_general_options[custom_text_user_voted]' id="yasr-general-options-custom-text-already-rated" class='yasr-general-options-text-before' <?php printf('value="%s"', $custom_text_user_votes); ?> maxlength="60"/> 
-				<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
-			
+			<?php _e('Custom text to display when a non logged user has already rated', 'yasr')?>
+
+
+			<br /> <br />
+
+			<a href="#" id="yasr-doc-custom-text-link"><?php _e('Help', 'yasr'); ?></a>
+
+			<div id="yasr-doc-custom-text-div" class="yasr-help-box-settings">
+
+				<?php _e('In the first field you can use %overall_rating% pattern to show the overall rating.', 'yasr');?>
+
+				<br /> <br />
+
+				<?php _e('In the Second and Third fields you can use %total_count% pattern to show the total count, and %average% pattern to show the average', 'yasr');?>
+
+			</div>
 
 			<p>&nbsp;</p>
 

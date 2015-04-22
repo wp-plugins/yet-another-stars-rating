@@ -330,7 +330,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 				$title_post = get_the_title( $column->post_id );
 				$link = get_permalink( $column->post_id );
 
-				$yasr_log_vote_text = sprintf(__('Vote %d from %s on', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
+				$yasr_log_vote_text = sprintf(__('Vote %d from %s on ', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
 
 				echo "
 					

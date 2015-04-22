@@ -278,7 +278,8 @@ div.bigstars .rateit-selected
     margin: 10px;
 }
 
-#yasr-snippet-explained {
+.yasr-help-box-settings {
+    display: none;
     border: 2px dashed #CCC;
     padding: 15px;
     margin: 10px;

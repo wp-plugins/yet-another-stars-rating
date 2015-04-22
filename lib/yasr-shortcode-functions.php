@@ -47,8 +47,10 @@ function shortcode_overall_rating_callback ($atts) {
 
         if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
 
+            $text_before_star = str_replace('%overall_rating%', $overall_rating, YASR_TEXT_BEFORE_OVERALL);
+
             $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
-                                    <span id=\"yasr-custom-text-before-overall\">" . YASR_TEXT_BEFORE_OVERALL . "</span>";
+                                    <span id=\"yasr-custom-text-before-overall\">" . $text_before_star . "</span>";
 
         }
 
@@ -165,6 +167,34 @@ function shortcode_visitor_votes_callback ($atts) {
         $px_size = '32';
     }
 
+    $cookiename = 'yasr_visitor_vote_' . $post_id;
+
+    if (isset($_COOKIE[$cookiename])) { 
+
+        $cookie_value = $_COOKIE[$cookiename];
+
+        $cookie_value = (int)$cookie_value;
+
+        if ($cookie_value > 5) {
+
+            $cookie_value = 5;
+
+        }
+
+        elseif ($cookie_value < 1) {
+
+            $cookie_value = 1;
+
+        }
+
+    }
+
+    else {
+
+        $cookie_value = FALSE;
+
+    }
+
     $vote_if_user_already_rated = FALSE;
 
     $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes\">";
@@ -173,10 +203,10 @@ function shortcode_visitor_votes_callback ($atts) {
     //if anonymous are allowed to vote
     if (YASR_ALLOWED_USER === 'allow_anonymous') {
 
-        $readonly = 'false'; //readonly is ALWAYS false
-
-        //I've to block a logged in user that has already rated
+        //I've to checl a logged in user that has already rated
         if ( is_user_logged_in() ) {
+
+            $readonly = 'false'; 
 
             //Chek if a logged in user has already rated for this post
             $vote_if_user_already_rated = yasr_check_if_user_already_voted();
@@ -189,6 +219,25 @@ function shortcode_visitor_votes_callback ($atts) {
             }
 
         } //End if user is logged
+
+        else {
+
+            //if cookie exists
+            if($cookie_value) {
+
+                $readonly = 'true';
+                $span_after_rate_it="<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article with", "yasr") . " $cookie_value </span>";
+
+
+            }
+
+            else {
+
+                $readonly = 'false';
+
+            }
+
+        }
   
     } //end if  ($allow_logged_option['allowed_user']==='allow_anonymous') {
 
@@ -235,74 +284,89 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
+    if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_VISITOR_RATING != '') {
+
+        $text_before_star = str_replace('%total_count%', $votes_number, YASR_TEXT_BEFORE_VISITOR_RATING);
+
+        $text_before_star = str_replace('%average%', $medium_rating, $text_before_star);
+
+        $shortcode_html .= "<div class=\"yasr-container-custom-text-and-visitor-rating\">
+        <span id=\"yasr-custom-text-before-visitor-rating\">" . $text_before_star . "</span></div>"; 
+
+    }
+
+    if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_AFTER_VISITOR_RATING != '') {
+
+        $text_after_star = str_replace('%total_count%', $votes_number, YASR_TEXT_AFTER_VISITOR_RATING);
+
+        $text_after_star = str_replace('%average%', $medium_rating, $text_after_star);
+
+        $span_text_after_star = "<span id=\"yasr-custom-text-after-visitor-rating\">" . $text_after_star . "</span>";
+
+    }
+
+    else {
+
+        $span_text_after_star .= "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+                [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]
+            </span>";
+
+    }
+
     $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$readonly\"></div>";
 
     $shortcode_html .= $span_dashicon;
 
-    $shortcode_html .= "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
-                [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]
-            </span>";
+    $shortcode_html .= $span_text_after_star;
 
-    $shortcode_html.= $span_after_rate_it;
+    $shortcode_html .= $span_after_rate_it;
 
     $shortcode_html .= "</div>";
 
 
+    $var_tooltip_values = __("bad, poor, ok, good, super", "yasr");
+    $var_tooltip_values= json_encode($var_tooltip_values);
 
-    if(YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_VISITOR_RATING != '') {
+    $var_post_id = json_encode($post_id);
+    $var_ajax_url = json_encode(admin_url('admin-ajax.php'));
+    $var_size = json_encode($size);
+    $var_logged_user = json_encode(is_user_logged_in());
+    $var_vote_if_user_already_rated = json_encode($vote_if_user_already_rated);
+    $var_loader_html = json_encode("$loader_html");
+    $var_nonce_visitor = json_encode("$ajax_nonce_visitor");
 
-        $shortcode_html_tmp = "<div class=\"yasr-container-custom-text-and-visitor-rating\">
-        <span id=\"yasr-custom-text-before-visitor-rating\">" . YASR_TEXT_BEFORE_VISITOR_RATING . "</span>" .  $shortcode_html . "</div>"; 
+    $var_visitor_stats_enabled = json_encode(YASR_VISITORS_STATS);
 
-        $shortcode_html = $shortcode_html_tmp;
+    $javascript = "
 
-    }
+    <script type=\"text/javascript\">
 
-    //if (!is_feed()) {
+        jQuery(document).ready(function() {
 
-        $var_tooltip_values = __("bad, poor, ok, good, super", "yasr");
-        $var_tooltip_values= json_encode($var_tooltip_values);
+            var stringTooltipValues = $var_tooltip_values;
+            var arrayTooltipValues = stringTooltipValues.split(', ');
+            var postid = $var_post_id;
+            var ajaxurl = $var_ajax_url;
+            var size = $var_size;
+            var loggedUser = $var_logged_user;
+            var voteIfUserAlredyRated = $var_vote_if_user_already_rated;
+            var loaderHtml = $var_loader_html;
+            var nonceVisitor = $var_nonce_visitor;
+                
+            yasrVisitorsVotes(arrayTooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
 
-        $var_post_id = json_encode($post_id);
-        $var_ajax_url = json_encode(admin_url('admin-ajax.php'));
-        $var_size = json_encode($size);
-        $var_logged_user = json_encode(is_user_logged_in());
-        $var_vote_if_user_already_rated = json_encode($vote_if_user_already_rated);
-        $var_loader_html = json_encode("$loader_html");
-        $var_nonce_visitor = json_encode("$ajax_nonce_visitor");
+            var visitorStatsEnabled = $var_visitor_stats_enabled;
 
-        $var_visitor_stats_enabled = json_encode(YASR_VISITORS_STATS);
+            //If stats are enabled call the function 
+            if (visitorStatsEnabled == 'yes') {
+                yasrDrawTipsProgress (postid, ajaxurl); 
+            }
 
-        $javascript = "
+        });
 
-        <script type=\"text/javascript\">
+    </script>
 
-            jQuery(document).ready(function() {
-
-                var stringTooltipValues = $var_tooltip_values;
-                var arrayTooltipValues = stringTooltipValues.split(', ');
-                var postid = $var_post_id;
-                var ajaxurl = $var_ajax_url;
-                var size = $var_size;
-                var loggedUser = $var_logged_user;
-                var voteIfUserAlredyRated = $var_vote_if_user_already_rated;
-                var loaderHtml = $var_loader_html;
-                var nonceVisitor = $var_nonce_visitor;
-                    
-                yasrVisitorsVotes(arrayTooltipValues, postid, ajaxurl, size, loggedUser, voteIfUserAlredyRated, loaderHtml, nonceVisitor);
-
-                var visitorStatsEnabled = $var_visitor_stats_enabled;
-
-                //If stats are enabled call the function 
-                if (visitorStatsEnabled == 'yes') {
-                    yasrDrawTipsProgress (postid, ajaxurl); 
-                }
-
-            });
-
-        </script>
-
-        ";
+    ";
 
 
         //IF show visitor votes in loop is disabled use is_singular && is_main query
@@ -322,8 +386,6 @@ function shortcode_visitor_votes_callback ($atts) {
             return $shortcode_html . $javascript;
 
         }
-
-   // } //End (!is_feed)
 
 } //End function shortcode_visitor_votes_callback
 
