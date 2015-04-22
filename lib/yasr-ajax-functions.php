@@ -229,9 +229,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                 'post_id'=>$post_id,
                                 'field_id'=>$name->id,
                                 'votes'=>'-1',
-                                'set_type'=>$set_type
+                                'set_type'=>$set_type,
+                                'number_of_votes' => '0',
+                                'sum_votes' => '0'
                                 ),
-                        array ("%d", "%d", "%d", "%s", "%d")
+                        array ("%d", "%d", "%d", "%s", "%d", "%d", "%d")
                         );
 
                         echo "<tr> <td>";
@@ -252,9 +254,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     echo "<p>";
 
-                    _e("Remember to insert this shortcode", "yasr"); 
-                    echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
-                    _e("where you want to display this multi set", "yasr");
+                    _e("If you want to insert this multiset, paste this shortcode ", "yasr"); 
+                    echo "<strong> [yasr_multiset setid=$set_type] </strong> <br />"; 
+                    _e("If, instead, you want allow your visitor to vote on this multiset, use this shortcode", "yasr");
+                    echo "<strong> [yasr_visitor_multiset setid=$set_type] </strong>. In this case, you don't need to vote here <br />"; 
 
                     echo "</p>";
 
@@ -295,9 +298,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     echo "<p>";
 
-                    _e("Remember to insert this shortcode", "yasr"); 
-                    echo "<strong> [yasr_multiset setid=$set_type] </strong>"; 
-                    _e("where you want to display this multi set", "yasr");
+                    _e("If you want to insert this multiset, paste this shortcode ", "yasr"); 
+                    echo "<strong> [yasr_multiset setid=$set_type] </strong> <br />"; 
+                    _e("If, instead, you want allow your visitor to vote on this multiset, use this shortcode", "yasr");
+                    echo "<strong> [yasr_visitor_multiset setid=$set_type] </strong>. In this case, you don't need to vote here <br />"; 
 
                     echo "</p>";
                 }
@@ -336,70 +340,75 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 die( 'Security check' ); 
             }
 
-                global $wpdb;
+            global $wpdb;
 
-                //Check if vote already exist
-                $vote_already_exist=$wpdb->get_results($wpdb->prepare("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " 
-                        WHERE post_id = %d
-                        AND set_type = %d
-                        AND field_id = %d
-                        ", 
-                        $post_id, $set_type, $id_field));
+            //Check if vote already exist
+            $vote_already_exist=$wpdb->get_results($wpdb->prepare("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " 
+                    WHERE post_id = %d
+                    AND set_type = %d
+                    AND field_id = %d
+                    ", 
+                    $post_id, $set_type, $id_field));
 
-                //If vote already exist, overwrite it
-                if ($vote_already_exist) {
-                        foreach ($vote_already_exist as $index_id) {
-                                $id = $index_id->id;
-                        }       
-                        $query_success=$wpdb->replace(
-                                YASR_MULTI_SET_VALUES_TABLE,
-                                array (
-                                        'id'=>$id,
-                                        'post_id'=>$post_id,
-                                        'field_id'=>$id_field,
-                                        'votes'=>$vote,
-                                        'set_type'=>$set_type
-                                        ),
-                                array ("%d", "%d", "%d", "%s", "%d")
-                                );
-                        if($query_success) {
-                                echo $vote;
-                        }
-                } //End if vote already exist
-
-                //If vote doesn't exist create a new one
-                else {
-
-                        //get the highest id in table
-                        $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
-                
-                        if (!$highest_id) {
-                                $new_id=0;
-                        }
-
-                        foreach ($highest_id as $id) {
-                               $new_id=$id->id + 1;
-                        }
-
-                        $result=$wpdb->replace(
-                                YASR_MULTI_SET_VALUES_TABLE,
-                                array (
-                                'id' => $new_id,
+            //If vote already exist, overwrite it
+            if ($vote_already_exist) {
+                foreach ($vote_already_exist as $index_id) {
+                        $id = $index_id->id;
+                }       
+                $query_success=$wpdb->update(
+                        YASR_MULTI_SET_VALUES_TABLE,
+                        array (
+                                'id'=>$id,
                                 'post_id'=>$post_id,
                                 'field_id'=>$id_field,
                                 'votes'=>$vote,
                                 'set_type'=>$set_type
                                 ),
-                                array ("%d", "%d", "%s", "%d")
-                        );
+                        array (
+                                'id'=>$id
+                            ),
+                        array ("%d", "%d", "%d", "%s", "%d"),
+                        array ("%d")
+                );
 
-                        if($result) {
-                                echo $vote;
-                        }
+                if($query_success) {
+                    echo $vote;
+                }
+            } //End if vote already exist
 
-                } //End else
+            //If vote doesn't exist create a new one
+            else {
 
-                die();
+                //get the highest id in table
+                $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+        
+                if (!$highest_id) {
+                    $new_id=0;
+                }
+
+                foreach ($highest_id as $id) {
+                    $new_id=$id->id + 1;
+                }
+
+                $result=$wpdb->replace(
+                        YASR_MULTI_SET_VALUES_TABLE,
+                        array (
+                        'id' => $new_id,
+                        'post_id'=>$post_id,
+                        'field_id'=>$id_field,
+                        'votes'=>$vote,
+                        'set_type'=>$set_type
+                        ),
+                        array ("%d", "%d", "%s", "%d")
+                );
+
+                if($result) {
+                    echo $vote;
+                }
+
+            } //End else
+
+            die();
                 
         } //End callback function
 
@@ -407,7 +416,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /****** Create the content for the button shortcode in Tinymce ******/
 
-//Add ajax action that will be called from the .js for button in tinymce
+    //Add ajax action that will be called from the .js for button in tinymce
     add_action('wp_ajax_yasr_create_shortcode', 'wp_ajax_yasr_create_shortcode_callback');
 
     function wp_ajax_yasr_create_shortcode_callback() {
@@ -415,8 +424,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             $action=$_POST['action'];
         }
         else {
-                exit();
-            }
+            exit();
+        }
 
         global $wpdb;
 
@@ -485,7 +494,13 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                         <input type="radio" value="<?php echo $name->set_id ?>" name="yasr_tinymce_pick_set" class="yasr_tinymce_select_set"><?php echo $name->set_name ?>
                                         <br />
                                     <?php } //End foreach ?>
-                                <small><?php _e("Choose wich set you want to insert.", "yasr"); ?></small>
+                                    <small><?php _e("Choose wich set you want to insert.", "yasr"); ?></small>
+                                    <p>
+                                        <input type="checkbox" id="yasr-allow-vote-multiset"><?php _e("Readonly?", "yasr"); ?><br />
+                                    </p>
+                                    <small><?php _e("If Readonly is checked, only you can insert the votes (in the box above the editor)", "yasr"); ?></small>
+                                    <input type="button" class="button-primary" name="yasr-insert-multiset" id="yasr-insert-multiset-select" value="<?php _e("Insert Multi Set", "yasr") ?>" /><br />
+
                                 </td>
                             </tr>
 
@@ -496,8 +511,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                 <th><label for="yasr-size"><?php _e("Insert Multiset:", "yasr"); ?></label></th>
                                 <td>
                                     <?php foreach ($multi_set as $name) { ?>
-                                        <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" ><?php _e("Insert Multiple Set", "yasr"); ?></button><br />
-                                        <small><?php _e("Insert multiple set in this post ?", "yasr"); ?></small>
+                                        <button type="button" class="button-primary" id="yasr-single-set" name="yasr-single-set" value="<?php echo $name->set_id ?>" ><?php _e("Insert Multiple Set", "yasr"); ?></button>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="checkbox" id="yasr-allow-vote-multiset"><?php _e("Readonly?", "yasr"); ?><br />
+                                        <small><?php _e("If Readonly is checked, only you can insert the votes (in the box above the editor)", "yasr"); ?></small>
                                     <?php } //End foreach ?>
                                 </td>
                             </tr>
@@ -718,7 +735,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         declared on yasr-db-function  ******/
 
 
-add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
+    add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
 
     function yasr_change_log_page_callback () {
 
@@ -767,6 +784,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 $title_post = get_the_title( $column->post_id ); //Get post title from post id
                 $link = get_permalink( $column->post_id ); //Get post link from post id
 
+                $yasr_log_vote_text = sprintf(__('Vote %d from %s on', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
+
                 echo "
                     
                     <div class=\"yasr-log-div-child\">
@@ -776,7 +795,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                         </div>
 
                         <div id=\"yasr-log-child-head\">
-                             <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+                             <span id=\"yasr-log-vote\">$yasr_log_vote_text<span id=\"yasr-log-post\"><a href=\"$link\"> $title_post</a></span>
                         </div>
 
                         <div id=\"yasr-log-ip-date\">
@@ -905,6 +924,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             exit();
         }
 
+        yasr_wp_super_cache_support($post_id);
+
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
             }
@@ -984,7 +1005,14 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
                 );
         }
 
+
+        //If one of this is true update the log table
         if ($row_exists_result || $new_row_result ) {
+
+            $cookiename = "yasr_visitor_vote_" . $post_id;
+
+            yasr_setcookie($cookiename, $rating);
+
             global $current_user;
             get_currentuserinfo();
 
@@ -1009,7 +1037,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             $medium_rating = round ($total_rating, 1);
 
             echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$total_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" title=\"yasr-stats\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $medium_rating/5 ]</span>
+            <span class=\"yasr-total-average-text\" title=\"yasr-stats\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average:", "yasr") . " $medium_rating/5 ]</span>
             <span class=\"yasr-small-block-bold\" id=\"yasr-vote-saved\">" . __("Vote Saved" , "yasr") . "</span>";
 
         }
@@ -1017,7 +1045,7 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         elseif ($new_row_result) {
 
             echo "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-            <span class=\"yasr-total-average-text\" title=\"yasr-stats\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average rating", "yasr") . " $rating/5 ]</span>
+            <span class=\"yasr-total-average-text\" title=\"yasr-stats\"> [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average:", "yasr") . " $rating/5 ]</span>
             <span class=\"yasr-small-block-bold\" id=\"yasr-vote-saved\">" . __("Vote Saved" , "yasr") . "</span>";
         
         }
@@ -1049,6 +1077,8 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
         else {
             exit();
         }
+
+        yasr_wp_super_cache_support($post_id);
 
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
@@ -1158,22 +1188,25 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
     }
 
 
+/****** Get Multiple value from visitor and insert into db, used in yasr-shortcode-functions ******/
 
-/****** Echo a readonly star set if user has already voted for a post ******/
+    add_action( 'wp_ajax_yasr_visitor_multiset_field_vote', 'yasr_visitor_multiset_field_vote_callback' );
+    add_action ('wp_ajax_nopriv_yasr_visitor_multiset_field_vote', 'yasr_visitor_multiset_field_vote_callback');
 
-    add_action( 'wp_ajax_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
-    add_action( 'wp_ajax_nopriv_yasr_readonly_visitor_shortcode', 'yasr_readonly_visitor_shortcode_callback' );
+    function yasr_visitor_multiset_field_vote_callback() {
 
-    function yasr_readonly_visitor_shortcode_callback() {
-        if(isset($_POST['rating']) && isset($_POST['post_id']) && isset($_POST['size'])) {
+        if (isset($_POST['post_id']) && isset($_POST['rating']) && isset($_POST['set_type'])) {
+            $post_id = $_POST['post_id'];
             $rating = $_POST['rating'];
-            $post_id = $_POST['post_id'];
-            $size = $_POST['size'];
+            $set_type = $_POST['set_type'];
+            $nonce = $_POST['nonce'];
 
-            if($post_id == '') {
+            if ($post_id == '' || $set_type == '') {
+                exit("Missing post id or set type");
+            }
 
-                exit();
-
+            if ($rating == "") {
+                exit("You must insert at least a rating"); 
             }
 
         }
@@ -1181,226 +1214,95 @@ add_action( 'wp_ajax_yasr_change_log_page', 'yasr_change_log_page_callback' );
             exit();
         }
 
-        if ($size === 'small') {
-            $rateit_class='rateit';
-            $px_size = '16';
-        }
-
-        elseif ($size === 'medium') {
-            $rateit_class = 'rateit medium';
-            $px_size = '24';
-        }
-
-        //default values
-        else {
-            $rateit_class = 'rateit bigstars';
-            $px_size = '32';
+        if ( ! wp_verify_nonce( $nonce, 'yasr_nonce_insert_visitor_rating_multiset' ) ) {
+            die( 'Security check' ); 
         }
 
         global $wpdb;
 
-        //I've to pass post_id here cause get_the_id doesn't work if called with ajax
-        $array_votes=yasr_get_visitor_votes($post_id);
+        $array_error = array();
 
-        foreach ($array_votes as $vote) {
-            $number_of_votes = $vote->number_of_votes;
-            $sum_votes = $vote->sum_votes;
-        }
+        foreach ($rating as $rating_values) {
+            
+            $id_field = $rating_values['field'];
+            $rating = $rating_values['rating'];
 
-        //This should never happen, only if a user manually erase data from tables
-        if ($number_of_votes == 0) {
-            $number_of_votes = 1;
-        }
+            //Find the existing votes
+            $existing_vote=$wpdb->get_results($wpdb->prepare("SELECT number_of_votes, sum_votes FROM " . YASR_MULTI_SET_VALUES_TABLE . " 
+            WHERE post_id = %d
+            AND set_type = %d
+            AND field_id = %d
+            ", 
+            $post_id, $set_type, $id_field));
 
-        $average_rating = $sum_votes/$number_of_votes;
-
-        $average_rating = round ($average_rating, 1);
-
-
-        //Check if user specifyed a custom text to display when a vistor has rated
-
-        $shortcode = "<div class=\"$rateit_class\" id=\"yasr_rateit_user_votes_voted_ro\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$average_rating\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
-        
-        if (YASR_VISITORS_STATS === 'yes') {                
-            $shortcode .= "<span class=\"dashicons dashicons-chart-bar yasr-dashicons-visitor-stats \" id=\"yasr-total-average-dashicon-$post_id\" title=\"yasr-stats-dashicon\"></span>";
-        }
-
-        $shortcode.="<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
-                            [" . __("Total: ", "yasr") . "$number_of_votes &nbsp; &nbsp;" .  __("Average " , "yasr") .  "$average_rating/5 ]
-                        </span>";
-
-        if( YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED != '' ) {
-
-        $shortcode .= "<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . YASR_CUSTOM_TEXT_USER_VOTED . " </span>";
-
-        }
-
-        else {
-
-        $shortcode .= "<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article", "yasr") . " $rating </span>";
-
-        }
-
-        echo $shortcode;
-
-        ?>
-
-        <script type="text/javascript">
-
-            jQuery(document).ready(function() {
-
-                var postid = <?php echo (json_encode($post_id)); ?>;
-                var ajaxurl = <?php echo (json_encode(admin_url('admin-ajax.php'))); ?>;
-
-                var visitorStatsEnabled = <?php echo (json_encode(YASR_VISITORS_STATS)); ?>;
-
-                //If stats are enabled call the function 
-                if (visitorStatsEnabled == 'yes') {
-                    yasrDrawTipsProgress (postid, ajaxurl); 
-                }
-
-            });
-
-        </script>
-
-        <?php
-
-
-        die(); // this is required to return a proper result
-
-    } //End callback function
-
-
-    /****** Draw the stats for visitors votes ******/
-
-    add_action( 'wp_ajax_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
-    add_action( 'wp_ajax_nopriv_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
-
-    function yasr_stats_visitors_votes_callback () {
-
-        if(isset($_POST['post_id']) && $_POST['post_id'] != '' ) {
-            $post_id = $_POST['post_id'];
-        }
-
-        else {
-            exit();
-        }
-
-        $missing_vote = NULL; //avoid undefined variable
-
-        global $wpdb;
-
-        $stats = $wpdb->get_results( $wpdb->prepare ("SELECT ROUND( vote, 0 ) as vote, COUNT( vote ) AS n_of_votes
-                            FROM ". YASR_LOG_TABLE . " 
-                            WHERE post_id=%d
-                            GROUP BY vote
-                            ORDER BY vote DESC
-                            ",
-                            $post_id ),
-                            ARRAY_A);
-
-        $total_votes=0; //Avoid undefined variable if stats exists. Necessary if $stats not exists
-        
-        //if query return 0 wirte an empty array $existing_votes 
-        if (!$stats) {
-            $existing_votes = array();
-        }
-
-        else {
-            //Write a new array with only existing votes, and count all the number of votes
-            foreach ($stats as $votes) {
-                $existing_votes[] = $votes['vote'];//Create an array with only existing votes
-                $total_votes = $total_votes + $votes['n_of_votes'];
+            foreach ($existing_vote as $user_votes) {
+                $number_of_votes = $user_votes->number_of_votes;
+                $user_votes_sum = $user_votes->sum_votes;
             }
 
-        }
+            $number_of_votes=$number_of_votes+1;
+            $user_votes_sum=$user_votes_sum+$rating;
 
-        for ($i=1; $i<=5; $i++){
 
-            //If query return 0 write a new $stats array with index
-            if (!$stats) {
-                $stats[$i] = array();
-                $stats[$i]['vote'] = $i;
-                $stats[$i]['n_of_votes'] = 0;
+            $query_success=$wpdb->update(
+                YASR_MULTI_SET_VALUES_TABLE,
+                array (
+                    'number_of_votes' => $number_of_votes,
+                    'sum_votes' => $user_votes_sum,
+                    ),
+                array (
+                    'post_id' => $post_id,
+                    'field_id' => $id_field,
+                    'set_type' => $set_type
+                    ),
+                array('%d', '%s' ),
+                array( '%d', '%d', '%d' ) 
+            );
+
+            if ($query_success) {
+
+                $array_error[] = 0; 
+
             }
 
             else {
 
-                //If in the new array there are some vote missing create a new array
-                if(!in_array($i, $existing_votes)) {
-                    $missing_vote[$i] = array();
-                    $missing_vote[$i]['vote'] = $i; 
-                    $missing_vote[$i]['n_of_votes'] = 0;
-                }
+                $array_error[] = 1;
+
+            }
+
+        } //End foreach ($rating as $rating_values)
+
+        $error_found = FALSE;
+
+        foreach ($array_error as $error) {
+            
+            if ($error === 1) {
+
+                $error_found = TRUE;
 
             }
 
         }
 
-        //If missing_vote exists merge it 
-        if ($missing_vote) {
+        if(!$error_found) {
 
-            $stats = array_merge($stats, $missing_vote);
+            $cookiename = 'yasr_multi_visitor_cookie_' . $post_id;
+
+            yasr_setcookie($cookiename, 'true');
+
+            _e('Rating saved!', 'yasr');
 
         }
 
-        arsort($stats); //sort it by $votes[n_of_votes]
-
-        echo "<div class=\"yasr-progress-bars-container\">\n";
-
-        if ($total_votes == 0) {
-            $increase_bar_value = 0;
-        }
         else {
-            $increase_bar_value = 100 / $total_votes; //Find how much all the bars should increase per vote
+
+            _e('Rating not saved. Please Try again', 'yasr');
+
         }
-
-        $i=5;
-
-        $stars_text = __("stars", "yasr");
-
-        foreach ($stats as $logged_votes) {
-
-            if ($i==1) {
-                $stars_text = __("star", "yasr");
-            }
-            
-            echo "<div class=\"yasr-progress-bar-row-container\">
-                    <span class=\"yasr-progress-bar-name\">$i $stars_text</span>
-                    <span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-postid-$post_id-progress-bar-$i\" ></span>
-                    <span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
-                </div>"; 
-            
-            $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar
-
-            $value_progressbar = round ($value_progressbar, 2); //use only 2 decimal
-
-            $array_values_progressbar[] = $value_progressbar; 
-
-            $i--;
-                
-
-        } //End foreach
-
-        echo "</div>";
-
-        ?>
-        
-        <script type="text/javascript">
-            jQuery( document ).ready(function() {
-
-                var postId = <?php echo json_encode($post_id)?>;
-                var arrayValueProgressbar = <?php echo (json_encode($array_values_progressbar)) ?>;
-
-                yasrDrawProgressBars (arrayValueProgressbar, postId);
-
-            });
-        </script>
-
-        <?php
 
         die();
-
-    }
+            
+    } //End callback function
 
 ?>

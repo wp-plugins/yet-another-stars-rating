@@ -44,3 +44,9 @@
 .yasr-table-chart tr:nth-child(even) {
         background: #FFFFFF;
 }
+
+/* Pro rules */
+
+.yasr-pro-overall-rating-chart-text {
+    display: block;
+}
