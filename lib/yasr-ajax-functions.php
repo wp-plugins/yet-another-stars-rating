@@ -1305,4 +1305,134 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             
     } //End callback function
 
+add_action( 'wp_ajax_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
+    add_action( 'wp_ajax_nopriv_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
+
+    function yasr_stats_visitors_votes_callback () {
+
+        if(isset($_POST['post_id']) && $_POST['post_id'] != '' ) {
+            $post_id = $_POST['post_id'];
+        }
+
+        else {
+            exit();
+        }
+
+        $missing_vote = NULL; //avoid undefined variable
+
+        global $wpdb;
+
+        $stats = $wpdb->get_results( $wpdb->prepare ("SELECT ROUND( vote, 0 ) as vote, COUNT( vote ) AS n_of_votes
+                            FROM ". YASR_LOG_TABLE . " 
+                            WHERE post_id=%d
+                            GROUP BY vote
+                            ORDER BY vote DESC
+                            ",
+                            $post_id ),
+                            ARRAY_A);
+
+        $total_votes=0; //Avoid undefined variable if stats exists. Necessary if $stats not exists
+        
+        //if query return 0 wirte an empty array $existing_votes 
+        if (!$stats) {
+            $existing_votes = array();
+        }
+
+        else {
+            //Write a new array with only existing votes, and count all the number of votes
+            foreach ($stats as $votes) {
+                $existing_votes[] = $votes['vote'];//Create an array with only existing votes
+                $total_votes = $total_votes + $votes['n_of_votes'];
+            }
+
+        }
+
+        for ($i=1; $i<=5; $i++){
+
+            //If query return 0 write a new $stats array with index
+            if (!$stats) {
+                $stats[$i] = array();
+                $stats[$i]['vote'] = $i;
+                $stats[$i]['n_of_votes'] = 0;
+            }
+
+            else {
+
+                //If in the new array there are some vote missing create a new array
+                if(!in_array($i, $existing_votes)) {
+                    $missing_vote[$i] = array();
+                    $missing_vote[$i]['vote'] = $i; 
+                    $missing_vote[$i]['n_of_votes'] = 0;
+                }
+
+            }
+
+        }
+
+        //If missing_vote exists merge it 
+        if ($missing_vote) {
+
+            $stats = array_merge($stats, $missing_vote);
+
+        }
+
+        arsort($stats); //sort it by $votes[n_of_votes]
+
+        echo "<div class=\"yasr-progress-bars-container\">\n";
+
+        if ($total_votes == 0) {
+            $increase_bar_value = 0;
+        }
+        else {
+            $increase_bar_value = 100 / $total_votes; //Find how much all the bars should increase per vote
+        }
+
+        $i=5;
+
+        $stars_text = __("stars", "yasr");
+
+        foreach ($stats as $logged_votes) {
+
+            if ($i==1) {
+                $stars_text = __("star", "yasr");
+            }
+            
+            echo "<div class=\"yasr-progress-bar-row-container\">
+                    <span class=\"yasr-progress-bar-name\">$i $stars_text</span>
+                    <span class=\"yasr-progress-bar\" id=\"yasr-progress-bar-postid-$post_id-progress-bar-$i\" ></span>
+                    <span class=\"yasr-progress-bar-votes-count\">$logged_votes[n_of_votes]</span>
+                </div>"; 
+            
+            $value_progressbar = $increase_bar_value * $logged_votes['n_of_votes']; //value of the single bar
+
+            $value_progressbar = round ($value_progressbar, 2); //use only 2 decimal
+
+            $array_values_progressbar[] = $value_progressbar; 
+
+            $i--;
+                
+
+        } //End foreach
+
+        echo "</div>";
+
+        ?>
+        
+        <script type="text/javascript">
+            jQuery( document ).ready(function() {
+
+                var postId = <?php echo json_encode($post_id)?>;
+                var arrayValueProgressbar = <?php echo (json_encode($array_values_progressbar)) ?>;
+
+                yasrDrawProgressBars (arrayValueProgressbar, postId);
+
+            });
+        </script>
+
+        <?php
+
+        die();
+
+    }
+
 ?>
