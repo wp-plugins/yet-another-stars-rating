@@ -4,110 +4,40 @@
 
         jQuery('#yasr_rateit_visitor_votes_' + postid).bind('over', function (event, value) { jQuery(this).attr('title', tooltipValues[value-1]); });
 
-        var cookiename = "yasr_visitor_vote_" + postid;
-
         //Should be useless from version 0.7.9, just to be safe
         if (voteIfUserAlredyRated == "0" ) {
             voteIfUserAlredyRated = false;
         }
 
-        //If user is not logged in
-        if (! loggedUser) {
+        jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() {
 
-            //Check if has cookie and if so print readonly visitor shortcode
-            if (jQuery.cookie(cookiename)) {                
+            var el = jQuery(this);
+            var value = el.rateit('value');
+            var value = value.toFixed(1); //
 
-                var cookievote=jQuery.cookie(cookiename);
-
-                var data = {
-                    action: 'yasr_readonly_visitor_shortcode',
-                    size: size,
-                    rating: cookievote,
-                    post_id: postid
-                }
-
-                jQuery.post(ajaxurl, data, function(response) {
-                    jQuery('#yasr_visitor_votes_' + postid).html(response);
-                    jQuery('.rateit').rateit();
-                });
-
-            } //End if jquery cookie
-
-            //If not logged and not cookie allowed to voted
-            else {
-                yasrDefaultRatingShortcode (postid);
-            }
-
-        } //End if (!loggeduser)
-
-        //else, if is a logged in user
-        else {
-
-            //Do this code only if he has rated yet
-            //Check only for value in db, not cookie, see here https://wordpress.org/support/topic/vote-updates-and-different-users-votes-problem
-            if (voteIfUserAlredyRated) {
-
-                jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() {
-
-                    var el = jQuery(this);
-                    var value = el.rateit('value');
-                    var value = value.toFixed(1); //
-
-                    if (value < 1) {
-                        jQuery('#yasr_visitor_votes_' + postid).html('You can\'t vote 0');
-                    } 
-
-                    else {
-
-                        jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
-
-                        var data = {
-                                action: 'yasr_update_visitor_rating',
-                                rating: value,
-                                post_id: postid,
-                                size: size,
-                                nonce_visitor: nonceVisitor
-                            };
-
-                        //Send value to the Server
-                        jQuery.post(ajaxurl, data, function(response) {
-                            //response
-                            jQuery('#yasr_visitor_votes_' + postid).html(response); 
-                            jQuery('.rateit').rateit();
-                            //Create a cookie to disable double vote
-                            jQuery.cookie(cookiename, value, { expires : 360 }); 
-                        }) ;      
-
-                    }
-
-                });//End function update vote
-
-            } //End if jvoteIfUserAlredyRated == true
+            if (value < 1) {
+                jQuery('#yasr_visitor_votes_' + postid).html('You can\'t vote 0');
+            } 
 
             else {
 
-                yasrDefaultRatingShortcode (postid);
+                jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
 
-            }
+                //If loggedin user and has already rated for a post/page update the vote
+                if (loggedUser && voteIfUserAlredyRated) {
 
-        } //End else logged
+                    var data = {
+                        action: 'yasr_update_visitor_rating',
+                        rating: value,
+                        post_id: postid,
+                        size: size,
+                        nonce_visitor: nonceVisitor
+                    };
 
-        function yasrDefaultRatingShortcode (postid) {
-
-            //On click Insert visitor votes
-            jQuery('#yasr_rateit_visitor_votes_' + postid).on('rated', function() { 
-
-                var el = jQuery(this);
-                var value = el.rateit('value');
-                var value = value.toFixed(1); //
-
-                if (value < 1) {
-                    jQuery('#yasr_visitor_votes_' + postid).html('You can\'t vote 0');
                 }
 
+                //else is a new vote
                 else {
-
-                    jQuery('#yasr_visitor_votes_' + postid).html(loaderHtml);
 
                     var data = {
                         action: 'yasr_send_visitor_rating',
@@ -117,44 +47,86 @@
                         nonce_visitor: nonceVisitor
                     };
 
-                    //Send value to the Server
-                    jQuery.post(ajaxurl, data, function(response) {
-                        //response
-                        jQuery('#yasr_visitor_votes_' + postid).html(response); 
-                        jQuery('.rateit').rateit();
-                        //Create a cookie to disable double vote
-                        jQuery.cookie(cookiename, value, { expires : 360 }); 
-                    }) ;    
+                }
 
-                }      
+                //Send value to the Server
+                jQuery.post(ajaxurl, data, function(response) {
+                    //response
+                    jQuery('#yasr_visitor_votes_' + postid).html(response); 
+                    jQuery('.rateit').rateit();
 
-            });
+                }) ;      
 
-        } //End function default_rating_shortcode
+            } //End else value <1
+
+        });//End function insert/update vote
 
     } //End function yasr visitor votes
    
     
+    function yasrVisitorsMultiSet (postId, setType, ajaxurl, nonce) {
+
+        var ratingObject = "";
+
+        var ratingArray = new Array();
+
+        jQuery('.yasr-visitor-multi-'+postId).on('rated', function() { 
+            var el = jQuery(this);
+            var value = el.rateit('value');
+            var value = value.toFixed(1); 
+            var idField = el.attr('id');
+
+            ratingObject = {
+
+                field: idField,
+                rating: value
+
+            };
+
+            ratingArray.push(ratingObject);
+
+        });
+
+        jQuery('#yasr-send-visitor-multiset-'+postId).on('click', function() {
+
+            var cookiename = "yasr_multi_visitor_vote_" + postId;
+
+            jQuery('#yasr-loader-multiset-visitor-'+postId).show();
+
+            var data = {
+
+                action: 'yasr_visitor_multiset_field_vote',
+                nonce: nonce, 
+                post_id: postId,
+                rating: ratingArray,
+                set_type: setType
+
+            }
+
+            //Send value to the Server
+            jQuery.post(ajaxurl, data, function(response) {
+                jQuery('#yasr-loader-multiset-visitor-'+postId).text(response);
+                //jQuery.cookie(cookiename, true, { expires : 360 });
+            });
+
+        });
+
+    } //End function 
+
+
     function yasrMostOrHighestRatedChart (ajaxurl) {
 
-        //Link do nothing
-        /*jQuery('#yasr_multi_chart_link_to_nothing').on("click", function () {
+        //By default, hide the highest rated chart
+        jQuery('#yasr-highest-rated-posts').hide();
+
+        //On click on highest, hide most and show highest
+        jQuery('#yasr_multi_chart_highest').on("click", function () {
+
+            jQuery('#yasr-most-rated-posts').hide();
+
+            jQuery('#yasr-highest-rated-posts').show();
 
             return false; // prevent default click action from happening!
-
-        });*/
-
-            //By default, hide the highest rated chart
-            jQuery('#yasr-highest-rated-posts').hide();
-
-            //On click on highest, hide most and show highest
-            jQuery('#yasr_multi_chart_highest').on("click", function () {
-
-                jQuery('#yasr-most-rated-posts').hide();
-
-                jQuery('#yasr-highest-rated-posts').show();
-
-                return false; // prevent default click action from happening!
 
         });
 
