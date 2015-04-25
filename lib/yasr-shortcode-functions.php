@@ -37,65 +37,51 @@ function shortcode_overall_rating_callback ($atts) {
         );
     }
 
-        $overall_rating=yasr_get_overall_rating();
+    $overall_rating=yasr_get_overall_rating();
 
-        if (!$overall_rating) {
-            $overall_rating = "-1";
-        }
+    if (!$overall_rating) {
+        $overall_rating = "-1";
+    }
 
-        $shortcode_html = '';
+    $shortcode_html = '';
 
-        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
+    if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
 
-            $text_before_star = str_replace('%overall_rating%', $overall_rating, YASR_TEXT_BEFORE_OVERALL);
+        $text_before_star = str_replace('%overall_rating%', $overall_rating, YASR_TEXT_BEFORE_OVERALL);
 
-            $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
-                                    <span id=\"yasr-custom-text-before-overall\">" . $text_before_star . "</span>";
+        $shortcode_html = "<div class=\"yasr-container-custom-text-and-overall\">
+                                <span id=\"yasr-custom-text-before-overall\">" . $text_before_star . "</span>";
 
-        }
+    }
 
-        if ($size === 'small') {
-            $rateit_class='rateit';
-            $px_size = '16';
-        }
+    $stars_attribute = yasr_stars_size($size);
 
-        elseif ($size === 'medium') {
-            $rateit_class = 'rateit medium';
-            $px_size = '24';
-        }
-
-        //default values
-        else {
-            $rateit_class = 'rateit bigstars';
-            $px_size = '32';
-        }
-
-        $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
+    $shortcode_html .= "<div class=\"$stars_attribute[class]\" id=\"yasr_rateit_overall\" data-rateit-starwidth=\"$stars_attribute[px_size]\" data-rateit-starheight=\"$stars_attribute[px_size]\" data-rateit-value=\"$overall_rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>"; 
 
 
-        if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
+    if (YASR_TEXT_BEFORE_STARS == 1 && YASR_TEXT_BEFORE_OVERALL != '') {
 
-            $shortcode_html .= "</div>";
-        
-        }
+        $shortcode_html .= "</div>";
+    
+    }
 
-        //IF show overall rating in loop is disabled use is_singular && is_main query
-        if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
+    //IF show overall rating in loop is disabled use is_singular && is_main query
+    if ( YASR_SHOW_OVERALL_IN_LOOP === 'disabled' ) {
 
-            if( is_singular() && is_main_query() ) {
-
-                return $shortcode_html;
-
-            }
-
-        } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
-
-        //If overall rating in loop is enabled don't use is_singular && is main_query
-        elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
+        if( is_singular() && is_main_query() ) {
 
             return $shortcode_html;
 
         }
+
+    } // End if YASR_SHOW_OVERALL_IN_LOOP === 'disabled') {
+
+    //If overall rating in loop is enabled don't use is_singular && is main_query
+    elseif ( YASR_SHOW_OVERALL_IN_LOOP === 'enabled' ) {
+
+        return $shortcode_html;
+
+    }
 
 } //end function
 
@@ -151,21 +137,7 @@ function shortcode_visitor_votes_callback ($atts) {
         );
     }
 
-    if ($size === 'small') {
-        $rateit_class='rateit';
-        $px_size = '16';
-    }
-
-    elseif ($size === 'medium') {
-        $rateit_class = 'rateit medium';
-        $px_size = '24';
-    }
-
-    //default values
-    else {
-        $rateit_class = 'rateit bigstars';
-        $px_size = '32';
-    }
+    $stars_attribute = yasr_stars_size($size);
 
     $cookiename = 'yasr_visitor_vote_' . $post_id;
 
@@ -313,7 +285,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
     }
 
-    $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$readonly\"></div>";
+    $shortcode_html .= "<div class=\"$stars_attribute[class]\" id=\"yasr_rateit_visitor_votes_$post_id\" data-rateit-starwidth=\"$stars_attribute[px_size]\" data-rateit-starheight=\"$stars_attribute[px_size]\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$readonly\"></div>";
 
     $shortcode_html .= $span_dashicon;
 
@@ -434,26 +406,12 @@ function yasr_visitor_votes_readonly_callback ($atts) {
         );
     }
 
-    if ($size === 'small') {
-        $rateit_class='rateit';
-        $px_size = '16';
-    }
-
-    elseif ($size === 'medium') {
-        $rateit_class = 'rateit medium';
-        $px_size = '24';
-    }
-
-    //default values
-    else {
-        $rateit_class = 'rateit bigstars';
-        $px_size = '32';
-    }
+    $stars_attribute = yasr_stars_size($size);
 
     $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes_readonly\">";
     $span_after_rate_it = "";
 
-    $shortcode_html .= "<div class=\"$rateit_class\" id=\"yasr_rateit_visitor_votes_readonly_$post_id\" data-rateit-starwidth=\"$px_size\" data-rateit-starheight=\"$px_size\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
+    $shortcode_html .= "<div class=\"$stars_attribute[class]\" id=\"yasr_rateit_visitor_votes_readonly_$post_id\" data-rateit-starwidth=\"$stars_attribute[px_size]\" data-rateit-starheight=\"$stars_attribute[px_size]\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";
 
     $shortcode_html .= "</div>";
 
@@ -512,6 +470,23 @@ function shortcode_multi_set_callback( $atts ) {
     	$shortcode_html.="</table>";
     }
 
+    else {
+        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+                    FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
+                    WHERE parent_set_id=$setid 
+                    ORDER BY field_id ASC");
+
+        $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
+
+        foreach ($set_name as $set_content) {
+            $shortcode_html .=  "<tr> <td><span class=\"yasr-multi-set-name-field\">$set_content->name </span></td>
+                                 <td><div class=\"rateit\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div></td>
+                                 </tr>";
+        }
+        $shortcode_html.="</table>";
+        
+    }
+
 	return $shortcode_html;
 	} //End function
 
@@ -534,7 +509,6 @@ function yasr_visitor_multiset_callback ( $atts ) {
             'setid' => '1',
         ), $atts )
     );
-
 
     $cookiename = 'yasr_multi_visitor_cookie_' . $post_id;
 
@@ -629,6 +603,40 @@ function yasr_visitor_multiset_callback ( $atts ) {
                             </td>
                         </tr>
                         </table>";
+    }
+
+    else {
+
+        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+                    FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
+                    WHERE parent_set_id=$setid 
+                    ORDER BY field_id ASC");
+
+        $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
+
+        foreach ($set_name as $set_content) {
+            $shortcode_html .=  "<tr> 
+                                    <td>
+                                        <span class=\"yasr-multi-set-name-field\">$set_content->name </span>
+                                    </td>
+                                    <td>
+                                        <div class=\"rateit yasr-visitor-multi-$post_id\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div> 
+                                        <span class=\"yasr-visitor-multiset-vote-count\"> 0 </span> 
+                                    </td>
+                                 </tr>";
+        }
+
+        $shortcode_html.="<tr>
+                            <td colspan=\"2\">
+                                $button
+                                $loader_html
+                                <span class=\"yasr-visitor-multiset-message\">$span_message_content</span> 
+                            </td>
+                        </tr>
+                        </table>";
+
+        $shortcode_html.="</table>";
+
     }
 
     $var_post_id = json_encode($post_id);
@@ -755,9 +763,10 @@ function yasr_most_or_highest_rated_posts_callback () {
 
             $shortcode_html .= "<tr>
                         <td width=\"60%\"><a href=\"$link\">$post_title</a></td>
-                            <td width=\"40%\"><div id=\"yasr_visitor_votes\"><div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
-                            <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
-                        </td>
+                            <td width=\"40%\"><div id=\"yasr_visitor_votes\">
+                                <div class=\"rateit medium\" data-rateit-starwidth=\"24\" data-rateit-starheight=\"24\" data-rateit-value=\"$rating\" data-rateit-step=\"0.1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>
+                                <br /> [" .  __("Total:" , "yasr") . "$result->number_of_votes &nbsp;&nbsp;&nbsp;" . __("Average" , "yasr") . " $rating]
+                            </td>
                     </tr>";
 
 
@@ -918,7 +927,7 @@ function yasr_top_ten_active_users_callback () {
     if ($query_result) {
 
         $shortcode_html = "
-       <table class=\"yasr-table-chart\">
+        <table class=\"yasr-table-chart\">
         <tr>
          <th>UserName</th>
          <th>Number of votes</th>

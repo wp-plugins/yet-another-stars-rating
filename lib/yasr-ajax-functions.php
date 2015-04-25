@@ -212,7 +212,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     foreach ($set_name as $name) {
 
                         //get the highest id in table
-                        $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+                        /*$highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
             
                         if (!$highest_id) {
                             $new_id=0;
@@ -234,7 +234,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                 'sum_votes' => '0'
                                 ),
                         array ("%d", "%d", "%d", "%s", "%d", "%d", "%d")
-                        );
+                        );*/
 
                         echo "<tr> <td>";
                         echo "$name->name </td>"; 
@@ -1235,29 +1235,60 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             ", 
             $post_id, $set_type, $id_field));
 
-            foreach ($existing_vote as $user_votes) {
-                $number_of_votes = $user_votes->number_of_votes;
-                $user_votes_sum = $user_votes->sum_votes;
+            if(!empty($existing_vote)) {
+
+                foreach ($existing_vote as $user_votes) {
+                    $number_of_votes = $user_votes->number_of_votes;
+                    $user_votes_sum = $user_votes->sum_votes;
+                }
+
+                $number_of_votes=$number_of_votes+1;
+                $user_votes_sum=$user_votes_sum+$rating;
+
+                $query_success=$wpdb->update(
+                    YASR_MULTI_SET_VALUES_TABLE,
+                    array (
+                        'number_of_votes' => $number_of_votes,
+                        'sum_votes' => $user_votes_sum,
+                        ),
+                    array (
+                        'post_id' => $post_id,
+                        'field_id' => $id_field,
+                        'set_type' => $set_type
+                        ),
+                    array('%d', '%s' ),
+                    array( '%d', '%d', '%d' ) 
+                );
+
             }
 
-            $number_of_votes=$number_of_votes+1;
-            $user_votes_sum=$user_votes_sum+$rating;
+            else {
 
+                $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+            
+                if (!$highest_id) {
+                    $new_id=0;
+                }
 
-            $query_success=$wpdb->update(
+                foreach ($highest_id as $id) {
+                   $new_id=$id->id + 1;
+                }
+
+                $query_success=$wpdb->replace(
                 YASR_MULTI_SET_VALUES_TABLE,
                 array (
-                    'number_of_votes' => $number_of_votes,
-                    'sum_votes' => $user_votes_sum,
-                    ),
-                array (
-                    'post_id' => $post_id,
-                    'field_id' => $id_field,
-                    'set_type' => $set_type
-                    ),
-                array('%d', '%s' ),
-                array( '%d', '%d', '%d' ) 
-            );
+                        'id'=>$new_id,
+                        'post_id'=>$post_id,
+                        'field_id'=>$id_field,
+                        'set_type'=>$set_type,
+                        'number_of_votes' => 1,
+                        'sum_votes' => $rating
+                        ),
+                array ("%d", "%d", "%d",  "%d", "%d", "%d")
+                );
+
+            }
+
 
             if ($query_success) {
 
@@ -1305,7 +1336,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             
     } //End callback function
 
-add_action( 'wp_ajax_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
+
+    add_action( 'wp_ajax_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
     add_action( 'wp_ajax_nopriv_yasr_stats_visitors_votes', 'yasr_stats_visitors_votes_callback' );
 
     function yasr_stats_visitors_votes_callback () {

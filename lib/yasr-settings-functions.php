@@ -18,9 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
+if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // Exit if accessed directly
+
 /****** Add yasr general options ******/
 
-	add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
+		add_action( 'admin_init', 'yasr_general_options_init' ); //This is for general options
 
 		function yasr_general_options_init() {
 	    	register_setting(

@@ -135,21 +135,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         }
 
-		$multi_set=yasr_get_multi_set(); 
-		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
-		if ($multi_set) {
-			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', 'YASR', 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
-				add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
-			}
-		}
-		//else create just the overall rating one
-		else {
-			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'Overall Rating', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
-			}
-		}
-	}
+        //Always add this metabox
+        foreach ($post_type_where_display_metabox as $post_type) {
+            add_meta_box( 'yasr_metabox_overall_rating', 'YASR', 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
+        }
+
+        $multi_set=yasr_get_multi_set(); 
+        //If multiset are used then add the second metabox
+        if ($multi_set) {
+            foreach ($post_type_where_display_metabox as $post_type) {
+                add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
+            }
+        }
+
+    } //End function
 
 	function yasr_metabox_overall_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
@@ -408,7 +407,7 @@ add_action('admin_init', 'yasr_shortcode_button_init');
 
     //This callback adds our button to the toolbar
     function yasr_add_tinymce_button($buttons) {
-                //Add the button ID to the $button array
+        //Add the button ID to the $button array
         $buttons[] = "yasr_button";
         return $buttons;
     }
@@ -446,6 +445,36 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
 
     }
 
+
+/*** function that get the star size and return ***/
+function yasr_stars_size ($size) {
+
+    $size = sanitize_text_field($size);
+
+    $stars_attribute = array();
+
+    if ($size === 'small') {
+        $stars_attribute['class'] = 'rateit';
+        $stars_attribute['px_size'] = '16';
+    }
+
+    elseif ($size === 'medium') {
+        $stars_attribute['class'] = 'rateit medium';
+        $stars_attribute['px_size'] = '24';
+    }
+
+    //default values
+    else {
+        $stars_attribute['class'] = 'rateit bigstars';
+        $stars_attribute['px_size'] = '32';
+    }
+
+    return $stars_attribute;
+
+}
+
+
+
 /*** Add support for wp super cache ***/
 function yasr_wp_super_cache_support($post_id) {
     
@@ -456,7 +485,7 @@ function yasr_wp_super_cache_support($post_id) {
 }
 
 
-/*** Function to set cookie ***/
+/*** Function to set cookie, since version 0.8.3 ***/
     function yasr_setcookie($cookiename, $value) {
 
         if (!$value || !$cookiename) {
