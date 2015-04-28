@@ -65,6 +65,8 @@ function yasr_install() {
   		set_type int (2) NOT NULL,
   		post_id bigint(20) NOT NULL,
   		votes decimal(2,1) NOT NULL,
+  		number_of_votes bigint(20) NOT NULL,
+  		sum_votes decimal(11, 1) NOT NULL,
   		PRIMARY KEY (id),
   		UNIQUE KEY id (id)
 	);";
@@ -107,11 +109,17 @@ function yasr_install() {
 		$option['text_before_stars'] = 0;
 		$option['snippet'] = 'overall_rating';
 		$option['allowed_user'] = 'allow_anonymous';
-		$option['scheme_color'] = 'light';
 		$option['metabox_overall_rating'] = 'stars'; //This is not in settings page but in overall rating metabox
 		$option['visitors_stats'] = 'yes';
 
 		add_option("yasr_general_options", $option); //Write here the default value if there is not option
+
+		//Multi set options
+		$multiset_options = array();
+		$multiset_option['scheme_color'] = 'light';
+
+		update_option("yasr_multiset_options", $multiset_option);
+
 
 	}
 
@@ -175,6 +183,8 @@ function yasr_get_snippet_type() {
 				$snippet_type = $snippet->review_type;
 			}
 
+			$snippet_type = trim($snippet_type);
+
 			return $snippet_type;
 		}
 
@@ -212,6 +222,27 @@ function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 
 	return $result;
 }
+
+
+/****** Get multi set visitor votes ******/
+function yasr_get_multi_set_visitor ($post_id, $set_type) {
+
+	global $wpdb;
+
+	$result=$wpdb->get_results($wpdb->prepare("SELECT f.field_name AS name, f.field_id AS id, v.number_of_votes AS number_of_votes, v.sum_votes AS sum_votes 
+                        FROM " . YASR_MULTI_SET_FIELDS_TABLE . " AS f, " . YASR_MULTI_SET_VALUES_TABLE . " AS v 
+                        WHERE f.parent_set_id=$set_type
+                        AND f.field_id = v.field_id
+                        AND v.post_id = %d
+                        AND v.set_type = %d
+                        AND f.parent_set_id=v.set_type
+                        ORDER BY f.field_id ASC", $post_id, $set_type));
+
+	return $result;
+
+}
+
+
 
 /****** Get visitor votes ******/
 function yasr_get_visitor_votes ($post_id_referenced=FALSE) {
@@ -301,6 +332,8 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 				$title_post = get_the_title( $column->post_id );
 				$link = get_permalink( $column->post_id );
 
+				$yasr_log_vote_text = sprintf(__('Vote %d from %s on ', 'yasr'), $column->vote, '<strong style="color: blue">'.$user->user_login.'</strong>' ); 
+
 				echo "
 					
 					<div class=\"yasr-log-div-child\">
@@ -310,7 +343,7 @@ add_action( 'plugins_loaded', 'add_action_dashboard_widget_log' );
 						</div>
 
 						<div id=\"yasr-log-child-head\">
-							 <span id=\"yasr-log-vote\">Vote $column->vote </span> from <strong style=\"color: blue\">$user->user_login</strong> on <span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
+							 <span id=\"yasr-log-vote\">$yasr_log_vote_text</span><span id=\"yasr-log-post\"><a href=\"$link\">$title_post</a></span>
 						</div>
 
 						<div id=\"yasr-log-ip-date\">
