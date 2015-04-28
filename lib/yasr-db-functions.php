@@ -65,6 +65,8 @@ function yasr_install() {
   		set_type int (2) NOT NULL,
   		post_id bigint(20) NOT NULL,
   		votes decimal(2,1) NOT NULL,
+  		number_of_votes bigint(20) NOT NULL,
+  		sum_votes decimal(11, 1) NOT NULL,
   		PRIMARY KEY (id),
   		UNIQUE KEY id (id)
 	);";

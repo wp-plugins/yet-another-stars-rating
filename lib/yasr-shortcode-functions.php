@@ -139,11 +139,11 @@ function shortcode_visitor_votes_callback ($atts) {
 
     $stars_attribute = yasr_stars_size($size);
 
-    $cookiename = 'yasr_visitor_vote_' . $post_id;
+    $yasr_cookiename = 'yasr_visitor_vote_' . $post_id;
 
-    if (isset($_COOKIE[$cookiename])) { 
+    if (isset($_COOKIE[$yasr_cookiename])) { 
 
-        $cookie_value = $_COOKIE[$cookiename];
+        $cookie_value = $_COOKIE[$yasr_cookiename];
 
         $cookie_value = (int)$cookie_value;
 
@@ -279,7 +279,7 @@ function shortcode_visitor_votes_callback ($atts) {
 
     else {
 
-        $span_text_after_star .= "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+        $span_text_after_star = "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
                 [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]
             </span>";
 
