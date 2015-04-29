@@ -166,8 +166,6 @@ if ($version_installed && $version_installed < '0.8.6') {
 
 	$new_fields=$wpdb->get_results("SELECT * FROM " . YASR_MULTI_SET_VALUES_TABLE . " LIMIT 1");
 
-	$fields['number_of_votes'] = FALSE;
-
 	foreach ($new_fields as $fields) {
 		if(!isset($fields->number_of_votes)) {
 			$new_fields = FALSE;
@@ -183,24 +181,6 @@ if ($version_installed && $version_installed < '0.8.6') {
 	}
 
 }
-
-//remove end july 2015
-if ($version_installed && $version_installed < '0.8.3') {
-
-	$wpdb->query("ALTER TABLE " . YASR_MULTI_SET_VALUES_TABLE . " ADD number_of_votes BIGINT( 20 ) NOT NULL ,
-					ADD sum_votes DECIMAL( 11, 1 ) NOT NULL ;");
-
-}
-
-//remove end jun 2015
-if ($version_installed && $version_installed < '0.8.2') {
-
-	$multiset_option['scheme_color'] = $stored_options['scheme_color'];
-
-	update_option("yasr_multiset_options", $multiset_option);
-
-}
-
 
 
 //remove end may 2015
