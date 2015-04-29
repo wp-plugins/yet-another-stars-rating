@@ -182,6 +182,14 @@ if ($version_installed && $version_installed < '0.8.6') {
 
 }
 
+//remove end jun 2015
+if ($version_installed && $version_installed < '0.8.2') {
+
+	$multiset_option['scheme_color'] = $stored_options['scheme_color'];
+
+	update_option("yasr_multiset_options", $multiset_option);
+
+}
 
 //remove end may 2015
 if ($version_installed && $version_installed < '0.7.7') {
