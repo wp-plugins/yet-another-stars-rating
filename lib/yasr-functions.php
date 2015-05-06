@@ -31,9 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
             wp_enqueue_style( 'jquery-ui','//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', FALSE, NULL, 'all' );
+            wp_enqueue_style( 'dashicons' ); //dashicons
         }
 
-        wp_enqueue_style( 'dashicons' ); //dashicons
+        
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
 
         //If choosen is light or not dark (force to be default)
@@ -51,7 +52,6 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 
 		wp_enqueue_script( 'rateit', YASR_JS_DIR . 'jquery.rateit.min.js' , array('jquery'), '1.0.22', TRUE ); 
-		wp_enqueue_script( 'cookie', YASR_JS_DIR . 'jquery-cookie.min.js' , array('jquery', 'rateit'), '1.4.0', TRUE );
 
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
@@ -136,21 +136,20 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         }
 
-		$multi_set=yasr_get_multi_set(); 
-		//If multiset are used then add 2 metabox, 1 for overall rating and 1 for multiple rating 
-		if ($multi_set) {
-			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'YASR', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
-				add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
-			}
-		}
-		//else create just the overall rating one
-		else {
-			foreach ($post_type_where_display_metabox as $post_type) {
-				add_meta_box( 'yasr_metabox_overall_rating', __( 'Overall Rating', 'yasr' ), 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
-			}
-		}
-	}
+        //Always add this metabox
+        foreach ($post_type_where_display_metabox as $post_type) {
+            add_meta_box( 'yasr_metabox_overall_rating', 'YASR', 'yasr_metabox_overall_rating_content', $post_type, 'side', 'high' );
+        }
+
+        $multi_set=yasr_get_multi_set(); 
+        //If multiset are used then add the second metabox
+        if ($multi_set) {
+            foreach ($post_type_where_display_metabox as $post_type) {
+                add_meta_box( 'yasr_metabox_multiple_rating', __( 'Yet Another Stars Rating: Multiple set', 'yasr' ), 'yasr_metabox_multiple_rating_content', $post_type, 'normal', 'high' );
+            }
+        }
+
+    } //End function
 
 	function yasr_metabox_overall_rating_content() {
 		if ( current_user_can( 'publish_posts' ) )  {
@@ -294,12 +293,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 				if(is_singular() && is_main_query() ) {
 					global $post;
 
-                    if ($review_choosen == 'Place') {
+                    if ($review_choosen == "Place") {
                         $title = "<span itemprop=\"itemReviewed\" itemscope itemtype=\"http://schema.org/LocalBusiness\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
                     }
 
-                    if ($review_choosen == 'Other') {
-                         $title = "<span itemprop=\"itemReviewed\" itemscope itemType=\"http://schema.org/BlogPosting\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
+                    elseif ($review_choosen == "Other") {
+                        $title = "<span itemprop=\"itemReviewed\" itemscope itemType=\"http://schema.org/BlogPosting\">  <span itemprop=\"name\">". get_the_title() ."</span></span>";
                     }
 
                     else {
@@ -337,7 +336,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $visitor_rating = NULL;
             }
 
-			if ($visitor_rating['sum'] != 0) {
+			if ($visitor_rating['sum'] != 0 && $visitor_rating['votes_number'] != 0) {
 
 				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
 
@@ -392,7 +391,7 @@ add_action('admin_init', 'yasr_shortcode_button_init');
         if ( ! current_user_can('publish_posts') && ! current_user_can('publish_posts') && get_user_option('rich_editing') == 'true')
            return;
 
-        //Add a callback to regiser our tinymce plugin   
+        //Add a callback to register our tinymce plugin   
         add_filter("mce_external_plugins", "yasr_register_tinymce_plugin"); 
 
         // Add a callback to add our button to the TinyMCE toolbar
@@ -409,7 +408,7 @@ add_action('admin_init', 'yasr_shortcode_button_init');
 
     //This callback adds our button to the toolbar
     function yasr_add_tinymce_button($buttons) {
-                //Add the button ID to the $button array
+        //Add the button ID to the $button array
         $buttons[] = "yasr_button";
         return $buttons;
     }
@@ -444,6 +443,57 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
         else {
             return FALSE;
         }
+
+    }
+
+
+/*** function that get the star size and return ***/
+function yasr_stars_size ($size) {
+
+    $size = sanitize_text_field($size);
+
+    $stars_attribute = array();
+
+    if ($size === 'small') {
+        $stars_attribute['class'] = 'rateit';
+        $stars_attribute['px_size'] = '16';
+    }
+
+    elseif ($size === 'medium') {
+        $stars_attribute['class'] = 'rateit medium';
+        $stars_attribute['px_size'] = '24';
+    }
+
+    //default values
+    else {
+        $stars_attribute['class'] = 'rateit bigstars';
+        $stars_attribute['px_size'] = '32';
+    }
+
+    return $stars_attribute;
+
+}
+
+
+
+/*** Add support for wp super cache ***/
+function yasr_wp_super_cache_support($post_id) {
+    
+    if(function_exists('wp_cache_post_change')) {
+        wp_cache_post_change($post_id);
+    }
+
+}
+
+
+/*** Function to set cookie, since version 0.8.3 ***/
+    function yasr_setcookie($cookiename, $value) {
+
+        if (!$value || !$cookiename) {
+            exit();
+        }
+
+        setcookie( $cookiename, $value, time() + 31536000, COOKIEPATH, COOKIE_DOMAIN );
 
     }
 

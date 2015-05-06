@@ -118,6 +118,14 @@ div.medium .rateit-range
     height: 24px;
 }
 
+div.medium-rtl .rateit-range
+{
+    /*White*/
+    background: url('../img/stars24.png') right 0px;
+    width: 24px; 
+    height: 24px;
+}
+
 div.medium .rateit-hover
 {
     /*Red*/
@@ -128,10 +136,28 @@ div.medium .rateit-hover
 
 }
 
+div.medium-rtl .rateit-hover
+{
+    /*Red*/
+    background: url('../img/stars24.png') right -29px;
+    width: 24px; 
+    height: 24px;
+    display: none
+
+}
+
 div.medium .rateit-selected
 {
     /*Yellow*/
     background: url('../img/stars24.png') left -58px ;
+    width: 24px; 
+    height: 24px;
+}
+
+div.medium-rtl .rateit-selected
+{
+    /*Yellow*/
+    background: url('../img/stars24.png') right -58px ;
     width: 24px; 
     height: 24px;
 }
@@ -224,6 +250,10 @@ div.bigstars .rateit-selected
 
 .yasr-highest-rated-text{
     display: block;
+}
+
+.yasr-loader-multiset-visitor {
+    display: none;
 }
 
 /***  Progress bar, this class are used in 

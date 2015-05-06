@@ -278,7 +278,8 @@ div.bigstars .rateit-selected
     margin: 10px;
 }
 
-#yasr-snippet-explained {
+.yasr-help-box-settings {
+    display: none;
     border: 2px dashed #CCC;
     padding: 15px;
     margin: 10px;
@@ -425,6 +426,14 @@ div.bigstars .rateit-selected
 .yasr_table_multi_set_admin tr:nth-child(even) {
         background: #FFFFFF;
     }
+
+
+.yasr-multi-set-choose-theme {
+    clear: both;
+    padding: 10px;
+    border: 1px solid #DDD;
+    background-color: #f7f7f7;
+}
 
 /*** End rules for multi set admin page ***/
 
