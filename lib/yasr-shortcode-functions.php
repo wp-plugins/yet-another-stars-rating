@@ -198,8 +198,18 @@ function shortcode_visitor_votes_callback ($atts) {
             if($cookie_value) {
 
                 $readonly = 'true';
-                $span_after_rate_it="<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article with", "yasr") . " $cookie_value </span>";
 
+                if (YASR_TEXT_BEFORE_STARS == 1 && YASR_CUSTOM_TEXT_USER_VOTED!='') {
+
+                    $span_after_rate_it = $span_after_rate_it="<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . YASR_CUSTOM_TEXT_USER_VOTED . " </span>";; 
+
+                }
+
+                else {
+
+                    $span_after_rate_it="<span class=\"yasr-small-block-bold\" id=\"yasr-already-voted-text\">" . __("You've already voted this article with", "yasr") . " $cookie_value </span>";
+
+                }
 
             }
 
@@ -273,13 +283,13 @@ function shortcode_visitor_votes_callback ($atts) {
 
         $text_after_star = str_replace('%average%', $medium_rating, $text_after_star);
 
-        $span_text_after_star = "<span id=\"yasr-custom-text-after-visitor-rating\">" . $text_after_star . "</span>";
+        $span_text_after_star = "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\">" . $text_after_star . "</span>";
 
     }
 
     else {
 
-        $span_text_after_star = "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\" title=\"yasr-stats\">
+        $span_text_after_star = "<span class=\"yasr-total-average-container\" id=\"yasr-total-average-text_$post_id\">
                 [" . __("Total: ", "yasr") . "$votes_number &nbsp; &nbsp;" .  __("Average: ","yasr") . "$medium_rating/5]
             </span>";
 
@@ -680,6 +690,7 @@ function yasr_top_ten_highest_rated_callback () {
                                         FROM " . YASR_VOTES_TABLE . " AS v, $wpdb->posts AS p
                                         WHERE  v.post_id = p.ID
                                         AND p.post_status = 'publish'
+                                        AND v.overall_rating > 0
                                         ORDER BY v.overall_rating DESC, v.id ASC LIMIT 10");
 
     if ($query_result) {

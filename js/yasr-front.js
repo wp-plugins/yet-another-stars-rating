@@ -66,8 +66,10 @@
     
     function yasrVisitorsMultiSet (postId, setType, ajaxurl, nonce) {
 
+        //will have field id and vote
         var ratingObject = "";
 
+        //an array with all the ratingonjects
         var ratingArray = new Array();
 
         jQuery('.yasr-visitor-multi-'+postId).on('rated', function() { 
@@ -83,6 +85,7 @@
 
             };
 
+            //creating rating array
             ratingArray.push(ratingObject);
 
         });
@@ -106,7 +109,6 @@
             //Send value to the Server
             jQuery.post(ajaxurl, data, function(response) {
                 jQuery('#yasr-loader-multiset-visitor-'+postId).text(response);
-                //jQuery.cookie(cookiename, true, { expires : 360 });
             });
 
         });

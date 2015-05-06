@@ -373,7 +373,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 		   		<a href="#" id="yasr-snippet-explained-link"><?php _e("What is this?", "yasr") ?></a>
 
-		   		<div id="yasr-snippet-explained" style="display:none">
+		   		<div id="yasr-snippet-explained" class="yasr-help-box-settings">
 		   			<?php 
 
 		   				_e("If you select \"Review Rating\", your site will be indexed from search engines like this: ", "yasr");
@@ -417,7 +417,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 /****** Add yasr multiset options and settings******/
 
-		add_action( 'admin_init', 'yasr_multiset_options_init' ); //This is for general options
+	add_action( 'admin_init', 'yasr_multiset_options_init' ); //This is for general options
 
 		function yasr_multiset_options_init() {
 	    	register_setting(

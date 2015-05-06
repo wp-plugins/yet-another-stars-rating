@@ -31,9 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         //if visitors stats are enabled
         if (YASR_VISITORS_STATS === 'yes') {
             wp_enqueue_style( 'jquery-ui','//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', FALSE, NULL, 'all' );
+            wp_enqueue_style( 'dashicons' ); //dashicons
         }
 
-        wp_enqueue_style( 'dashicons' ); //dashicons
+        
 		wp_enqueue_style( 'yasrcss', YASR_CSS_DIR . 'yasr.css', FALSE, NULL, 'all' );
 
         //If choosen is light or not dark (force to be default)
@@ -335,7 +336,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 $visitor_rating = NULL;
             }
 
-			if ($visitor_rating['sum'] != 0) {
+			if ($visitor_rating['sum'] != 0 && $visitor_rating['votes_number'] != 0) {
 
 				$average_rating = $visitor_rating['sum'] / $visitor_rating['votes_number'];
 
