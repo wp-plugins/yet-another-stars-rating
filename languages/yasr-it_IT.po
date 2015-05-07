@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Yasr Translation\n"
-"POT-Creation-Date: 2015-04-30 16:31+0100\n"
-"PO-Revision-Date: 2015-04-30 16:34+0100\n"
+"POT-Creation-Date: 2015-05-07 09:50+0100\n"
+"PO-Revision-Date: 2015-05-07 09:50+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -21,7 +21,7 @@ msgid "Rate this article / item"
 msgstr "Vota questo articolo / oggetto"
 
 #: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:124
-#: ../lib/yasr-shortcode-functions.php:517
+#: ../lib/yasr-shortcode-functions.php:527
 msgid "Loading, please wait"
 msgstr "Caricamento, attendere prego"
 
@@ -50,7 +50,7 @@ msgstr ""
 "Ricorda di inserire questo shortcode  <strong>[yasr_overall_rating]</strong> "
 "dove vuoi far apparire questo voto"
 
-#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:110
+#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:111
 #: ../lib/yasr-ajax-functions.php:44 ../lib/yasr-ajax-functions.php:187
 #: ../lib/yasr-ajax-functions.php:336 ../lib/yasr-ajax-functions.php:753
 msgid "You do not have sufficient permissions to access this page."
@@ -201,80 +201,86 @@ msgid "Choose wich set you want to use"
 msgstr "Scegli che set vuoi usare"
 
 #: ../lib/yasr-shortcode-functions.php:189
-#: ../lib/yasr-shortcode-functions.php:201
-#: ../lib/yasr-shortcode-functions.php:230
+#: ../lib/yasr-shortcode-functions.php:210
+#: ../lib/yasr-shortcode-functions.php:240
 msgid "You've already voted this article with"
 msgstr "Hai già votato questo articolo con "
 
-#: ../lib/yasr-shortcode-functions.php:241
-#: ../lib/yasr-shortcode-functions.php:545
+#: ../lib/yasr-shortcode-functions.php:251
+#: ../lib/yasr-shortcode-functions.php:555
 msgid "You must sign to vote"
 msgstr "Devi fare il login per votare"
 
-#: ../lib/yasr-shortcode-functions.php:283 ../lib/yasr-ajax-functions.php:1040
+#: ../lib/yasr-shortcode-functions.php:293 ../lib/yasr-ajax-functions.php:1040
 #: ../lib/yasr-ajax-functions.php:1048 ../lib/yasr-ajax-functions.php:1181
 msgid "Total: "
 msgstr "Voti: "
 
-#: ../lib/yasr-shortcode-functions.php:283
+#: ../lib/yasr-shortcode-functions.php:293
 msgid "Average: "
 msgstr "Media Voto: "
 
-#: ../lib/yasr-shortcode-functions.php:299
+#: ../lib/yasr-shortcode-functions.php:309
 msgid "bad, poor, ok, good, super"
 msgstr "pessimo, scarso, ok, buono, super"
 
-#: ../lib/yasr-shortcode-functions.php:524
+#: ../lib/yasr-shortcode-functions.php:534
 msgid "Thank you for voting! "
 msgstr "Grazie per aver votato!"
 
-#: ../lib/yasr-shortcode-functions.php:700
+#: ../lib/yasr-shortcode-functions.php:545
+#: ../lib/yasr-shortcode-functions.php:553
+#: ../lib/yasr-shortcode-functions.php:565
+msgid "Submit!"
+msgstr ""
+
+#: ../lib/yasr-shortcode-functions.php:710
 msgid "Rating"
 msgstr "Voto"
 
-#: ../lib/yasr-shortcode-functions.php:714
+#: ../lib/yasr-shortcode-functions.php:724
 msgid "You don't have any votes stored"
 msgstr "Non hai alcun voto salvato"
 
-#: ../lib/yasr-shortcode-functions.php:750
-#: ../lib/yasr-shortcode-functions.php:789
+#: ../lib/yasr-shortcode-functions.php:760
+#: ../lib/yasr-shortcode-functions.php:799
 msgid "Post / Page"
 msgstr "Post / Pagina"
 
-#: ../lib/yasr-shortcode-functions.php:751
-#: ../lib/yasr-shortcode-functions.php:790
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Order By"
 msgstr "Ordina per"
 
-#: ../lib/yasr-shortcode-functions.php:751
-#: ../lib/yasr-shortcode-functions.php:790
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Most Rated"
 msgstr "Più Votati"
 
-#: ../lib/yasr-shortcode-functions.php:751
-#: ../lib/yasr-shortcode-functions.php:790
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Highest Rated"
 msgstr "Voto più alto"
 
-#: ../lib/yasr-shortcode-functions.php:769
-#: ../lib/yasr-shortcode-functions.php:804
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
 msgid "Total:"
 msgstr "Voti:"
 
-#: ../lib/yasr-shortcode-functions.php:769
-#: ../lib/yasr-shortcode-functions.php:804
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
 msgid "Average"
 msgstr "Media"
 
-#: ../lib/yasr-shortcode-functions.php:781
+#: ../lib/yasr-shortcode-functions.php:791
 msgid "You've not enough data"
 msgstr "Non hai abbastanza dati"
 
-#: ../lib/yasr-shortcode-functions.php:816
+#: ../lib/yasr-shortcode-functions.php:826
 msgid "You've not enought data"
 msgstr "Non hai abbastanza dati"
 
-#: ../lib/yasr-shortcode-functions.php:901
+#: ../lib/yasr-shortcode-functions.php:911
 msgid ""
 "Problem while retrieving the top 5 most active reviewers. Did you publish "
 "any review?"
@@ -282,7 +288,7 @@ msgstr ""
 "C'è stato un problema nell'ottenere la classifica dei 5 recensori più "
 "attivi. Hai pubblicato qualche recensione?"
 
-#: ../lib/yasr-shortcode-functions.php:969
+#: ../lib/yasr-shortcode-functions.php:979
 msgid ""
 "Problem while retrieving the top 10 active users chart. Are you sure you "
 "have votes to show?"
@@ -776,47 +782,47 @@ msgstr "Indirizzo Ip"
 msgid "Pages"
 msgstr "Pagine"
 
-#: ../lib/yasr-functions.php:98 ../lib/yasr-functions.php:99
+#: ../lib/yasr-functions.php:99 ../lib/yasr-functions.php:100
 msgid "Yet Another Stars Rating: Settings"
 msgstr "Yet Another Stars Rating: Impostazioni"
 
-#: ../lib/yasr-functions.php:147
+#: ../lib/yasr-functions.php:148
 msgid "Yet Another Stars Rating: Multiple set"
 msgstr "Yet Another Stars Rating: Set Multipli"
 
-#: ../lib/yasr-functions.php:158
+#: ../lib/yasr-functions.php:159
 msgid "You don't have enought privileges to insert Overall Rating"
 msgstr "Non hai permessi sufficienti per inserire il Voto Complessivo"
 
-#: ../lib/yasr-functions.php:168
+#: ../lib/yasr-functions.php:169
 msgid "You don't have enought privileges to insert Multi Set"
 msgstr "Non hai abbastanza permessi per inserire un Multi Set"
 
-#: ../lib/yasr-functions.php:308
+#: ../lib/yasr-functions.php:309
 msgid " reviewed by "
 msgstr " recensito da "
 
-#: ../lib/yasr-functions.php:309
+#: ../lib/yasr-functions.php:310
 msgid " on "
 msgstr " il "
 
-#: ../lib/yasr-functions.php:310
+#: ../lib/yasr-functions.php:311
 msgid " rated "
 msgstr " votato "
 
-#: ../lib/yasr-functions.php:310
+#: ../lib/yasr-functions.php:311
 msgid " of"
 msgstr "su"
 
-#: ../lib/yasr-functions.php:357
+#: ../lib/yasr-functions.php:358
 msgid " written by "
 msgstr " scritto da "
 
-#: ../lib/yasr-functions.php:359
+#: ../lib/yasr-functions.php:360
 msgid " average rating "
 msgstr " media voto "
 
-#: ../lib/yasr-functions.php:360
+#: ../lib/yasr-functions.php:361
 msgid " user ratings"
 msgstr " voti utenti "
 
