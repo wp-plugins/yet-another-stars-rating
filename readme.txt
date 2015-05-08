@@ -53,7 +53,7 @@ If with gd-star-rating you're using a different number of stars from the default
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
 In this video I'll show you the "Auto Insert" feature and manual placement of YASR basic shortcodes.
-[youtube https://youtu.be/M47xsJMQJ1E]
+[youtube https://www.youtube.com/watch?v=M47xsJMQJ1E]
 
 = Related Link =
 * News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
