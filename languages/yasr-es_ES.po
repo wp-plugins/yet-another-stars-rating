@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yet Another Stars Rating\n"
 "POT-Creation-Date: 2015-05-07 09:50+0100\n"
-"PO-Revision-Date: 2015-05-07 09:50+0100\n"
+"PO-Revision-Date: 2015-05-11 11:22+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: Cglevel.com <tusitio@cglevel.com>\n"
 "Language: es_ES\n"
@@ -783,31 +783,31 @@ msgstr ""
 
 #: lib/yasr-functions.php:309
 msgid " reviewed by "
-msgstr "Revisado por:"
+msgstr " Revisado por: "
 
 #: lib/yasr-functions.php:310
 msgid " on "
-msgstr "el"
+msgstr " el "
 
 #: lib/yasr-functions.php:311
 msgid " rated "
-msgstr "Calificado"
+msgstr " Calificado "
 
 #: lib/yasr-functions.php:311
 msgid " of"
-msgstr "de"
+msgstr " de "
 
 #: lib/yasr-functions.php:358
 msgid " written by "
-msgstr "Escrito por:"
+msgstr " scrito por: "
 
 #: lib/yasr-functions.php:360
 msgid " average rating "
-msgstr "Promedio de puntuación"
+msgstr ""
 
 #: lib/yasr-functions.php:361
 msgid " user ratings"
-msgstr "Puntuación de los usuarios"
+msgstr " Puntuación de los usuarios "
 
 #: lib/yasr-ajax-functions.php:96
 msgid "You've rated it "
@@ -1029,7 +1029,7 @@ msgstr "No hay calificación reciente"
 #: lib/yasr-ajax-functions.php:787
 #, php-format
 msgid "Vote %d from %s on"
-msgstr "Votar% d de%s en"
+msgstr "Votar %d de %s en"
 
 #: lib/yasr-ajax-functions.php:937 lib/yasr-ajax-functions.php:1088
 msgid "Error: you can't vote 0"
