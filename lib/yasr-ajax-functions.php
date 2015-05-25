@@ -1016,6 +1016,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
             global $current_user;
             get_currentuserinfo();
 
+            $ip_adress = yasr_get_ip();
+
             $result_insert_log = $wpdb->replace (
                 YASR_LOG_TABLE,
                 array (
@@ -1024,7 +1026,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     'user_id' => $current_user->ID,
                     'vote' => $rating,
                     'date' => date('Y-m-d H:i:s'),
-                    'ip' => $_SERVER['REMOTE_ADDR']
+                    'ip' => $ip_adress
                     ), 
                 array ('%d', '%d', '%d', '%s', '%s', '%s')
                 );

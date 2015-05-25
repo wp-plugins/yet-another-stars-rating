@@ -25,19 +25,24 @@ add_shortcode ('yasr_overall_rating', 'shortcode_overall_rating_callback');
 
 function shortcode_overall_rating_callback ($atts) {
 
-    if (!$atts) {
-        $size = 'large';
+    extract( shortcode_atts (
+            array(
+                'size' => 'large',
+                'postid' => FALSE
+            ), $atts )
+        );
+
+    if(!$postid) {
+
+        $overall_rating=yasr_get_overall_rating();
+
     }
 
     else {
-        extract( shortcode_atts (
-            array(
-                'size' => 'string',
-            ), $atts )
-        );
-    }
 
-    $overall_rating=yasr_get_overall_rating();
+        $overall_rating=yasr_get_overall_rating($postid);
+
+    }
 
     if (!$overall_rating) {
         $overall_rating = "-1";
@@ -94,11 +99,31 @@ function shortcode_visitor_votes_callback ($atts) {
 
     $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
-    $post_id = get_the_ID();
+    extract( shortcode_atts (
+            array(
+                'size' => 'large',
+                'postid' => FALSE
+            ), $atts )
+        );
+
+    //If it's not specified use get_the_id
+    if (!$postid) {
+
+        $post_id = get_the_ID();
+
+    }
+
+    else {
+
+        $post_id = $postid;
+
+    }
+
+    
 
     $ajax_nonce_visitor = wp_create_nonce( "yasr_nonce_insert_visitor_rating" );
 
-    $votes=yasr_get_visitor_votes();
+    $votes=yasr_get_visitor_votes($post_id); //always reference it
 
     $medium_rating=0;   //Avoid undefined variable
 
@@ -124,18 +149,6 @@ function shortcode_visitor_votes_callback ($atts) {
     $loader_html = '<div id="loader-visitor-rating" >&nbsp; ' . __("Loading, please wait","yasr") . ' <img src=' .  "$image" .' title="yasr-loader" alt="yasr-loader"></div>';
 
     $medium_rating=round($medium_rating, 1);
-
-    if (!$atts) {
-        $size = 'large';
-    }
-
-    else {
-        extract( shortcode_atts (
-            array(
-                'size' => 'string',
-            ), $atts )
-        );
-    }
 
     $stars_attribute = yasr_stars_size($size);
 
@@ -379,9 +392,27 @@ function yasr_visitor_votes_readonly_callback ($atts) {
 
     $shortcode_html = NULL; //Avoid undefined variable outside is_singular && is_main_query
 
-    $post_id = get_the_ID();
+    extract( shortcode_atts (
+            array(
+                'size' => 'small',
+                'postid' => FALSE
+            ), $atts )
+        );
 
-    $votes=yasr_get_visitor_votes();
+    //If it's not specified use get_the_id
+    if (!$postid) {
+
+        $post_id = get_the_ID();
+
+    }
+
+    else {
+
+        $post_id = $postid;
+
+    }
+
+    $votes=yasr_get_visitor_votes($post_id);
 
     $medium_rating=0;   //Avoid undefined variable
 
@@ -403,18 +434,6 @@ function yasr_visitor_votes_readonly_callback ($atts) {
     }
 
     $medium_rating=round($medium_rating, 1);
-
-    if (!$atts) {
-        $size = 'large';
-    }
-
-    else {
-        extract( shortcode_atts (
-            array(
-                'size' => 'string',
-            ), $atts )
-        );
-    }
 
     $stars_attribute = yasr_stars_size($size);
 
@@ -481,10 +500,10 @@ function shortcode_multi_set_callback( $atts ) {
     }
 
     else {
-        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+        $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                    WHERE parent_set_id=$setid 
-                    ORDER BY field_id ASC");
+                    WHERE parent_set_id=%d 
+                    ORDER BY field_id ASC", $setid));
 
         $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
 
@@ -542,7 +561,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
             if (YASR_ALLOWED_USER === 'allow_anonymous') {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"Vote!\"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'false';
                 $span_message_content = "";
 
@@ -550,7 +569,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
             elseif (YASR_ALLOWED_USER === 'logged_only') {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"Vote!\"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'true';
                 $span_message_content = __("You must sign to vote", "yasr");;
 
@@ -562,7 +581,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
         //Is user is logged in
         else {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"Vote!\"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"" . __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'false';
                 $span_message_content = "";
             
@@ -617,10 +636,10 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
     else {
 
-        $set_name=$wpdb->get_results("SELECT field_name AS name, field_id AS id
+        $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                    WHERE parent_set_id=$setid 
-                    ORDER BY field_id ASC");
+                    WHERE parent_set_id=%d 
+                    ORDER BY field_id ASC", $setid));
 
         $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
 

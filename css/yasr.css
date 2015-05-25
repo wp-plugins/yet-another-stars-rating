@@ -46,38 +46,18 @@
     left: 0px;
 }
 
-.rateit .rateit-hover-rtl, .rateit .rateit-selected-rtl
-{
-    left: auto;
-    right: 0px;
-}
-
 .rateit .rateit-hover
 {
     background: url('../img/star.png') left -16px;
 }
 
-.rateit .rateit-hover-rtl
-{
-    background-position: right -16px;
-}
 
 .rateit .rateit-selected
 {
     background: url('../img/star.png') left -32px;
 }
 
-.rateit .rateit-selected-rtl
-{
-    background-position: right -32px;
-}
-
 .rateit .rateit-preset
-{
-    background: url('../img/star.png') left -48px;
-}
-
-.rateit .rateit-preset-rtl
 {
     background: url('../img/star.png') left -48px;
 }
@@ -118,14 +98,6 @@ div.medium .rateit-range
     height: 24px;
 }
 
-div.medium-rtl .rateit-range
-{
-    /*White*/
-    background: url('../img/stars24.png') right 0px;
-    width: 24px; 
-    height: 24px;
-}
-
 div.medium .rateit-hover
 {
     /*Red*/
@@ -136,28 +108,10 @@ div.medium .rateit-hover
 
 }
 
-div.medium-rtl .rateit-hover
-{
-    /*Red*/
-    background: url('../img/stars24.png') right -29px;
-    width: 24px; 
-    height: 24px;
-    display: none
-
-}
-
 div.medium .rateit-selected
 {
     /*Yellow*/
     background: url('../img/stars24.png') left -58px ;
-    width: 24px; 
-    height: 24px;
-}
-
-div.medium-rtl .rateit-selected
-{
-    /*Yellow*/
-    background: url('../img/stars24.png') right -58px ;
     width: 24px; 
     height: 24px;
 }

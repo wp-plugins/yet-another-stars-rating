@@ -447,7 +447,7 @@ add_action( 'admin_init', 'yasr_get_custom_post_type');
     }
 
 
-/*** function that get the star size and return ***/
+/*** function that get the star size and return it***/
 function yasr_stars_size ($size) {
 
     $size = sanitize_text_field($size);
@@ -496,5 +496,45 @@ function yasr_wp_super_cache_support($post_id) {
         setcookie( $cookiename, $value, time() + 31536000, COOKIEPATH, COOKIE_DOMAIN );
 
     }
+
+
+/*** Function to get ip, since version 0.8.8 and 0.3.4 
+This code can be found on http://codex.wordpress.org/Plugin_API/Filter_Reference/pre_comment_user_ip
+***/
+
+function yasr_get_ip() {    
+
+    $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+
+    if (!empty($_SERVER['X_FORWARDED_FOR'])) {
+
+        $X_FORWARDED_FOR = explode(',', $_SERVER['X_FORWARDED_FOR']);
+
+        if (!empty($X_FORWARDED_FOR)) {
+            $REMOTE_ADDR = trim($X_FORWARDED_FOR[0]);
+        }
+
+    }
+
+    /*
+    * Some php environments will use the $_SERVER['HTTP_X_FORWARDED_FOR'] 
+    * variable to capture visitor address information.
+    */
+
+    elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+
+        $HTTP_X_FORWARDED_FOR= explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+
+        if (!empty($HTTP_X_FORWARDED_FOR)) {
+            $REMOTE_ADDR = trim($HTTP_X_FORWARDED_FOR[0]);
+        }
+
+    }
+
+    return preg_replace('/[^0-9a-f:\., ]/si', '', $REMOTE_ADDR);
+
+}
+
+
 
 ?>

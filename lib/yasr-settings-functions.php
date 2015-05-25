@@ -1311,7 +1311,6 @@ function yasr_go_pro () {
         
         </div>
 
-
     <?php
 
 }
@@ -1367,6 +1366,62 @@ function yasr_donate_bottom () {
     </div>
 
     <?php
+
+}
+
+function yasr_include_fb_sdk () {
+
+	$lang = get_locale();
+
+	$lang = json_encode("$lang");
+
+	?>
+
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var lang = <?php echo ($lang); ?>;
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/"+lang+"/sdk.js#xfbml=1&version=v2.3&appId=113845018658519";
+			fjs.parentNode.insertBefore(js, fjs);
+		}
+		(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<?php
+
+}
+
+function yasr_fb_box ($position=FALSE) {
+
+	if ($position && $position == "bottom") {
+
+		$yasr_fb_class = "yasr-donatedivbottom";
+
+	}
+
+	else {
+
+		$yasr_fb_class = "yasr-donatedivdx";
+
+	}
+
+	?>
+
+	<div class="<?php echo $yasr_fb_class; ?>" style="display:none">
+
+	<h2><?php _e('Keep in touch!', 'yasr'); ?></h2>
+
+		<div class="fb-page" data-href="https://www.facebook.com/yetanotherstarsrating" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+			<div class="fb-xfbml-parse-ignore">
+				<blockquote cite="https://www.facebook.com/yetanotherstarsrating"><a href="https://www.facebook.com/yetanotherstarsrating">YASR - Yet Another Stars Rating</a></blockquote>
+			</div>
+		</div>
+	</div>
+
+	<?php
 
 }
 

@@ -4,7 +4,7 @@ Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post r
 Requires at least: 3.5
 Contributors: Dudo 
 Tested up to: 4.2.2
-Stable tag: 0.8.7
+Stable tag: 0.8.8
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -49,11 +49,12 @@ If with gd-star-rating you're using a different number of stars from the default
 * Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
 * Russian (Thanks to Ron)
 * Spanish (Thanks to [Carlos](http://CGlevel.com) )
+* Croatian (Thanks to Sanjin Barac)
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
 In this video I'll show you the "Auto Insert" feature and manual placement of YASR basic shortcodes.
-[youtube https://www.youtube.com/watch?v=M47xsJMQJ1E]
+[youtube https://youtu.be/M47xsJMQJ1E]
 
 = Related Link =
 * News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
@@ -121,6 +122,12 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.8.8 =
+* NEW FEATURE: it's now possible to add the attribute postid on these shortcodes: yasr_overall_rating, yasr_visitor_votes, yasr_visitor_votes_readonly. It is only necessary when you wish to show another post/page's votes
+* TWEAKED: Added facebook box in the settings
+* TWEAKED: RTL languages support
+* TWEAKED: Added Croatian language
 
 = 0.8.7 =
 * Minor changes and bugfixes
