@@ -126,7 +126,6 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 = 0.8.8 =
 * NEW FEATURE: it's now possible to add the attribute postid on these shortcodes: yasr_overall_rating, yasr_visitor_votes, yasr_visitor_votes_readonly. It is only necessary when you wish to show another post/page's votes
 * TWEAKED: Added facebook box in the settings
-* TWEAKED: RTL languages support
 * TWEAKED: storage of the ip adress
 * TWEAKED: Added Croatian language
 * FIXED: support for rtl
