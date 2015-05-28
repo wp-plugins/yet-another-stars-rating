@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YASR lenguages\n"
 "POT-Creation-Date: 2015-05-07 09:50+0100\n"
-"PO-Revision-Date: 2015-05-07 09:50+0100\n"
+"PO-Revision-Date: 2015-05-28 13:52+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -22,7 +22,7 @@ msgstr "Evaluez cet article / ce produit"
 #: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:124
 #: ../lib/yasr-shortcode-functions.php:527
 msgid "Loading, please wait"
-msgstr "Chargement, attendez s'il vous plais"
+msgstr "Chargement, attendez s'il vous plait"
 
 #: ../yasr-metabox-top-right.php:147
 msgid "Save Vote"
@@ -219,7 +219,6 @@ msgid "Average: "
 msgstr "Moyenne : "
 
 #: ../lib/yasr-shortcode-functions.php:309
-#, fuzzy
 msgid "bad, poor, ok, good, super"
 msgstr "'Mauvais', 'faible', 'ok', 'bon', 'super'"
 
@@ -805,31 +804,31 @@ msgstr "Vous n'avez pas assez de privilège pour insérer un vote multiple"
 
 #: ../lib/yasr-functions.php:309
 msgid " reviewed by "
-msgstr "Evalué par"
+msgstr " evalué par"
 
 #: ../lib/yasr-functions.php:310
 msgid " on "
-msgstr "sur"
+msgstr " sur"
 
 #: ../lib/yasr-functions.php:311
 msgid " rated "
-msgstr "evalué"
+msgstr " evalué"
 
 #: ../lib/yasr-functions.php:311
 msgid " of"
-msgstr "de "
+msgstr " de "
 
 #: ../lib/yasr-functions.php:358
 msgid " written by "
-msgstr "Ecris par"
+msgstr " ecris par"
 
 #: ../lib/yasr-functions.php:360
 msgid " average rating "
-msgstr "Moyenne des votes"
+msgstr " moyenne des votes"
 
 #: ../lib/yasr-functions.php:361
 msgid " user ratings"
-msgstr "evaluations visiteur"
+msgstr " evaluations visiteur"
 
 #: ../lib/yasr-ajax-functions.php:96
 msgid "You've rated it "
