@@ -46,38 +46,18 @@
     left: 0px;
 }
 
-.rateit .rateit-hover-rtl, .rateit .rateit-selected-rtl
-{
-    left: auto;
-    right: 0px;
-}
-
 .rateit .rateit-hover
 {
     background: url('../img/star.png') left -16px;
 }
 
-.rateit .rateit-hover-rtl
-{
-    background-position: right -16px;
-}
 
 .rateit .rateit-selected
 {
     background: url('../img/star.png') left -32px;
 }
 
-.rateit .rateit-selected-rtl
-{
-    background-position: right -32px;
-}
-
 .rateit .rateit-preset
-{
-    background: url('../img/star.png') left -48px;
-}
-
-.rateit .rateit-preset-rtl
 {
     background: url('../img/star.png') left -48px;
 }
@@ -224,6 +204,10 @@ div.bigstars .rateit-selected
 
 .yasr-highest-rated-text{
     display: block;
+}
+
+.yasr-loader-multiset-visitor {
+    display: none;
 }
 
 /***  Progress bar, this class are used in 
