@@ -502,7 +502,7 @@ function shortcode_multi_set_callback( $atts ) {
     else {
         $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                    WHERE parent_set_id=%d 
+                    WHERE parent_set_id=%f 
                     ORDER BY field_id ASC", $setid));
 
         $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
@@ -535,15 +535,15 @@ function yasr_visitor_multiset_callback ( $atts ) {
     // Attributes
     extract( shortcode_atts(
         array(
-            'setid' => '1',
+            'setid' => '0',
         ), $atts )
     );
 
-    $cookiename = 'yasr_multi_visitor_cookie_' . $post_id;
+    $cookiename = 'yasr_multi_visitor_cookie_' . $post_id . '_' . $setid;
 
     $image = YASR_IMG_DIR . "/loader.gif";
 
-    $loader_html = "<span class=\"yasr-loader-multiset-visitor\" id=\"yasr-loader-multiset-visitor-$post_id\" >&nbsp; " . __("Loading, please wait","yasr") . ' <img src=' .  "$image" .' title="yasr-loader" alt="yasr-loader"></span>';
+    $loader_html = "<span class=\"yasr-loader-multiset-visitor\" id=\"yasr-loader-multiset-visitor-$post_id-$setid\" >&nbsp; " . __("Loading, please wait","yasr") . ' <img src=' .  "$image" .' title="yasr-loader" alt="yasr-loader"></span>';
 
 
     if (isset($_COOKIE[$cookiename])) {
@@ -561,7 +561,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
             if (YASR_ALLOWED_USER === 'allow_anonymous') {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id-$setid\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'false';
                 $span_message_content = "";
 
@@ -569,7 +569,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
             elseif (YASR_ALLOWED_USER === 'logged_only') {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id-$setid\" class=\"button button-primary\" value=\"". __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'true';
                 $span_message_content = __("You must sign to vote", "yasr");;
 
@@ -581,7 +581,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
         //Is user is logged in
         else {
 
-                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id\" class=\"button button-primary\" value=\"" . __('Submit!', 'yasr') . " \"  />";
+                $button = "<input type=\"submit\" name=\"submit\" id=\"yasr-send-visitor-multiset-$post_id-$setid\" class=\"button button-primary\" value=\"" . __('Submit!', 'yasr') . " \"  />";
                 $star_readonly = 'false';
                 $span_message_content = "";
             
@@ -618,7 +618,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
                                         <span class=\"yasr-multi-set-name-field\">$set_content->name </span>
                                     </td>
                                     <td>
-                                        <div class=\"rateit yasr-visitor-multi-$post_id\" id=\"$set_content->id \" data-rateit-value=\"$average_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$star_readonly\"></div>
+                                        <div class=\"rateit yasr-visitor-multi-$post_id-$setid\" id=\"$set_content->id \" data-rateit-value=\"$average_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"$star_readonly\"></div>
                                         <span class=\"yasr-visitor-multiset-vote-count\">$set_content->number_of_votes</span>
                                     </td>
                                  </tr>";
@@ -649,7 +649,7 @@ function yasr_visitor_multiset_callback ( $atts ) {
                                         <span class=\"yasr-multi-set-name-field\">$set_content->name </span>
                                     </td>
                                     <td>
-                                        <div class=\"rateit yasr-visitor-multi-$post_id\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div> 
+                                        <div class=\"rateit yasr-visitor-multi-$post_id-$setid\" id=\"$set_content->id\" data-rateit-value=\"0\" data-rateit-step=\"0.5\" data-rateit-resetable=\"false\" data-rateit-readonly=\"false\"></div> 
                                         <span class=\"yasr-visitor-multiset-vote-count\"> 0 </span> 
                                     </td>
                                  </tr>";

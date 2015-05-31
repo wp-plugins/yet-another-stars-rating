@@ -72,7 +72,7 @@
         //an array with all the ratingonjects
         var ratingArray = new Array();
 
-        jQuery('.yasr-visitor-multi-'+postId).on('rated', function() { 
+        jQuery('.yasr-visitor-multi-'+postId+'-'+setType).on('rated', function() { 
             var el = jQuery(this);
             var value = el.rateit('value');
             var value = value.toFixed(1); 
@@ -90,11 +90,11 @@
 
         });
 
-        jQuery('#yasr-send-visitor-multiset-'+postId).on('click', function() {
+        jQuery('#yasr-send-visitor-multiset-'+postId+'-'+setType).on('click', function() {
 
-            var cookiename = "yasr_multi_visitor_vote_" + postId;
+            var cookiename = "yasr_multi_visitor_vote_" + postId+'_'+setType;
 
-            jQuery('#yasr-loader-multiset-visitor-'+postId).show();
+            jQuery('#yasr-loader-multiset-visitor-'+postId+'-'+setType).show();
 
             var data = {
 
@@ -108,7 +108,7 @@
 
             //Send value to the Server
             jQuery.post(ajaxurl, data, function(response) {
-                jQuery('#yasr-loader-multiset-visitor-'+postId).text(response);
+                jQuery('#yasr-loader-multiset-visitor-'+postId+'-'+setType).text(response);
             });
 
         });

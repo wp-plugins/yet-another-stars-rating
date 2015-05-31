@@ -1320,7 +1320,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         if(!$error_found) {
 
-            $cookiename = 'yasr_multi_visitor_cookie_' . $post_id;
+            $cookiename = 'yasr_multi_visitor_cookie_' . $post_id . '_' . $set_type ;
 
             yasr_setcookie($cookiename, 'true');
 
