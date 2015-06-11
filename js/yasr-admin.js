@@ -132,7 +132,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
             }) ;
 
         	return false;
-        	preventDefault(); // same thing as above
+        	preventDefault(); 
 
         });
 
@@ -326,6 +326,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 					jQuery('.yasr-general-options-text-before').prop('disabled', false);
 					jQuery('#yasr-general-options-custom-text-before-overall').val('Our Score');
 					jQuery('#yasr-general-options-custom-text-before-visitor').val('Our Reader Score');
+                    jQuery('#yasr-general-options-custom-text-after-visitor').val('[Total: %total_count%  Average: %average%]');
 					jQuery('#yasr-general-options-custom-text-already-rated').val('You have already voted this article with');
 
 			});
@@ -334,10 +335,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 				jQuery('.yasr-general-options-text-before').prop('disabled', true);
 			});
 
-			jQuery('#yasr-color-scheme-preview-link').on('click', function () {
-				jQuery('#yasr-color-scheme-preview').toggle('slow');
-				return false; // prevent default click action from happening!
-			});
+            jQuery('#yasr-doc-custom-text-link').on('click', function() {
+                jQuery('#yasr-doc-custom-text-div').toggle('slow');
+                return false;
+            });
 
 			jQuery('#yasr-snippet-explained-link').on('click', function () {
 				jQuery('#yasr-snippet-explained').toggle('slow');
@@ -478,10 +479,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 		  	} //End if ($n_multi_set > 1) 
 
+            jQuery('#yasr-color-scheme-preview-link').on('click', function () {
+                jQuery('#yasr-color-scheme-preview').toggle('slow');
+                return false; // prevent default click action from happening!
+            });
+
 		} //end if active_tab=='manage_multi'
 
 
 	}
+
+    function YasrAsk5Stars(nonceHideAskRating) {
+
+        //This will call an ajax action that set a site transite to hide
+        //for a week the metabok
+        jQuery('#yasr-ask-five-star-later').on("click", function(){
+
+            jQuery('#yasr-ask-five-stars').hide();
+
+            var data = { 
+                action: 'yasr_hide_ask_rating_metabox',
+                choose: 'hide',
+                nonce: nonceHideAskRating
+
+            };
+
+            jQuery.post(ajaxurl, data);
+
+        });
+
+
+        //This will close the ask rating metabox forever
+        jQuery('#yasr-ask-five-close').on("click", function(){
+
+            jQuery('#yasr-ask-five-stars').hide();
+
+            var data = { 
+                action: 'yasr_hide_ask_rating_metabox',
+                choose: 'close',
+                nonce: nonceHideAskRating
+            };
+
+            jQuery.post(ajaxurl, data);
+
+        });
+
+
+    }
 
 /****** End Yasr Settings Page ******/
 
@@ -575,9 +619,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			if (nMultiSet > 1) { 
 
 			    //Add shortcode for multiple set
-			    jQuery('.yasr_tinymce_select_set').on("click", function(){
+			    jQuery('#yasr-insert-multiset-select').on("click", function(){
 			        var setType = jQuery("input:radio[name=yasr_tinymce_pick_set]:checked" ).val();
-			        var shortcode = '[yasr_multiset setid=';
+                    var visitorSet = jQuery("#yasr-allow-vote-multiset").is(':checked');
+
+                    if (!visitorSet) {
+			            
+                        var shortcode = '[yasr_visitor_multiset setid=';
+
+                    }
+
+                    else {
+
+                        var shortcode = '[yasr_multiset setid=';
+
+                    }
+
 			        shortcode += setType;
 			        shortcode += ']';
 			        // inserts the shortcode into the active editor
@@ -593,7 +650,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 			//Add shortcode for single set (if only 1 are found)
 			    jQuery('#yasr-single-set').on("click", function(){
 			        var setType = jQuery('#yasr-single-set').val();
-			        var shortcode = '[yasr_multiset setid=';
+
+                    var visitorSet = jQuery("#yasr-allow-vote-multiset").is(':checked');
+
+                    if (!visitorSet) {
+                        
+                        var shortcode = '[yasr_visitor_multiset setid=';
+
+                    }
+
+                    else {
+
+                        var shortcode = '[yasr_multiset setid=';
+
+                    }
+
 			        shortcode += setType;
 			        shortcode += ']';
 			        // inserts the shortcode into the active editor

@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 
                         jQuery('#yasr-tinypopup-form').dialog({
                             title: 'Insert YASR shortcode',
-                            width: 500, // overcomes width:'auto' and maxWidth bug
+                            width: 530, // overcomes width:'auto' and maxWidth bug
                             maxWidth: 600,
                             height: 'auto',
                             modal: true,

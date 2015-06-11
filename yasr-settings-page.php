@@ -26,6 +26,10 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset tab
 
+$ajax_nonce_hide_ask_rating = wp_create_nonce( "yasr_nonce_hide_ask_rating" );
+
+yasr_include_fb_sdk ();
+
 ?>
 
 	<div class="wrap">
@@ -82,23 +86,28 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 
 
 
-        <?php 
+    <?php 
 
         if ($active_tab == 'general_settings' || $active_tab != 'manage_multi' && $active_tab != 'style_options' && $active_tab != 'go_pro') {
 
-        	?>
+    	?>
 
-		    <div class="yasr-settingsdiv">
-		        <form action="options.php" method="post" id="yasr_settings_form">
-		            <?php
-			            settings_fields( 'yasr_general_options_group' );
-			            do_settings_sections('yasr_general_settings_tab' );
-		            	submit_button( __('Save') );
-		           	?>
-		       	</form>
-		    </div>
+	    <div class="yasr-settingsdiv">
+	        <form action="options.php" method="post" id="yasr_settings_form">
+	            <?php
+		            settings_fields( 'yasr_general_options_group' );
+		            do_settings_sections('yasr_general_settings_tab' );
+	            	submit_button( __('Save') );
+	           	?>
+	       	</form>
+	    </div>
 
-		    <?php yasr_donate_dx(); ?>
+		    <?php 
+
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
+
+	        ?>
 
 			<div class="yasr-space-settings-div">
 			</div>
@@ -200,61 +209,73 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 				<a href="#" id="yasr-multi-set-doc-link"><?php _e("What is a Multi Set?", "yasr") ?></a>
 
 			</p>
-				<div id="yasr-multi-set-doc-box" style="display:none">
-					<?php _e("Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below.", "yasr");
 
-					echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
+			<div id="yasr-multi-set-doc-box" style="display:none">
+				<?php _e("Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below.", "yasr");
 
-					_e("You can create up to 99 different Multi Set and each one can contain up to 9 different fields. Once you've saved it, you can insert the rates while typing your article in the box below the editor, as you can see in this image (click to see it larger)", "yasr");
+				echo "<br /><br /><img src=" . YASR_IMG_DIR . "/yasr-multi-set.png> <br /> <br />";
 
-					echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
+				_e("You can create up to 99 different Multi Set and each one can contain up to 9 different fields. Once you've saved it, you can insert the rates while typing your article in the box below the editor, as you can see in this image (click to see it larger)", "yasr");
 
-					_e("In order to insert your Multi Sets into a post or page, you can either past the short code that will appear at the bottom of the box or just click on the star in the graphic editor and select \"Insert Multi Set\".", "yasr");
+				echo "<br /><br /><a href=\"" . YASR_IMG_DIR ."yasr-multi-set-insert-rate.jpg\"><img src=" . YASR_IMG_DIR . "/yasr-multi-set-insert-rate-small.jpg></a> <br /> <br />";
 
-					?>
+				_e("In order to insert your Multi Sets into a post or page, you can either past the short code that will appear at the bottom of the box or just click on the star in the graphic editor and select \"Insert Multi Set\".", "yasr");
 
-					<br /> <br />
+				?>
 
-					<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
+				<br /> <br />
 
-				</div>
-
-				<div class="yasr-multi-set-left">
-
-					<div class="yasr-new-multi-set" >
-
-						<?php yasr_display_multi_set_form(); ?>
-
-					</div> <!--yasr-new-multi-set-->
-
-				</div> <!--End yasr-multi-set-left-->
-
-				<div class="yasr-multi-set-right">
-
-					<?php yasr_edit_multi_form(); ?>
-
-					<div id="yasr-multi-set-response" style="display:none">
-
-					</div>
-
-				</div> <!--End yasr-multi-set-right-->
-
+				<a href="#" id="yasr-multi-set-doc-link-hide"><?php _e("Close this message", "yasr") ?></a>
 
 			</div>
 
-			<div class="yasr-donatedivdx" style="display:none">
-		        <h3><?php _e('Donations', 'yasr'); ?></h3>
+			<div class="yasr-multi-set-left">
 
-		        	<?php _e('If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. ', 'yasr'); ?>
-		        	<br />
-		        	<?php _e('Thank you!', 'yasr'); ?>
-		        	<br />
-		        	
-		        	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AXE284FYMNWDC">
-		        		<?php echo("<img src=" . YASR_IMG_DIR . "/paypal.png>"); ?>
-		        	</a>
+				<div class="yasr-new-multi-set" >
 
-	        </div>
+					<?php yasr_display_multi_set_form(); ?>
+
+				</div> <!--yasr-new-multi-set-->
+
+			</div> <!--End yasr-multi-set-left-->
+
+			<div class="yasr-multi-set-right">
+
+				<?php yasr_edit_multi_form(); ?>
+
+				<div id="yasr-multi-set-response" style="display:none">
+
+				</div>
+
+			</div> <!--End yasr-multi-set-right-->
+
+			<div class="yasr-space-settings-div">
+			</div>
+
+
+			<div class="yasr-multi-set-choose-theme">
+
+				<!--This allow to choose color for multiset-->
+				<form action="options.php" method="post" id="yasr_multiset_form">
+			            <?php
+				            settings_fields( 'yasr_multiset_options_group' );
+				            do_settings_sections('yasr_multiset_tab' );
+			            	submit_button( __('Save') );
+			           	?>
+			    </form>
+
+			</div>
+
+
+		</div>
+
+
+	    	<?php 
+
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
+
+	        ?>
 
 			<div class="yasr-space-settings-div">
 			</div>
@@ -279,7 +300,12 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 			</div>
 
 
-			<?php yasr_donate_dx(); ?>
+		    <?php 
+
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
+
+	        ?>
 
 			<div class="yasr-space-settings-div">
 			</div>
@@ -292,13 +318,24 @@ $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset ta
 
 		if ($active_tab == 'go_pro') {
 
-             yasr_go_pro();
+            yasr_go_pro(); 
+
+            yasr_fb_box ();
+
+	        yasr_ask_rating ();
+
 
 		}
 
 		?>
 
-		<?php yasr_donate_bottom (); ?>
+		<?php 
+
+		yasr_fb_box("bottom");
+
+		yasr_ask_rating("bottom");
+
+		?>
 
 	<!--End div wrap-->
 	</div> 

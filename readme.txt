@@ -3,8 +3,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  5 star, admin, administrator, AJAX, five-star, javascript, jquery, post rating, posts, rate, rating, rating platform, rating system, ratings, review, reviews, rich snippets, seo, star, star rating, stars, vote, Votes, voting, voting contest, schema, serp
 Requires at least: 3.5
 Contributors: Dudo 
-Tested up to: 4.1.1
-Stable tag: 0.8.1
+Tested up to: 4.2.2
+Stable tag: 0.9.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Yet Another Stars Rating is a simple plugin which allows you and / or your visitor to rate a post or element. Ideal for review's website
@@ -30,7 +30,6 @@ This may not works if you use a caching plugin.
 = Multi Set =
 Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics",
 "Gameplay", "Story", etc.
-Only who write the post or page can inserta votes in Multi Set.
 
 = Importing data from gd star rating =
 If you're using gd-star-rating, YASR is the plugin for you! You can import from gd-star-rating "Overall Rating", "Visitor Votes" and all the multisets with
@@ -47,12 +46,19 @@ If with gd-star-rating you're using a different number of stars from the default
 * French (Thanks to Sébastien Gracia)
 * Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
 * Persian (Thanks to Babak Mehri )
+* Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
+* Russian (Thanks to Ron)
+* Spanish (Thanks to [Carlos](http://CGlevel.com) )
+* Croatian (Thanks to Sanjin Barac)
 
 Check [here](http://translate.yetanotherstarsrating.com/) to see if your translation is up to date
 
+In this video I'll show you the "Auto Insert" feature and manual placement of YASR basic shortcodes.
+[youtube https://youtu.be/M47xsJMQJ1E]
+
 = Related Link =
 * News and doc at [Yasr Official Site](http://yetanotherstarsrating.com/)
-* [Demo site](http://yetanotherstarsrating.com/)
+* [Demo site](http://demo.yetanotherstarsrating.com/)
 
 = Press =
 * [WPMUDEV](http://premium.wpmudev.org/blog/free-wordpress-ratings-testimonials-subscriber-count-plugins/)
@@ -87,8 +93,7 @@ It is the vote given by who writes the review: readers are able to see this vote
 It is the vote that allows your visitors to vote: just paste this shortcode **[yasr_visitor_votes]** where you want the stars to appear. This may not works if you use a caching plugin.
 
 = What is "Multi Set"? =
-It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you.
-Only who write the post or page can insert votes in Multi Set.
+It is the feature that makes YASR awesome. Multisets give the opportunity to score different aspects for each review: for example, if you're reviewing a videogame, you can create the aspects "Graphics", "Gameplay", "Story", etc. and give a vote for each one. To create a set, just go in "Settings" -> "Yet Another Stars Rating: Settings" and click on the "Multi Sets" tab. To insert it into a post, just paste the shortcode that YASR will create for you. 
 
 = What is "Ranking reviews" ? =
 It is the 10 highest rated item chart by reviewer. In order to insert it into a post or page, just paste this shortcode **[yasr_top_ten_highest_rated]**
@@ -107,7 +112,7 @@ When a visitor (logged in or not) rates a post/page, his rating is stored in the
 = Wait, wait! Do I need to keep in mind all this shortcode? =
 Of course not: you can easily add it on the visual editor just by clicking on the yellow star and then choose what to insert.
 
-[Demo site](http://yetanotherstarsrating.com/)
+[Demo site](http://demo.yetanotherstarsrating.com/)
 
 == Screenshots ==
 1. Example of yasr in a videogame review
@@ -117,6 +122,50 @@ Of course not: you can easily add it on the visual editor just by clicking on th
 5. Ranking reviews
 
 == Changelog ==
+
+= 0.9.0 =
+* FIXED: Fixed bug in multisets (here https://wordpress.org/support/topic/half-stars-not-saving more info)
+* TWEAKED: Minor changes 
+
+= 0.8.9 =
+* FIXED: Minor bugfixes for multisets and visitor multisets
+
+
+= 0.8.8 =
+* NEW FEATURE: it's now possible to add the attribute postid on these shortcodes: yasr_overall_rating, yasr_visitor_votes, yasr_visitor_votes_readonly. It is only necessary when you wish to show another post/page's votes
+* TWEAKED: Added facebook box in the settings
+* TWEAKED: storage of the ip adress
+* TWEAKED: Added Croatian language
+* FIXED: support for rtl
+* Minor bugfixes
+
+
+= 0.8.7 =
+* Minor changes and bugfixes
+
+= 0.8.6 =
+* Fixed bug on new installation if multi set are used
+
+= 0.8.5 =
+* TWEAKED: code changes and bug fixes on Multi Set shortcodes 
+
+= 0.8.4 =
+* NEW FEATURE: User can customize text after Visitor Votes.
+* TWIKED: Visitor Votes have been partially rewritten, is much faster now
+* REMOVED: Removed jquery cookie
+
+= 0.8.3 =
+* NEW FEATURE: added shortcode yasr_visitor_multiset. Now everyone can vonte in a Multi Set!
+* FIXED: fixed schema type selection
+* Minor changes
+
+= 0.8.2 =
+* NEW FEATURE: added shortcode yasr_visitor_votes_readonly
+* NEW FEATURE: added support for wp super cache
+* TWIKED: color settings for multi sets was moved from general settings to multi sets tab
+* TWIKED: log widget is now fully translatable
+* TWIKED: added brasilian language 
+* TWIKED: minor fixes for translation
 
 = 0.8.1 =
 * Fixed: Undefined variable in yasr_visitor_votes shortcode
