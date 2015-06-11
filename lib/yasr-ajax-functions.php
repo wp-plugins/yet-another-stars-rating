@@ -205,7 +205,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     //Get Set fields name
                     $set_name=$wpdb->get_results($wpdb->prepare("SELECT field_name AS name, field_id AS id
                         FROM " . YASR_MULTI_SET_FIELDS_TABLE . "  
-                        WHERE parent_set_id=%d 
+                        WHERE parent_set_id=%f 
                         ORDER BY field_id ASC",
                         $set_type));
 
@@ -367,7 +367,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         array (
                                 'id'=>$id
                             ),
-                        array ("%d", "%d", "%d", "%s", "%d"),
+                        array ("%d", "%d", "%d", "%f", "%d"),
                         array ("%d")
                 );
 
@@ -399,7 +399,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                         'votes'=>$vote,
                         'set_type'=>$set_type
                         ),
-                        array ("%d", "%d", "%s", "%d")
+                        array ("%d", "%d", "%d", "%f", "%d")
                 );
 
                 if($result) {
@@ -730,8 +730,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
 
 
-/****** 
-        Display recent votes on dashboard, called from function yasr_display_dashboard_log_wiget,
+/****** Display recent votes on dashboard, called from function yasr_display_dashboard_log_wiget,
         declared on yasr-db-function  ******/
 
 
@@ -894,10 +893,56 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     }
 
 
-/**************** END Admin ajax functions ****************/
+
+/****** Ajax function called to hide the ask rating mateabox ******/
+
+    add_action( 'wp_ajax_yasr_hide_ask_rating_metabox', 'yasr_hide_ask_rating_metabox' );
+
+    function yasr_hide_ask_rating_metabox () {
+
+        if (isset($_POST['nonce']) && isset($_POST['choose']) ) {
+
+            $choose = $_POST['choose'];
+            $nonce = $_POST['nonce'];
+
+        }
+
+        else {
+
+            exit();
+
+        }
+
+        if ( ! wp_verify_nonce($nonce, 'yasr_nonce_hide_ask_rating')) {
+
+            die( 'Security check' );
+
+        }
+
+        if ($choose == 'hide') {
+
+            //set transient for a week
+            set_site_transient( 'yasr_hide_ask_rating', 'hide', DAY_IN_SECONDS * 7 );
+
+        }
+
+        elseif ($choose == 'close') {
+
+            //it will not close forever, but for 1 year
+            set_site_transient( 'yasr_hide_ask_rating', 'close', YEAR_IN_SECONDS );
+
+        }
+
+        die();
+
+    }
 
 
-/**************** NON Admin ajax functions ****************/
+
+/********************* END Admin ajax functions ****************/
+
+
+/********************* NON Admin ajax functions ****************/
 
 /****** Yasr insert visitor votes, called from yasr-shortcode-function ******/
     

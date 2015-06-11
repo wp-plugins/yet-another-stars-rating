@@ -232,6 +232,22 @@ div.bigstars .rateit-selected
         padding: 25px;
         font-size: 12px;
     }
+
+    .yasr-ask-five-stars {
+
+        float:right; 
+        display:block; 
+        min-width: 290px;
+        width:15%; 
+        margin-bottom: 10px;
+        background-color:#FFF;
+        border-left: 3px solid #7AD03A;
+        padding: 25px;
+        font-size: 14px;
+        /*color: #015316;*/
+
+    }
+
 }
 
 @media (max-width: 1176px) {

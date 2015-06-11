@@ -26,6 +26,8 @@ if ( !current_user_can( 'manage_options' ) ) {
 
 $n_multi_set = NULL; //Evoid undefined variable when printed outside multiset tab
 
+$ajax_nonce_hide_ask_rating = wp_create_nonce( "yasr_nonce_hide_ask_rating" );
+
 yasr_include_fb_sdk ();
 
 ?>
@@ -102,9 +104,8 @@ yasr_include_fb_sdk ();
 
 		    <?php 
 
-		        yasr_donate_dx ();
-
-		        yasr_fb_box ();
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
 
 	        ?>
 
@@ -269,11 +270,10 @@ yasr_include_fb_sdk ();
 		</div>
 
 
-	        <?php 
+	    	<?php 
 
-		        yasr_donate_dx ();
-
-		        yasr_fb_box ();
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
 
 	        ?>
 
@@ -300,11 +300,10 @@ yasr_include_fb_sdk ();
 			</div>
 
 
-			<?php 
+		    <?php 
 
-		        yasr_donate_dx ();
-
-		        yasr_fb_box ();
+	            yasr_fb_box ();
+		        yasr_ask_rating ();
 
 	        ?>
 
@@ -319,11 +318,12 @@ yasr_include_fb_sdk ();
 
 		if ($active_tab == 'go_pro') {
 
-            yasr_go_pro();
+            yasr_go_pro(); 
 
-            yasr_donate_dx ();
+            yasr_fb_box ();
 
-		    yasr_fb_box ();
+	        yasr_ask_rating ();
+
 
 		}
 
@@ -331,9 +331,9 @@ yasr_include_fb_sdk ();
 
 		<?php 
 
-		yasr_donate_bottom ();
-
 		yasr_fb_box("bottom");
+
+		yasr_ask_rating("bottom");
 
 		?>
 

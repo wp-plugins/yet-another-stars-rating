@@ -489,6 +489,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 	}
 
+    function YasrAsk5Stars(nonceHideAskRating) {
+
+        //This will call an ajax action that set a site transite to hide
+        //for a week the metabok
+        jQuery('#yasr-ask-five-star-later').on("click", function(){
+
+            jQuery('#yasr-ask-five-stars').hide();
+
+            var data = { 
+                action: 'yasr_hide_ask_rating_metabox',
+                choose: 'hide',
+                nonce: nonceHideAskRating
+
+            };
+
+            jQuery.post(ajaxurl, data);
+
+        });
+
+
+        //This will close the ask rating metabox forever
+        jQuery('#yasr-ask-five-close').on("click", function(){
+
+            jQuery('#yasr-ask-five-stars').hide();
+
+            var data = { 
+                action: 'yasr_hide_ask_rating_metabox',
+                choose: 'close',
+                nonce: nonceHideAskRating
+            };
+
+            jQuery.post(ajaxurl, data);
+
+        });
+
+
+    }
+
 /****** End Yasr Settings Page ******/
 
 

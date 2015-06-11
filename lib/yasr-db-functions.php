@@ -479,6 +479,7 @@ add_action ('admin_init', 'admin_init_delete_data_on_post_callback');
 /****** Check if a logged in user has already rated. Return user vote for a post if exists  ******/
 
 function yasr_check_if_user_already_voted() {
+	
 	global $wpdb;
 
 	global $current_user;
@@ -516,5 +517,29 @@ function yasr_check_if_user_already_voted() {
 
 
 }
+
+
+/****** Function to get always the last id in the log table ******/
+
+	function yasr_count_logged_vote () {
+	
+		global $wpdb;
+
+		$result = $wpdb->get_var("SELECT COUNT(id) FROM " . YASR_LOG_TABLE );
+
+		if ($result) {
+
+			return $result;
+
+		}
+
+		else {
+
+			return '0';
+
+		}
+
+	}
+
 
 ?>
