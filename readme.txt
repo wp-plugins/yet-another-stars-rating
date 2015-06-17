@@ -44,7 +44,7 @@ If with gd-star-rating you're using a different number of stars from the default
 * Polish (thanks to Hoek i Tutu Team)
 * Dutch (thanks to  [Marcel Pol](http://zenoweb.nl ) )
 * French (Thanks to Sébastien Gracia)
-* Norwegian (Thanks to [Line](http://www.spilleautomatercasinobonuser.com) )
+* Norwegian (Thanks to [Line Holm Anderssen, Anderssen Language Services](http://www.alanguageservices.com/) )
 * Persian (Thanks to Babak Mehri )
 * Brazilian Portuguese (Thanks to [Iuri](http://assistirfilmesonline.info) )
 * Russian (Thanks to Ron)
