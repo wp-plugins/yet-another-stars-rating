@@ -212,12 +212,12 @@ function yasr_get_multi_set_values_and_field ($post_id, $set_type) {
 
 	$result=$wpdb->get_results($wpdb->prepare("SELECT f.field_name AS name, f.field_id AS id, v.votes AS vote 
                     FROM " . YASR_MULTI_SET_FIELDS_TABLE . " AS f, " . YASR_MULTI_SET_VALUES_TABLE . " AS v 
-                    WHERE f.parent_set_id=$set_type
+                    WHERE f.parent_set_id=%d
                     AND f.field_id = v.field_id
                     AND v.post_id = %d
                     AND v.set_type = %d
                     AND f.parent_set_id=v.set_type
-                    ORDER BY f.field_id ASC", $post_id, $set_type));
+                    ORDER BY f.field_id ASC", $set_type, $post_id, $set_type));
 
 	return $result;
 }
