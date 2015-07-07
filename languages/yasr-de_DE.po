@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yet Another Stars Rating v0.6.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-03 12:36+0100\n"
-"PO-Revision-Date: 2015-03-03 12:36+0100\n"
+"POT-Creation-Date: 2015-05-07 09:50+0100\n"
+"PO-Revision-Date: 2015-05-07 09:50+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -25,7 +25,8 @@ msgid "Rate this article / item"
 msgstr "Gib eine Bewertung ab"
 
 # @ yasr
-#: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:136
+#: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:124
+#: ../lib/yasr-shortcode-functions.php:527
 msgid "Loading, please wait"
 msgstr "Wird geladen, bitte warten"
 
@@ -35,19 +36,23 @@ msgid "Save Vote"
 msgstr "Abstimmung Speichern"
 
 # @ default
-#: ../yasr-metabox-top-right.php:164
+#: ../yasr-metabox-top-right.php:166
 msgid "This review is about a..."
+msgstr ""
+
+#: ../yasr-metabox-top-right.php:171
+msgid "Product, Place, Other"
 msgstr ""
 
 # @ default
 # @ yasr
-#: ../yasr-metabox-top-right.php:193 ../yasr-metabox-multiple-rating.php:46
-#: ../lib/yasr-settings-functions.php:505
+#: ../yasr-metabox-top-right.php:199 ../yasr-metabox-multiple-rating.php:46
+#: ../lib/yasr-settings-functions.php:542
 msgid "Select"
 msgstr "Auswählen"
 
 # @ yasr
-#: ../yasr-metabox-top-right.php:211
+#: ../yasr-metabox-top-right.php:217
 msgid ""
 "Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> "
 "where you want to display this rating"
@@ -58,7 +63,7 @@ msgstr ""
 # @ yasr
 #: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:111
 #: ../lib/yasr-ajax-functions.php:44 ../lib/yasr-ajax-functions.php:187
-#: ../lib/yasr-ajax-functions.php:332 ../lib/yasr-ajax-functions.php:736
+#: ../lib/yasr-ajax-functions.php:336 ../lib/yasr-ajax-functions.php:753
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 "Du verfügst nicht über ausreichende Berechtigungen um auf diese Seite "
@@ -91,7 +96,8 @@ msgid "Pro Features!"
 msgstr "Pro Funktionen!"
 
 # @ default
-#: ../yasr-settings-page.php:96 ../yasr-settings-page.php:276
+#: ../yasr-settings-page.php:96 ../yasr-settings-page.php:255
+#: ../yasr-settings-page.php:295
 msgid "Save"
 msgstr "Speichern"
 
@@ -169,7 +175,7 @@ msgid "What is a Multi Set?"
 msgstr "Was ist ein Multi-Set?"
 
 # @ yasr
-#: ../yasr-settings-page.php:204
+#: ../yasr-settings-page.php:205
 msgid ""
 "Multi Set allows you to insert a rate for each aspect about the product / "
 "local business / whetever you're reviewing, example in the image below."
@@ -179,7 +185,7 @@ msgstr ""
 "zeigt ein Beispiel."
 
 # @ yasr
-#: ../yasr-settings-page.php:208
+#: ../yasr-settings-page.php:209
 msgid ""
 "You can create up to 99 different Multi Set and each one can contain up to 9 "
 "different fields. Once you've saved it, you can insert the rates while "
@@ -192,7 +198,7 @@ msgstr ""
 "(klicken zum Vergrößern) zu sehen ist."
 
 # @ yasr
-#: ../yasr-settings-page.php:212
+#: ../yasr-settings-page.php:213
 msgid ""
 "In order to insert your Multi Sets into a post or page, you can either past "
 "the short code that will appear at the bottom of the box or just click on "
@@ -203,19 +209,19 @@ msgstr ""
 "den Stern im Editor klicken und \"Insert Multi-Set\" wählen."
 
 # @ yasr
-#: ../yasr-settings-page.php:218
+#: ../yasr-settings-page.php:219
 msgid "Close this message"
 msgstr "Nachricht schließen"
 
 # @ yasr
-#: ../yasr-settings-page.php:246 ../lib/yasr-settings-functions.php:1294
-#: ../lib/yasr-settings-functions.php:1320
+#: ../yasr-settings-page.php:265 ../lib/yasr-settings-functions.php:1326
+#: ../lib/yasr-settings-functions.php:1352
 msgid "Donations"
 msgstr "Spenden"
 
 # @ yasr
-#: ../yasr-settings-page.php:248 ../lib/yasr-settings-functions.php:1296
-#: ../lib/yasr-settings-functions.php:1322
+#: ../yasr-settings-page.php:267 ../lib/yasr-settings-functions.php:1328
+#: ../lib/yasr-settings-functions.php:1354
 msgid ""
 "If you have found this plugin useful, please consider making a donation to "
 "help support future development. Your support will be much appreciated. "
@@ -225,8 +231,8 @@ msgstr ""
 "Wert."
 
 # @ yasr
-#: ../yasr-settings-page.php:250 ../lib/yasr-settings-functions.php:1298
-#: ../lib/yasr-settings-functions.php:1324
+#: ../yasr-settings-page.php:269 ../lib/yasr-settings-functions.php:1330
+#: ../lib/yasr-settings-functions.php:1356
 msgid "Thank you!"
 msgstr "Herzlichen Dank!"
 
@@ -236,84 +242,101 @@ msgid "Choose wich set you want to use"
 msgstr "Wähle ein Multi-Set aus"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:185
-#: ../lib/yasr-shortcode-functions.php:207
+#: ../lib/yasr-shortcode-functions.php:189
+#: ../lib/yasr-shortcode-functions.php:210
+#: ../lib/yasr-shortcode-functions.php:240
 msgid "You've already voted this article with"
 msgstr "Du hast hier bewertet mit "
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:218
+#: ../lib/yasr-shortcode-functions.php:251
+#: ../lib/yasr-shortcode-functions.php:555
 msgid "You must sign to vote"
 msgstr "Um eine Bewertung abzugeben musst du angemeldet sein"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:227 ../lib/yasr-ajax-functions.php:1011
-#: ../lib/yasr-ajax-functions.php:1019 ../lib/yasr-ajax-functions.php:1148
-#: ../lib/yasr-ajax-functions.php:1220
+#: ../lib/yasr-shortcode-functions.php:293 ../lib/yasr-ajax-functions.php:1040
+#: ../lib/yasr-ajax-functions.php:1048 ../lib/yasr-ajax-functions.php:1181
 msgid "Total: "
 msgstr "Gesamt:"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:227
+#: ../lib/yasr-shortcode-functions.php:293
 msgid "Average: "
 msgstr "Durchschnitt: "
 
+#: ../lib/yasr-shortcode-functions.php:309
+msgid "bad, poor, ok, good, super"
+msgstr ""
+
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:392
+#: ../lib/yasr-shortcode-functions.php:534
+#, fuzzy
+msgid "Thank you for voting! "
+msgstr "Herzlichen Dank!"
+
+#: ../lib/yasr-shortcode-functions.php:545
+#: ../lib/yasr-shortcode-functions.php:553
+#: ../lib/yasr-shortcode-functions.php:565
+msgid "Submit!"
+msgstr ""
+
+# @ yasr
+#: ../lib/yasr-shortcode-functions.php:710
 msgid "Rating"
 msgstr "Bewertung"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:406
+#: ../lib/yasr-shortcode-functions.php:724
 msgid "You don't have any votes stored"
 msgstr "Es sind keine Autoren-Bewertungen gespeichert"
 
-#: ../lib/yasr-shortcode-functions.php:442
-#: ../lib/yasr-shortcode-functions.php:480
+#: ../lib/yasr-shortcode-functions.php:760
+#: ../lib/yasr-shortcode-functions.php:799
 msgid "Post / Page"
 msgstr "Beitrag / Seite"
 
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Order By"
 msgstr "sortieren nach"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Most Rated"
 msgstr "meist bewertet"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:443
-#: ../lib/yasr-shortcode-functions.php:481
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
 msgid "Highest Rated"
 msgstr "höchste Bewertung"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:460
-#: ../lib/yasr-shortcode-functions.php:495
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
 msgid "Total:"
 msgstr "Gesamt:"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:460
-#: ../lib/yasr-shortcode-functions.php:495
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
 msgid "Average"
 msgstr "Durchschnitt: "
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:472
+#: ../lib/yasr-shortcode-functions.php:791
 msgid "You've not enough data"
 msgstr "Sie haben nicht genügend Daten"
 
 # @ yasr
-#: ../lib/yasr-shortcode-functions.php:507
+#: ../lib/yasr-shortcode-functions.php:826
 msgid "You've not enought data"
 msgstr "Sie haben nicht genug Daten"
 
 # @ default
-#: ../lib/yasr-shortcode-functions.php:592
+#: ../lib/yasr-shortcode-functions.php:911
 msgid ""
 "Problem while retrieving the top 5 most active reviewers. Did you publish "
 "any review?"
@@ -322,7 +345,7 @@ msgstr ""
 "Bewertung veröffentlicht"
 
 # @ default
-#: ../lib/yasr-shortcode-functions.php:660
+#: ../lib/yasr-shortcode-functions.php:979
 msgid ""
 "Problem while retrieving the top 10 active users chart. Are you sure you "
 "have votes to show?"
@@ -331,164 +354,159 @@ msgstr ""
 "sicher, dass Sie  auch Stimmen, zum anzeigen haben?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:49
+#: ../lib/yasr-settings-functions.php:52
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:50
+#: ../lib/yasr-settings-functions.php:53
 msgid "Auto insert options"
 msgstr "Anzeigeoptionen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:51
+#: ../lib/yasr-settings-functions.php:54
 #, fuzzy
 msgid "Show \"Overall Rating\" in Archive Page?"
 msgstr "Gesamtbewertung auf der Startseite anzeigen?"
 
-#: ../lib/yasr-settings-functions.php:52
+#: ../lib/yasr-settings-functions.php:55
 msgid "Show \"Visitor Votes\" in Archive Page?"
 msgstr ""
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:53
+#: ../lib/yasr-settings-functions.php:56
 msgid "Insert custom text to show before / after stars"
 msgstr ""
 "Benutzerdefinierter Text der vor oder nach der Bewertung angezeigt wird"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:54
+#: ../lib/yasr-settings-functions.php:57
 msgid "Do you want show stats for visitors votes?"
 msgstr "Wollen Sie Statistiken für Besucher-Stimmen zeigen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:55
-msgid "Which color scheme do you want to use?"
-msgstr "Welches Farbschema willst du nutzen?"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:56
+#: ../lib/yasr-settings-functions.php:58
 msgid "Allow only logged in user to vote?"
 msgstr "Nur angemeldete Besucher dürfen abstimmen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:57
+#: ../lib/yasr-settings-functions.php:59
 msgid "Which rich snippets do you want to use?"
 msgstr "Welches Rich Snippet willst du nutzen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:58
+#: ../lib/yasr-settings-functions.php:60
 msgid "How do you want to rate \"Overall Rating\"?"
 msgstr "Wie  möchten Sie bewerten  \\ \\\"Gesamtbewertung \"?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:72
+#: ../lib/yasr-settings-functions.php:74
 msgid "Use Auto Insert?"
 msgstr "Bewertung automatisch einfügen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:75
-#: ../lib/yasr-settings-functions.php:144
-#: ../lib/yasr-settings-functions.php:162
-#: ../lib/yasr-settings-functions.php:204
-#: ../lib/yasr-settings-functions.php:230
-#: ../lib/yasr-settings-functions.php:262
-#: ../lib/yasr-settings-functions.php:313
+#: ../lib/yasr-settings-functions.php:77
+#: ../lib/yasr-settings-functions.php:146
+#: ../lib/yasr-settings-functions.php:164
+#: ../lib/yasr-settings-functions.php:206
+#: ../lib/yasr-settings-functions.php:232
+#: ../lib/yasr-settings-functions.php:266
+#: ../lib/yasr-settings-functions.php:321
 msgid "Yes"
 msgstr "Ja"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:89
-#: ../lib/yasr-settings-functions.php:149
-#: ../lib/yasr-settings-functions.php:167
-#: ../lib/yasr-settings-functions.php:209
-#: ../lib/yasr-settings-functions.php:235
-#: ../lib/yasr-settings-functions.php:267
-#: ../lib/yasr-settings-functions.php:318
+#: ../lib/yasr-settings-functions.php:91
+#: ../lib/yasr-settings-functions.php:151
+#: ../lib/yasr-settings-functions.php:169
+#: ../lib/yasr-settings-functions.php:211
+#: ../lib/yasr-settings-functions.php:237
+#: ../lib/yasr-settings-functions.php:271
+#: ../lib/yasr-settings-functions.php:326
 msgid "No"
 msgstr "Nein"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:95
+#: ../lib/yasr-settings-functions.php:97
 msgid "What?"
 msgstr "Was soll eingefügt werden?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:98
+#: ../lib/yasr-settings-functions.php:100
 msgid "Overall Rating / Author Rating"
 msgstr "Gesamtbewertung (Autorenbewertung)"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:102 ../lib/yasr-ajax-functions.php:462
+#: ../lib/yasr-settings-functions.php:104 ../lib/yasr-ajax-functions.php:471
 msgid "Visitor Votes"
 msgstr "Besucherbewertung"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:106
+#: ../lib/yasr-settings-functions.php:108
 msgid "Both"
 msgstr "Beides"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:110
+#: ../lib/yasr-settings-functions.php:112
 msgid "Where?"
 msgstr "Wo soll es eingefügt werden?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:113
+#: ../lib/yasr-settings-functions.php:115
 msgid "Before the post"
 msgstr "Vor dem Artikel"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:117
+#: ../lib/yasr-settings-functions.php:119
 msgid "After the post"
 msgstr "Nach dem Artikel"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:122
+#: ../lib/yasr-settings-functions.php:124
 msgid "Size"
 msgstr "Größe"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:126 ../lib/yasr-ajax-functions.php:452
-#: ../lib/yasr-ajax-functions.php:470
+#: ../lib/yasr-settings-functions.php:128 ../lib/yasr-ajax-functions.php:461
+#: ../lib/yasr-ajax-functions.php:479
 msgid "Small"
 msgstr "Klein"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:131 ../lib/yasr-ajax-functions.php:453
-#: ../lib/yasr-ajax-functions.php:471
+#: ../lib/yasr-settings-functions.php:133 ../lib/yasr-ajax-functions.php:462
+#: ../lib/yasr-ajax-functions.php:480
 msgid "Medium"
 msgstr "Mittel"
 
-#: ../lib/yasr-settings-functions.php:136 ../lib/yasr-ajax-functions.php:454
-#: ../lib/yasr-ajax-functions.php:472
+#: ../lib/yasr-settings-functions.php:138 ../lib/yasr-ajax-functions.php:463
+#: ../lib/yasr-ajax-functions.php:481
 msgid "Large"
 msgstr "Groß"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:141
+#: ../lib/yasr-settings-functions.php:143
 msgid "Exclude Pages?"
 msgstr "Seiten ausschließen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:159
+#: ../lib/yasr-settings-functions.php:161
 msgid "Use only in custom post types?"
 msgstr "Verwenden Sie nur in benutzerdefinierte Post-Typen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:171
+#: ../lib/yasr-settings-functions.php:173
 msgid "You see this because you use custom post types."
 msgstr "Sie sehen dies, weil Sie benutzerdefinierte Post-Typen verwenden."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:173
+#: ../lib/yasr-settings-functions.php:175
 msgid "If you want to use auto insert only in custom post types, choose Yes"
 msgstr ""
 "Wenn Sie Auto-Insert nur in benutzerdefinierten Post-Typen verwenden "
 "möchten, wählen Sie Ja."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:213
+#: ../lib/yasr-settings-functions.php:215
 msgid ""
 "If you enable this, \"Overall Rating\" will be showed not only in the single "
 "article or page, but also in pages like Home Page, category pages or "
@@ -499,7 +517,7 @@ msgstr ""
 "Kategorien und im Archiv."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:239
+#: ../lib/yasr-settings-functions.php:241
 #, fuzzy
 msgid ""
 "If you enable this, \"Visitor Votes\" will be showed not only in the single "
@@ -511,84 +529,72 @@ msgstr ""
 "Kategorien und im Archiv."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:272
+#: ../lib/yasr-settings-functions.php:276
 msgid "Custom text to display before Overall Rating"
 msgstr "Benutzerdefinierter Text vor der Gesamtbewertung (Autorenbewertung)"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:277
-msgid "Custom text to display before Visitor Rating"
+#: ../lib/yasr-settings-functions.php:281
+#, fuzzy
+msgid "Custom text to display BEFORE Visitor Rating"
 msgstr "Benutzerdefinierter Text vor der Besucherbewertung"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:282
+#: ../lib/yasr-settings-functions.php:287
+#, fuzzy
+msgid "Custom text to display AFTER Visitor Rating"
+msgstr "Benutzerdefinierter Text vor der Besucherbewertung"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:292
 msgid "Custom text to display when a non logged user has already rated"
 msgstr ""
 "Benutzerdefinierter Text der angezeigt wird, wenn ein nicht angemeldeter "
 "Besucher bereits eine Bewertung abgegeben hat"
 
-# @ yasr
-#: ../lib/yasr-settings-functions.php:296
-msgid ""
-"Seems like you've imported gd star rating in the past, but then deleted the "
-"logs table. For now, you can't enable statistics"
+#: ../lib/yasr-settings-functions.php:297
+msgid "Help"
 msgstr ""
-"Es scheint, dass Sie GD Sterne in der Vergangenheit importiert haben, aber "
-"dann die Protokoll Tabelle gelöscht wurde. Jetzt können Sie keine "
-"Statistiken ermöglichen"
+
+#: ../lib/yasr-settings-functions.php:301
+msgid ""
+"In the first field you can use %overall_rating% pattern to show the overall "
+"rating."
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:305
+msgid ""
+"In the Second and Third fields you can use %total_count% pattern to show the "
+"total count, and %average% pattern to show the average"
+msgstr ""
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:338
-msgid "Light"
-msgstr "Hell"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:343
-msgid "Dark"
-msgstr "Dunkel"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:348
-msgid "Preview"
-msgstr "Vorschau"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:353
-msgid "Light theme"
-msgstr "Helles Theme"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:358
-msgid "Dark Theme"
-msgstr "Dunkles Theme"
-
-# @ yasr
-#: ../lib/yasr-settings-functions.php:376
+#: ../lib/yasr-settings-functions.php:344
 msgid "Allow only logged-in users"
 msgstr "Nur angemeldete Besucher erlauben"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:380
+#: ../lib/yasr-settings-functions.php:348
 msgid "Allow everybody (logged in and anonymous)"
 msgstr "Jedem erlauben (angemeldete und anonyme Besucher)"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:397
+#: ../lib/yasr-settings-functions.php:365
 msgid "Review Rating"
 msgstr "Review Rating (Autorenbewertung)"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:401
+#: ../lib/yasr-settings-functions.php:369
 msgid "Aggregate Rating"
 msgstr "Aggregate Rating (Besucherbewertung)"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:406
+#: ../lib/yasr-settings-functions.php:374
 msgid "What is this?"
 msgstr "Was ist das?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:411
+#: ../lib/yasr-settings-functions.php:379
 msgid ""
 "If you select \"Review Rating\", your site will be indexed from search "
 "engines like this: "
@@ -597,7 +603,7 @@ msgstr ""
 "aussehen:"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:416
+#: ../lib/yasr-settings-functions.php:384
 msgid ""
 "If, instead, you choose \"Aggregate Rating\", your site will be indexed like "
 "this"
@@ -606,22 +612,53 @@ msgstr ""
 "wie folgt aus:"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:434
+#: ../lib/yasr-settings-functions.php:402
 msgid "Stars"
 msgstr "Sterne"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:438
+#: ../lib/yasr-settings-functions.php:406
 msgid "Numbers"
 msgstr "Zahlen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:450
+#: ../lib/yasr-settings-functions.php:431
+msgid "Which color scheme do you want to use?"
+msgstr "Welches Farbschema willst du nutzen?"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:452
+msgid "Light"
+msgstr "Hell"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:457
+msgid "Dark"
+msgstr "Dunkel"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:462
+msgid "Preview"
+msgstr "Vorschau"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:467
+msgid "Light theme"
+msgstr "Helles Theme"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:472
+#, fuzzy
+msgid "Dark theme"
+msgstr "Dunkles Theme"
+
+# @ yasr
+#: ../lib/yasr-settings-functions.php:487
 msgid "Add New Multiple Set"
 msgstr "Neues Multi-Set hinzufügen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:451
+#: ../lib/yasr-settings-functions.php:488
 msgid ""
 "Name, Element#1 and Element#2 MUST be filled and must be long at least 3 "
 "characters"
@@ -630,57 +667,57 @@ msgstr ""
 "Zeichen lang sein"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:454
+#: ../lib/yasr-settings-functions.php:491
 msgid "Name"
 msgstr "Name"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:459
+#: ../lib/yasr-settings-functions.php:496
 msgid "You can insert up to nine elements"
 msgstr "Sie können bis zu neun Elemente einfügen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:464
+#: ../lib/yasr-settings-functions.php:501
 msgid "Element "
 msgstr "Element"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:474
+#: ../lib/yasr-settings-functions.php:511
 msgid "Create New Set"
 msgstr "Neues Multi-Set anlegen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:495
-#: ../lib/yasr-settings-functions.php:527
+#: ../lib/yasr-settings-functions.php:532
+#: ../lib/yasr-settings-functions.php:564
 msgid "Manage Multiple Set"
 msgstr "Verschiedene Multi-Sets verwalten"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:497
+#: ../lib/yasr-settings-functions.php:534
 msgid "Wich set do you want to edit or remove?"
 msgstr "Welches Multi-Set möchtest du bearbeiten oder löschen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:537
-#: ../lib/yasr-settings-functions.php:655
+#: ../lib/yasr-settings-functions.php:574
+#: ../lib/yasr-settings-functions.php:692
 msgid "Field name"
 msgstr "Feldname"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:541
-#: ../lib/yasr-settings-functions.php:659
+#: ../lib/yasr-settings-functions.php:578
+#: ../lib/yasr-settings-functions.php:696
 msgid "Remove"
 msgstr "Entfernen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:583
-#: ../lib/yasr-settings-functions.php:701
+#: ../lib/yasr-settings-functions.php:620
+#: ../lib/yasr-settings-functions.php:738
 msgid "Remove whole set?"
 msgstr "Komplettes Multi-Set entfernen?"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:596
-#: ../lib/yasr-settings-functions.php:714
+#: ../lib/yasr-settings-functions.php:633
+#: ../lib/yasr-settings-functions.php:751
 msgid ""
 "If you remove something you will remove all the votes for that set or field. "
 "This operation CAN'T BE undone."
@@ -689,57 +726,57 @@ msgstr ""
 "Element gelöscht. Dies kann nicht rückgängig gemacht werden."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:603
-#: ../lib/yasr-settings-functions.php:721
+#: ../lib/yasr-settings-functions.php:640
+#: ../lib/yasr-settings-functions.php:758
 msgid "You can use up to 9 elements"
 msgstr "Du kannst bist zu 9 Elementen nutzen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:605
-#: ../lib/yasr-settings-functions.php:723
+#: ../lib/yasr-settings-functions.php:642
+#: ../lib/yasr-settings-functions.php:760
 msgid "Add element"
 msgstr "Element hinzufügen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:607
-#: ../lib/yasr-settings-functions.php:725
+#: ../lib/yasr-settings-functions.php:644
+#: ../lib/yasr-settings-functions.php:762
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:617
+#: ../lib/yasr-settings-functions.php:654
 msgid "No Multiple Set were found"
 msgstr "Keine Multi-Sets gefunden"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:867
-#: ../lib/yasr-settings-functions.php:1135
+#: ../lib/yasr-settings-functions.php:904
+#: ../lib/yasr-settings-functions.php:1172
 msgid "Settings Saved"
 msgstr "Einstellungen gespeichert"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:872
+#: ../lib/yasr-settings-functions.php:909
 msgid "Something goes wrong trying insert set field name. Please report it"
 msgstr ""
 "Beim einfügen des Multi-Set Feldnamens ist etwas schief gelaufen. Bitte "
 "melde das Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:878
+#: ../lib/yasr-settings-functions.php:915
 msgid "Something goes wrong trying insert Multi Set name. Please report it"
 msgstr ""
 "Beim Einfügen des Multi-Sets ist etwas schief gelaufen. Bitte melde das "
 "Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:953
+#: ../lib/yasr-settings-functions.php:990
 msgid "Something goes wrong trying to delete a Multi Set . Please report it"
 msgstr ""
 "Beim Löschen des Multi-Sets ist etwas schief gelaufen. Bitte melde das "
 "Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:999
+#: ../lib/yasr-settings-functions.php:1036
 msgid ""
 "Something goes wrong trying to delete a Multi Set's element. Please report it"
 msgstr ""
@@ -747,7 +784,7 @@ msgstr ""
 "das Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1063
+#: ../lib/yasr-settings-functions.php:1100
 msgid ""
 "Something goes wrong trying to update a Multi Set's element. Please report it"
 msgstr ""
@@ -755,7 +792,7 @@ msgstr ""
 "Bitte melde das Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1120
+#: ../lib/yasr-settings-functions.php:1157
 msgid ""
 "Something goes wrong trying to insert set field name in edit form. Please "
 "report it"
@@ -764,17 +801,17 @@ msgstr ""
 "melde das Problem"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1163
+#: ../lib/yasr-settings-functions.php:1200
 msgid "Style Options"
 msgstr "Style Optionen"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1164
+#: ../lib/yasr-settings-functions.php:1201
 msgid "Custom CSS Styles"
 msgstr "Benutzerdefiniertes CSS"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1169
+#: ../lib/yasr-settings-functions.php:1206
 msgid ""
 "Please use text area below to write your own CSS styles to override the "
 "default ones."
@@ -783,111 +820,112 @@ msgstr ""
 "CSS-Code zu überschreiben."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1171
+#: ../lib/yasr-settings-functions.php:1208
 msgid "Leave it blank if you don't know what you're doing"
 msgstr " Lasse diesen Bereich leer, wenn du nicht weißt was du tust."
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1194
+#: ../lib/yasr-settings-functions.php:1231
 msgid "Looking for more features?"
 msgstr "Auf der Suche nach mehr Funktionen?"
 
-#: ../lib/yasr-settings-functions.php:1195
+#: ../lib/yasr-settings-functions.php:1232
 msgid "Upgrade to yasr pro!"
 msgstr "Zu Yasr Pro wechseln!"
 
-#: ../lib/yasr-settings-functions.php:1211
+#: ../lib/yasr-settings-functions.php:1248
 msgid "Unlimited ratings and votes"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1217
+#: ../lib/yasr-settings-functions.php:1254
 msgid "Works with shortcodes"
 msgstr ""
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1223
+#: ../lib/yasr-settings-functions.php:1260
 #, fuzzy
 msgid "Multi Set Support"
 msgstr "Multi-Sets"
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1228
+#: ../lib/yasr-settings-functions.php:1265
 #, fuzzy
 msgid "Logs and stats for visitors votes"
 msgstr "Wollen Sie Statistiken für Besucher-Stimmen zeigen?"
 
-#: ../lib/yasr-settings-functions.php:1233
+#: ../lib/yasr-settings-functions.php:1270
 msgid "Localization (.po and .mo files included)"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1238
+# @ yasr
+#: ../lib/yasr-settings-functions.php:1275
+#, fuzzy
 msgid "Rich Snippet Support"
-msgstr ""
+msgstr "Multi-Sets"
 
-#: ../lib/yasr-settings-functions.php:1243
+#: ../lib/yasr-settings-functions.php:1280
 msgid "Rankings for reviews, votes and users"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1248
+#: ../lib/yasr-settings-functions.php:1285
 msgid "Rankings Customization"
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1253
+#: ../lib/yasr-settings-functions.php:1290
 msgid "Stars Customization"
 msgstr ""
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1254
+#: ../lib/yasr-settings-functions.php:1291
 #, fuzzy
 msgid "Size Only"
 msgstr "Größe"
 
-#: ../lib/yasr-settings-functions.php:1255
+#: ../lib/yasr-settings-functions.php:1292
 msgid ""
 "Users can choose different ready to use sets or can upload their own images."
 msgstr ""
 
-#: ../lib/yasr-settings-functions.php:1258
-msgid "Visitors can vote on Multi Set"
-msgstr ""
-
-#: ../lib/yasr-settings-functions.php:1263
+#: ../lib/yasr-settings-functions.php:1295
 msgid "Users can review in comments"
 msgstr ""
 
-# @ yasr
-#: ../lib/yasr-settings-functions.php:1274
-msgid "Not avaible yet"
-msgstr "Nicht verfügbar"
-
-# @ yasr
 #: ../lib/yasr-settings-functions.php:1306
-#: ../lib/yasr-settings-functions.php:1333
+msgid "Not avaible yet"
+msgstr ""
+
+#: ../lib/yasr-settings-functions.php:1338
+#: ../lib/yasr-settings-functions.php:1365
 msgid "Follow YASR official site!"
-msgstr "Folgen Sie Yasr offiziellen Website!"
+msgstr ""
 
 # @ yasr
-#: ../lib/yasr-settings-functions.php:1363
+#: ../lib/yasr-settings-functions.php:1395
 msgid "No previous Gd Star Rating installation was found"
 msgstr "Es wurde keine Gd Star Ratings Installation gefunden"
 
 # @ yasr
-#: ../lib/yasr-db-functions.php:280
+#: ../lib/yasr-db-functions.php:310
 msgid "No recenet votes yet"
 msgstr "Keine aktuellen Bewertungen vorhanden"
 
 # @ default
-#: ../lib/yasr-db-functions.php:295 ../lib/yasr-ajax-functions.php:761
+#: ../lib/yasr-db-functions.php:325 ../lib/yasr-ajax-functions.php:778
 msgid "anonymous"
 msgstr "Anonym"
 
+#: ../lib/yasr-db-functions.php:334
+#, php-format
+msgid "Vote %d from %s on "
+msgstr ""
+
 # @ yasr
-#: ../lib/yasr-db-functions.php:318 ../lib/yasr-ajax-functions.php:784
+#: ../lib/yasr-db-functions.php:350 ../lib/yasr-ajax-functions.php:803
 msgid "Ip address"
 msgstr "IP-Adresse"
 
 # @ yasr
-#: ../lib/yasr-db-functions.php:359 ../lib/yasr-ajax-functions.php:825
+#: ../lib/yasr-db-functions.php:391 ../lib/yasr-ajax-functions.php:844
 msgid "Pages"
 msgstr "Seiten"
 
@@ -896,66 +934,57 @@ msgstr "Seiten"
 msgid "Yet Another Stars Rating: Settings"
 msgstr "Yet Another Stars Rating"
 
-#: ../lib/yasr-functions.php:143
-msgid "YASR"
-msgstr ""
-
 # @ yasr
-#: ../lib/yasr-functions.php:144
+#: ../lib/yasr-functions.php:148
 msgid "Yet Another Stars Rating: Multiple set"
 msgstr "Yet Another Stars Rating: Multi-Sets"
 
-# @ yasr
-#: ../lib/yasr-functions.php:150
-msgid "Overall Rating"
-msgstr "Gesamtbewertung"
-
 # @ default
-#: ../lib/yasr-functions.php:160
+#: ../lib/yasr-functions.php:159
 msgid "You don't have enought privileges to insert Overall Rating"
 msgstr ""
 "Du hast nicht die notwendigen Berechtigungen um eine Gesamtbewertung "
 "einzufügen"
 
 # @ default
-#: ../lib/yasr-functions.php:170
+#: ../lib/yasr-functions.php:169
 msgid "You don't have enought privileges to insert Multi Set"
 msgstr ""
 "Du hast nicht die notwendigen Berechtigungen um ein Multi-Set einzufügen"
 
 # @ yasr
-#: ../lib/yasr-functions.php:310
+#: ../lib/yasr-functions.php:309
 msgid " reviewed by "
 msgstr " geschrieben von "
 
 # @ yasr
-#: ../lib/yasr-functions.php:311
+#: ../lib/yasr-functions.php:310
 msgid " on "
 msgstr " am"
 
 # @ yasr
-#: ../lib/yasr-functions.php:312
+#: ../lib/yasr-functions.php:311
 msgid " rated "
 msgstr " ist bewertet mit "
 
 # @ yasr
-#: ../lib/yasr-functions.php:312
+#: ../lib/yasr-functions.php:311
 msgid " of"
 msgstr ""
 
 # @ yasr
-#: ../lib/yasr-functions.php:359
+#: ../lib/yasr-functions.php:358
 msgid " written by "
-msgstr "geschrieben von "
+msgstr " geschrieben von "
 
 # @ yasr
-#: ../lib/yasr-functions.php:361
+#: ../lib/yasr-functions.php:360
 #, fuzzy
 msgid " average rating "
 msgstr " Durchschnittsbewertung"
 
 # @ yasr
-#: ../lib/yasr-functions.php:362
+#: ../lib/yasr-functions.php:361
 msgid " user ratings"
 msgstr " Besucherbewertungen"
 
@@ -985,157 +1014,170 @@ msgid "Choose a vote for each element"
 msgstr "Wähle eine Bewertung für jedes Element"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:255 ../lib/yasr-ajax-functions.php:298
-msgid "Remember to insert this shortcode"
-msgstr "Diesen Shortcode"
+#: ../lib/yasr-ajax-functions.php:257 ../lib/yasr-ajax-functions.php:301
+#, fuzzy
+msgid "If you want to insert this multiset, paste this shortcode "
+msgstr "Vorhandene Multi-Sets"
+
+#: ../lib/yasr-ajax-functions.php:259 ../lib/yasr-ajax-functions.php:303
+msgid ""
+"If, instead, you want allow your visitor to vote on this multiset, use this "
+"shortcode"
+msgstr ""
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:257 ../lib/yasr-ajax-functions.php:300
-msgid "where you want to display this multi set"
-msgstr "an der Stelle einfügen, wo das Multi-Set angezeigt werden soll."
-
-# @ yasr
-#: ../lib/yasr-ajax-functions.php:265
+#: ../lib/yasr-ajax-functions.php:268
 msgid "Choose a vote for every element"
 msgstr "Wähle eine Bewertung für jedes Element"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:432
+#: ../lib/yasr-ajax-functions.php:441
 msgid "Main"
 msgstr "Allgemein"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:433
+#: ../lib/yasr-ajax-functions.php:442
 msgid "Charts"
 msgstr "Charts"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:435
+#: ../lib/yasr-ajax-functions.php:444
 msgid "Read the doc"
 msgstr "Lese die Dokumentation"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:444
+#: ../lib/yasr-ajax-functions.php:453
 msgid "Overall Rating / Review"
 msgstr "Gesamtbewertung (Autorenbewertung)"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:446
+#: ../lib/yasr-ajax-functions.php:455
 msgid "Insert Overall Rating"
 msgstr "Gesamtbewertung einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:447
+#: ../lib/yasr-ajax-functions.php:456
 msgid "Insert Overall Rating / Review for this post"
 msgstr "Gesamtbewertung der Review-Autoren einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:450 ../lib/yasr-ajax-functions.php:468
+#: ../lib/yasr-ajax-functions.php:459 ../lib/yasr-ajax-functions.php:477
 msgid "Choose Size"
 msgstr "Größe wählen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:464
+#: ../lib/yasr-ajax-functions.php:473
 msgid "Insert Visitor Votes"
 msgstr "Besucherbewertung einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:465
+#: ../lib/yasr-ajax-functions.php:474
 msgid "Insert the ability for your visitor to vote"
 msgstr "Besucher dürfen Bewertungen abgeben"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:482
+#: ../lib/yasr-ajax-functions.php:491
 msgid "If you want to insert a Multi Set, pick one:"
 msgstr "Vorhandene Multi-Sets"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:488
+#: ../lib/yasr-ajax-functions.php:497
 msgid "Choose wich set you want to insert."
 msgstr "Wähle das einzufügende Multi-Set."
 
+#: ../lib/yasr-ajax-functions.php:499 ../lib/yasr-ajax-functions.php:516
+msgid "Readonly?"
+msgstr ""
+
+#: ../lib/yasr-ajax-functions.php:501 ../lib/yasr-ajax-functions.php:517
+msgid ""
+"If Readonly is checked, only you can insert the votes (in the box above the "
+"editor)"
+msgstr ""
+
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:496
+#: ../lib/yasr-ajax-functions.php:502
+#, fuzzy
+msgid "Insert Multi Set"
+msgstr "Multi-Set einfügen"
+
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:511
 msgid "Insert Multiset:"
 msgstr "Multi-Set einfügen:"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:499
+#: ../lib/yasr-ajax-functions.php:514
 msgid "Insert Multiple Set"
 msgstr "Multi-Set einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:500
-msgid "Insert multiple set in this post ?"
-msgstr "Multi-Set in Artikel/Seite einfügen?"
-
-# @ yasr
-#: ../lib/yasr-ajax-functions.php:515
+#: ../lib/yasr-ajax-functions.php:532
 msgid "Ranking reviews"
 msgstr "Rang Bewertungen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:516
+#: ../lib/yasr-ajax-functions.php:533
 msgid "Insert Ranking reviews"
 msgstr "Rang Bewertungen einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:517
+#: ../lib/yasr-ajax-functions.php:534
 msgid "Insert Top 10 ranking for [yasr_overall_rating] shortcode"
 msgstr "Top 10 Bewertung für [yasr_overall_rating] shortcode einfügen."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:521
+#: ../lib/yasr-ajax-functions.php:538
 msgid "Users' ranking"
 msgstr "Benutzer-Rangliste"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:522
+#: ../lib/yasr-ajax-functions.php:539
 msgid "Insert Users ranking"
 msgstr "Benutzer-Rangliste einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:523
+#: ../lib/yasr-ajax-functions.php:540
 msgid "Insert Top 10 ranking for [yasr_visitor_votes] shortcode"
 msgstr "Top 10 Wertung für  [yasr_visitor_votes] shortcode einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:527
+#: ../lib/yasr-ajax-functions.php:544
 msgid "Most active reviewers"
 msgstr "Top 5 Aktivste Review-Autoren"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:528
+#: ../lib/yasr-ajax-functions.php:545
 msgid "Insert Most Active Reviewers"
 msgstr "meist aktivste Bewertungen einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:529
+#: ../lib/yasr-ajax-functions.php:546
 msgid "Insert Top 5 active reviewers"
 msgstr "Füge die Top 5 aktivsten Review-Autoren ein"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:533
+#: ../lib/yasr-ajax-functions.php:550
 msgid "Most Active Users"
 msgstr "meist aktivste Benutzer"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:534
+#: ../lib/yasr-ajax-functions.php:551
 msgid "Insert Most Active Users"
 msgstr "Aktivste Benutzer einfügen."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:535
+#: ../lib/yasr-ajax-functions.php:552
 msgid "Insert Top 10 voters [yasr_visitor_votes] shortcode"
 msgstr "Top 10 Abstimmer [yasr_visitor_votes] Shortcode einfügen"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:606
+#: ../lib/yasr-ajax-functions.php:623
 msgid "Reviews and Visitor Votes have been successfull imported."
 msgstr "Autoren-Reviews und Bewertungen wurden erfolgreich importiert."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:612
+#: ../lib/yasr-ajax-functions.php:629
 msgid ""
 "Step2: I will check if you used Multiple Sets and if so I will import them. "
 "THIS MAY TAKE A WHILE!"
@@ -1144,107 +1186,338 @@ msgstr ""
 "KANN ETWAS DAUERN!"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:614
+#: ../lib/yasr-ajax-functions.php:631
 msgid "Proceed Step 2"
 msgstr "Fortfahren mit Schritt 2"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:621
+#: ../lib/yasr-ajax-functions.php:638
 msgid "Something goes wrong! Refresh the page and try again!"
 msgstr ""
 "Hier ist etwas schief gelaufen. Bitte aktualisiere die Seite und versuche es "
 "noch einmal!"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:650
+#: ../lib/yasr-ajax-functions.php:667
 msgid "I've found Multiple Set! Importing..."
 msgstr "Es wurden verschiedene Multi-Sets gefunden. Starte Import..."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:659
+#: ../lib/yasr-ajax-functions.php:676
 msgid "Multi Set's name has been successfull imported."
 msgstr "Multi-Set Namen wurden erfolgreich importiert."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:661
+#: ../lib/yasr-ajax-functions.php:678
 msgid "Now I'm going to import Multi Set data"
 msgstr "Der Import der Multi-Set Daten wird gestartet"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:672
+#: ../lib/yasr-ajax-functions.php:689
 msgid "All votes has been successfull imported."
 msgstr "Alle Bewertungen wurden erfolgreich importiert."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:674
+#: ../lib/yasr-ajax-functions.php:691
 msgid "Done"
 msgstr "Fertig"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:679
+#: ../lib/yasr-ajax-functions.php:696
 msgid "I've found Multiple Set's votes but I couldn't insert into db"
 msgstr ""
 "Es wurden Multi-Set Bewertungen gefunden aber diese konnten nicht in der "
 "Datenbank gespeichert werden."
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:687
+#: ../lib/yasr-ajax-functions.php:704
 msgid "I've found Multi Set but with no data"
 msgstr "Das Multi-Set wurde gefunden aber es sind keine Daten vorhanden"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:696
+#: ../lib/yasr-ajax-functions.php:713
 msgid "I've found Multi Sets names but I couldn't insert into db"
 msgstr ""
 "Multi-Set Namen wurde gefunden aber konnten nicht in die Datenbank "
 "importiert werden"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:704
+#: ../lib/yasr-ajax-functions.php:721
 msgid "Multisets were not found. Imported is done!"
 msgstr "Kein Multi-Set gefunden aber Import war erfolgreich!"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:748
+#: ../lib/yasr-ajax-functions.php:765
 msgid "No Recenet votes yet"
 msgstr "Keine kürzlichen Bewertungen"
 
+#: ../lib/yasr-ajax-functions.php:787
+#, php-format
+msgid "Vote %d from %s on"
+msgstr ""
+
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:915 ../lib/yasr-ajax-functions.php:1057
+#: ../lib/yasr-ajax-functions.php:937 ../lib/yasr-ajax-functions.php:1088
 msgid "Error: you can't vote 0"
 msgstr "Fehler: Sie können nicht 0 wählen!"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:1011 ../lib/yasr-ajax-functions.php:1019
-msgid "Average rating"
-msgstr "Durchschnittsbewertung"
+#: ../lib/yasr-ajax-functions.php:1040 ../lib/yasr-ajax-functions.php:1048
+#, fuzzy
+msgid "Average:"
+msgstr "Durchschnitt: "
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:1012 ../lib/yasr-ajax-functions.php:1020
+#: ../lib/yasr-ajax-functions.php:1041 ../lib/yasr-ajax-functions.php:1049
 msgid "Vote Saved"
 msgstr "Bewertung gespeichert"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:1149
+#: ../lib/yasr-ajax-functions.php:1184
 msgid "Vote updated"
 msgstr "Bewertung aktualisiert"
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:1220
-msgid "Average "
-msgstr "Durchschnitt: "
-
-# @ yasr
-#: ../lib/yasr-ajax-functions.php:1231
+#: ../lib/yasr-ajax-functions.php:1325
 #, fuzzy
-msgid "You've already voted this article"
-msgstr "Du hast hier bewertet mit "
+msgid "Rating saved!"
+msgstr "Einstellungen gespeichert"
+
+#: ../lib/yasr-ajax-functions.php:1331
+msgid "Rating not saved. Please Try again"
+msgstr ""
 
 # @ yasr
-#: ../lib/yasr-ajax-functions.php:1356
+#: ../lib/yasr-ajax-functions.php:1424
 #, fuzzy
 msgid "stars"
 msgstr "Sterne"
 
-#~ msgid "'bad', 'poor', 'ok', 'good', 'super'"
-#~ msgstr "'schlecht', 'mangelhaft', 'OK', 'gut', 'super'"
+# @ yasr
+#: ../lib/yasr-ajax-functions.php:1429
+#, fuzzy
+msgid "star"
+msgstr "Sterne"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Pro Options!"
+#~ msgstr "Style Optionen"
+
+# @ yasr
+#~ msgid "Overall Rating"
+#~ msgstr "Gesamtbewertung"
+
+# @ yasr
+#~ msgid "Remember to insert this shortcode"
+#~ msgstr "Diesen Shortcode"
+
+# @ yasr
+#~ msgid "where you want to display this multi set"
+#~ msgstr "an der Stelle einfügen, wo das Multi-Set angezeigt werden soll."
+
+# @ yasr
+#, fuzzy
+#~ msgid "Pro Charts"
+#~ msgstr "Charts"
+
+# @ yasr
+#~ msgid "Insert multiple set in this post ?"
+#~ msgstr "Multi-Set in Artikel/Seite einfügen?"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Insert Average Rating"
+#~ msgstr "Gesamtbewertung einfügen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Insert Stars Average"
+#~ msgstr "Benutzer-Rangliste einfügen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "You've not saved any shortcode."
+#~ msgstr "Es sind keine Autoren-Bewertungen gespeichert"
+
+# @ yasr
+#~ msgid "Average rating"
+#~ msgstr "Durchschnittsbewertung"
+
+# @ yasr
+#~ msgid "Average "
+#~ msgstr "Durchschnitt: "
+
+# @ yasr
+#, fuzzy
+#~ msgid "You've already voted this article"
+#~ msgstr "Du hast hier bewertet mit "
+
+# @ yasr
+#, fuzzy
+#~ msgid "You don't have any votes stored with this params"
+#~ msgstr "Es sind keine Autoren-Bewertungen gespeichert"
+
+# @ default
+#, fuzzy
+#~ msgid ""
+#~ "Problem while retriving the most active reviewers chart. Did you "
+#~ "published any review?"
+#~ msgstr ""
+#~ "Problem beim Abrufen die Top-5 aktivsten Rezensenten. Haben Sie "
+#~ "irgendeine Bewertung veröffentlicht"
+
+# @ default
+#, fuzzy
+#~ msgid ""
+#~ "Problem while retriving the top 10 active users chart. Are you sure you "
+#~ "have votes to show?"
+#~ msgstr ""
+#~ "Problem beim Abrufen der Top 10  von aktiven Nutzern  anzuzeigen.. Sind "
+#~ "Sie sicher, dass Sie  auch Stimmen, zum anzeigen haben?"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Shortcode Saved"
+#~ msgstr "Bewertung gespeichert"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Something goes wrong. Try again or report it."
+#~ msgstr ""
+#~ "Beim einfügen des Multi-Set Feldnamens ist etwas schief gelaufen. Bitte "
+#~ "melde das Problem"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Title Updated"
+#~ msgstr "Bewertung aktualisiert"
+
+# @ yasr
+#, fuzzy
+#~ msgid "You do not have permission to install plugin updates"
+#~ msgstr ""
+#~ "Du verfügst nicht über ausreichende Berechtigungen um auf diese Seite "
+#~ "zuzugreifen."
+
+# @ yasr
+#, fuzzy
+#~ msgid "Something goes wrong tryng to activating license. Please report it"
+#~ msgstr ""
+#~ "Beim Löschen des Multi-Sets ist etwas schief gelaufen. Bitte melde das "
+#~ "Problem"
+
+# @ yasr
+#, fuzzy
+#~ msgid "If you want to leave a review, please"
+#~ msgstr "Vorhandene Multi-Sets"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Build Overall Rating Chart"
+#~ msgstr "Gesamtbewertung"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Show Options"
+#~ msgstr "Style Optionen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Hide Options"
+#~ msgstr "Style Optionen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Show text before or after the stars?"
+#~ msgstr ""
+#~ "Benutzerdefinierter Text der vor oder nach der Bewertung angezeigt wird"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Yes, before the stars"
+#~ msgstr "Vor dem Artikel"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Yes, after the stars"
+#~ msgstr "Nach dem Artikel"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Rating:"
+#~ msgstr "Bewertung"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Do you want to specify a custom post type?"
+#~ msgstr "Verwenden Sie nur in benutzerdefinierte Post-Typen?"
+
+# @ yasr
+#, fuzzy
+#~ msgid "You don't use custom post types"
+#~ msgstr "Verwenden Sie nur in benutzerdefinierte Post-Typen?"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Create Shortcode"
+#~ msgstr "Neues Multi-Set anlegen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Build Visitor Votes Chart"
+#~ msgstr "Besucherbewertung"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Choose default view"
+#~ msgstr "Größe wählen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Build Most Active Reviewers Chart"
+#~ msgstr "meist aktivste Bewertungen einfügen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Build Most Active Users charts"
+#~ msgstr "meist aktivste Benutzer"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Yasr Pro General Options"
+#~ msgstr "Allgemeine Einstellungen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Choose Stars Set"
+#~ msgstr "Größe wählen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Use auto insert?"
+#~ msgstr "Bewertung automatisch einfügen?"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Size?"
+#~ msgstr "Größe"
+
+# @ yasr
+#~ msgid ""
+#~ "Seems like you've imported gd star rating in the past, but then deleted "
+#~ "the logs table. For now, you can't enable statistics"
+#~ msgstr ""
+#~ "Es scheint, dass Sie GD Sterne in der Vergangenheit importiert haben, "
+#~ "aber dann die Protokoll Tabelle gelöscht wurde. Jetzt können Sie keine "
+#~ "Statistiken ermöglichen"
+
+# @ yasr
+#, fuzzy
+#~ msgid "Theme"
+#~ msgstr "Dunkles Theme"
+
+# @ default
+#, fuzzy
+#~ msgid "Choose which Star Set you wish to use"
+#~ msgstr "Wähle ein Multi-Set aus"
