@@ -1,0 +1,950 @@
+# Translation of Yet Another Stars Rating in Croatian
+# This file is distributed under the same license as the Yet Another Stars Rating package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2015-05-23 00:51:41+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Yet Another Stars Rating\n"
+
+#: ../lib/yasr-shortcode-functions.php:545
+#: ../lib/yasr-shortcode-functions.php:553
+#: ../lib/yasr-shortcode-functions.php:565
+msgid "Submit!"
+msgstr "Pošalji!"
+
+#: ../yasr-metabox-top-right.php:171
+msgid "Product, Place, Other"
+msgstr "Proizvod, Mjesto, Ostalo"
+
+#: ../lib/yasr-shortcode-functions.php:534
+msgid "Thank you for voting! "
+msgstr "Hvala vam za glasovanje!"
+
+#: ../lib/yasr-settings-functions.php:281
+msgid "Custom text to display BEFORE Visitor Rating"
+msgstr "Prilagođeni tekst za prikaz PRIJE Ocjene Posjetitelja"
+
+#: ../lib/yasr-settings-functions.php:287
+msgid "Custom text to display AFTER Visitor Rating"
+msgstr "Prilagođeni tekst za prikaz NAKON Ocjene Posjetitelja"
+
+#: ../lib/yasr-settings-functions.php:297
+msgid "Help"
+msgstr "Pomoć"
+
+#: ../lib/yasr-settings-functions.php:301
+msgid "In the first field you can use %overall_rating% pattern to show the overall rating."
+msgstr "U prvom polju možete koristiti %overall_rating% obrazac za prikaz ukupne ocjene."
+
+#: ../lib/yasr-settings-functions.php:305
+msgid "In the Second and Third fields you can use %total_count% pattern to show the total count, and %average% pattern to show the average"
+msgstr "U drugom i trećem polju vi možete koristiti %total_count% obrazac da prikažete ukupan broj, a %average% obrazac da prikažete prosjek"
+
+#: ../lib/yasr-settings-functions.php:472
+msgid "Dark theme"
+msgstr "Tamna tema"
+
+#: ../lib/yasr-db-functions.php:334
+msgid "Vote %d from %s on "
+msgstr "Glasova %d od %s dana"
+
+#: ../lib/yasr-ajax-functions.php:257 ../lib/yasr-ajax-functions.php:301
+msgid "If you want to insert this multiset, paste this shortcode "
+msgstr "Ako želite umetnuti ovu višestruku postavku, zaljepite ovaj shortcode"
+
+#: ../lib/yasr-ajax-functions.php:259 ../lib/yasr-ajax-functions.php:303
+msgid "If, instead, you want allow your visitor to vote on this multiset, use this shortcode"
+msgstr "Ako, umjesto toga, želite dopustiti vašim posjetiteljima da glasuju u ovoj višestrukoj postavci, koristite ovaj shortcode"
+
+#: ../lib/yasr-ajax-functions.php:499 ../lib/yasr-ajax-functions.php:516
+msgid "Readonly?"
+msgstr "Samo za čitanje?"
+
+#: ../lib/yasr-ajax-functions.php:501 ../lib/yasr-ajax-functions.php:517
+msgid "If Readonly is checked, only you can insert the votes (in the box above the editor)"
+msgstr "Ako je uključeno Samo za čitanje, samo vi možete umetnuti glasove (u okviru iznad urednika)"
+
+#: ../lib/yasr-ajax-functions.php:502
+msgid "Insert Multi Set"
+msgstr "Umetni Višestruki Komplet"
+
+#: ../lib/yasr-ajax-functions.php:787
+msgid "Vote %d from %s on"
+msgstr "Glasova %d od %s dana"
+
+#: ../lib/yasr-ajax-functions.php:1040 ../lib/yasr-ajax-functions.php:1048
+msgid "Average:"
+msgstr "Prosjek:"
+
+#: ../lib/yasr-ajax-functions.php:1325
+msgid "Rating saved!"
+msgstr "Ocjena spremljena!"
+
+#: ../lib/yasr-ajax-functions.php:1331
+msgid "Rating not saved. Please Try again"
+msgstr "Ocjena nije spremljena. Molimo pokušajte ponovo"
+
+#: ../lib/yasr-shortcode-functions.php:309
+msgid "bad, poor, ok, good, super"
+msgstr "loše, slabo, zadovoljavajuće, dobro, super"
+
+#: ../lib/yasr-ajax-functions.php:1429
+msgid "star"
+msgstr "zvjezdica"
+
+#: ../lib/yasr-settings-functions.php:1291
+msgid "Size Only"
+msgstr "Samo Veličina"
+
+#: ../lib/yasr-settings-functions.php:1292
+msgid "Users can choose different ready to use sets or can upload their own images."
+msgstr "Korisnici mogu odabrati različite postavke već spremne za korištenje ili mogu učitati vlastite slike."
+
+#: ../lib/yasr-settings-functions.php:1248
+msgid "Unlimited ratings and votes"
+msgstr "Neograničene ocjene i glasovi"
+
+#: ../lib/yasr-settings-functions.php:1254
+msgid "Works with shortcodes"
+msgstr "Radi sa shortcodes"
+
+#: ../lib/yasr-settings-functions.php:1260
+msgid "Multi Set Support"
+msgstr "Podrška za Višestruki Komplet"
+
+#: ../lib/yasr-settings-functions.php:1265
+msgid "Logs and stats for visitors votes"
+msgstr "Evidencije i statistike za glasove posjetitelja"
+
+#: ../lib/yasr-settings-functions.php:1270
+msgid "Localization (.po and .mo files included)"
+msgstr "Lokalizacija (.po i .mo datoteke uključene)"
+
+#: ../lib/yasr-settings-functions.php:1275
+msgid "Rich Snippet Support"
+msgstr "Podrška za Rich Snippet"
+
+#: ../lib/yasr-settings-functions.php:1280
+msgid "Rankings for reviews, votes and users"
+msgstr "Ljestvica za mišljenja, glasove i korisnike"
+
+#: ../lib/yasr-settings-functions.php:1285
+msgid "Rankings Customization"
+msgstr "Prilagođavanje ljestvice"
+
+#: ../lib/yasr-settings-functions.php:1290
+msgid "Stars Customization"
+msgstr "Prilagođavanje zvijezdica"
+
+#: ../lib/yasr-settings-functions.php:1295
+msgid "Users can review in comments"
+msgstr "Korisnici mogu dati ocjenu u komentarima"
+
+#: ../lib/yasr-settings-functions.php:54
+msgid "Show \"Overall Rating\" in Archive Page?"
+msgstr "Prikazati \"Ukupna ocijena\" na stranici arhive?"
+
+#: ../lib/yasr-settings-functions.php:55
+msgid "Show \"Visitor Votes\" in Archive Page?"
+msgstr "Prikazati \"Glasovi posjetitelja\" na stranici arhive? "
+
+#: ../lib/yasr-settings-functions.php:241
+msgid "If you enable this, \"Visitor Votes\" will be showed not only in the single article or page, but also in pages like Home Page, category pages or archives."
+msgstr "Ako ovo omogućite, \"Glasovi posjetitelja\" će se prikazati ne samo u jednoj objavi ili stranici, nego također i na stranicama poput početne stranice, stranicama s kategorijama ili arhivama."
+
+#: ../lib/yasr-ajax-functions.php:1424
+msgid "stars"
+msgstr "zvijezdica"
+
+#: ../lib/yasr-shortcode-functions.php:791
+msgid "You've not enough data"
+msgstr "Vi nemate dovoljno podataka"
+
+#: ../lib/yasr-shortcode-functions.php:911
+msgid "Problem while retrieving the top 5 most active reviewers. Did you publish any review?"
+msgstr "Problem prilikom dohvaćanja 5 najaktivnijih recenzija. Jeste li objaviti neki pregled?"
+
+#: ../lib/yasr-shortcode-functions.php:979
+msgid "Problem while retrieving the top 10 active users chart. Are you sure you have votes to show?"
+msgstr "Problem prilikom dohvaćanja grafikona 10 najaktivnijih korisnika. Jeste li sigurni da imate glasove za prikazivanje?"
+
+#: ../lib/yasr-settings-functions.php:57
+msgid "Do you want show stats for visitors votes?"
+msgstr "Želite li pokazati statistiku za glasove posjetitelja?"
+
+#: ../lib/yasr-settings-functions.php:496
+msgid "You can insert up to nine elements"
+msgstr "Možete umetnuti do devet elemenata"
+
+#: ../lib/yasr-db-functions.php:310
+msgid "No recenet votes yet"
+msgstr "Još nema novih glasova"
+
+#: ../lib/yasr-ajax-functions.php:1184
+msgid "Vote updated"
+msgstr "Glasovanje ažurirano"
+
+#: ../yasr-settings-page.php:79
+msgid "Pro Features!"
+msgstr "Pro značajke!"
+
+#: ../lib/yasr-settings-functions.php:1231
+msgid "Looking for more features?"
+msgstr "Tražite više značajki?"
+
+#: ../lib/yasr-settings-functions.php:1232
+msgid "Upgrade to yasr pro!"
+msgstr "Nadogradite na yasr pro!"
+
+#: ../lib/yasr-settings-functions.php:1306
+msgid "Not avaible yet"
+msgstr "Još nije na raspolaganju"
+
+#: ../lib/yasr-shortcode-functions.php:760
+#: ../lib/yasr-shortcode-functions.php:799
+msgid "Post / Page"
+msgstr "Objava / Stranica"
+
+#: ../yasr-settings-page.php:24 ../lib/yasr-functions.php:111
+#: ../lib/yasr-ajax-functions.php:44 ../lib/yasr-ajax-functions.php:187
+#: ../lib/yasr-ajax-functions.php:336 ../lib/yasr-ajax-functions.php:753
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nemate potrebne ovlasti za pristup ovoj stranici."
+
+#: ../yasr-settings-page.php:33
+msgid "Settings"
+msgstr "Postavke"
+
+#: ../yasr-settings-page.php:76
+msgid "General Settings"
+msgstr "Opće Postavke"
+
+#: ../yasr-settings-page.php:77
+msgid "Multi Sets"
+msgstr "Višestruki Kompleti"
+
+#: ../yasr-settings-page.php:78
+msgid "Styles"
+msgstr "Stilovi"
+
+#: ../yasr-settings-page.php:96 ../yasr-settings-page.php:255
+#: ../yasr-settings-page.php:295
+msgid "Save"
+msgstr "Spremi"
+
+#: ../yasr-settings-page.php:116
+msgid "Import Gd Star Rating"
+msgstr "Uvoz Gd Star Rating"
+
+#: ../yasr-settings-page.php:117
+msgid "I've found a previous installation of Gd Star Rating."
+msgstr "Nađena je prethodna instalacija od Gd Star Rating."
+
+#: ../yasr-settings-page.php:117
+msgid "Do you want proceed to import data?"
+msgstr "Želite li nastaviti i uvesti podatke?"
+
+#: ../yasr-settings-page.php:119
+msgid "Yes, Begin Import"
+msgstr "Da, započni uvoz"
+
+#: ../yasr-settings-page.php:123
+msgid "Click on Proceed to import Gd Star Rating data."
+msgstr "Kliknite na Nastavi uvoziti Gd Star Rating podatke."
+
+#: ../yasr-settings-page.php:126 ../yasr-settings-page.php:159
+msgid "Proceed"
+msgstr "Nastaniti"
+
+#: ../yasr-settings-page.php:148
+msgid "Manage GD Star Data"
+msgstr "Upravljanje s GD Star podacima"
+
+#: ../yasr-settings-page.php:149
+msgid "Gd Star Rating has been already imported."
+msgstr "Gd Star Rating je već uvezen."
+
+#: ../yasr-settings-page.php:150
+msgid "If you wish you can import it again, but"
+msgstr "Ako želite to možete ponovno uvesti, ali"
+
+#: ../yasr-settings-page.php:150
+msgid "you will lose all data you've collect since the import!"
+msgstr "izgubit ćete sve podatke koje ste prikupili nakon uvoza!"
+
+#: ../yasr-settings-page.php:152
+msgid "Ok, Import Again"
+msgstr "U redu, Uvezi ponovo"
+
+#: ../yasr-settings-page.php:156
+msgid "Click on Proceed to import again Gd Star Rating data. This may take a while!"
+msgstr "Kliknite na Nastaviti da ponovno uvezete Gd Star Rating podatke. To može potrajati neko vrijeme!"
+
+#: ../yasr-settings-page.php:196
+msgid "Manage Multi Set"
+msgstr "Upravljanje Višestrukim Kompletom"
+
+#: ../yasr-settings-page.php:200
+msgid "What is a Multi Set?"
+msgstr "Što je Višestruki Komplet?"
+
+#: ../yasr-settings-page.php:205
+msgid "Multi Set allows you to insert a rate for each aspect about the product / local business / whetever you're reviewing, example in the image below."
+msgstr "Višestruki Komplet omogućuje umetanje ocjene za svaki aspekt o proizvodu / lokalnoj tvrtki / štogod da pregledavate, primjer je na slici ispod."
+
+#: ../yasr-settings-page.php:209
+msgid "You can create up to 99 different Multi Set and each one can contain up to 9 different fields. Once you've saved it, you can insert the rates while typing your article in the box below the editor, as you can see in this image (click to see it larger)"
+msgstr "Možete kreirati do 99 različitih Višestrukih Kompleta a svaki od njih može sadržavati do 9 različitih polja. Nakon što to spremite, možete umetnuti ocjene dok pišete članak u polju ispod uređivača, kao što možete vidjeti na ovoj slici (kliknite da vidite veću sliku)"
+
+#: ../yasr-settings-page.php:213
+msgid "In order to insert your Multi Sets into a post or page, you can either past the short code that will appear at the bottom of the box or just click on the star in the graphic editor and select \"Insert Multi Set\"."
+msgstr "Da bi dodali Višestruke Komplete u objavu ili stranicu, možete ili zaljepiti kratko kod koji će se pojaviti na dnu okvira ili samo kliknite na zvjezdicu u grafičkom uređivaču i odaberite \"Umetni Višestruki Komplet\"."
+
+#: ../yasr-settings-page.php:219
+msgid "Close this message"
+msgstr "Zatvori ovu poruku"
+
+#: ../yasr-settings-page.php:265 ../lib/yasr-settings-functions.php:1326
+#: ../lib/yasr-settings-functions.php:1352
+msgid "Donations"
+msgstr "Donacije"
+
+#: ../yasr-settings-page.php:267 ../lib/yasr-settings-functions.php:1328
+#: ../lib/yasr-settings-functions.php:1354
+msgid "If you have found this plugin useful, please consider making a donation to help support future development. Your support will be much appreciated. "
+msgstr "Ako vam je ovaj plugin koristan, molimo vas da razmislite o donaciji koja će pomoći budući razvoj. Vaša podrška će se izuzetno cijeniti."
+
+#: ../yasr-settings-page.php:269 ../lib/yasr-settings-functions.php:1330
+#: ../lib/yasr-settings-functions.php:1356
+msgid "Thank you!"
+msgstr "Hvala!"
+
+#: ../yasr-metabox-multiple-rating.php:35
+msgid "Choose wich set you want to use"
+msgstr "Odaberite komplet kojeg želite koristiti"
+
+#: ../yasr-metabox-top-right.php:199 ../yasr-metabox-multiple-rating.php:46
+#: ../lib/yasr-settings-functions.php:542
+msgid "Select"
+msgstr "Odaberi"
+
+#: ../yasr-metabox-top-right.php:65 ../yasr-metabox-top-right.php:99
+msgid "Rate this article / item"
+msgstr "Ocijenite ovaj članak / stavku"
+
+#: ../yasr-metabox-top-right.php:71 ../lib/yasr-shortcode-functions.php:124
+#: ../lib/yasr-shortcode-functions.php:527
+msgid "Loading, please wait"
+msgstr "Učitavanje, molimo pričekajte"
+
+#: ../yasr-metabox-top-right.php:147
+msgid "Save Vote"
+msgstr "Spremi Glas"
+
+#: ../yasr-metabox-top-right.php:166
+msgid "This review is about a..."
+msgstr "Ovaj pregled je o ..."
+
+#: ../yasr-metabox-top-right.php:217
+msgid "Remember to insert this shortcode <strong>[yasr_overall_rating]</strong> where you want to display this rating"
+msgstr "Ne zaboravite umetnuti ovaj shortcode <strong>[yasr_overall_rating]</strong> gdje želite prikazati ovu ocjenu"
+
+#: ../lib/yasr-shortcode-functions.php:293 ../lib/yasr-ajax-functions.php:1040
+#: ../lib/yasr-ajax-functions.php:1048 ../lib/yasr-ajax-functions.php:1181
+msgid "Total: "
+msgstr "Ukupno:"
+
+#: ../lib/yasr-shortcode-functions.php:293
+msgid "Average: "
+msgstr "Prosječno:"
+
+#: ../lib/yasr-shortcode-functions.php:189
+#: ../lib/yasr-shortcode-functions.php:210
+#: ../lib/yasr-shortcode-functions.php:240
+msgid "You've already voted this article with"
+msgstr "Već ste glasovali za ovaj članak sa"
+
+#: ../lib/yasr-shortcode-functions.php:251
+#: ../lib/yasr-shortcode-functions.php:555
+msgid "You must sign to vote"
+msgstr "Morate se prijaviti / logirati za glasovanje"
+
+#: ../lib/yasr-shortcode-functions.php:710
+msgid "Rating"
+msgstr "Ocjena"
+
+#: ../lib/yasr-shortcode-functions.php:724
+msgid "You don't have any votes stored"
+msgstr "Vi nemate spremljenih glasova"
+
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
+msgid "Order By"
+msgstr "Sortiraj po"
+
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
+msgid "Most Rated"
+msgstr "Najocjenjivanije"
+
+#: ../lib/yasr-shortcode-functions.php:761
+#: ../lib/yasr-shortcode-functions.php:800
+msgid "Highest Rated"
+msgstr "Najviše ocjenjeno"
+
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
+msgid "Total:"
+msgstr "Ukupno:"
+
+#: ../lib/yasr-shortcode-functions.php:779
+#: ../lib/yasr-shortcode-functions.php:814
+msgid "Average"
+msgstr "Prosjek"
+
+#: ../lib/yasr-shortcode-functions.php:826
+msgid "You've not enought data"
+msgstr "Vi nemate dovoljno podataka"
+
+#: ../lib/yasr-settings-functions.php:52
+msgid "General settings"
+msgstr "Opće Postavke"
+
+#: ../lib/yasr-settings-functions.php:53
+msgid "Auto insert options"
+msgstr "Opcije automatskog umetanja"
+
+#: ../lib/yasr-settings-functions.php:56
+msgid "Insert custom text to show before / after stars"
+msgstr "Umetnite prilagođeni tekst koji će se prikazati prije / nakon zvjezdica"
+
+#: ../lib/yasr-settings-functions.php:431
+msgid "Which color scheme do you want to use?"
+msgstr "Koju shemu boje želite koristiti?"
+
+#: ../lib/yasr-settings-functions.php:58
+msgid "Allow only logged in user to vote?"
+msgstr "Dopustiti glasovanje samo prijavljenim korisnicima?"
+
+#: ../lib/yasr-settings-functions.php:59
+msgid "Which rich snippets do you want to use?"
+msgstr "Koji Rich Snippets isječak želite koristiti?"
+
+#: ../lib/yasr-settings-functions.php:60
+msgid "How do you want to rate \"Overall Rating\"?"
+msgstr "Kako želite ocijeniti \"Ukupna ocjena\"?"
+
+#: ../lib/yasr-settings-functions.php:74
+msgid "Use Auto Insert?"
+msgstr "Koristiti Auto Umetanje?"
+
+#: ../lib/yasr-settings-functions.php:77 ../lib/yasr-settings-functions.php:146
+#: ../lib/yasr-settings-functions.php:164
+#: ../lib/yasr-settings-functions.php:206
+#: ../lib/yasr-settings-functions.php:232
+#: ../lib/yasr-settings-functions.php:266
+#: ../lib/yasr-settings-functions.php:321
+msgid "Yes"
+msgstr "Da"
+
+#: ../lib/yasr-settings-functions.php:91 ../lib/yasr-settings-functions.php:151
+#: ../lib/yasr-settings-functions.php:169
+#: ../lib/yasr-settings-functions.php:211
+#: ../lib/yasr-settings-functions.php:237
+#: ../lib/yasr-settings-functions.php:271
+#: ../lib/yasr-settings-functions.php:326
+msgid "No"
+msgstr "Ne"
+
+#: ../lib/yasr-settings-functions.php:97
+msgid "What?"
+msgstr "Što?"
+
+#: ../lib/yasr-settings-functions.php:100
+msgid "Overall Rating / Author Rating"
+msgstr "Ukupna ocjena / Ocjena autora"
+
+#: ../lib/yasr-settings-functions.php:104 ../lib/yasr-ajax-functions.php:471
+msgid "Visitor Votes"
+msgstr "Glasovi posjetitelja"
+
+#: ../lib/yasr-settings-functions.php:108
+msgid "Both"
+msgstr "Oboje"
+
+#: ../lib/yasr-settings-functions.php:112
+msgid "Where?"
+msgstr "Gdje?"
+
+#: ../lib/yasr-settings-functions.php:115
+msgid "Before the post"
+msgstr "Prije objave"
+
+#: ../lib/yasr-settings-functions.php:119
+msgid "After the post"
+msgstr "Nakon objave"
+
+#: ../lib/yasr-settings-functions.php:124
+msgid "Size"
+msgstr "Veličina"
+
+#: ../lib/yasr-settings-functions.php:128 ../lib/yasr-ajax-functions.php:461
+#: ../lib/yasr-ajax-functions.php:479
+msgid "Small"
+msgstr "Mala"
+
+#: ../lib/yasr-settings-functions.php:133 ../lib/yasr-ajax-functions.php:462
+#: ../lib/yasr-ajax-functions.php:480
+msgid "Medium"
+msgstr "Srednja"
+
+#: ../lib/yasr-settings-functions.php:138 ../lib/yasr-ajax-functions.php:463
+#: ../lib/yasr-ajax-functions.php:481
+msgid "Large"
+msgstr "Velika"
+
+#: ../lib/yasr-settings-functions.php:143
+msgid "Exclude Pages?"
+msgstr "Isključiti stranice?"
+
+#: ../lib/yasr-settings-functions.php:161
+msgid "Use only in custom post types?"
+msgstr "Koristiti samo u prilagođenim vrstama objava?"
+
+#: ../lib/yasr-settings-functions.php:173
+msgid "You see this because you use custom post types."
+msgstr "Ovo vidite jer koristite prilagođene vrste objava."
+
+#: ../lib/yasr-settings-functions.php:175
+msgid "If you want to use auto insert only in custom post types, choose Yes"
+msgstr "Ako želite koristiti automatsko umetanje samo u prilagođenim vrstama objava, odaberite Da"
+
+#: ../lib/yasr-settings-functions.php:215
+msgid "If you enable this, \"Overall Rating\" will be showed not only in the single article or page, but also in pages like Home Page, category pages or archives."
+msgstr "Ako omogućite ovo, \"Ukupna ocjena\" će se prikazati ne samo u jednom članku ili stranici, nego i na stranicama poput početne stranice, stranicama kategorija ili arhivama."
+
+#: ../lib/yasr-settings-functions.php:276
+msgid "Custom text to display before Overall Rating"
+msgstr "Prilagođeni tekst za prikaz prije Ukupne ocjene"
+
+#: ../lib/yasr-settings-functions.php:292
+msgid "Custom text to display when a non logged user has already rated"
+msgstr "Prilagođeni tekst za prikaz kada je neprijavljeni korisnik već ocijenio"
+
+#: ../lib/yasr-settings-functions.php:452
+msgid "Light"
+msgstr "Svijetla"
+
+#: ../lib/yasr-settings-functions.php:457
+msgid "Dark"
+msgstr "Tamna"
+
+#: ../lib/yasr-settings-functions.php:462
+msgid "Preview"
+msgstr "Pregled"
+
+#: ../lib/yasr-settings-functions.php:467
+msgid "Light theme"
+msgstr "Svijetla tema"
+
+#: ../lib/yasr-settings-functions.php:344
+msgid "Allow only logged-in users"
+msgstr "Dopusti samo prijavljenim korisnicima"
+
+#: ../lib/yasr-settings-functions.php:348
+msgid "Allow everybody (logged in and anonymous)"
+msgstr "Dopusti svima (prijavljenim i anonimnim)"
+
+#: ../lib/yasr-settings-functions.php:365
+msgid "Review Rating"
+msgstr "Ocjena Recenzije"
+
+#: ../lib/yasr-settings-functions.php:369
+msgid "Aggregate Rating"
+msgstr "Skupna Ocjena"
+
+#: ../lib/yasr-settings-functions.php:374
+msgid "What is this?"
+msgstr "Što je ovo?"
+
+#: ../lib/yasr-settings-functions.php:379
+msgid "If you select \"Review Rating\", your site will be indexed from search engines like this: "
+msgstr "Ako odaberete \"Ocjena Recenzije\", vaša će stranica biti indeksirana od tražilica na ovaj način:"
+
+#: ../lib/yasr-settings-functions.php:384
+msgid "If, instead, you choose \"Aggregate Rating\", your site will be indexed like this"
+msgstr "Ako, umjesto toga, odaberete \"Skupna Ocjena\", vaša stranica će biti indeksirana na ovaj način"
+
+#: ../lib/yasr-settings-functions.php:402
+msgid "Stars"
+msgstr "Zvjezdice"
+
+#: ../lib/yasr-settings-functions.php:406
+msgid "Numbers"
+msgstr "Brojevi"
+
+#: ../lib/yasr-settings-functions.php:487
+msgid "Add New Multiple Set"
+msgstr "Dodaj novi Višestruki Komplet"
+
+#: ../lib/yasr-settings-functions.php:488
+msgid "Name, Element#1 and Element#2 MUST be filled and must be long at least 3 characters"
+msgstr "Nazivi, Element#1 i Element#2 MORAJU biti ispunjeni i sastojati se od najmanje 3 slova"
+
+#: ../lib/yasr-settings-functions.php:491
+msgid "Name"
+msgstr "Naziv"
+
+#: ../lib/yasr-settings-functions.php:501
+msgid "Element "
+msgstr "Element"
+
+#: ../lib/yasr-settings-functions.php:511
+msgid "Create New Set"
+msgstr "Kreiraj novi komplet"
+
+#: ../lib/yasr-settings-functions.php:532
+#: ../lib/yasr-settings-functions.php:564
+msgid "Manage Multiple Set"
+msgstr "Upravljanje višestrukim kompletom"
+
+#: ../lib/yasr-settings-functions.php:534
+msgid "Wich set do you want to edit or remove?"
+msgstr "Koji komplet želite urediti ili ukloniti?"
+
+#: ../lib/yasr-settings-functions.php:574
+#: ../lib/yasr-settings-functions.php:692
+msgid "Field name"
+msgstr "Naziv polja"
+
+#: ../lib/yasr-settings-functions.php:578
+#: ../lib/yasr-settings-functions.php:696
+msgid "Remove"
+msgstr "Ukloni"
+
+#: ../lib/yasr-settings-functions.php:620
+#: ../lib/yasr-settings-functions.php:738
+msgid "Remove whole set?"
+msgstr "Ukloniti cijeli komplet?"
+
+#: ../lib/yasr-settings-functions.php:633
+#: ../lib/yasr-settings-functions.php:751
+msgid "If you remove something you will remove all the votes for that set or field. This operation CAN'T BE undone."
+msgstr "Ako nešto uklonite vi ćete s tim ukloniti i sve glasove za taj komplet ili polje. Ovaj se postupak ne može poništiti."
+
+#: ../lib/yasr-settings-functions.php:640
+#: ../lib/yasr-settings-functions.php:758
+msgid "You can use up to 9 elements"
+msgstr "Možete koristiti do 9 elemenata"
+
+#: ../lib/yasr-settings-functions.php:642
+#: ../lib/yasr-settings-functions.php:760
+msgid "Add element"
+msgstr "Dodaj element"
+
+#: ../lib/yasr-settings-functions.php:644
+#: ../lib/yasr-settings-functions.php:762
+msgid "Save changes"
+msgstr "Spremi promjene"
+
+#: ../lib/yasr-settings-functions.php:654
+msgid "No Multiple Set were found"
+msgstr "Višestruki Kompleti nisu pronađeni"
+
+#: ../lib/yasr-settings-functions.php:904
+#: ../lib/yasr-settings-functions.php:1172
+msgid "Settings Saved"
+msgstr "Postavke spremljene"
+
+#: ../lib/yasr-settings-functions.php:909
+msgid "Something goes wrong trying insert set field name. Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali umetnuti naziv polja. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:915
+msgid "Something goes wrong trying insert Multi Set name. Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali umetnuti naziv za Višestruki Komplet. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:990
+msgid "Something goes wrong trying to delete a Multi Set . Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali obrisati Višestruki Komplet. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:1036
+msgid "Something goes wrong trying to delete a Multi Set's element. Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali obrisati Višestruki Komplet element. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:1100
+msgid "Something goes wrong trying to update a Multi Set's element. Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali ažurirati Višestruki Komplet element. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:1157
+msgid "Something goes wrong trying to insert set field name in edit form. Please report it"
+msgstr "Nešto je pošlo po krivu dok ste pokušavali umetnuti naziv polja u formi za uređivanje. Molimo, prijavite ovo"
+
+#: ../lib/yasr-settings-functions.php:1200
+msgid "Style Options"
+msgstr "Opcije stila"
+
+#: ../lib/yasr-settings-functions.php:1201
+msgid "Custom CSS Styles"
+msgstr "Prilagođeni CSS stilovi"
+
+#: ../lib/yasr-settings-functions.php:1206
+msgid "Please use text area below to write your own CSS styles to override the default ones."
+msgstr "Molimo da koristite tekstualni prostor ispod da napišete vlastitie CSS stilove koji će nadjačati default."
+
+#: ../lib/yasr-settings-functions.php:1208
+msgid "Leave it blank if you don't know what you're doing"
+msgstr "Ostavite to prazno, ako ne znate što radite"
+
+#: ../lib/yasr-settings-functions.php:1395
+msgid "No previous Gd Star Rating installation was found"
+msgstr "Prethodna instalacija Gd Star Rating nije nađena"
+
+#: ../lib/yasr-ajax-functions.php:765
+msgid "No Recenet votes yet"
+msgstr "Još nema novih glasova:"
+
+#: ../lib/yasr-db-functions.php:325 ../lib/yasr-ajax-functions.php:778
+msgid "anonymous"
+msgstr "anonimno"
+
+#: ../lib/yasr-db-functions.php:350 ../lib/yasr-ajax-functions.php:803
+msgid "Ip address"
+msgstr "IP adresa"
+
+#: ../lib/yasr-db-functions.php:391 ../lib/yasr-ajax-functions.php:844
+msgid "Pages"
+msgstr "Stranice"
+
+#: ../lib/yasr-functions.php:99 ../lib/yasr-functions.php:100
+msgid "Yet Another Stars Rating: Settings"
+msgstr "Yet Another Stars Rating: Postavke"
+
+#: ../lib/yasr-functions.php:148
+msgid "Yet Another Stars Rating: Multiple set"
+msgstr "Yet Another Stars Rating: Višestruki Komplet"
+
+#: ../lib/yasr-functions.php:159
+msgid "You don't have enought privileges to insert Overall Rating"
+msgstr "Vi nemate dovoljno ovlasti za umetanje Ukupne Ocjene"
+
+#: ../lib/yasr-functions.php:169
+msgid "You don't have enought privileges to insert Multi Set"
+msgstr "Vi nemate dovoljno ovlasti za umetanje Višestrukog Kompleta"
+
+#: ../lib/yasr-functions.php:309
+msgid " reviewed by "
+msgstr "pregledano od strane"
+
+#: ../lib/yasr-functions.php:310
+msgid " on "
+msgstr "dana"
+
+#: ../lib/yasr-functions.php:311
+msgid " rated "
+msgstr "ocijenjeno"
+
+#: ../lib/yasr-functions.php:311
+msgid " of"
+msgstr "od"
+
+#: ../lib/yasr-functions.php:358
+msgid " written by "
+msgstr "napisao"
+
+#: ../lib/yasr-functions.php:360
+msgid " average rating "
+msgstr "prosječna ocjena"
+
+#: ../lib/yasr-functions.php:361
+msgid " user ratings"
+msgstr "ocjena korisnika"
+
+#: ../lib/yasr-settings-functions.php:1338
+#: ../lib/yasr-settings-functions.php:1365
+msgid "Follow YASR official site!"
+msgstr "Pratite službenu stranicu YASR!"
+
+#: ../lib/yasr-ajax-functions.php:96
+msgid "You've rated it "
+msgstr "To ste već ocijenili"
+
+#: ../lib/yasr-ajax-functions.php:100
+msgid "You've reset the vote"
+msgstr "Vi ste resetirali glasovanje"
+
+#: ../lib/yasr-ajax-functions.php:164
+msgid "There was an error while trying to insert the review type. Please report it"
+msgstr "Došlo je do greške prilikom pokušaja umetanja vrste recenzije. Molimo, prijavite to"
+
+#: ../lib/yasr-ajax-functions.php:198
+msgid "Choose a vote for each element"
+msgstr "Odaberite glas za svaki element"
+
+#: ../lib/yasr-ajax-functions.php:268
+msgid "Choose a vote for every element"
+msgstr "Odaberite glas za sve elemente"
+
+#: ../lib/yasr-ajax-functions.php:441
+msgid "Main"
+msgstr "Glavno"
+
+#: ../lib/yasr-ajax-functions.php:442
+msgid "Charts"
+msgstr "Karte"
+
+#: ../lib/yasr-ajax-functions.php:444
+msgid "Read the doc"
+msgstr "Pročitaj dokument"
+
+#: ../lib/yasr-ajax-functions.php:453
+msgid "Overall Rating / Review"
+msgstr "Ukupna ocijena / Recenzija"
+
+#: ../lib/yasr-ajax-functions.php:455
+msgid "Insert Overall Rating"
+msgstr "Umetni Ukupna ocijena"
+
+#: ../lib/yasr-ajax-functions.php:456
+msgid "Insert Overall Rating / Review for this post"
+msgstr "Umetni Ukupna ocijena / Recenzija za ovu objavu"
+
+#: ../lib/yasr-ajax-functions.php:459 ../lib/yasr-ajax-functions.php:477
+msgid "Choose Size"
+msgstr "Odaberi veličinu"
+
+#: ../lib/yasr-ajax-functions.php:473
+msgid "Insert Visitor Votes"
+msgstr "Umetni glasove posjetitelja"
+
+#: ../lib/yasr-ajax-functions.php:474
+msgid "Insert the ability for your visitor to vote"
+msgstr "Umetni sposobnost za vaše posjetitelje da glasaju"
+
+#: ../lib/yasr-ajax-functions.php:491
+msgid "If you want to insert a Multi Set, pick one:"
+msgstr "Ako želite umetnuti Višestruki Komplet, odaberite jedan:"
+
+#: ../lib/yasr-ajax-functions.php:497
+msgid "Choose wich set you want to insert."
+msgstr "Odaberite koji komplet želite umetnuti."
+
+#: ../lib/yasr-ajax-functions.php:511
+msgid "Insert Multiset:"
+msgstr "Umetni Višestruki Komplet:"
+
+#: ../lib/yasr-ajax-functions.php:514
+msgid "Insert Multiple Set"
+msgstr "Umetni Višestruki Komplet"
+
+#: ../lib/yasr-ajax-functions.php:532
+msgid "Ranking reviews"
+msgstr "Rangiranje recenzija"
+
+#: ../lib/yasr-ajax-functions.php:533
+msgid "Insert Ranking reviews"
+msgstr "Umetni Rangiranje recenzija"
+
+#: ../lib/yasr-ajax-functions.php:534
+msgid "Insert Top 10 ranking for [yasr_overall_rating] shortcode"
+msgstr "Umetni 10 najboljih rangiranja za [yasr_overall_rating] shortcode"
+
+#: ../lib/yasr-ajax-functions.php:538
+msgid "Users' ranking"
+msgstr "Rangiranje korisnika"
+
+#: ../lib/yasr-ajax-functions.php:539
+msgid "Insert Users ranking"
+msgstr "Umetni rangiranje korisnika"
+
+#: ../lib/yasr-ajax-functions.php:540
+msgid "Insert Top 10 ranking for [yasr_visitor_votes] shortcode"
+msgstr "Umetni 10 najboljih rangiranja za [yasr_visitor_votes] shortcode"
+
+#: ../lib/yasr-ajax-functions.php:544
+msgid "Most active reviewers"
+msgstr "Najaktivniji recenzenti"
+
+#: ../lib/yasr-ajax-functions.php:545
+msgid "Insert Most Active Reviewers"
+msgstr "Umetni najaktivnije recenzente"
+
+#: ../lib/yasr-ajax-functions.php:546
+msgid "Insert Top 5 active reviewers"
+msgstr "Umetni 5 najaktivnijih recenzenata"
+
+#: ../lib/yasr-ajax-functions.php:550
+msgid "Most Active Users"
+msgstr "Najaktivniji korisnici"
+
+#: ../lib/yasr-ajax-functions.php:551
+msgid "Insert Most Active Users"
+msgstr "Umetni najaktivnije korisnike"
+
+#: ../lib/yasr-ajax-functions.php:552
+msgid "Insert Top 10 voters [yasr_visitor_votes] shortcode"
+msgstr "Umetni 10 najboljih glasača [yasr_visitor_votes] shortcode"
+
+#: ../lib/yasr-ajax-functions.php:623
+msgid "Reviews and Visitor Votes have been successfull imported."
+msgstr "Recenzije i glasovi posjetitelja su uspješno uvezeni."
+
+#: ../lib/yasr-ajax-functions.php:629
+msgid "Step2: I will check if you used Multiple Sets and if so I will import them. THIS MAY TAKE A WHILE!"
+msgstr "Korak2: Provjera, ako koristite Višestruke Komplete to će biti uveženo. OVO MOŽE POTRAJATI!"
+
+#: ../lib/yasr-ajax-functions.php:631
+msgid "Proceed Step 2"
+msgstr "Nastaviti s Korak 2"
+
+#: ../lib/yasr-ajax-functions.php:638
+msgid "Something goes wrong! Refresh the page and try again!"
+msgstr "Nešto je krenulo pogrešno! Osvježite stranicu i pokušajte ponovno!"
+
+#: ../lib/yasr-ajax-functions.php:667
+msgid "I've found Multiple Set! Importing..."
+msgstr "Nađeni su Višestruki Kompleti! Uvoženje ..."
+
+#: ../lib/yasr-ajax-functions.php:676
+msgid "Multi Set's name has been successfull imported."
+msgstr "Nazivi Višestrukih Kompleta su uvezeni uspješno."
+
+#: ../lib/yasr-ajax-functions.php:678
+msgid "Now I'm going to import Multi Set data"
+msgstr "Sada ćemo uvesti podatke od Višestrukih Kompleta"
+
+#: ../lib/yasr-ajax-functions.php:689
+msgid "All votes has been successfull imported."
+msgstr "Svi glasovi su uspješno uvezeni."
+
+#: ../lib/yasr-ajax-functions.php:691
+msgid "Done"
+msgstr "Napravljeno"
+
+#: ../lib/yasr-ajax-functions.php:696
+msgid "I've found Multiple Set's votes but I couldn't insert into db"
+msgstr "Nađeni su glasovi od Višestrukih Kompleta ali ih nije moguće umetnuti u bazu podataka"
+
+#: ../lib/yasr-ajax-functions.php:704
+msgid "I've found Multi Set but with no data"
+msgstr "Nađeni su Višestruki Kompleti ali bez podataka"
+
+#: ../lib/yasr-ajax-functions.php:713
+msgid "I've found Multi Sets names but I couldn't insert into db"
+msgstr "Nađeni su nazivi Višestrukih Kompleta ali ih nije moguće umetnuti u bazu podataka"
+
+#: ../lib/yasr-ajax-functions.php:721
+msgid "Multisets were not found. Imported is done!"
+msgstr "Višestruki Kompleti nisu nađeni. Uvoženje je gotovo!"
+
+#: ../lib/yasr-ajax-functions.php:937 ../lib/yasr-ajax-functions.php:1088
+msgid "Error: you can't vote 0"
+msgstr "Greška: vi ne možete glasovati sa 0"
+
+#: ../lib/yasr-ajax-functions.php:1041 ../lib/yasr-ajax-functions.php:1049
+msgid "Vote Saved"
+msgstr "Glas spremljen"

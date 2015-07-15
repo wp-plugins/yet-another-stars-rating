@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.8.1
+ * Version: 0.9.1
  * Author: Dario Curvino
  * Author URI: https://yetanotherstarsrating.com/
  * License: GPL2
@@ -11,7 +11,7 @@
 
 /*
 
-Copyright 2014 Dario Curvino (email : d.curvino@tiscali.it)
+Copyright 2015 Dario Curvino (email : d.curvino@tiscali.it)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.8.1');
+define('YASR_VERSION_NUM', '0.9.2');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );
@@ -84,15 +84,25 @@ if ( YASR_TEXT_BEFORE_STARS == 1 ) {
 
 	define ("YASR_TEXT_BEFORE_OVERALL", $stored_options['text_before_overall']);
 	define ("YASR_TEXT_BEFORE_VISITOR_RATING", $stored_options['text_before_visitor_rating']);
+	define ("YASR_TEXT_AFTER_VISITOR_RATING", $stored_options['text_after_visitor_rating']);
 	define ("YASR_CUSTOM_TEXT_USER_VOTED", $stored_options['custom_text_user_voted']);
 
 }
 
 define ("YASR_VISITORS_STATS", $stored_options['visitors_stats']);
-define ("YASR_SCHEME_COLOR", $stored_options['scheme_color']);
 define ("YASR_ALLOWED_USER", $stored_options['allowed_user']);
 define ("YASR_SNIPPET", $stored_options['snippet']);
 define ("YASR_METABOX_OVERALL_RATING", $stored_options['metabox_overall_rating']);    
+
+
+//Get multi-set options
+$multiset_options = get_option('yasr_multiset_options');
+
+if($multiset_options && $multiset_options['scheme_color'] != '') {
+
+	define("YASR_SCHEME_COLOR", $multiset_options['scheme_color']);
+
+}
 
 //Get stored style options 
 $custom_style = get_option ('yasr_style_options');
@@ -151,6 +161,35 @@ define ("YASR_LOADER_IMAGE", YASR_IMG_DIR . "/loader.gif");
 
 /****** backward compatibility functions ******/
 
+//remove end july 2015
+if ($version_installed && $version_installed < '0.8.6') {
+
+	$new_fields=$wpdb->get_results("SELECT * FROM " . YASR_MULTI_SET_VALUES_TABLE . " LIMIT 1");
+
+	foreach ($new_fields as $fields) {
+		if(!isset($fields->number_of_votes)) {
+			$new_fields = FALSE;
+		}
+	}
+
+
+
+	if(!$new_fields) {
+
+		$wpdb->query("ALTER TABLE " . YASR_MULTI_SET_VALUES_TABLE . " ADD number_of_votes BIGINT( 20 ) NOT NULL ,
+						ADD sum_votes DECIMAL( 11, 1 ) NOT NULL ;");
+	}
+
+}
+
+//remove end jun 2015
+if ($version_installed && $version_installed < '0.8.2') {
+
+	$multiset_option['scheme_color'] = $stored_options['scheme_color'];
+
+	update_option("yasr_multiset_options", $multiset_option);
+
+}
 
 //remove end may 2015
 if ($version_installed && $version_installed < '0.7.7') {
