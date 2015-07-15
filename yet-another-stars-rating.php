@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
     
-define('YASR_VERSION_NUM', '0.9.1');
+define('YASR_VERSION_NUM', '0.9.2');
 
 //Plugin relative path
 define( "YASR_RELATIVE_PATH", dirname(__FILE__) );

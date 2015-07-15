@@ -33,7 +33,17 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
     if($overall_rating != '-1') {
         $overall_rating_array = explode(".", $overall_rating);
         $int = $overall_rating_array[0];
-        $dec = $overall_rating_array[1];
+
+        if($int != 5) {
+            $dec = $overall_rating_array[1];
+        }
+
+        else {
+
+            $dec = 0;
+
+        }
+
     } 
 
     else {
@@ -122,23 +132,23 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                         <span id="yasr-comma-between-select">,</span>
 
-                        <select name="yasr-vote-overall-numbers-dec" id="yasr-vote-overall-numbers-dec" class="yasr-vote-overall-numbers">
+                            <select name="yasr-vote-overall-numbers-dec" id="yasr-vote-overall-numbers-dec" class="yasr-vote-overall-numbers">
 
-                            <?php
+                                <?php
 
-                            for ($i=0; $i<=9; $i++) {
-                                if ($i == $dec) {
-                                    echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+                                for ($i=0; $i<=9; $i++) {
+                                    if ($i == $dec) {
+                                        echo "<option value=\"$i\" selected=\"selected\">$i</option>\n";
+                                    }
+
+                                    else {
+                                        echo "<option value=\"$i\">$i</option>\n";
+                                    }
                                 }
 
-                                else {
-                                    echo "<option value=\"$i\">$i</option>\n";
-                                }
-                            }
+                                ?>
 
-                            ?>
-
-                        </select>
+                            </select>
 
                     </div>
 
@@ -172,7 +182,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         $array_review_type = explode(',', $i18n_array_review);
 
-        $review_type = $array_review_type;
+        $review_type = array_map('trim', $array_review_type);
+
         $review_type_choosen = yasr_get_snippet_type();
 
         ?>
@@ -190,6 +201,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                     else {
                         echo "<option value=\"$type\">$type</option>";
                     }
+
                 }
 
             ?>

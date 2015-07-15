@@ -48,6 +48,12 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                 die( 'Security check' ); 
             }
 
+            if ($rating > 5) {
+
+                $rating = 5;
+
+            }
+
         	global $wpdb;
 
             //If update works means that visitor already rated this post

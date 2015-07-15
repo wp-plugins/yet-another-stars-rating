@@ -26,11 +26,11 @@ function yasr_install() {
 
 	$prefix=$wpdb->prefix . 'yasr_';  //Table prefix
 	
-	$yasr_votes_table=$prefix . 'votes';
-	$yasr_multi_set_table=$prefix . 'multi_set';
-	$yasr_multi_set_fields=$prefix . 'multi_set_fields';
-	$yasr_multi_values_table=$prefix . 'multi_values';
-	$yasr_log_table=$prefix . 'log';
+	$yasr_votes_table = $prefix . 'votes';
+	$yasr_multi_set_table = $prefix . 'multi_set';
+	$yasr_multi_set_fields = $prefix . 'multi_set_fields';
+	$yasr_multi_values_table = $prefix . 'multi_values';
+	$yasr_log_table = $prefix . 'log';
 
 	$sql_yasr_votes_table = "CREATE TABLE IF NOT EXISTS $yasr_votes_table (
   		id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -230,12 +230,12 @@ function yasr_get_multi_set_visitor ($post_id, $set_type) {
 
 	$result=$wpdb->get_results($wpdb->prepare("SELECT f.field_name AS name, f.field_id AS id, v.number_of_votes AS number_of_votes, v.sum_votes AS sum_votes 
                         FROM " . YASR_MULTI_SET_FIELDS_TABLE . " AS f, " . YASR_MULTI_SET_VALUES_TABLE . " AS v 
-                        WHERE f.parent_set_id=$set_type
+                        WHERE f.parent_set_id=%d
                         AND f.field_id = v.field_id
                         AND v.post_id = %d
                         AND v.set_type = %d
                         AND f.parent_set_id=v.set_type
-                        ORDER BY f.field_id ASC", $post_id, $set_type));
+                        ORDER BY f.field_id ASC", $set_type, $post_id, $set_type));
 
 	return $result;
 

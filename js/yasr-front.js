@@ -92,6 +92,8 @@
 
         jQuery('#yasr-send-visitor-multiset-'+postId+'-'+setType).on('click', function() {
 
+            jQuery('#yasr-send-visitor-multiset-'+postId+'-'+setType).hide();
+
             var cookiename = "yasr_multi_visitor_vote_" + postId+'_'+setType;
 
             jQuery('#yasr-loader-multiset-visitor-'+postId+'-'+setType).show();
@@ -207,8 +209,10 @@
 
         });
 
-        jQuery('#yasr-total-average-dashicon-' + postid).on("click", function(){
+        jQuery('#yasr-total-average-dashicon-' + postid).on("hover", function(){
             jQuery(this).tooltip('enable').tooltip('open');
+            jQuery('.ui-helper-hidden-accessible').children(':first').removeAttr('style');
+            jQuery('.ui-helper-hidden-accessible').children(':last', this).remove();
         });
 
     }

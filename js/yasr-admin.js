@@ -85,6 +85,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
     //This is for the numbers
     function yasrPrintEventSendOverallWithNumbers(postid, nonce) {
+
+        var integer = jQuery('#yasr-vote-overall-numbers-int').val();
+
+        if (integer == 5) {
+
+                jQuery("#yasr-comma-between-select").hide();
+                jQuery("#yasr-vote-overall-numbers-dec").hide();
+
+            }
+
+        jQuery('#yasr-vote-overall-numbers-int').on('change', function() {
+
+            var integer = (this.value);
+
+            if (integer == 5) {
+
+                jQuery("#yasr-comma-between-select").hide();
+                jQuery("#yasr-vote-overall-numbers-dec").hide();
+
+            }
+
+        });
         
         jQuery('#yasr-send-overall-numbers').on('click', function() {
 

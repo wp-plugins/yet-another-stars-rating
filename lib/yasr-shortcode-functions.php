@@ -611,8 +611,6 @@ function yasr_visitor_multiset_callback ( $atts ) {
 
             }
 
-            //$unique_div_id = $setid . "_" . $set_content->id;
-
             $shortcode_html .=  "<tr> 
                                     <td>
                                         <span class=\"yasr-multi-set-name-field\">$set_content->name </span>
@@ -641,9 +639,11 @@ function yasr_visitor_multiset_callback ( $atts ) {
                     WHERE parent_set_id=%d 
                     ORDER BY field_id ASC", $setid));
 
+
         $shortcode_html="<table class=\"yasr_table_multi_set_shortcode\">";
 
         foreach ($set_name as $set_content) {
+
             $shortcode_html .=  "<tr> 
                                     <td>
                                         <span class=\"yasr-multi-set-name-field\">$set_content->name </span>
@@ -653,7 +653,39 @@ function yasr_visitor_multiset_callback ( $atts ) {
                                         <span class=\"yasr-visitor-multiset-vote-count\"> 0 </span> 
                                     </td>
                                  </tr>";
-        }
+
+
+
+            //First time, initialize all fields to 0
+
+            //Find the highest_id (it's not auto increment on  db due to gd star compatibility)
+            $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+        
+            //highest id is 0 in data is empty
+            if (!$highest_id) {
+                $new_id=0;
+            }
+
+            //or is n+1
+            foreach ($highest_id as $id) {
+               $new_id=$id->id + 1;
+            }
+
+            $wpdb->replace(
+                    YASR_MULTI_SET_VALUES_TABLE,
+                    array (
+                            'id'=>$new_id,
+                            'post_id'=>$post_id,
+                            'field_id'=>$set_content->id,
+                            'set_type'=>$setid,
+                            'number_of_votes' => 0,
+                            'sum_votes' => 0
+                            ),
+                    array ("%d", "%d", "%d",  "%d", "%d", "%d")
+                    );
+
+
+        } //end foreach ($set_name as $set_content)
 
         $shortcode_html.="<tr>
                             <td colspan=\"2\">
