@@ -3,7 +3,7 @@
  * Plugin Name:  Yet Another Stars Rating
  * Plugin URI: http://wordpress.org/plugins/yet-another-stars-rating/
  * Description: Rating system with rich snippets
- * Version: 0.9.1
+ * Version: 0.9.2
  * Author: Dario Curvino
  * Author URI: https://yetanotherstarsrating.com/
  * License: GPL2
