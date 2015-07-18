@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Yet Another Stars Rating v0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-07 09:51+0100\n"
-"PO-Revision-Date: 2015-05-07 09:51+0100\n"
+"PO-Revision-Date: 2015-07-18 17:40+0100\n"
 "Last-Translator: Dario <thedudoworld@gmail.com>\n"
 "Language-Team: NL\n"
 "Language: nl_NL\n"
@@ -951,36 +951,36 @@ msgstr "Je hebt niet genoeg rechten om Multi Set in te voegen"
 # @ yasr
 #: ../lib/yasr-functions.php:309
 msgid " reviewed by "
-msgstr "gerecenseerd door"
+msgstr " gerecenseerd door "
 
 # @ yasr
 #: ../lib/yasr-functions.php:310
 msgid " on "
-msgstr "op"
+msgstr " op "
 
 # @ yasr
 #: ../lib/yasr-functions.php:311
 msgid " rated "
-msgstr "gestemd"
+msgstr " gestemd "
 
 #: ../lib/yasr-functions.php:311
 msgid " of"
-msgstr "van"
+msgstr " van "
 
 # @ yasr
 #: ../lib/yasr-functions.php:358
 msgid " written by "
-msgstr "geschreven door "
+msgstr " geschreven door "
 
 # @ yasr
 #: ../lib/yasr-functions.php:360
 msgid " average rating "
-msgstr " gemiddelde stemming"
+msgstr " gemiddelde stemming "
 
 # @ yasr
 #: ../lib/yasr-functions.php:361
 msgid " user ratings"
-msgstr "gebruikersstemmen"
+msgstr " gebruikersstemmen"
 
 # @ yasr
 #: ../lib/yasr-ajax-functions.php:96
