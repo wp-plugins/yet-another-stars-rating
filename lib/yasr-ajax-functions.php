@@ -199,6 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                 //If this is a new post or post has no multi values data
                 if (!$set_values) {
+
                     echo "<p>";
 
                     _e('Choose a vote for each element', 'yasr');
@@ -217,8 +218,11 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
                     foreach ($set_name as $name) {
 
-                        //get the highest id in table
-                        /*$highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
+                        //// first, I've to rate all the values to -1, or if someone is leaved empty /////
+                        //// will disappear later
+
+                        //get the highest id in table cause it is not AI
+                        $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
             
                         if (!$highest_id) {
                             $new_id=0;
@@ -240,7 +244,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
                                 'sum_votes' => '0'
                                 ),
                         array ("%d", "%d", "%d", "%s", "%d", "%d", "%d")
-                        );*/
+                        );
+
 
                         echo "<tr> <td>";
                         echo "$name->name </td>"; 
@@ -977,6 +982,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
         yasr_wp_super_cache_support($post_id);
 
+        yasr_wp_rocket_support($post_id);
+
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
             }
@@ -1132,6 +1139,8 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
         }
 
         yasr_wp_super_cache_support($post_id);
+
+        yasr_wp_rocket_support($post_id);
 
         if ( ! wp_verify_nonce( $nonce_visitor, 'yasr_nonce_insert_visitor_rating' ) ) {
                 die( 'Security check' ); 
@@ -1317,15 +1326,19 @@ if ( ! defined( 'ABSPATH' ) ) exit('You\'re not allowed to see this page'); // E
 
             else {
 
+                //Find the highest_id (it's not auto increment on  db due to gd star compatibility)
                 $highest_id=$wpdb->get_results("SELECT id FROM " . YASR_MULTI_SET_VALUES_TABLE . " ORDER BY id DESC LIMIT 1 ");
             
+                //highest id is 0 in data is empty
                 if (!$highest_id) {
                     $new_id=0;
                 }
 
+                //or is n+1
                 foreach ($highest_id as $id) {
                    $new_id=$id->id + 1;
                 }
+
 
                 $query_success=$wpdb->replace(
                 YASR_MULTI_SET_VALUES_TABLE,

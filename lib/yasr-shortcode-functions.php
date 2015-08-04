@@ -437,7 +437,7 @@ function yasr_visitor_votes_readonly_callback ($atts) {
 
     $stars_attribute = yasr_stars_size($size);
 
-    $shortcode_html = "<div id=\"yasr_visitor_votes_$post_id\" class=\"yasr-visitor-votes_readonly\">";
+    $shortcode_html = "<div id=\"yasr_visitor_votes_readonly_$post_id\" class=\"yasr-visitor-votes_readonly\">";
     $span_after_rate_it = "";
 
     $shortcode_html .= "<div class=\"$stars_attribute[class]\" id=\"yasr_rateit_visitor_votes_readonly_$post_id\" data-rateit-starwidth=\"$stars_attribute[px_size]\" data-rateit-starheight=\"$stars_attribute[px_size]\" data-rateit-value=\"$medium_rating\" data-rateit-step=\"1\" data-rateit-resetable=\"false\" data-rateit-readonly=\"true\"></div>";

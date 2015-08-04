@@ -87,7 +87,7 @@ elseif ($n_multi_set==1) {
 
             }
 
-            yasrDisplayMultiMetabox (nMultiSet, postid, nonceMulti, setId)
+            yasrDisplayMultiMetabox (nMultiSet, postid, nonceMulti, setId);
 
 
         }); //End document ready

@@ -485,6 +485,18 @@ function yasr_wp_super_cache_support($post_id) {
 
 }
 
+/*** Add support for wp rocket, thanks to GeekPress 
+https://wordpress.org/support/topic/compatibility-with-wp-rocket-2
+***/
+
+function yasr_wp_rocket_support($post_id) {
+
+    if(function_exists('rocket_clean_post')) {
+        rocket_clean_post($post_id);
+    }
+
+}
+
 
 /*** Function to set cookie, since version 0.8.3 ***/
     function yasr_setcookie($cookiename, $value) {
